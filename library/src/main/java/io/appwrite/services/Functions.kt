@@ -2,7 +2,6 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
-import io.appwrite.enums.OrderType
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -23,23 +22,23 @@ class Functions(private val client: Client) : BaseService(client) {
      * @param limit
      * @param offset
      * @param orderType
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listExecutions(
 		functionId: String,
-		search: String = "",
-		limit: Int = 25,
-		offset: Int = 0,
-		orderType: OrderType = OrderType.ASC
+		search: String? = null,
+		limit: Int? = null,
+		offset: Int? = null,
+		orderType: String? = null
 	): Response {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
         val params = mapOf<String, Any?>(
             "search" to search,
             "limit" to limit,
             "offset" to offset,
-            "orderType" to orderType.name
+            "orderType" to orderType
         )
 
         val headers = mapOf(
@@ -59,13 +58,13 @@ class Functions(private val client: Client) : BaseService(client) {
      *
      * @param functionId
      * @param data
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createExecution(
 		functionId: String,
-		data: String = ""
+		data: String? = null
 	): Response {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
         val params = mapOf<String, Any?>(
@@ -86,7 +85,7 @@ class Functions(private val client: Client) : BaseService(client) {
      *
      * @param functionId
      * @param executionId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)

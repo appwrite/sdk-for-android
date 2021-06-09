@@ -4,7 +4,6 @@ import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.WebAuthComponent
 import androidx.activity.ComponentActivity
-import io.appwrite.enums.OrderType
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -19,7 +18,7 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * Get currently logged in user data as JSON object.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -48,14 +47,14 @@ class Account(private val client: Client) : BaseService(client) {
      * @param email
      * @param password
      * @param name
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun create(
 		email: String,
 		password: String,
-		name: String = ""
+		name: String? = null
 	): Response {
         val path = "/account"
         val params = mapOf<String, Any?>(
@@ -80,7 +79,7 @@ class Account(private val client: Client) : BaseService(client) {
      * address. Any user-related resources like documents or storage files should
      * be deleted separately.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -108,7 +107,7 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * @param email
      * @param password
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -137,7 +136,7 @@ class Account(private val client: Client) : BaseService(client) {
      * Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes
      * from its creation and will be invalid if the user will logout.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -159,7 +158,7 @@ class Account(private val client: Client) : BaseService(client) {
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -181,7 +180,7 @@ class Account(private val client: Client) : BaseService(client) {
      * Update currently logged in user account name.
      *
      * @param name
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -209,13 +208,13 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * @param password
      * @param oldPassword
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updatePassword(
 		password: String,
-		oldPassword: String = ""
+		oldPassword: String? = null
 	): Response {
         val path = "/account/password"
         val params = mapOf<String, Any?>(
@@ -235,7 +234,7 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * Get currently logged in user preferences as a key-value object.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -258,12 +257,12 @@ class Account(private val client: Client) : BaseService(client) {
      * specific settings you wish to update.
      *
      * @param prefs
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updatePrefs(
-		prefs: Any?
+		prefs: Any
 	): Response {
         val path = "/account/prefs"
         val params = mapOf<String, Any?>(
@@ -291,7 +290,7 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * @param email
      * @param url
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -329,7 +328,7 @@ class Account(private val client: Client) : BaseService(client) {
      * @param secret
      * @param password
      * @param passwordAgain
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -360,7 +359,7 @@ class Account(private val client: Client) : BaseService(client) {
      * Get currently logged in user list of active sessions across different
      * devices.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -384,7 +383,7 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * @param email
      * @param password
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -411,7 +410,7 @@ class Account(private val client: Client) : BaseService(client) {
      * Delete all sessions from the user account and remove any sessions cookies
      * from the end client.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -436,7 +435,7 @@ class Account(private val client: Client) : BaseService(client) {
      * account, you need to update its [email and
      * password](/docs/client/account#accountUpdateEmail).
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -464,15 +463,15 @@ class Account(private val client: Client) : BaseService(client) {
      * @param success
      * @param failure
      * @param scopes
-     * @return The request response with a JSON body 
+     *      
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createOAuth2Session(
 		activity: ComponentActivity, 
 		provider: String,
-		success: String = "https://appwrite.io/auth/oauth2/success",
-		failure: String = "https://appwrite.io/auth/oauth2/failure",
+		success: String? = null,
+		failure: String? = null,
 		scopes: List<Any>? = null
 	) {
         val path = "/account/sessions/oauth2/{provider}".replace("{provider}", provider)
@@ -536,7 +535,7 @@ class Account(private val client: Client) : BaseService(client) {
      * option id argument, only the session unique ID provider will be deleted.
      *
      * @param sessionId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -574,7 +573,7 @@ class Account(private val client: Client) : BaseService(client) {
      * 
      *
      * @param url
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -603,7 +602,7 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * @param userId
      * @param secret
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)

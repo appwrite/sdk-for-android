@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "{{ sdk.namespace | caseDot }}.android"
+        applicationId "io.appwrite.android"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1

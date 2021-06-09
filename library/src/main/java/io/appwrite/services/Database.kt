@@ -2,7 +2,6 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
-import io.appwrite.enums.OrderType
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -26,19 +25,19 @@ class Database(private val client: Client) : BaseService(client) {
      * @param orderType
      * @param orderCast
      * @param search
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listDocuments(
 		collectionId: String,
 		filters: List<Any>? = null,
-		limit: Int = 25,
-		offset: Int = 0,
-		orderField: String = "",
-		orderType: OrderType = OrderType.ASC,
-		orderCast: String = "string",
-		search: String = ""
+		limit: Int? = null,
+		offset: Int? = null,
+		orderField: String? = null,
+		orderType: String? = null,
+		orderCast: String? = null,
+		search: String? = null
 	): Response {
         val path = "/database/collections/{collectionId}/documents".replace("{collectionId}", collectionId)
         val params = mapOf<String, Any?>(
@@ -46,7 +45,7 @@ class Database(private val client: Client) : BaseService(client) {
             "limit" to limit,
             "offset" to offset,
             "orderField" to orderField,
-            "orderType" to orderType.name,
+            "orderType" to orderType,
             "orderCast" to orderCast,
             "search" to search
         )
@@ -73,18 +72,18 @@ class Database(private val client: Client) : BaseService(client) {
      * @param parentDocument
      * @param parentProperty
      * @param parentPropertyType
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createDocument(
 		collectionId: String,
-		data: Any?,
+		data: Any,
 		read: List<Any>? = null,
 		write: List<Any>? = null,
-		parentDocument: String = "",
-		parentProperty: String = "",
-		parentPropertyType: String = "assign"
+		parentDocument: String? = null,
+		parentProperty: String? = null,
+		parentPropertyType: String? = null
 	): Response {
         val path = "/database/collections/{collectionId}/documents".replace("{collectionId}", collectionId)
         val params = mapOf<String, Any?>(
@@ -111,7 +110,7 @@ class Database(private val client: Client) : BaseService(client) {
      *
      * @param collectionId
      * @param documentId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -141,14 +140,14 @@ class Database(private val client: Client) : BaseService(client) {
      * @param data
      * @param read
      * @param write
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateDocument(
 		collectionId: String,
 		documentId: String,
-		data: Any?,
+		data: Any,
 		read: List<Any>? = null,
 		write: List<Any>? = null
 	): Response {
@@ -175,7 +174,7 @@ class Database(private val client: Client) : BaseService(client) {
      *
      * @param collectionId
      * @param documentId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)

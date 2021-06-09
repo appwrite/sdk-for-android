@@ -2,7 +2,6 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
-import io.appwrite.enums.OrderType
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -20,7 +19,7 @@ class Locale(private val client: Client) : BaseService(client) {
      * 
      * ([IP Geolocation by DB-IP](https://db-ip.com))
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -42,7 +41,7 @@ class Locale(private val client: Client) : BaseService(client) {
      * List of all continents. You can use the locale header to get the data in a
      * supported language.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -64,7 +63,7 @@ class Locale(private val client: Client) : BaseService(client) {
      * List of all countries. You can use the locale header to get the data in a
      * supported language.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -86,7 +85,7 @@ class Locale(private val client: Client) : BaseService(client) {
      * List of all countries that are currently members of the EU. You can use the
      * locale header to get the data in a supported language.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -108,7 +107,7 @@ class Locale(private val client: Client) : BaseService(client) {
      * List of all countries phone codes. You can use the locale header to get the
      * data in a supported language.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -131,7 +130,7 @@ class Locale(private val client: Client) : BaseService(client) {
      * decimal digits for all major and minor currencies. You can use the locale
      * header to get the data in a supported language.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -153,7 +152,7 @@ class Locale(private val client: Client) : BaseService(client) {
      * List of all languages classified by ISO 639-1 including 2-letter code, name
      * in English, and name in the respective language.
      *
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)

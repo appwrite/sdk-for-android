@@ -2,7 +2,6 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
-import io.appwrite.enums.OrderType
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -22,22 +21,22 @@ class Teams(private val client: Client) : BaseService(client) {
      * @param limit
      * @param offset
      * @param orderType
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun list(
-		search: String = "",
-		limit: Int = 25,
-		offset: Int = 0,
-		orderType: OrderType = OrderType.ASC
+		search: String? = null,
+		limit: Int? = null,
+		offset: Int? = null,
+		orderType: String? = null
 	): Response {
         val path = "/teams"
         val params = mapOf<String, Any?>(
             "search" to search,
             "limit" to limit,
             "offset" to offset,
-            "orderType" to orderType.name
+            "orderType" to orderType
         )
 
         val headers = mapOf(
@@ -57,7 +56,7 @@ class Teams(private val client: Client) : BaseService(client) {
      *
      * @param name
      * @param roles
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -85,7 +84,7 @@ class Teams(private val client: Client) : BaseService(client) {
      * resource.
      *
      * @param teamId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -111,7 +110,7 @@ class Teams(private val client: Client) : BaseService(client) {
      *
      * @param teamId
      * @param name
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -138,7 +137,7 @@ class Teams(private val client: Client) : BaseService(client) {
      * resource.
      *
      * @param teamId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -167,23 +166,23 @@ class Teams(private val client: Client) : BaseService(client) {
      * @param limit
      * @param offset
      * @param orderType
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getMemberships(
 		teamId: String,
-		search: String = "",
-		limit: Int = 25,
-		offset: Int = 0,
-		orderType: OrderType = OrderType.ASC
+		search: String? = null,
+		limit: Int? = null,
+		offset: Int? = null,
+		orderType: String? = null
 	): Response {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
             "search" to search,
             "limit" to limit,
             "offset" to offset,
-            "orderType" to orderType.name
+            "orderType" to orderType
         )
 
         val headers = mapOf(
@@ -215,16 +214,16 @@ class Teams(private val client: Client) : BaseService(client) {
      * @param roles
      * @param url
      * @param name
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createMembership(
 		teamId: String,
 		email: String,
-		roles: List<Any>?,
+		roles: List<Any>,
 		url: String,
-		name: String = ""
+		name: String? = null
 	): Response {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
@@ -247,14 +246,14 @@ class Teams(private val client: Client) : BaseService(client) {
      * @param teamId
      * @param membershipId
      * @param roles
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateMembershipRoles(
 		teamId: String,
 		membershipId: String,
-		roles: List<Any>?
+		roles: List<Any>
 	): Response {
         val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
         val params = mapOf<String, Any?>(
@@ -277,7 +276,7 @@ class Teams(private val client: Client) : BaseService(client) {
      *
      * @param teamId
      * @param membershipId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -307,7 +306,7 @@ class Teams(private val client: Client) : BaseService(client) {
      * @param membershipId
      * @param userId
      * @param secret
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)

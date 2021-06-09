@@ -2,7 +2,6 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
-import io.appwrite.enums.OrderType
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -23,22 +22,22 @@ class Storage(private val client: Client) : BaseService(client) {
      * @param limit
      * @param offset
      * @param orderType
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listFiles(
-		search: String = "",
-		limit: Int = 25,
-		offset: Int = 0,
-		orderType: OrderType = OrderType.ASC
+		search: String? = null,
+		limit: Int? = null,
+		offset: Int? = null,
+		orderType: String? = null
 	): Response {
         val path = "/storage/files"
         val params = mapOf<String, Any?>(
             "search" to search,
             "limit" to limit,
             "offset" to offset,
-            "orderType" to orderType.name
+            "orderType" to orderType
         )
 
         val headers = mapOf(
@@ -58,7 +57,7 @@ class Storage(private val client: Client) : BaseService(client) {
      * @param file
      * @param read
      * @param write
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -88,7 +87,7 @@ class Storage(private val client: Client) : BaseService(client) {
      * with the file metadata.
      *
      * @param fileId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -115,14 +114,14 @@ class Storage(private val client: Client) : BaseService(client) {
      * @param fileId
      * @param read
      * @param write
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateFile(
 		fileId: String,
-		read: List<Any>?,
-		write: List<Any>?
+		read: List<Any>,
+		write: List<Any>
 	): Response {
         val path = "/storage/files/{fileId}".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
@@ -144,7 +143,7 @@ class Storage(private val client: Client) : BaseService(client) {
      * access to delete this resource.
      *
      * @param fileId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -170,7 +169,7 @@ class Storage(private val client: Client) : BaseService(client) {
      * downloading the file to user downloads directory.
      *
      * @param fileId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -204,22 +203,22 @@ class Storage(private val client: Client) : BaseService(client) {
      * @param rotation
      * @param background
      * @param output
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFilePreview(
 		fileId: String,
-		width: Int = 0,
-		height: Int = 0,
-		quality: Int = 100,
-		borderWidth: Int = 0,
-		borderColor: String = "",
-		borderRadius: Int = 0,
-		opacity: Double = 1.0,
-		rotation: Int = 0,
-		background: String = "",
-		output: String = ""
+		width: Int? = null,
+		height: Int? = null,
+		quality: Int? = null,
+		borderWidth: Int? = null,
+		borderColor: String? = null,
+		borderRadius: Int? = null,
+		opacity: Double? = null,
+		rotation: Int? = null,
+		background: String? = null,
+		output: String? = null
 	): Response {
         val path = "/storage/files/{fileId}/preview".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
@@ -247,7 +246,7 @@ class Storage(private val client: Client) : BaseService(client) {
      * header.
      *
      * @param fileId
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)

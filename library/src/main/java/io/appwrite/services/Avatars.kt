@@ -2,7 +2,6 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
-import io.appwrite.enums.OrderType
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -24,15 +23,15 @@ class Avatars(private val client: Client) : BaseService(client) {
      * @param width
      * @param height
      * @param quality
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getBrowser(
 		code: String,
-		width: Int = 100,
-		height: Int = 100,
-		quality: Int = 100
+		width: Int? = null,
+		height: Int? = null,
+		quality: Int? = null
 	): Response {
         val path = "/avatars/browsers/{code}".replace("{code}", code)
         val params = mapOf<String, Any?>(
@@ -56,15 +55,15 @@ class Avatars(private val client: Client) : BaseService(client) {
      * @param width
      * @param height
      * @param quality
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getCreditCard(
 		code: String,
-		width: Int = 100,
-		height: Int = 100,
-		quality: Int = 100
+		width: Int? = null,
+		height: Int? = null,
+		quality: Int? = null
 	): Response {
         val path = "/avatars/credit-cards/{code}".replace("{code}", code)
         val params = mapOf<String, Any?>(
@@ -85,7 +84,7 @@ class Avatars(private val client: Client) : BaseService(client) {
      * 
      *
      * @param url
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -112,15 +111,15 @@ class Avatars(private val client: Client) : BaseService(client) {
      * @param width
      * @param height
      * @param quality
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFlag(
 		code: String,
-		width: Int = 100,
-		height: Int = 100,
-		quality: Int = 100
+		width: Int? = null,
+		height: Int? = null,
+		quality: Int? = null
 	): Response {
         val path = "/avatars/flags/{code}".replace("{code}", code)
         val params = mapOf<String, Any?>(
@@ -144,14 +143,14 @@ class Avatars(private val client: Client) : BaseService(client) {
      * @param url
      * @param width
      * @param height
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getImage(
 		url: String,
-		width: Int = 400,
-		height: Int = 400
+		width: Int? = null,
+		height: Int? = null
 	): Response {
         val path = "/avatars/image"
         val params = mapOf<String, Any?>(
@@ -183,16 +182,16 @@ class Avatars(private val client: Client) : BaseService(client) {
      * @param height
      * @param color
      * @param background
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getInitials(
-		name: String = "",
-		width: Int = 500,
-		height: Int = 500,
-		color: String = "",
-		background: String = ""
+		name: String? = null,
+		width: Int? = null,
+		height: Int? = null,
+		color: String? = null,
+		background: String? = null
 	): Response {
         val path = "/avatars/initials"
         val params = mapOf<String, Any?>(
@@ -217,15 +216,15 @@ class Avatars(private val client: Client) : BaseService(client) {
      * @param size
      * @param margin
      * @param download
-     * @return The request response with a JSON body 
+     * @return [Response]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getQR(
 		text: String,
-		size: Int = 400,
-		margin: Int = 1,
-		download: Boolean = false
+		size: Int? = null,
+		margin: Int? = null,
+		download: Boolean? = null
 	): Response {
         val path = "/avatars/qr"
         val params = mapOf<String, Any?>(

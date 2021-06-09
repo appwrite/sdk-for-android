@@ -60,7 +60,7 @@ class Client(
         headers = mutableMapOf(
             "content-type" to "application/json",
             "x-sdk-version" to "appwrite:kotlin:0.0.0-SNAPSHOT",            
-            "x-appwrite-response-format" to "0.7.0"
+            "X-Appwrite-Response-Format" to "0.8.0"
         )
         config = mutableMapOf()
         
