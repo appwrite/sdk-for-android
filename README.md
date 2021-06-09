@@ -14,24 +14,29 @@ Appwrite is an open-source backend as a service server that abstract and simplif
 ## Installation
 
 ### Gradle
-Add this to your root level `build.gradle(.kts)` file:
+
+Appwrite's Android SDK is hosted on Maven Central. In order to fetch the Appwrite SDK, add this to your root level `build.gradle(.kts)` file:
+
+```groovy
+repositories {      
+    mavenCentral()
+}
+```
+
+If you would like to fetch our SNAPSHOT releases, you need to add the SNAPSHOT maven repository to your `build.gradle(.kts)`:
 
 ```groovy
 repositories {
-    maven { 
-        url = "https://maven.pkg.github.com/appwrite/sdk-for-android"
-        credentials {
-           username = GITHUB_USER
-           password = GITHUB_TOKEN
-       }
+    maven {
+        url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
     }
 }
 ```
 
-Add this to your project's `build.gradle(.kts)` file:
+Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation(".appwrite:0.8.0")
+implementation("io.appwrite:sdk-for-android:0.0.0-SNAPSHOT")
 ```
 
 ### Maven
@@ -40,8 +45,8 @@ Add this to your project's `pom.xml` file:
 ```xml
 <dependencies>
     <dependency>
-        <groupId></groupId>
-        <artifactId>appwrite</artifactId>
+        <groupId>io.appwrite</groupId>
+        <artifactId>sdk-for-android</artifactId>
         <version>0.0.0-SNAPSHOT</version>
     </dependency>
 </dependencies>
