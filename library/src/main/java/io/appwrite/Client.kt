@@ -1,6 +1,7 @@
 package io.appwrite
 
 import android.content.Context
+import android.content.pm.PackageManager
 import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
@@ -56,11 +57,23 @@ class Client(
         SharedPrefsCookiePersistor(context)
     )
 
+    val appVersion by lazy {
+        try {
+            val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            return@lazy pInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            return@lazy ""
+        }
+    }
+
     init {
         headers = mutableMapOf(
             "content-type" to "application/json",
+            "origin" to "appwrite-android://${context.packageName}",
+            "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
             "x-sdk-version" to "appwrite:kotlin:0.0.0-SNAPSHOT",            
-            "X-Appwrite-Response-Format" to "0.8.0"
+            "x-appwrite-response-format" to "0.8.0"
         )
         config = mutableMapOf()
         
@@ -70,20 +83,20 @@ class Client(
     /// Your project ID
     fun setProject(value: String): Client {
         config["project"] = value
-        addHeader("X-Appwrite-Project", value)
+        addHeader("x-appwrite-project", value)
         return this
     }
 
     /// Your secret JSON Web Token
     fun setJWT(value: String): Client {
         config["jWT"] = value
-        addHeader("X-Appwrite-JWT", value)
+        addHeader("x-appwrite-jwt", value)
         return this
     }
 
     fun setLocale(value: String): Client {
         config["locale"] = value
-        addHeader("X-Appwrite-Locale", value)
+        addHeader("x-appwrite-locale", value)
         return this
     }
 
