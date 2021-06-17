@@ -72,7 +72,7 @@ class Client @JvmOverloads constructor(
             "content-type" to "application/json",
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
-            "x-sdk-version" to "appwrite:kotlin:0.0.0-SNAPSHOT",            
+            "x-sdk-version" to "appwrite:android:0.0.0-SNAPSHOT",            
             "x-appwrite-response-format" to "0.8.0"
         )
         config = mutableMapOf()
@@ -106,7 +106,6 @@ class Client @JvmOverloads constructor(
         val builder = OkHttpClient()
             .newBuilder()
             .cookieJar(cookieJar)
-            .addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
 
         if (!selfSigned) {
             http = builder.build()
@@ -148,7 +147,7 @@ class Client @JvmOverloads constructor(
         return this
     }
 
-    private fun addHeader(key: String, value: String): Client {
+    fun addHeader(key: String, value: String): Client {
         headers[key] = value
         return this
     }
@@ -242,13 +241,18 @@ class Client @JvmOverloads constructor(
                     val bodyString = response.body
                         ?.charStream()
                         ?.buffered()
-                        ?.use(BufferedReader::readText)
+                        ?.use(BufferedReader::readText) ?: ""
 
-                    val error = bodyString?.fromJson(Error::class.java)
+                    val contentType: String = response.headers["content-type"] ?: ""
+                    val error = if (contentType.contains("application/json", ignoreCase = true)) {
+                        bodyString.fromJson(Error::class.java)
+                    } else {
+                        Error(bodyString, response.code)
+                    }
 
                     it.cancel(AppwriteException(
-                        error?.message,
-                        error?.code,
+                        error.message,
+                        error.code,
                         bodyString
                     ))
                 }
