@@ -6,5 +6,5 @@ val client = Client(context)
   .setProject("5df5acd0d48c2") // Your project ID
 
 val databaseService = Database(client)
-val response = databaseService.updateDocument("[COLLECTION_ID]", "[DOCUMENT_ID]", {})
+val response = databaseService.updateDocument("[COLLECTION_ID]", "[DOCUMENT_ID]", mapOf( "a" to "b" ))
 val json = response.body?.string()

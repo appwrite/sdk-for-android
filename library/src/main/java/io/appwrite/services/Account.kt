@@ -518,8 +518,8 @@ class Account(private val client: Client) : BaseService(client) {
                 .domain(Uri.parse(client.endPoint).host!!)
                 .httpOnly()
                 .build()
-                
-            client.cookieJar.saveFromResponse(
+            
+            client.http.cookieJar.saveFromResponse(
                 client.endPoint.toHttpUrl(),
                 listOf(cookie)
             )

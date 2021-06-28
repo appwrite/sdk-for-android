@@ -6,5 +6,5 @@ val client = Client(context)
   .setProject("5df5acd0d48c2") // Your project ID
 
 val storageService = Storage(client)
-val response = storageService.updateFile("[FILE_ID]", List<Any>(), List<Any>())
+val response = storageService.updateFile("[FILE_ID]", listOf(), listOf())
 val json = response.body?.string()

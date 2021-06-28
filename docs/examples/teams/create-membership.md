@@ -6,5 +6,5 @@ val client = Client(context)
   .setProject("5df5acd0d48c2") // Your project ID
 
 val teamsService = Teams(client)
-val response = teamsService.createMembership("[TEAM_ID]", "email@example.com", List<Any>(), "https://example.com")
+val response = teamsService.createMembership("[TEAM_ID]", "email@example.com", listOf(), "https://example.com")
 val json = response.body?.string()

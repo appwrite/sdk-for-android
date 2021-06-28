@@ -6,5 +6,5 @@ val client = Client(context)
   .setProject("5df5acd0d48c2") // Your project ID
 
 val accountService = Account(client)
-val response = accountService.updatePrefs({})
+val response = accountService.updatePrefs(mapOf( "a" to "b" ))
 val json = response.body?.string()

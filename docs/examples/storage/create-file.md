@@ -6,5 +6,5 @@ val client = Client(context)
   .setProject("5df5acd0d48c2") // Your project ID
 
 val storageService = Storage(client)
-val response = storageService.createFile(new File("./path-to-files/image.jpg"))
+val response = storageService.createFile(File("./path-to-files/image.jpg"))
 val json = response.body?.string()
