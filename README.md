@@ -2,6 +2,7 @@
 
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-android.svg?style=flat-square)
 ![Version](https://img.shields.io/badge/api%20version-0.8.0-blue.svg?style=flat-square)
+[![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite_io?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite_io)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
@@ -36,7 +37,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:0.0.0-SNAPSHOT")
+implementation("io.appwrite:sdk-for-android:0.0.1")
 ```
 
 ### Maven
@@ -47,7 +48,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>0.0.0-SNAPSHOT</version>
+        <version>0.0.1</version>
     </dependency>
 </dependencies>
 ```
