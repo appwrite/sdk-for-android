@@ -1,10 +1,27 @@
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import io.appwrite.Client
 import io.appwrite.services.Functions
 
-val client = Client(context)
-  .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
-  .setProject("5df5acd0d48c2") // Your project ID
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-val functionsService = Functions(client)
-val response = functionsService.getExecution("[FUNCTION_ID]", "[EXECUTION_ID]")
-val json = response.body?.string()
+        val client = Client(applicationContext)
+            .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
+            .setProject("5df5acd0d48c2") // Your project ID
+
+        val functions = Functions(client)
+
+        GlobalScope.launch {
+            val response = functions.getExecution(
+                functionId = "[FUNCTION_ID]",
+                executionId = "[EXECUTION_ID]"
+            )
+            val json = response.body?.string()
+        }
+    }
+}

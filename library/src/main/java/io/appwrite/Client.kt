@@ -2,10 +2,6 @@ package io.appwrite
 
 import android.content.Context
 import android.content.pm.PackageManager
-import com.franmontiel.persistentcookiejar.ClearableCookieJar
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.Gson
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.JsonExtensions.fromJson
@@ -14,16 +10,18 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.suspendCancellableCoroutine
+import net.gotev.cookiestore.SharedPreferencesCookieStore
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.logging.HttpLoggingInterceptor
 import java.io.BufferedReader
 import java.io.File
 import java.io.IOException
+import java.net.CookieManager
+import java.net.CookiePolicy
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.HostnameVerifier
@@ -33,7 +31,6 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 class Client @JvmOverloads constructor(
     context: Context,
@@ -46,15 +43,15 @@ class Client @JvmOverloads constructor(
 
     private val job = Job()
 
-    private lateinit var http: OkHttpClient
+    lateinit var http: OkHttpClient
 
     private val headers: MutableMap<String, String>
     
     val config: MutableMap<String, String>
 
-    val cookieJar: ClearableCookieJar = PersistentCookieJar(
-        SetCookieCache(), 
-        SharedPrefsCookiePersistor(context)
+    private val cookieJar = CookieManager(
+        SharedPreferencesCookieStore(context, "myCookie"),
+        CookiePolicy.ACCEPT_ALL
     )
 
     private val appVersion by lazy {
@@ -72,7 +69,7 @@ class Client @JvmOverloads constructor(
             "content-type" to "application/json",
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
-            "x-sdk-version" to "appwrite:android:0.0.0-SNAPSHOT",            
+            "x-sdk-version" to "appwrite:android:0.0.1",            
             "x-appwrite-response-format" to "0.8.0"
         )
         config = mutableMapOf()
@@ -80,32 +77,62 @@ class Client @JvmOverloads constructor(
         setSelfSigned(selfSigned)
     }
 
-    /// Your project ID
+    /**
+     * Set Project
+     *
+     * Your project ID
+     *
+     * @param {string} project
+     *
+     * @return this
+     */
     fun setProject(value: String): Client {
         config["project"] = value
         addHeader("x-appwrite-project", value)
         return this
     }
 
-    /// Your secret JSON Web Token
+    /**
+     * Set JWT
+     *
+     * Your secret JSON Web Token
+     *
+     * @param {string} jwt
+     *
+     * @return this
+     */
     fun setJWT(value: String): Client {
         config["jWT"] = value
         addHeader("x-appwrite-jwt", value)
         return this
     }
 
+    /**
+     * Set Locale
+     *
+     * @param {string} locale
+     *
+     * @return this
+     */
     fun setLocale(value: String): Client {
         config["locale"] = value
         addHeader("x-appwrite-locale", value)
         return this
     }
 
+    /**
+     * Set self Signed
+     * 
+     * @param status
+     *
+     * @return this     
+     */
     fun setSelfSigned(status: Boolean): Client {
         selfSigned = status
 
         val builder = OkHttpClient()
             .newBuilder()
-            .cookieJar(cookieJar)
+            .cookieJar(JavaNetCookieJar(cookieJar))
 
         if (!selfSigned) {
             http = builder.build()
@@ -142,16 +169,41 @@ class Client @JvmOverloads constructor(
         return this
     }
 
+    /**
+     * Set endpoint
+     * 
+     * @param endpoint
+     *
+     * @return this     
+     */
     fun setEndpoint(endPoint: String): Client {
         this.endPoint = endPoint
         return this
     }
 
+    /**
+     * Add Header
+     * 
+     * @param key
+     * @param value
+     *
+     * @return this     
+     */
     fun addHeader(key: String, value: String): Client {
         headers[key] = value
         return this
     }
 
+    /**
+     * Send the HTTP request
+     * 
+     * @param method
+     * @param path
+     * @param headers
+     * @param params
+     *
+     * @return [Response]    
+     */
     @Throws(AppwriteException::class)
     suspend fun call(
         method: String, 
@@ -159,6 +211,9 @@ class Client @JvmOverloads constructor(
         headers:  Map<String, String> = mapOf(), 
         params: Map<String, Any?> = mapOf()
     ): Response {
+
+        val filteredParams = params.filterValues { it != null }
+
         val requestHeaders = this.headers.toHeaders().newBuilder()
             .addAll(headers.toHeaders())
             .build()
@@ -166,7 +221,7 @@ class Client @JvmOverloads constructor(
         val httpBuilder = (endPoint + path).toHttpUrl().newBuilder()
 
         if ("GET" == method) {
-            params.forEach {
+            filteredParams.forEach {
                 when (it.value) {
                     null -> {
                         return@forEach
@@ -191,7 +246,7 @@ class Client @JvmOverloads constructor(
         val body = if (MultipartBody.FORM.toString() == headers["content-type"]) {
             val builder = MultipartBody.Builder().setType(MultipartBody.FORM)
 
-            params.forEach {
+            filteredParams.forEach {
                 when {
                     it.key == "file" -> {
                         val file = it.value as File
@@ -213,7 +268,7 @@ class Client @JvmOverloads constructor(
             }
             builder.build()
         } else {
-            Gson().toJson(params)
+            Gson().toJson(filteredParams)
                 .toRequestBody("application/json".toMediaType())
         }
 
@@ -226,6 +281,16 @@ class Client @JvmOverloads constructor(
         return awaitResponse(request)
     }
 
+    /**
+     * Await Response
+     * 
+     * @param method
+     * @param path
+     * @param headers
+     * @param params
+     *
+     * @return [Response]    
+     */
     @Throws(AppwriteException::class)
     private suspend fun awaitResponse(request: Request) = suspendCancellableCoroutine<Response> {
         http.newCall(request).enqueue(object : Callback {
