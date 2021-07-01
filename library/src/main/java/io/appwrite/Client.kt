@@ -71,7 +71,7 @@ class Client @JvmOverloads constructor(
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
             "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",            
-            "x-appwrite-response-format" to "0.8.0"
+            "x-appwrite-response-format" to "0.9.0"
         )
         config = mutableMapOf()
         
