@@ -3,6 +3,7 @@ package io.appwrite
 import android.content.Context
 import android.content.pm.PackageManager
 import com.google.gson.Gson
+import io.appwrite.appwrite.BuildConfig
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.JsonExtensions.fromJson
 import io.appwrite.models.Error
@@ -69,8 +70,8 @@ class Client @JvmOverloads constructor(
             "content-type" to "application/json",
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
-            "x-sdk-version" to "appwrite:android:0.0.1",            
-            "x-appwrite-response-format" to "0.8.0"
+            "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",            
+            "x-appwrite-response-format" to "0.9.0"
         )
         config = mutableMapOf()
         
@@ -227,7 +228,13 @@ class Client @JvmOverloads constructor(
                         return@forEach
                     }
                     is List<*> -> {
-                        httpBuilder.addQueryParameter(it.key + "[]", it.value.toString())
+                        val list = it.value as List<*>
+                        for (index in list.indices) {
+                            httpBuilder.addQueryParameter(
+                                "${it.key}[]",
+                                list[index].toString()
+                            )
+                        }
                     }
                     else -> {
                         httpBuilder.addQueryParameter(it.key, it.value.toString())

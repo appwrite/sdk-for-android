@@ -134,7 +134,8 @@ class Account(private val client: Client) : BaseService(client) {
      * Use this endpoint to create a JSON Web Token. You can use the resulting JWT
      * to authenticate on behalf of the current user when working with the
      * Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes
-     * from its creation and will be invalid if the user will logout.
+     * from its creation and will be invalid if the user will logout in that time
+     * frame.
      *
      * @return [Response]     
      */
@@ -431,9 +432,10 @@ class Account(private val client: Client) : BaseService(client) {
      *
      * Use this endpoint to allow a new user to register an anonymous account in
      * your project. This route will also create a new session for the user. To
-     * allow the new user to convert an anonymous account to a normal account
-     * account, you need to update its [email and
-     * password](/docs/client/account#accountUpdateEmail).
+     * allow the new user to convert an anonymous account to a normal account, you
+     * need to update its [email and
+     * password](/docs/client/account#accountUpdateEmail) or create an [OAuth2
+     * session](/docs/client/account#accountCreateOAuth2Session).
      *
      * @return [Response]     
      */
@@ -525,6 +527,31 @@ class Account(private val client: Client) : BaseService(client) {
             )
         }
 
+    }
+    
+    /**
+     * Get Session By ID
+     *
+     * Use this endpoint to get a logged in user's session using a Session ID.
+     * Inputting 'current' will return the current session being used.
+     *
+     * @param sessionId
+     * @return [Response]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun getSession(
+		sessionId: String
+	): Response {
+        val path = "/account/sessions/{sessionId}".replace("{sessionId}", sessionId)
+        val params = mapOf<String, Any?>(
+        )
+
+        val headers = mapOf(
+            "content-type" to "application/json"
+        )
+
+        return client.call("GET", path, headers, params)
     }
     
     /**
