@@ -7,11 +7,11 @@ plugins {
 ext {
     PUBLISH_GROUP_ID = 'io.appwrite'
     PUBLISH_ARTIFACT_ID = 'sdk-for-android'
-    PUBLISH_VERSION = '0.0.1'
+    PUBLISH_VERSION = '0.2.0-SNAPSHOT'
     POM_URL = 'https://github.com/appwrite/sdk-for-android'
     POM_SCM_URL = 'https://github.com/appwrite/sdk-for-android'
     POM_ISSUE_URL = 'https://github.com/appwrite/sdk-for-android/issues'
-    POM_DESCRIPTION = 'Appwrite is an open-source backend as a service server that abstract and simplify complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Android SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)'
+    POM_DESCRIPTION = 'Appwrite is an open-source backend as a service server that abstract and simplify complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Flutter SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to https://appwrite.io/docs'
     POM_LICENSE_URL = 'https://opensource.org/licenses/GPL-3.0'
     POM_LICENSE_NAME = "GPL-3.0"
     POM_DEVELOPER_ID = 'appwrite'
@@ -53,8 +53,8 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${KotlinCompilerVersion.VERSION}")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
-    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
 
     api(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
     api("com.squareup.okhttp3:okhttp")
@@ -65,15 +65,16 @@ dependencies {
     implementation("net.gotev:cookie-store:1.3.5")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.3.1")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.fragment:fragment-ktx:1.3.2")
-    implementation("androidx.activity:activity-ktx:1.2.2")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.fragment:fragment-ktx:1.3.6")
+    implementation("androidx.activity:activity-ktx:1.3.1")
     implementation("androidx.browser:browser:1.3.0")
 
     testImplementation 'junit:junit:4.+'
-    testImplementation "androidx.test.ext:junit-ktx:1.1.2"
-    testImplementation "androidx.test:core-ktx:1.3.0"
+    testImplementation "androidx.test.ext:junit-ktx:1.1.3"
+    testImplementation "androidx.test:core-ktx:1.4.0"
     testImplementation "org.robolectric:robolectric:4.5.1"
+    testApi("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1")
 }
 
 apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"

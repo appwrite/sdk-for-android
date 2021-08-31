@@ -7,7 +7,7 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Teams(private val client: Client) : BaseService(client) {
+class Teams(client: Client) : Service(client) {
 
     /**
      * List Teams

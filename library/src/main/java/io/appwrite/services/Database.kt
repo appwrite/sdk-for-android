@@ -7,8 +7,165 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Database(private val client: Client) : BaseService(client) {
+class Database(client: Client) : Service(client) {
 
+    /**
+     * List Collections
+     *
+     * Get a list of all the user collections. You can use the query params to
+     * filter your results. On admin mode, this endpoint will return a list of all
+     * of the project's collections. [Learn more about different API
+     * modes](/docs/admin).
+     *
+     * @param search
+     * @param limit
+     * @param offset
+     * @param orderType
+     * @return [Response]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun listCollections(
+		search: String? = null,
+		limit: Int? = null,
+		offset: Int? = null,
+		orderType: String? = null
+	): Response {
+        val path = "/database/collections"
+        val params = mapOf<String, Any?>(
+            "search" to search,
+            "limit" to limit,
+            "offset" to offset,
+            "orderType" to orderType
+        )
+
+        val headers = mapOf(
+            "content-type" to "application/json"
+        )
+
+        return client.call("GET", path, headers, params)
+    }
+    
+    /**
+     * Create Collection
+     *
+     * Create a new Collection.
+     *
+     * @param name
+     * @param read
+     * @param write
+     * @param rules
+     * @return [Response]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun createCollection(
+		name: String,
+		read: List<Any>,
+		write: List<Any>,
+		rules: List<Any>
+	): Response {
+        val path = "/database/collections"
+        val params = mapOf<String, Any?>(
+            "name" to name,
+            "read" to read,
+            "write" to write,
+            "rules" to rules
+        )
+
+        val headers = mapOf(
+            "content-type" to "application/json"
+        )
+
+        return client.call("POST", path, headers, params)
+    }
+    
+    /**
+     * Get Collection
+     *
+     * Get a collection by its unique ID. This endpoint response returns a JSON
+     * object with the collection metadata.
+     *
+     * @param collectionId
+     * @return [Response]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun getCollection(
+		collectionId: String
+	): Response {
+        val path = "/database/collections/{collectionId}".replace("{collectionId}", collectionId)
+        val params = mapOf<String, Any?>(
+        )
+
+        val headers = mapOf(
+            "content-type" to "application/json"
+        )
+
+        return client.call("GET", path, headers, params)
+    }
+    
+    /**
+     * Update Collection
+     *
+     * Update a collection by its unique ID.
+     *
+     * @param collectionId
+     * @param name
+     * @param read
+     * @param write
+     * @param rules
+     * @return [Response]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun updateCollection(
+		collectionId: String,
+		name: String,
+		read: List<Any>? = null,
+		write: List<Any>? = null,
+		rules: List<Any>? = null
+	): Response {
+        val path = "/database/collections/{collectionId}".replace("{collectionId}", collectionId)
+        val params = mapOf<String, Any?>(
+            "name" to name,
+            "read" to read,
+            "write" to write,
+            "rules" to rules
+        )
+
+        val headers = mapOf(
+            "content-type" to "application/json"
+        )
+
+        return client.call("PUT", path, headers, params)
+    }
+    
+    /**
+     * Delete Collection
+     *
+     * Delete a collection by its unique ID. Only users with write permissions
+     * have access to delete this resource.
+     *
+     * @param collectionId
+     * @return [Response]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun deleteCollection(
+		collectionId: String
+	): Response {
+        val path = "/database/collections/{collectionId}".replace("{collectionId}", collectionId)
+        val params = mapOf<String, Any?>(
+        )
+
+        val headers = mapOf(
+            "content-type" to "application/json"
+        )
+
+        return client.call("DELETE", path, headers, params)
+    }
+    
     /**
      * List Documents
      *

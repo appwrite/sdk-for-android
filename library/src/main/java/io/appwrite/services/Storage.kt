@@ -9,7 +9,7 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
-class Storage(private val client: Client) : BaseService(client) {
+class Storage(client: Client) : Service(client) {
 
     /**
      * List Files
@@ -195,7 +195,6 @@ class Storage(private val client: Client) : BaseService(client) {
      * @param fileId
      * @param width
      * @param height
-     * @param gravity
      * @param quality
      * @param borderWidth
      * @param borderColor
@@ -212,7 +211,6 @@ class Storage(private val client: Client) : BaseService(client) {
 		fileId: String,
 		width: Int? = null,
 		height: Int? = null,
-		gravity: String? = null,
 		quality: Int? = null,
 		borderWidth: Int? = null,
 		borderColor: String? = null,
@@ -226,7 +224,6 @@ class Storage(private val client: Client) : BaseService(client) {
         val params = mapOf<String, Any?>(
             "width" to width,
             "height" to height,
-            "gravity" to gravity,
             "quality" to quality,
             "borderWidth" to borderWidth,
             "borderColor" to borderColor,
