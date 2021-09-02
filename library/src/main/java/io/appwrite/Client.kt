@@ -5,8 +5,7 @@ import android.content.pm.PackageManager
 import com.google.gson.Gson
 import io.appwrite.appwrite.BuildConfig
 import io.appwrite.exceptions.AppwriteException
-import io.appwrite.extensions.JsonExtensions.fromJson
-import io.appwrite.models.Error
+import io.appwrite.extensions.fromJson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -36,6 +35,7 @@ import kotlin.coroutines.resume
 class Client @JvmOverloads constructor(
     context: Context,
     var endPoint: String = "https://appwrite.io/v1",
+    var endPointRealtime: String? = null,
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
 
@@ -71,7 +71,7 @@ class Client @JvmOverloads constructor(
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
             "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",            
-            "x-appwrite-response-format" to "0.9.0"
+            "x-appwrite-response-format" to "0.10.0"
         )
         config = mutableMapOf()
         
@@ -171,7 +171,7 @@ class Client @JvmOverloads constructor(
     }
 
     /**
-     * Set endpoint
+     * Set endpoint and realtime endpoint.
      * 
      * @param endpoint
      *
@@ -179,6 +179,23 @@ class Client @JvmOverloads constructor(
      */
     fun setEndpoint(endPoint: String): Client {
         this.endPoint = endPoint
+
+        if (this.endPointRealtime == null && endPoint.startsWith("http")) {
+            this.endPointRealtime = endPoint.replaceFirst("http", "ws")
+        }
+
+        return this
+    }
+
+    /**
+    * Set realtime endpoint
+    *
+    * @param endpoint
+    *
+    * @return this
+    */
+    fun setEndpointRealtime(endPoint: String): Client {
+        this.endPointRealtime = endPoint
         return this
     }
 
@@ -317,9 +334,9 @@ class Client @JvmOverloads constructor(
 
                     val contentType: String = response.headers["content-type"] ?: ""
                     val error = if (contentType.contains("application/json", ignoreCase = true)) {
-                        bodyString.fromJson(Error::class.java)
+                        bodyString.fromJson<AppwriteException>()
                     } else {
-                        Error(bodyString, response.code)
+                        AppwriteException(bodyString, response.code)
                     }
 
                     it.cancel(AppwriteException(
