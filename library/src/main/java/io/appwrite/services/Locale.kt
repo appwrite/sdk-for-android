@@ -7,7 +7,7 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Locale(private val client: Client) : BaseService(client) {
+class Locale(client: Client) : Service(client) {
 
     /**
      * Get User Locale

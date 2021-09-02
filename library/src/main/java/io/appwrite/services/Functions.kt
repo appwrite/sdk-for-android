@@ -7,7 +7,7 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Functions(private val client: Client) : BaseService(client) {
+class Functions(client: Client) : Service(client) {
 
     /**
      * List Executions

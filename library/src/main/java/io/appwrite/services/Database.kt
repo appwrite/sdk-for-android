@@ -7,7 +7,7 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Database(private val client: Client) : BaseService(client) {
+class Database(client: Client) : Service(client) {
 
     /**
      * List Documents

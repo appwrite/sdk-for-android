@@ -9,7 +9,7 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
-class Storage(private val client: Client) : BaseService(client) {
+class Storage(client: Client) : Service(client) {
 
     /**
      * List Files
