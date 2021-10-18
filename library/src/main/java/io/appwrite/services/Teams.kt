@@ -231,9 +231,9 @@ class Teams(client: Client) : Service(client) {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
             "email" to email,
-            "name" to name,
             "roles" to roles,
-            "url" to url
+            "url" to url,
+            "name" to name
         )
 
         val headers = mapOf(
