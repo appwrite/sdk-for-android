@@ -2,6 +2,7 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
+import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -18,20 +19,20 @@ class Storage(client: Client) : Service(client) {
      * your results. On admin mode, this endpoint will return a list of all of the
      * project's files. [Learn more about different API modes](/docs/admin).
      *
-     * @param search
-     * @param limit
-     * @param offset
-     * @param orderType
-     * @return [Response]     
+     * @param search Search term to filter your list results. Max length: 256 chars.
+     * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param orderType Order result by ASC or DESC order.
+     * @return [io.appwrite.models.FileList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listFiles(
 		search: String? = null,
-		limit: Int? = null,
-		offset: Int? = null,
+		limit: Long? = null,
+		offset: Long? = null,
 		orderType: String? = null
-	): Response {
+	): io.appwrite.models.FileList {
         val path = "/storage/files"
         val params = mapOf<String, Any?>(
             "search" to search,
@@ -39,12 +40,20 @@ class Storage(client: Client) : Service(client) {
             "offset" to offset,
             "orderType" to orderType
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.FileList = {
+            io.appwrite.models.FileList.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.FileList::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -54,10 +63,10 @@ class Storage(client: Client) : Service(client) {
      * assigned to read and write access unless he has passed custom values for
      * read and write arguments.
      *
-     * @param file
-     * @param read
-     * @param write
-     * @return [Response]     
+     * @param file Binary file.
+     * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -65,19 +74,27 @@ class Storage(client: Client) : Service(client) {
 		file: File,
 		read: List<Any>? = null,
 		write: List<Any>? = null
-	): Response {
+	): io.appwrite.models.File {
         val path = "/storage/files"
         val params = mapOf<String, Any?>(
             "file" to file,
             "read" to read,
             "write" to write
         )
-
         val headers = mapOf(
             "content-type" to "multipart/form-data"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.File = {
+            io.appwrite.models.File.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.File::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -86,23 +103,31 @@ class Storage(client: Client) : Service(client) {
      * Get a file by its unique ID. This endpoint response returns a JSON object
      * with the file metadata.
      *
-     * @param fileId
-     * @return [Response]     
+     * @param fileId File unique ID.
+     * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFile(
 		fileId: String
-	): Response {
+	): io.appwrite.models.File {
         val path = "/storage/files/{fileId}".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.File = {
+            io.appwrite.models.File.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.File::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -111,10 +136,10 @@ class Storage(client: Client) : Service(client) {
      * Update a file by its unique ID. Only users with write permissions have
      * access to update this resource.
      *
-     * @param fileId
-     * @param read
-     * @param write
-     * @return [Response]     
+     * @param fileId File unique ID.
+     * @param read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @param write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -122,18 +147,26 @@ class Storage(client: Client) : Service(client) {
 		fileId: String,
 		read: List<Any>,
 		write: List<Any>
-	): Response {
+	): io.appwrite.models.File {
         val path = "/storage/files/{fileId}".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
             "read" to read,
             "write" to write
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PUT", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.File = {
+            io.appwrite.models.File.from(map = it)
+        }
+        return client.call(
+            "PUT",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.File::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -142,23 +175,27 @@ class Storage(client: Client) : Service(client) {
      * Delete a file by its unique ID. Only users with write permissions have
      * access to delete this resource.
      *
-     * @param fileId
-     * @return [Response]     
+     * @param fileId File unique ID.
+     * @return [Any]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun deleteFile(
 		fileId: String
-	): Response {
+	): Any {
         val path = "/storage/files/{fileId}".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("DELETE", path, headers, params)
+        return client.call(
+            "DELETE",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
     }
     
     /**
@@ -168,20 +205,24 @@ class Storage(client: Client) : Service(client) {
      * 'Content-Disposition: attachment' header that tells the browser to start
      * downloading the file to user downloads directory.
      *
-     * @param fileId
-     * @return [Response]     
+     * @param fileId File unique ID.
+     * @return [ByteArray]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFileDownload(
 		fileId: String
-	): Response {
+	): ByteArray {
         val path = "/storage/files/{fileId}/download".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
             "project" to client.config["project"]
         )
-
-        return client.call("GET", path, params = params)
+        return client.call(
+            "GET",
+            path,
+            params = params,
+            responseType = ByteArray::class.java
+        )
     }
     
     /**
@@ -192,38 +233,41 @@ class Storage(client: Client) : Service(client) {
      * and spreadsheets, will return the file icon image. You can also pass query
      * string arguments for cutting and resizing your preview image.
      *
-     * @param fileId
-     * @param width
-     * @param height
-     * @param quality
-     * @param borderWidth
-     * @param borderColor
-     * @param borderRadius
-     * @param opacity
-     * @param rotation
-     * @param background
-     * @param output
-     * @return [Response]     
+     * @param fileId File unique ID
+     * @param width Resize preview image width, Pass an integer between 0 to 4000.
+     * @param height Resize preview image height, Pass an integer between 0 to 4000.
+     * @param gravity Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
+     * @param quality Preview image quality. Pass an integer between 0 to 100. Defaults to 100.
+     * @param borderWidth Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
+     * @param borderColor Preview image border color. Use a valid HEX color, no # is needed for prefix.
+     * @param borderRadius Preview image border radius in pixels. Pass an integer between 0 to 4000.
+     * @param opacity Preview image opacity. Only works with images having an alpha channel (like png). Pass a number between 0 to 1.
+     * @param rotation Preview image rotation in degrees. Pass an integer between 0 and 360.
+     * @param background Preview image background color. Only works with transparent images (png). Use a valid HEX color, no # is needed for prefix.
+     * @param output Output format type (jpeg, jpg, png, gif and webp).
+     * @return [ByteArray]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFilePreview(
 		fileId: String,
-		width: Int? = null,
-		height: Int? = null,
-		quality: Int? = null,
-		borderWidth: Int? = null,
+		width: Long? = null,
+		height: Long? = null,
+		gravity: String? = null,
+		quality: Long? = null,
+		borderWidth: Long? = null,
 		borderColor: String? = null,
-		borderRadius: Int? = null,
+		borderRadius: Long? = null,
 		opacity: Double? = null,
-		rotation: Int? = null,
+		rotation: Long? = null,
 		background: String? = null,
 		output: String? = null
-	): Response {
+	): ByteArray {
         val path = "/storage/files/{fileId}/preview".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
             "width" to width,
             "height" to height,
+            "gravity" to gravity,
             "quality" to quality,
             "borderWidth" to borderWidth,
             "borderColor" to borderColor,
@@ -234,8 +278,12 @@ class Storage(client: Client) : Service(client) {
             "output" to output,
             "project" to client.config["project"]
         )
-
-        return client.call("GET", path, params = params)
+        return client.call(
+            "GET",
+            path,
+            params = params,
+            responseType = ByteArray::class.java
+        )
     }
     
     /**
@@ -245,20 +293,24 @@ class Storage(client: Client) : Service(client) {
      * download method but returns with no  'Content-Disposition: attachment'
      * header.
      *
-     * @param fileId
-     * @return [Response]     
+     * @param fileId File unique ID.
+     * @return [ByteArray]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFileView(
 		fileId: String
-	): Response {
+	): ByteArray {
         val path = "/storage/files/{fileId}/view".replace("{fileId}", fileId)
         val params = mapOf<String, Any?>(
             "project" to client.config["project"]
         )
-
-        return client.call("GET", path, params = params)
+        return client.call(
+            "GET",
+            path,
+            params = params,
+            responseType = ByteArray::class.java
+        )
     }
     
 }
