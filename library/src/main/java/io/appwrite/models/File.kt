@@ -11,10 +11,16 @@ data class File(
     val id: String,
 
     /**
-     * File permissions.
+     * File read permissions.
      *
      */
-    val permissions: Permissions,
+    val read: List<Any>,
+
+    /**
+     * File write permissions.
+     *
+     */
+    val write: List<Any>,
 
     /**
      * File name.
@@ -50,7 +56,8 @@ data class File(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = File(
             id = map["\$id"] as String,
-            permissions = Permissions.from(map = map["\$permissions"] as Map<String, Any>),
+            read = map["\$read"] as List<Any>,
+            write = map["\$write"] as List<Any>,
             name = map["name"] as String,
             dateCreated = map["dateCreated"] as Long,
             signature = map["signature"] as String,
@@ -61,7 +68,8 @@ data class File(
 
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
-        "\$permissions" to permissions.toMap() as Any,
+        "\$read" to read as Any,
+        "\$write" to write as Any,
         "name" to name as Any,
         "dateCreated" to dateCreated as Any,
         "signature" to signature as Any,

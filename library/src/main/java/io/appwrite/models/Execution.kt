@@ -11,10 +11,10 @@ data class Execution(
     val id: String,
 
     /**
-     * Execution permissions.
+     * Execution read permissions.
      *
      */
-    val permissions: Permissions,
+    val read: List<Any>,
 
     /**
      * Function ID.
@@ -68,7 +68,7 @@ data class Execution(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Execution(
             id = map["\$id"] as String,
-            permissions = Permissions.from(map = map["\$permissions"] as Map<String, Any>),
+            read = map["\$read"] as List<Any>,
             functionId = map["functionId"] as String,
             dateCreated = map["dateCreated"] as Long,
             trigger = map["trigger"] as String,
@@ -82,7 +82,7 @@ data class Execution(
 
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
-        "\$permissions" to permissions.toMap() as Any,
+        "\$read" to read as Any,
         "functionId" to functionId as Any,
         "dateCreated" to dateCreated as Any,
         "trigger" to trigger as Any,

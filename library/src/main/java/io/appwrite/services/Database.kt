@@ -18,37 +18,37 @@ class Database(client: Client) : Service(client) {
      * of the project's documents. [Learn more about different API
      * modes](/docs/admin).
      *
-     * @param collectionId Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
-     * @param filters Array of filter strings. Each filter is constructed from a key name, comparison operator (=, !=, &gt;, &lt;, &lt;=, &gt;=) and a value. You can also use a dot (.) separator in attribute names to filter by child document attributes. Examples: &#039;name=John Doe&#039; or &#039;category.$id&gt;=5bed2d152c362&#039;.
+     * @param collectionId Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
+     * @param queries Array of query strings.
      * @param limit Maximum number of documents to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request.
      * @param offset Offset value. The default value is 0. Use this param to manage pagination.
-     * @param orderField Document field that results will be sorted by.
-     * @param orderType Order direction. Possible values are DESC for descending order, or ASC for ascending order.
-     * @param orderCast Order field type casting. Possible values are int, string, date, time or datetime. The database will attempt to cast the order field to the value you pass here. The default value is a string.
-     * @param search Search query. Enter any free text search. The database will try to find a match against all document attributes and children. Max length: 256 chars.
+     * @param cursor ID of the document used as the starting point for the query, excluding the document itself. Should be used for efficient pagination when working with large sets of data.
+     * @param cursorDirection Direction of the cursor.
+     * @param orderAttributes Array of attributes used to sort results.
+     * @param orderTypes Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order.
      * @return [io.appwrite.models.DocumentList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listDocuments(
 		collectionId: String,
-		filters: List<Any>? = null,
+		queries: List<Any>? = null,
 		limit: Long? = null,
 		offset: Long? = null,
-		orderField: String? = null,
-		orderType: String? = null,
-		orderCast: String? = null,
-		search: String? = null
+		cursor: String? = null,
+		cursorDirection: String? = null,
+		orderAttributes: List<Any>? = null,
+		orderTypes: List<Any>? = null
 	): io.appwrite.models.DocumentList {
         val path = "/database/collections/{collectionId}/documents".replace("{collectionId}", collectionId)
         val params = mapOf<String, Any?>(
-            "filters" to filters,
+            "queries" to queries,
             "limit" to limit,
             "offset" to offset,
-            "orderField" to orderField,
-            "orderType" to orderType,
-            "orderCast" to orderCast,
-            "search" to search
+            "cursor" to cursor,
+            "cursorDirection" to cursorDirection,
+            "orderAttributes" to orderAttributes,
+            "orderTypes" to orderTypes
         )
         val headers = mapOf(
             "content-type" to "application/json"
@@ -75,33 +75,27 @@ class Database(client: Client) : Service(client) {
      * directly from your database console.
      *
      * @param collectionId Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
+     * @param documentId Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
      * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
      * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-     * @param parentDocument Parent document unique ID. Use when you want your new document to be a child of a parent document.
-     * @param parentProperty Parent document property name. Use when you want your new document to be a child of a parent document.
-     * @param parentPropertyType Parent document property connection type. You can set this value to **assign**, **append** or **prepend**, default value is assign. Use when you want your new document to be a child of a parent document.
      * @return [io.appwrite.models.Document]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createDocument(
 		collectionId: String,
+		documentId: String,
 		data: Any,
 		read: List<Any>? = null,
-		write: List<Any>? = null,
-		parentDocument: String? = null,
-		parentProperty: String? = null,
-		parentPropertyType: String? = null
+		write: List<Any>? = null
 	): io.appwrite.models.Document {
         val path = "/database/collections/{collectionId}/documents".replace("{collectionId}", collectionId)
         val params = mapOf<String, Any?>(
+            "documentId" to documentId,
             "data" to data,
             "read" to read,
-            "write" to write,
-            "parentDocument" to parentDocument,
-            "parentProperty" to parentProperty,
-            "parentPropertyType" to parentPropertyType
+            "write" to write
         )
         val headers = mapOf(
             "content-type" to "application/json"
@@ -125,7 +119,7 @@ class Database(client: Client) : Service(client) {
      * Get a document by its unique ID. This endpoint response returns a JSON
      * object with the document data.
      *
-     * @param collectionId Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
+     * @param collectionId Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
      * @param documentId Document unique ID.
      * @return [io.appwrite.models.Document]     
      */
@@ -205,7 +199,7 @@ class Database(client: Client) : Service(client) {
      * documents, its attributes and relations to other documents. Child documents
      * **will not** be deleted.
      *
-     * @param collectionId Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
+     * @param collectionId Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
      * @param documentId Document unique ID.
      * @return [Any]     
      */

@@ -21,6 +21,8 @@ class Teams(client: Client) : Service(client) {
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
      * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param cursor ID of the team used as the starting point for the query, excluding the team itself. Should be used for efficient pagination when working with large sets of data.
+     * @param cursorDirection Direction of the cursor.
      * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.TeamList]     
      */
@@ -30,6 +32,8 @@ class Teams(client: Client) : Service(client) {
 		search: String? = null,
 		limit: Long? = null,
 		offset: Long? = null,
+		cursor: String? = null,
+		cursorDirection: String? = null,
 		orderType: String? = null
 	): io.appwrite.models.TeamList {
         val path = "/teams"
@@ -37,6 +41,8 @@ class Teams(client: Client) : Service(client) {
             "search" to search,
             "limit" to limit,
             "offset" to offset,
+            "cursor" to cursor,
+            "cursorDirection" to cursorDirection,
             "orderType" to orderType
         )
         val headers = mapOf(
@@ -63,6 +69,7 @@ class Teams(client: Client) : Service(client) {
      * who will be able add new owners and update or delete the team from your
      * project.
      *
+     * @param teamId Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param name Team name. Max length: 128 chars.
      * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
      * @return [io.appwrite.models.Team]     
@@ -70,11 +77,13 @@ class Teams(client: Client) : Service(client) {
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun create(
+		teamId: String,
 		name: String,
 		roles: List<Any>? = null
 	): io.appwrite.models.Team {
         val path = "/teams"
         val params = mapOf<String, Any?>(
+            "teamId" to teamId,
             "name" to name,
             "roles" to roles
         )
@@ -202,6 +211,8 @@ class Teams(client: Client) : Service(client) {
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
      * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param cursor ID of the membership used as the starting point for the query, excluding the membership itself. Should be used for efficient pagination when working with large sets of data.
+     * @param cursorDirection Direction of the cursor.
      * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.MembershipList]     
      */
@@ -212,6 +223,8 @@ class Teams(client: Client) : Service(client) {
 		search: String? = null,
 		limit: Long? = null,
 		offset: Long? = null,
+		cursor: String? = null,
+		cursorDirection: String? = null,
 		orderType: String? = null
 	): io.appwrite.models.MembershipList {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
@@ -219,6 +232,8 @@ class Teams(client: Client) : Service(client) {
             "search" to search,
             "limit" to limit,
             "offset" to offset,
+            "cursor" to cursor,
+            "cursorDirection" to cursorDirection,
             "orderType" to orderType
         )
         val headers = mapOf(
@@ -292,6 +307,41 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
+            convert = convert
+        )
+    }
+    
+    /**
+     * Get Team Membership
+     *
+     * Get a team member by the membership unique id. All team members have read
+     * access for this resource.
+     *
+     * @param teamId Team unique ID.
+     * @param membershipId membership unique ID.
+     * @return [io.appwrite.models.MembershipList]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun getMembership(
+		teamId: String,
+		membershipId: String
+	): io.appwrite.models.MembershipList {
+        val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
+        val params = mapOf<String, Any?>(
+        )
+        val headers = mapOf(
+            "content-type" to "application/json"
+        )
+        val convert: (Map<String, Any>) -> io.appwrite.models.MembershipList = {
+            io.appwrite.models.MembershipList.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.MembershipList::class.java,
             convert = convert
         )
     }

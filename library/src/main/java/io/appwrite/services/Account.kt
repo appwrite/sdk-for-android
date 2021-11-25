@@ -53,6 +53,7 @@ class Account(client: Client) : Service(client) {
      * login to their new account, you need to create a new [account
      * session](/docs/client/account#accountCreateSession).
      *
+     * @param userId Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param email User email.
      * @param password User password. Must be between 6 to 32 chars.
      * @param name User name. Max length: 128 chars.
@@ -61,12 +62,14 @@ class Account(client: Client) : Service(client) {
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun create(
+		userId: String,
 		email: String,
 		password: String,
 		name: String? = null
 	): io.appwrite.models.User {
         val path = "/account"
         val params = mapOf<String, Any?>(
+            "userId" to userId,
             "email" to email,
             "password" to password,
             "name" to name
@@ -196,13 +199,20 @@ class Account(client: Client) : Service(client) {
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
      *
+     * @param limit Maximum number of logs to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Offset value. The default value is 0. Use this param to manage pagination.
      * @return [io.appwrite.models.LogList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun getLogs(): io.appwrite.models.LogList {
+    suspend fun getLogs(
+		limit: Long? = null,
+		offset: Long? = null
+	): io.appwrite.models.LogList {
         val path = "/account/logs"
         val params = mapOf<String, Any?>(
+            "limit" to limit,
+            "offset" to offset
         )
         val headers = mapOf(
             "content-type" to "application/json"
@@ -588,6 +598,7 @@ class Account(client: Client) : Service(client) {
      * the URL parameter empty, so that the login completion will be handled by
      * your Appwrite instance by default.
      *
+     * @param userId Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param email User email.
      * @param url URL to redirect the user back to your app from the magic URL login. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @return [io.appwrite.models.Token]     
@@ -595,11 +606,13 @@ class Account(client: Client) : Service(client) {
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createMagicURLSession(
+		userId: String,
 		email: String,
 		url: String? = null
 	): io.appwrite.models.Token {
         val path = "/account/sessions/magic-url"
         val params = mapOf<String, Any?>(
+            "userId" to userId,
             "email" to email,
             "url" to url
         )

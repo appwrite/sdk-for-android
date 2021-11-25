@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Account account = new Account(client);
 
         account.createMagicURLSession(
+            "", 
             "email@example.com", 
             new Continuation<Object>() {
                 @NotNull

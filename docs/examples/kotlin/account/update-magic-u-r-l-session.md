@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = account.updateMagicURLSession(
-                userId = "[USER_ID]",
+                userId = "",
                 secret = "[SECRET]"
             )
             val json = response.body?.string()        

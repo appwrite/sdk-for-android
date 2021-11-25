@@ -22,6 +22,8 @@ class Storage(client: Client) : Service(client) {
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
      * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param cursor ID of the file used as the starting point for the query, excluding the file itself. Should be used for efficient pagination when working with large sets of data.
+     * @param cursorDirection Direction of the cursor.
      * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.FileList]     
      */
@@ -31,6 +33,8 @@ class Storage(client: Client) : Service(client) {
 		search: String? = null,
 		limit: Long? = null,
 		offset: Long? = null,
+		cursor: String? = null,
+		cursorDirection: String? = null,
 		orderType: String? = null
 	): io.appwrite.models.FileList {
         val path = "/storage/files"
@@ -38,6 +42,8 @@ class Storage(client: Client) : Service(client) {
             "search" to search,
             "limit" to limit,
             "offset" to offset,
+            "cursor" to cursor,
+            "cursorDirection" to cursorDirection,
             "orderType" to orderType
         )
         val headers = mapOf(
@@ -63,6 +69,7 @@ class Storage(client: Client) : Service(client) {
      * assigned to read and write access unless he has passed custom values for
      * read and write arguments.
      *
+     * @param fileId Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param file Binary file.
      * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
      * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
@@ -71,12 +78,14 @@ class Storage(client: Client) : Service(client) {
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createFile(
+		fileId: String,
 		file: File,
 		read: List<Any>? = null,
 		write: List<Any>? = null
 	): io.appwrite.models.File {
         val path = "/storage/files"
         val params = mapOf<String, Any?>(
+            "fileId" to fileId,
             "file" to file,
             "read" to read,
             "write" to write
