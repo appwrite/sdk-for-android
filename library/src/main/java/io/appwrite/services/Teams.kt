@@ -2,6 +2,7 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
+import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -17,20 +18,20 @@ class Teams(client: Client) : Service(client) {
      * of the project's teams. [Learn more about different API
      * modes](/docs/admin).
      *
-     * @param search
-     * @param limit
-     * @param offset
-     * @param orderType
-     * @return [Response]     
+     * @param search Search term to filter your list results. Max length: 256 chars.
+     * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param orderType Order result by ASC or DESC order.
+     * @return [io.appwrite.models.TeamList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun list(
 		search: String? = null,
-		limit: Int? = null,
-		offset: Int? = null,
+		limit: Long? = null,
+		offset: Long? = null,
 		orderType: String? = null
-	): Response {
+	): io.appwrite.models.TeamList {
         val path = "/teams"
         val params = mapOf<String, Any?>(
             "search" to search,
@@ -38,12 +39,20 @@ class Teams(client: Client) : Service(client) {
             "offset" to offset,
             "orderType" to orderType
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.TeamList = {
+            io.appwrite.models.TeamList.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.TeamList::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -54,27 +63,35 @@ class Teams(client: Client) : Service(client) {
      * who will be able add new owners and update or delete the team from your
      * project.
      *
-     * @param name
-     * @param roles
-     * @return [Response]     
+     * @param name Team name. Max length: 128 chars.
+     * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
+     * @return [io.appwrite.models.Team]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun create(
 		name: String,
 		roles: List<Any>? = null
-	): Response {
+	): io.appwrite.models.Team {
         val path = "/teams"
         val params = mapOf<String, Any?>(
             "name" to name,
             "roles" to roles
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Team = {
+            io.appwrite.models.Team.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Team::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -83,23 +100,31 @@ class Teams(client: Client) : Service(client) {
      * Get a team by its unique ID. All team members have read access for this
      * resource.
      *
-     * @param teamId
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @return [io.appwrite.models.Team]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun get(
 		teamId: String
-	): Response {
+	): io.appwrite.models.Team {
         val path = "/teams/{teamId}".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Team = {
+            io.appwrite.models.Team.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Team::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -108,26 +133,34 @@ class Teams(client: Client) : Service(client) {
      * Update a team by its unique ID. Only team owners have write access for this
      * resource.
      *
-     * @param teamId
-     * @param name
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @param name Team name. Max length: 128 chars.
+     * @return [io.appwrite.models.Team]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun update(
 		teamId: String,
 		name: String
-	): Response {
+	): io.appwrite.models.Team {
         val path = "/teams/{teamId}".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
             "name" to name
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PUT", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Team = {
+            io.appwrite.models.Team.from(map = it)
+        }
+        return client.call(
+            "PUT",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Team::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -136,23 +169,27 @@ class Teams(client: Client) : Service(client) {
      * Delete a team by its unique ID. Only team owners have write access for this
      * resource.
      *
-     * @param teamId
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @return [Any]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun delete(
 		teamId: String
-	): Response {
+	): Any {
         val path = "/teams/{teamId}".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("DELETE", path, headers, params)
+        return client.call(
+            "DELETE",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
     }
     
     /**
@@ -161,22 +198,22 @@ class Teams(client: Client) : Service(client) {
      * Get a team members by the team unique ID. All team members have read access
      * for this list of resources.
      *
-     * @param teamId
-     * @param search
-     * @param limit
-     * @param offset
-     * @param orderType
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @param search Search term to filter your list results. Max length: 256 chars.
+     * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param orderType Order result by ASC or DESC order.
+     * @return [io.appwrite.models.MembershipList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getMemberships(
 		teamId: String,
 		search: String? = null,
-		limit: Int? = null,
-		offset: Int? = null,
+		limit: Long? = null,
+		offset: Long? = null,
 		orderType: String? = null
-	): Response {
+	): io.appwrite.models.MembershipList {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
             "search" to search,
@@ -184,12 +221,20 @@ class Teams(client: Client) : Service(client) {
             "offset" to offset,
             "orderType" to orderType
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.MembershipList = {
+            io.appwrite.models.MembershipList.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.MembershipList::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -212,12 +257,12 @@ class Teams(client: Client) : Service(client) {
      * the only valid redirect URL's are the once from domains you have set when
      * added your platforms in the console interface.
      *
-     * @param teamId
-     * @param email
-     * @param roles
-     * @param url
-     * @param name
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @param email New team member email.
+     * @param roles Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
+     * @param url URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @param name New team member name. Max length: 128 chars.
+     * @return [io.appwrite.models.Membership]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -227,7 +272,7 @@ class Teams(client: Client) : Service(client) {
 		roles: List<Any>,
 		url: String,
 		name: String? = null
-	): Response {
+	): io.appwrite.models.Membership {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
         val params = mapOf<String, Any?>(
             "email" to email,
@@ -235,21 +280,29 @@ class Teams(client: Client) : Service(client) {
             "url" to url,
             "name" to name
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Membership = {
+            io.appwrite.models.Membership.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Membership::class.java,
+            convert = convert
+        )
     }
     
     /**
      * Update Membership Roles
      *
-     * @param teamId
-     * @param membershipId
-     * @param roles
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @param membershipId Membership ID.
+     * @param roles Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
+     * @return [io.appwrite.models.Membership]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -257,17 +310,25 @@ class Teams(client: Client) : Service(client) {
 		teamId: String,
 		membershipId: String,
 		roles: List<Any>
-	): Response {
+	): io.appwrite.models.Membership {
         val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
         val params = mapOf<String, Any?>(
             "roles" to roles
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PATCH", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Membership = {
+            io.appwrite.models.Membership.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Membership::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -277,25 +338,29 @@ class Teams(client: Client) : Service(client) {
      * the membership of any other team member. You can also use this endpoint to
      * delete a user membership even if it is not accepted.
      *
-     * @param teamId
-     * @param membershipId
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @param membershipId Membership ID.
+     * @return [Any]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun deleteMembership(
 		teamId: String,
 		membershipId: String
-	): Response {
+	): Any {
         val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("DELETE", path, headers, params)
+        return client.call(
+            "DELETE",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
     }
     
     /**
@@ -305,11 +370,11 @@ class Teams(client: Client) : Service(client) {
      * after being redirected back to your app from the invitation email recieved
      * by the user.
      *
-     * @param teamId
-     * @param membershipId
-     * @param userId
-     * @param secret
-     * @return [Response]     
+     * @param teamId Team unique ID.
+     * @param membershipId Membership ID.
+     * @param userId User unique ID.
+     * @param secret Secret key.
+     * @return [io.appwrite.models.Membership]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -318,18 +383,26 @@ class Teams(client: Client) : Service(client) {
 		membershipId: String,
 		userId: String,
 		secret: String
-	): Response {
+	): io.appwrite.models.Membership {
         val path = "/teams/{teamId}/memberships/{membershipId}/status".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
         val params = mapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PATCH", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Membership = {
+            io.appwrite.models.Membership.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Membership::class.java,
+            convert = convert
+        )
     }
     
 }

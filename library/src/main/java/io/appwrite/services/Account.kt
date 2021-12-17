@@ -2,6 +2,7 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
+import io.appwrite.models.*
 import io.appwrite.WebAuthComponent
 import androidx.activity.ComponentActivity
 import io.appwrite.exceptions.AppwriteException
@@ -18,20 +19,28 @@ class Account(client: Client) : Service(client) {
      *
      * Get currently logged in user data as JSON object.
      *
-     * @return [Response]     
+     * @return [io.appwrite.models.User]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun get(): Response {
+    suspend fun get(): io.appwrite.models.User {
         val path = "/account"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -44,10 +53,10 @@ class Account(client: Client) : Service(client) {
      * login to their new account, you need to create a new [account
      * session](/docs/client/account#accountCreateSession).
      *
-     * @param email
-     * @param password
-     * @param name
-     * @return [Response]     
+     * @param email User email.
+     * @param password User password. Must be between 6 to 32 chars.
+     * @param name User name. Max length: 128 chars.
+     * @return [io.appwrite.models.User]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -55,19 +64,27 @@ class Account(client: Client) : Service(client) {
 		email: String,
 		password: String,
 		name: String? = null
-	): Response {
+	): io.appwrite.models.User {
         val path = "/account"
         val params = mapOf<String, Any?>(
             "email" to email,
             "password" to password,
             "name" to name
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -79,20 +96,24 @@ class Account(client: Client) : Service(client) {
      * address. Any user-related resources like documents or storage files should
      * be deleted separately.
      *
-     * @return [Response]     
+     * @return [Any]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun delete(): Response {
+    suspend fun delete(): Any {
         val path = "/account"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("DELETE", path, headers, params)
+        return client.call(
+            "DELETE",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
     }
     
     /**
@@ -105,27 +126,35 @@ class Account(client: Client) : Service(client) {
      * This endpoint can also be used to convert an anonymous account to a normal
      * one, by passing an email address and a new password.
      *
-     * @param email
-     * @param password
-     * @return [Response]     
+     * @param email User email.
+     * @param password User password. Must be between 6 to 32 chars.
+     * @return [io.appwrite.models.User]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateEmail(
 		email: String,
 		password: String
-	): Response {
+	): io.appwrite.models.User {
         val path = "/account/email"
         val params = mapOf<String, Any?>(
             "email" to email,
             "password" to password
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PATCH", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -137,20 +166,28 @@ class Account(client: Client) : Service(client) {
      * from its creation and will be invalid if the user will logout in that time
      * frame.
      *
-     * @return [Response]     
+     * @return [io.appwrite.models.Jwt]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun createJWT(): Response {
+    suspend fun createJWT(): io.appwrite.models.Jwt {
         val path = "/account/jwt"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Jwt = {
+            io.appwrite.models.Jwt.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Jwt::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -159,20 +196,28 @@ class Account(client: Client) : Service(client) {
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
      *
-     * @return [Response]     
+     * @return [io.appwrite.models.LogList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun getLogs(): Response {
+    suspend fun getLogs(): io.appwrite.models.LogList {
         val path = "/account/logs"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.LogList = {
+            io.appwrite.models.LogList.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.LogList::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -180,24 +225,32 @@ class Account(client: Client) : Service(client) {
      *
      * Update currently logged in user account name.
      *
-     * @param name
-     * @return [Response]     
+     * @param name User name. Max length: 128 chars.
+     * @return [io.appwrite.models.User]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateName(
 		name: String
-	): Response {
+	): io.appwrite.models.User {
         val path = "/account/name"
         val params = mapOf<String, Any?>(
             "name" to name
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PATCH", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -207,27 +260,35 @@ class Account(client: Client) : Service(client) {
      * to pass in the new password, and the old password. For users created with
      * OAuth and Team Invites, oldPassword is optional.
      *
-     * @param password
-     * @param oldPassword
-     * @return [Response]     
+     * @param password New user password. Must be between 6 to 32 chars.
+     * @param oldPassword Old user password. Must be between 6 to 32 chars.
+     * @return [io.appwrite.models.User]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updatePassword(
 		password: String,
 		oldPassword: String? = null
-	): Response {
+	): io.appwrite.models.User {
         val path = "/account/password"
         val params = mapOf<String, Any?>(
             "password" to password,
             "oldPassword" to oldPassword
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PATCH", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -235,20 +296,28 @@ class Account(client: Client) : Service(client) {
      *
      * Get currently logged in user preferences as a key-value object.
      *
-     * @return [Response]     
+     * @return [io.appwrite.models.Preferences]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun getPrefs(): Response {
+    suspend fun getPrefs(): io.appwrite.models.Preferences {
         val path = "/account/prefs"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Preferences = {
+            io.appwrite.models.Preferences.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Preferences::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -257,24 +326,32 @@ class Account(client: Client) : Service(client) {
      * Update currently logged in user account preferences. You can pass only the
      * specific settings you wish to update.
      *
-     * @param prefs
-     * @return [Response]     
+     * @param prefs Prefs key-value JSON object.
+     * @return [io.appwrite.models.User]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updatePrefs(
 		prefs: Any
-	): Response {
+	): io.appwrite.models.User {
         val path = "/account/prefs"
         val params = mapOf<String, Any?>(
             "prefs" to prefs
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PATCH", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -289,27 +366,35 @@ class Account(client: Client) : Service(client) {
      * complete the process. The verification link sent to the user's email
      * address is valid for 1 hour.
      *
-     * @param email
-     * @param url
-     * @return [Response]     
+     * @param email User email.
+     * @param url URL to redirect the user back to your app from the recovery email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @return [io.appwrite.models.Token]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createRecovery(
 		email: String,
 		url: String
-	): Response {
+	): io.appwrite.models.Token {
         val path = "/account/recovery"
         val params = mapOf<String, Any?>(
             "email" to email,
             "url" to url
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -325,11 +410,11 @@ class Account(client: Client) : Service(client) {
      * the only valid redirect URLs are the ones from domains you have set when
      * adding your platforms in the console interface.
      *
-     * @param userId
-     * @param secret
-     * @param password
-     * @param passwordAgain
-     * @return [Response]     
+     * @param userId User account UID address.
+     * @param secret Valid reset token.
+     * @param password New password. Must be between 6 to 32 chars.
+     * @param passwordAgain New password again. Must be between 6 to 32 chars.
+     * @return [io.appwrite.models.Token]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -338,7 +423,7 @@ class Account(client: Client) : Service(client) {
 		secret: String,
 		password: String,
 		passwordAgain: String
-	): Response {
+	): io.appwrite.models.Token {
         val path = "/account/recovery"
         val params = mapOf<String, Any?>(
             "userId" to userId,
@@ -346,12 +431,20 @@ class Account(client: Client) : Service(client) {
             "password" to password,
             "passwordAgain" to passwordAgain
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PUT", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "PUT",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -360,20 +453,28 @@ class Account(client: Client) : Service(client) {
      * Get currently logged in user list of active sessions across different
      * devices.
      *
-     * @return [Response]     
+     * @return [io.appwrite.models.SessionList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun getSessions(): Response {
+    suspend fun getSessions(): io.appwrite.models.SessionList {
         val path = "/account/sessions"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.SessionList = {
+            io.appwrite.models.SessionList.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.SessionList::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -382,27 +483,35 @@ class Account(client: Client) : Service(client) {
      * Allow the user to login into their account by providing a valid email and
      * password combination. This route will create a new session for the user.
      *
-     * @param email
-     * @param password
-     * @return [Response]     
+     * @param email User email.
+     * @param password User password. Must be between 6 to 32 chars.
+     * @return [io.appwrite.models.Session]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createSession(
 		email: String,
 		password: String
-	): Response {
+	): io.appwrite.models.Session {
         val path = "/account/sessions"
         val params = mapOf<String, Any?>(
             "email" to email,
             "password" to password
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Session = {
+            io.appwrite.models.Session.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Session::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -411,20 +520,24 @@ class Account(client: Client) : Service(client) {
      * Delete all sessions from the user account and remove any sessions cookies
      * from the end client.
      *
-     * @return [Response]     
+     * @return [Any]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun deleteSessions(): Response {
+    suspend fun deleteSessions(): Any {
         val path = "/account/sessions"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("DELETE", path, headers, params)
+        return client.call(
+            "DELETE",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
     }
     
     /**
@@ -437,20 +550,28 @@ class Account(client: Client) : Service(client) {
      * password](/docs/client/account#accountUpdateEmail) or create an [OAuth2
      * session](/docs/client/account#accountCreateOAuth2Session).
      *
-     * @return [Response]     
+     * @return [io.appwrite.models.Session]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun createAnonymousSession(): Response {
+    suspend fun createAnonymousSession(): io.appwrite.models.Session {
         val path = "/account/sessions/anonymous"
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Session = {
+            io.appwrite.models.Session.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Session::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -467,27 +588,35 @@ class Account(client: Client) : Service(client) {
      * the URL parameter empty, so that the login completion will be handled by
      * your Appwrite instance by default.
      *
-     * @param email
-     * @param url
-     * @return [Response]     
+     * @param email User email.
+     * @param url URL to redirect the user back to your app from the magic URL login. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @return [io.appwrite.models.Token]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createMagicURLSession(
 		email: String,
 		url: String? = null
-	): Response {
+	): io.appwrite.models.Token {
         val path = "/account/sessions/magic-url"
         val params = mapOf<String, Any?>(
             "email" to email,
             "url" to url
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -505,27 +634,35 @@ class Account(client: Client) : Service(client) {
      * the only valid redirect URLs are the ones from domains you have set when
      * adding your platforms in the console interface.
      *
-     * @param userId
-     * @param secret
-     * @return [Response]     
+     * @param userId User unique ID.
+     * @param secret Valid verification token.
+     * @return [io.appwrite.models.Session]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateMagicURLSession(
 		userId: String,
 		secret: String
-	): Response {
+	): io.appwrite.models.Session {
         val path = "/account/sessions/magic-url"
         val params = mapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PUT", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Session = {
+            io.appwrite.models.Session.from(map = it)
+        }
+        return client.call(
+            "PUT",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Session::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -544,10 +681,10 @@ class Account(client: Client) : Service(client) {
      * user..
      * 
      *
-     * @param provider
-     * @param success
-     * @param failure
-     * @param scopes
+     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, bitbucket, bitly, box, discord, dropbox, facebook, github, gitlab, google, linkedin, microsoft, paypal, paypalSandbox, salesforce, slack, spotify, tradeshift, tradeshiftBox, twitch, vk, yahoo, yandex, wordpress.
+     * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes.
      *      
      */
     @JvmOverloads
@@ -566,7 +703,6 @@ class Account(client: Client) : Service(client) {
             "scopes" to scopes,
             "project" to client.config["project"]
         )
-
         val query = mutableListOf<String>()
         params.forEach {
             when (it.value) {
@@ -609,7 +745,6 @@ class Account(client: Client) : Service(client) {
                 listOf(cookie)
             )
         }
-
     }
     
     /**
@@ -618,23 +753,31 @@ class Account(client: Client) : Service(client) {
      * Use this endpoint to get a logged in user's session using a Session ID.
      * Inputting 'current' will return the current session being used.
      *
-     * @param sessionId
-     * @return [Response]     
+     * @param sessionId Session unique ID. Use the string &#039;current&#039; to get the current device session.
+     * @return [io.appwrite.models.Session]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getSession(
 		sessionId: String
-	): Response {
+	): io.appwrite.models.Session {
         val path = "/account/sessions/{sessionId}".replace("{sessionId}", sessionId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Session = {
+            io.appwrite.models.Session.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Session::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -644,23 +787,27 @@ class Account(client: Client) : Service(client) {
      * account sessions across all of their different devices. When using the
      * option id argument, only the session unique ID provider will be deleted.
      *
-     * @param sessionId
-     * @return [Response]     
+     * @param sessionId Session unique ID. Use the string &#039;current&#039; to delete the current device session.
+     * @return [Any]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun deleteSession(
 		sessionId: String
-	): Response {
+	): Any {
         val path = "/account/sessions/{sessionId}".replace("{sessionId}", sessionId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("DELETE", path, headers, params)
+        return client.call(
+            "DELETE",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
     }
     
     /**
@@ -682,24 +829,32 @@ class Account(client: Client) : Service(client) {
      * adding your platforms in the console interface.
      * 
      *
-     * @param url
-     * @return [Response]     
+     * @param url URL to redirect the user back to your app from the verification email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @return [io.appwrite.models.Token]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createVerification(
 		url: String
-	): Response {
+	): io.appwrite.models.Token {
         val path = "/account/verification"
         val params = mapOf<String, Any?>(
             "url" to url
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -710,27 +865,35 @@ class Account(client: Client) : Service(client) {
      * to verify the user email ownership. If confirmed this route will return a
      * 200 status code.
      *
-     * @param userId
-     * @param secret
-     * @return [Response]     
+     * @param userId User unique ID.
+     * @param secret Valid verification token.
+     * @return [io.appwrite.models.Token]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateVerification(
 		userId: String,
 		secret: String
-	): Response {
+	): io.appwrite.models.Token {
         val path = "/account/verification"
         val params = mapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("PUT", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "PUT",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            convert = convert
+        )
     }
     
 }

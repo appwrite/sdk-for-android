@@ -2,6 +2,7 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
+import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import okhttp3.Cookie
 import okhttp3.Response
@@ -17,22 +18,22 @@ class Functions(client: Client) : Service(client) {
      * return a list of all of the project's executions. [Learn more about
      * different API modes](/docs/admin).
      *
-     * @param functionId
-     * @param search
-     * @param limit
-     * @param offset
-     * @param orderType
-     * @return [Response]     
+     * @param functionId Function unique ID.
+     * @param search Search term to filter your list results. Max length: 256 chars.
+     * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param orderType Order result by ASC or DESC order.
+     * @return [io.appwrite.models.ExecutionList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listExecutions(
 		functionId: String,
 		search: String? = null,
-		limit: Int? = null,
-		offset: Int? = null,
+		limit: Long? = null,
+		offset: Long? = null,
 		orderType: String? = null
-	): Response {
+	): io.appwrite.models.ExecutionList {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
         val params = mapOf<String, Any?>(
             "search" to search,
@@ -40,12 +41,20 @@ class Functions(client: Client) : Service(client) {
             "offset" to offset,
             "orderType" to orderType
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.ExecutionList = {
+            io.appwrite.models.ExecutionList.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.ExecutionList::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -56,26 +65,34 @@ class Functions(client: Client) : Service(client) {
      * updates on the current execution status. Once this endpoint is called, your
      * function execution process will start asynchronously.
      *
-     * @param functionId
-     * @param data
-     * @return [Response]     
+     * @param functionId Function unique ID.
+     * @param data String of custom data to send to function.
+     * @return [io.appwrite.models.Execution]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createExecution(
 		functionId: String,
 		data: String? = null
-	): Response {
+	): io.appwrite.models.Execution {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
         val params = mapOf<String, Any?>(
             "data" to data
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("POST", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
+            io.appwrite.models.Execution.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Execution::class.java,
+            convert = convert
+        )
     }
     
     /**
@@ -83,25 +100,33 @@ class Functions(client: Client) : Service(client) {
      *
      * Get a function execution log by its unique ID.
      *
-     * @param functionId
-     * @param executionId
-     * @return [Response]     
+     * @param functionId Function unique ID.
+     * @param executionId Execution unique ID.
+     * @return [io.appwrite.models.Execution]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getExecution(
 		functionId: String,
 		executionId: String
-	): Response {
+	): io.appwrite.models.Execution {
         val path = "/functions/{functionId}/executions/{executionId}".replace("{functionId}", functionId).replace("{executionId}", executionId)
         val params = mapOf<String, Any?>(
         )
-
         val headers = mapOf(
             "content-type" to "application/json"
         )
-
-        return client.call("GET", path, headers, params)
+        val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
+            io.appwrite.models.Execution.from(map = it)
+        }
+        return client.call(
+            "GET",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Execution::class.java,
+            convert = convert
+        )
     }
     
 }
