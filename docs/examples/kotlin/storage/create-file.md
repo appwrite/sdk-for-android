@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = storage.createFile(
+                fileId = "",
                 file = File("./path-to-files/image.jpg"),
             )
             val json = response.body?.string()        

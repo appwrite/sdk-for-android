@@ -18,29 +18,30 @@ public class MainActivity extends AppCompatActivity {
 
         Account account = new Account(client);
 
-        account.getLogs(new Continuation<Object>() {
-            @NotNull
-            @Override
-            public CoroutineContext getContext() {
-                return EmptyCoroutineContext.INSTANCE;
-            }
+        account.getLogs(
+            new Continuation<Object>() {
+                @NotNull
+                @Override
+                public CoroutineContext getContext() {
+                    return EmptyCoroutineContext.INSTANCE;
+                }
 
-            @Override
-            public void resumeWith(@NotNull Object o) {
-                String json = "";
-                try {
-                    if (o instanceof Result.Failure) {
-                        Result.Failure failure = (Result.Failure) o;
-                        throw failure.exception;
-                    } else {
+                @Override
+                public void resumeWith(@NotNull Object o) {
+                    String json = "";
+                    try {
+                        if (o instanceof Result.Failure) {
+                            Result.Failure failure = (Result.Failure) o;
+                            throw failure.exception;
+                        } else {
                             Response response = (Response) o;
                             json = response.body().string();
                         }                    
+                    } catch (Throwable th) {
+                        Log.e("ERROR", th.toString());
                     }
-                } catch (Throwable th) {
-                    Log.e("ERROR", th.toString());
                 }
             }
-        });
+        );
     }
 }

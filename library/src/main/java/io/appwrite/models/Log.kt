@@ -11,6 +11,30 @@ data class Log(
     val event: String,
 
     /**
+     * User ID.
+     *
+     */
+    val userId: String,
+
+    /**
+     * User Email.
+     *
+     */
+    val userEmail: String,
+
+    /**
+     * User Name.
+     *
+     */
+    val userName: String,
+
+    /**
+     * API mode when event triggered.
+     *
+     */
+    val mode: String,
+
+    /**
      * IP session in use when the session was created.
      *
      */
@@ -110,6 +134,10 @@ data class Log(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Log(
             event = map["event"] as String,
+            userId = map["userId"] as String,
+            userEmail = map["userEmail"] as String,
+            userName = map["userName"] as String,
+            mode = map["mode"] as String,
             ip = map["ip"] as String,
             time = map["time"] as Long,
             osCode = map["osCode"] as String,
@@ -131,6 +159,10 @@ data class Log(
 
     fun toMap(): Map<String, Any> = mapOf(
         "event" to event as Any,
+        "userId" to userId as Any,
+        "userEmail" to userEmail as Any,
+        "userName" to userName as Any,
+        "mode" to mode as Any,
         "ip" to ip as Any,
         "time" to time as Any,
         "osCode" to osCode as Any,

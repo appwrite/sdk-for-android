@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
         database.createDocument(
             "[COLLECTION_ID]", 
+            "", 
             mapOf( "a" to "b" ), 
             new Continuation<Object>() {
                 @NotNull

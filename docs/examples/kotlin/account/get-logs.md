@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
         val account = Account(client)
 
         GlobalScope.launch {
-            val response = account.getLogs()
+            val response = account.getLogs(
+            )
             val json = response.body?.string()        
         }
     }

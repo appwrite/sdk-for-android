@@ -3,7 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.services.Account
+import io.appwrite.services.Teams
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,12 +16,11 @@ public class MainActivity extends AppCompatActivity {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2"); // Your project ID
 
-        Account account = new Account(client);
+        Teams teams = new Teams(client);
 
-        account.create(
-            "", 
-            "email@example.com", 
-            "password", 
+        teams.getMembership(
+            "[TEAM_ID]", 
+            "[MEMBERSHIP_ID]"
             new Continuation<Object>() {
                 @NotNull
                 @Override

@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = teams.create(
+                teamId = "",
                 name = "[NAME]",
             )
             val json = response.body?.string()        

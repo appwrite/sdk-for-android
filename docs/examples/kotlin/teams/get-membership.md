@@ -3,7 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.services.Account
+import io.appwrite.services.Teams
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,13 +14,12 @@ class MainActivity : AppCompatActivity() {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2") // Your project ID
 
-        val account = Account(client)
+        val teams = Teams(client)
 
         GlobalScope.launch {
-            val response = account.create(
-                userId = "",
-                email = "email@example.com",
-                password = "password",
+            val response = teams.getMembership(
+                teamId = "[TEAM_ID]",
+                membershipId = "[MEMBERSHIP_ID]"
             )
             val json = response.body?.string()        
         }
