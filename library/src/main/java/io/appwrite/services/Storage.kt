@@ -20,9 +20,9 @@ class Storage(client: Client) : Service(client) {
      * project's files. [Learn more about different API modes](/docs/admin).
      *
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Results offset. The default value is 0. Use this param to manage pagination.
-     * @param cursor ID of the file used as the starting point for the query, excluding the file itself. Should be used for efficient pagination when working with large sets of data.
+     * @param limit Maximum number of files to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
+     * @param cursor ID of the file used as the starting point for the query, excluding the file itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursorDirection Direction of the cursor.
      * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.FileList]     
@@ -69,10 +69,10 @@ class Storage(client: Client) : Service(client) {
      * assigned to read and write access unless he has passed custom values for
      * read and write arguments.
      *
-     * @param fileId Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
+     * @param fileId File ID. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param file Binary file.
-     * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
@@ -112,7 +112,7 @@ class Storage(client: Client) : Service(client) {
      * Get a file by its unique ID. This endpoint response returns a JSON object
      * with the file metadata.
      *
-     * @param fileId File unique ID.
+     * @param fileId File ID.
      * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
@@ -145,9 +145,9 @@ class Storage(client: Client) : Service(client) {
      * Update a file by its unique ID. Only users with write permissions have
      * access to update this resource.
      *
-     * @param fileId File unique ID.
-     * @param read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @param fileId File ID.
+     * @param read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
@@ -184,7 +184,7 @@ class Storage(client: Client) : Service(client) {
      * Delete a file by its unique ID. Only users with write permissions have
      * access to delete this resource.
      *
-     * @param fileId File unique ID.
+     * @param fileId File ID.
      * @return [Any]     
      */
     @JvmOverloads
@@ -214,7 +214,7 @@ class Storage(client: Client) : Service(client) {
      * 'Content-Disposition: attachment' header that tells the browser to start
      * downloading the file to user downloads directory.
      *
-     * @param fileId File unique ID.
+     * @param fileId File ID.
      * @return [ByteArray]     
      */
     @JvmOverloads
@@ -242,7 +242,7 @@ class Storage(client: Client) : Service(client) {
      * and spreadsheets, will return the file icon image. You can also pass query
      * string arguments for cutting and resizing your preview image.
      *
-     * @param fileId File unique ID
+     * @param fileId File ID.
      * @param width Resize preview image width, Pass an integer between 0 to 4000.
      * @param height Resize preview image height, Pass an integer between 0 to 4000.
      * @param gravity Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
@@ -251,7 +251,7 @@ class Storage(client: Client) : Service(client) {
      * @param borderColor Preview image border color. Use a valid HEX color, no # is needed for prefix.
      * @param borderRadius Preview image border radius in pixels. Pass an integer between 0 to 4000.
      * @param opacity Preview image opacity. Only works with images having an alpha channel (like png). Pass a number between 0 to 1.
-     * @param rotation Preview image rotation in degrees. Pass an integer between 0 and 360.
+     * @param rotation Preview image rotation in degrees. Pass an integer between -360 and 360.
      * @param background Preview image background color. Only works with transparent images (png). Use a valid HEX color, no # is needed for prefix.
      * @param output Output format type (jpeg, jpg, png, gif and webp).
      * @return [ByteArray]     
@@ -302,7 +302,7 @@ class Storage(client: Client) : Service(client) {
      * download method but returns with no  'Content-Disposition: attachment'
      * header.
      *
-     * @param fileId File unique ID.
+     * @param fileId File ID.
      * @return [ByteArray]     
      */
     @JvmOverloads

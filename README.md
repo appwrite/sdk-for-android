@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-android.svg?style=flat-square)
 ![Version](https://img.shields.io/badge/api%20version-0.12.0-blue.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
-[![Twitter Account](https://img.shields.io/twitter/follow/appwrite_io?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite_io)
+[![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
 **This SDK is compatible with Appwrite server version 0.12.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-android/releases).**
@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:0.3.0-SNAPSHOT")
+implementation("io.appwrite:sdk-for-android:0.3.0")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>0.3.0-SNAPSHOT</version>
+        <version>0.3.0</version>
     </dependency>
 </dependencies>
 ```
@@ -108,6 +108,7 @@ When trying to connect to Appwrite from an emulator or a mobile device, localhos
 // Register User
 val account = Account(client)
 val response = account.create(
+    "[USER_ID]",
     "email@example.com", 
     "password"
 )
@@ -126,6 +127,7 @@ val client = Client(context)
 
 val account = Account(client)
 val response = account.create(
+    "[USER_ID]",
     "email@example.com", 
     "password"
 )
@@ -136,7 +138,7 @@ The Appwrite Android SDK raises an `AppwriteException` object with `message`, `c
 
 ```kotlin
 try {
-    var response = account.create("email@example.com", "password")
+    var response = account.create("[USER_ID]", "email@example.com", "password")
     Log.d("Appwrite response", response.body?.string())
 } catch(e : AppwriteException) {
     Log.e("AppwriteException",e.message.toString())

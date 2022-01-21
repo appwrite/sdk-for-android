@@ -18,11 +18,11 @@ class Functions(client: Client) : Service(client) {
      * return a list of all of the project's executions. [Learn more about
      * different API modes](/docs/admin).
      *
-     * @param functionId Function unique ID.
-     * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param functionId Function ID.
+     * @param limit Maximum number of executions to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data.
+     * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursorDirection Direction of the cursor.
      * @return [io.appwrite.models.ExecutionList]     
      */
@@ -68,7 +68,7 @@ class Functions(client: Client) : Service(client) {
      * updates on the current execution status. Once this endpoint is called, your
      * function execution process will start asynchronously.
      *
-     * @param functionId Function unique ID.
+     * @param functionId Function ID.
      * @param data String of custom data to send to function.
      * @return [io.appwrite.models.Execution]     
      */
@@ -103,8 +103,8 @@ class Functions(client: Client) : Service(client) {
      *
      * Get a function execution log by its unique ID.
      *
-     * @param functionId Function unique ID.
-     * @param executionId Execution unique ID.
+     * @param functionId Function ID.
+     * @param executionId Execution ID.
      * @return [io.appwrite.models.Execution]     
      */
     @JvmOverloads

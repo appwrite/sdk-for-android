@@ -18,11 +18,11 @@ class Database(client: Client) : Service(client) {
      * of the project's documents. [Learn more about different API
      * modes](/docs/admin).
      *
-     * @param collectionId Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
      * @param queries Array of query strings.
-     * @param limit Maximum number of documents to return in response.  Use this value to manage pagination. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this param to manage pagination.
-     * @param cursor ID of the document used as the starting point for the query, excluding the document itself. Should be used for efficient pagination when working with large sets of data.
+     * @param limit Maximum number of documents to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
+     * @param cursor ID of the document used as the starting point for the query, excluding the document itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursorDirection Direction of the cursor.
      * @param orderAttributes Array of attributes used to sort results.
      * @param orderTypes Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order.
@@ -74,11 +74,11 @@ class Database(client: Client) : Service(client) {
      * integration](/docs/server/database#databaseCreateCollection) API or
      * directly from your database console.
      *
-     * @param collectionId Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
-     * @param documentId Unique Id. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
+     * @param collectionId Collection ID. You can create a new collection with validation rules using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * @param documentId Document ID. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
-     * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @return [io.appwrite.models.Document]     
      */
     @JvmOverloads
@@ -119,8 +119,8 @@ class Database(client: Client) : Service(client) {
      * Get a document by its unique ID. This endpoint response returns a JSON
      * object with the document data.
      *
-     * @param collectionId Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
-     * @param documentId Document unique ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * @param documentId Document ID.
      * @return [io.appwrite.models.Document]     
      */
     @JvmOverloads
@@ -154,11 +154,11 @@ class Database(client: Client) : Service(client) {
      * Update a document by its unique ID. Using the patch method you can pass
      * only specific fields that will get updated.
      *
-     * @param collectionId Collection unique ID. You can create a new collection with validation rules using the Database service [server integration](/docs/server/database#createCollection).
-     * @param documentId Document unique ID.
+     * @param collectionId Collection ID. You can create a new collection with validation rules using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * @param documentId Document ID.
      * @param data Document data as JSON object.
-     * @param read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](/docs/permissions) and get a full list of available permissions.
+     * @param read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @return [io.appwrite.models.Document]     
      */
     @JvmOverloads
@@ -199,8 +199,8 @@ class Database(client: Client) : Service(client) {
      * documents, its attributes and relations to other documents. Child documents
      * **will not** be deleted.
      *
-     * @param collectionId Collection unique ID. You can create a new collection using the Database service [server integration](/docs/server/database#createCollection).
-     * @param documentId Document unique ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * @param documentId Document ID.
      * @return [Any]     
      */
     @JvmOverloads
