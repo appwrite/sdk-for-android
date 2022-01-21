@@ -19,7 +19,7 @@ data class CurrencyList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = CurrencyList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             currencies = (map["currencies"] as List<Map<String, Any>>).map { Currency.from(map = it) }
         )
     }

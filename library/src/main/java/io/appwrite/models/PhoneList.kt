@@ -19,7 +19,7 @@ data class PhoneList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = PhoneList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             phones = (map["phones"] as List<Map<String, Any>>).map { Phone.from(map = it) }
         )
     }

@@ -19,7 +19,7 @@ data class ContinentList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = ContinentList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             continents = (map["continents"] as List<Map<String, Any>>).map { Continent.from(map = it) }
         )
     }

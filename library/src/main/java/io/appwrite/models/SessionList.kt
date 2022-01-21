@@ -19,7 +19,7 @@ data class SessionList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = SessionList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             sessions = (map["sessions"] as List<Map<String, Any>>).map { Session.from(map = it) }
         )
     }

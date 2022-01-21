@@ -59,10 +59,10 @@ data class File(
             read = map["\$read"] as List<Any>,
             write = map["\$write"] as List<Any>,
             name = map["name"] as String,
-            dateCreated = map["dateCreated"] as Long,
+            dateCreated = (map["dateCreated"] as Number).toLong(),
             signature = map["signature"] as String,
             mimeType = map["mimeType"] as String,
-            sizeOriginal = map["sizeOriginal"] as Long
+            sizeOriginal = (map["sizeOriginal"] as Number).toLong()
         )
     }
 

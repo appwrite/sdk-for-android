@@ -19,7 +19,7 @@ data class DocumentList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = DocumentList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             documents = (map["documents"] as List<Map<String, Any>>).map { Document.from(map = it) }
         )
     }

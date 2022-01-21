@@ -34,7 +34,7 @@ data class Token(
             id = map["\$id"] as String,
             userId = map["userId"] as String,
             secret = map["secret"] as String,
-            expire = map["expire"] as Long
+            expire = (map["expire"] as Number).toLong()
         )
     }
 

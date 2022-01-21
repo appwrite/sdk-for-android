@@ -70,13 +70,13 @@ data class Execution(
             id = map["\$id"] as String,
             read = map["\$read"] as List<Any>,
             functionId = map["functionId"] as String,
-            dateCreated = map["dateCreated"] as Long,
+            dateCreated = (map["dateCreated"] as Number).toLong(),
             trigger = map["trigger"] as String,
             status = map["status"] as String,
-            exitCode = map["exitCode"] as Long,
+            exitCode = (map["exitCode"] as Number).toLong(),
             stdout = map["stdout"] as String,
             stderr = map["stderr"] as String,
-            time = map["time"] as Double
+            time = (map["time"] as Number).toDouble()
         )
     }
 

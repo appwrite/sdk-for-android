@@ -66,8 +66,8 @@ data class Membership(
             teamId = map["teamId"] as String,
             name = map["name"] as String,
             email = map["email"] as String,
-            invited = map["invited"] as Long,
-            joined = map["joined"] as Long,
+            invited = (map["invited"] as Number).toLong(),
+            joined = (map["joined"] as Number).toLong(),
             confirm = map["confirm"] as Boolean,
             roles = map["roles"] as List<Any>
         )

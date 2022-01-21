@@ -33,8 +33,8 @@ data class Team(
         fun from(map: Map<String, Any>) = Team(
             id = map["\$id"] as String,
             name = map["name"] as String,
-            dateCreated = map["dateCreated"] as Long,
-            sum = map["sum"] as Long
+            dateCreated = (map["dateCreated"] as Number).toLong(),
+            sum = (map["sum"] as Number).toLong()
         )
     }
 

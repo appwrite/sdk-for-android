@@ -141,7 +141,7 @@ data class Session(
         fun from(map: Map<String, Any>) = Session(
             id = map["\$id"] as String,
             userId = map["userId"] as String,
-            expire = map["expire"] as Long,
+            expire = (map["expire"] as Number).toLong(),
             provider = map["provider"] as String,
             providerUid = map["providerUid"] as String,
             providerToken = map["providerToken"] as String,

@@ -19,7 +19,7 @@ data class LanguageList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = LanguageList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             languages = (map["languages"] as List<Map<String, Any>>).map { Language.from(map = it) }
         )
     }

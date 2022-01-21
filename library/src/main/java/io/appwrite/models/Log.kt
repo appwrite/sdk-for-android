@@ -139,7 +139,7 @@ data class Log(
             userName = map["userName"] as String,
             mode = map["mode"] as String,
             ip = map["ip"] as String,
-            time = map["time"] as Long,
+            time = (map["time"] as Number).toLong(),
             osCode = map["osCode"] as String,
             osName = map["osName"] as String,
             osVersion = map["osVersion"] as String,

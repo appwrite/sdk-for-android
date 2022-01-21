@@ -19,7 +19,7 @@ data class LogList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = LogList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             logs = (map["logs"] as List<Map<String, Any>>).map { Log.from(map = it) }
         )
     }

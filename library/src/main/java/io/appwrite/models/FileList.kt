@@ -19,7 +19,7 @@ data class FileList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = FileList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             files = (map["files"] as List<Map<String, Any>>).map { File.from(map = it) }
         )
     }

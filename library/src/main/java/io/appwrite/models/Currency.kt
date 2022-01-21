@@ -52,8 +52,8 @@ data class Currency(
             symbol = map["symbol"] as String,
             name = map["name"] as String,
             symbolNative = map["symbolNative"] as String,
-            decimalDigits = map["decimalDigits"] as Long,
-            rounding = map["rounding"] as Double,
+            decimalDigits = (map["decimalDigits"] as Number).toLong(),
+            rounding = (map["rounding"] as Number).toDouble(),
             code = map["code"] as String,
             namePlural = map["namePlural"] as String
         )

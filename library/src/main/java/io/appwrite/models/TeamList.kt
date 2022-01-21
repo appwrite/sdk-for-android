@@ -19,7 +19,7 @@ data class TeamList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = TeamList(
-            sum = map["sum"] as Long,
+            sum = (map["sum"] as Number).toLong(),
             teams = (map["teams"] as List<Map<String, Any>>).map { Team.from(map = it) }
         )
     }

@@ -57,9 +57,9 @@ data class User(
         fun from(map: Map<String, Any>) = User(
             id = map["\$id"] as String,
             name = map["name"] as String,
-            registration = map["registration"] as Long,
+            registration = (map["registration"] as Number).toLong(),
             status = map["status"] as Boolean,
-            passwordUpdate = map["passwordUpdate"] as Long,
+            passwordUpdate = (map["passwordUpdate"] as Number).toLong(),
             email = map["email"] as String,
             emailVerification = map["emailVerification"] as Boolean,
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>)
