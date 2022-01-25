@@ -74,7 +74,7 @@ class Database(client: Client) : Service(client) {
      * integration](/docs/server/database#databaseCreateCollection) API or
      * directly from your database console.
      *
-     * @param collectionId Collection ID. You can create a new collection with validation rules using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). Make sure to define attributes before creating documents.
      * @param documentId Document ID. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
      * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
@@ -154,7 +154,7 @@ class Database(client: Client) : Service(client) {
      * Update a document by its unique ID. Using the patch method you can pass
      * only specific fields that will get updated.
      *
-     * @param collectionId Collection ID. You can create a new collection with validation rules using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param data Document data as JSON object.
      * @param read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.

@@ -335,8 +335,9 @@ class Account(client: Client) : Service(client) {
     /**
      * Update Account Preferences
      *
-     * Update currently logged in user account preferences. You can pass only the
-     * specific settings you wish to update.
+     * Update currently logged in user account preferences. The object you pass is
+     * stored as is, and replaces any previous value. The maximum allowed prefs
+     * size is 64kB and throws error if exceeded.
      *
      * @param prefs Prefs key-value JSON object.
      * @return [io.appwrite.models.User]     
