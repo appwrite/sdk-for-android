@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Document
  */
@@ -8,24 +10,28 @@ data class Document(
      * Document ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * Collection ID.
      *
      */
+    @SerializedName("\$collection")
     val collection: String,
 
     /**
      * Document read permissions.
      *
      */
+    @SerializedName("\$read")
     val read: List<Any>,
 
     /**
      * Document write permissions.
      *
      */
+    @SerializedName("\$write")
     val write: List<Any>,
 
     val data: Map<String, Any>

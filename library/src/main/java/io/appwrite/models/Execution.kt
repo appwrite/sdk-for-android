@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Execution
  */
@@ -8,60 +10,70 @@ data class Execution(
      * Execution ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * Execution read permissions.
      *
      */
+    @SerializedName("\$read")
     val read: List<Any>,
 
     /**
      * Function ID.
      *
      */
+    @SerializedName("functionId")
     val functionId: String,
 
     /**
      * The execution creation date in Unix timestamp.
      *
      */
+    @SerializedName("dateCreated")
     val dateCreated: Long,
 
     /**
      * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
      *
      */
+    @SerializedName("trigger")
     val trigger: String,
 
     /**
      * The status of the function execution. Possible values can be: `waiting`, `processing`, `completed`, or `failed`.
      *
      */
+    @SerializedName("status")
     val status: String,
 
     /**
      * The script exit code.
      *
      */
+    @SerializedName("exitCode")
     val exitCode: Long,
 
     /**
      * The script stdout output string. Logs the last 4,000 characters of the execution stdout output.
      *
      */
+    @SerializedName("stdout")
     val stdout: String,
 
     /**
      * The script stderr output string. Logs the last 4,000 characters of the execution stderr output
      *
      */
+    @SerializedName("stderr")
     val stderr: String,
 
     /**
      * The script execution time in seconds.
      *
      */
+    @SerializedName("time")
     val time: Double
 ) {
     companion object {

@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Phone
  */
@@ -8,18 +10,21 @@ data class Phone(
      * Phone code.
      *
      */
+    @SerializedName("code")
     val code: String,
 
     /**
      * Country two-character ISO 3166-1 alpha code.
      *
      */
+    @SerializedName("countryCode")
     val countryCode: String,
 
     /**
      * Country name.
      *
      */
+    @SerializedName("countryName")
     val countryName: String
 ) {
     companion object {

@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Currencies List
  */
@@ -8,12 +10,14 @@ data class CurrencyList(
      * Total number of items available on the server.
      *
      */
+    @SerializedName("sum")
     val sum: Long,
 
     /**
      * List of currencies.
      *
      */
+    @SerializedName("currencies")
     val currencies: List<Currency>
 ) {
     companion object {

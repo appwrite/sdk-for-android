@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Token
  */
@@ -8,24 +10,28 @@ data class Token(
      * Token ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * User ID.
      *
      */
+    @SerializedName("userId")
     val userId: String,
 
     /**
      * Token secret key. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
      *
      */
+    @SerializedName("secret")
     val secret: String,
 
     /**
      * Token expiration date in Unix timestamp.
      *
      */
+    @SerializedName("expire")
     val expire: Long
 ) {
     companion object {

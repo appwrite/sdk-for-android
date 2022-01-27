@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Countries List
  */
@@ -8,12 +10,14 @@ data class CountryList(
      * Total number of items available on the server.
      *
      */
+    @SerializedName("sum")
     val sum: Long,
 
     /**
      * List of countries.
      *
      */
+    @SerializedName("countries")
     val countries: List<Country>
 ) {
     companion object {

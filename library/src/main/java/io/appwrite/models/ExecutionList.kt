@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Executions List
  */
@@ -8,12 +10,14 @@ data class ExecutionList(
      * Total number of items available on the server.
      *
      */
+    @SerializedName("sum")
     val sum: Long,
 
     /**
      * List of executions.
      *
      */
+    @SerializedName("executions")
     val executions: List<Execution>
 ) {
     companion object {

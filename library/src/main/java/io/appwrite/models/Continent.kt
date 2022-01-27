@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Continent
  */
@@ -8,12 +10,14 @@ data class Continent(
      * Continent name.
      *
      */
+    @SerializedName("name")
     val name: String,
 
     /**
      * Continent two letter code.
      *
      */
+    @SerializedName("code")
     val code: String
 ) {
     companion object {

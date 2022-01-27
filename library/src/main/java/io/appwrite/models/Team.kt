@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Team
  */
@@ -8,24 +10,28 @@ data class Team(
      * Team ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * Team name.
      *
      */
+    @SerializedName("name")
     val name: String,
 
     /**
      * Team creation date in Unix timestamp.
      *
      */
+    @SerializedName("dateCreated")
     val dateCreated: Long,
 
     /**
      * Total sum of team members.
      *
      */
+    @SerializedName("sum")
     val sum: Long
 ) {
     companion object {

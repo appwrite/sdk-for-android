@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * User
  */
@@ -8,48 +10,56 @@ data class User(
      * User ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * User name.
      *
      */
+    @SerializedName("name")
     val name: String,
 
     /**
      * User registration date in Unix timestamp.
      *
      */
+    @SerializedName("registration")
     val registration: Long,
 
     /**
      * User status. Pass `true` for enabled and `false` for disabled.
      *
      */
+    @SerializedName("status")
     val status: Boolean,
 
     /**
      * Unix timestamp of the most recent password update
      *
      */
+    @SerializedName("passwordUpdate")
     val passwordUpdate: Long,
 
     /**
      * User email address.
      *
      */
+    @SerializedName("email")
     val email: String,
 
     /**
      * Email verification status.
      *
      */
+    @SerializedName("emailVerification")
     val emailVerification: Boolean,
 
     /**
      * User preferences as a key-value object
      *
      */
+    @SerializedName("prefs")
     val prefs: Preferences
 ) {
     companion object {

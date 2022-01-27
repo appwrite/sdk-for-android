@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Session
  */
@@ -8,132 +10,154 @@ data class Session(
      * Session ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * User ID.
      *
      */
+    @SerializedName("userId")
     val userId: String,
 
     /**
      * Session expiration date in Unix timestamp.
      *
      */
+    @SerializedName("expire")
     val expire: Long,
 
     /**
      * Session Provider.
      *
      */
+    @SerializedName("provider")
     val provider: String,
 
     /**
      * Session Provider User ID.
      *
      */
+    @SerializedName("providerUid")
     val providerUid: String,
 
     /**
      * Session Provider Token.
      *
      */
+    @SerializedName("providerToken")
     val providerToken: String,
 
     /**
      * IP in use when the session was created.
      *
      */
+    @SerializedName("ip")
     val ip: String,
 
     /**
      * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
      *
      */
+    @SerializedName("osCode")
     val osCode: String,
 
     /**
      * Operating system name.
      *
      */
+    @SerializedName("osName")
     val osName: String,
 
     /**
      * Operating system version.
      *
      */
+    @SerializedName("osVersion")
     val osVersion: String,
 
     /**
      * Client type.
      *
      */
+    @SerializedName("clientType")
     val clientType: String,
 
     /**
      * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
      *
      */
+    @SerializedName("clientCode")
     val clientCode: String,
 
     /**
      * Client name.
      *
      */
+    @SerializedName("clientName")
     val clientName: String,
 
     /**
      * Client version.
      *
      */
+    @SerializedName("clientVersion")
     val clientVersion: String,
 
     /**
      * Client engine name.
      *
      */
+    @SerializedName("clientEngine")
     val clientEngine: String,
 
     /**
      * Client engine name.
      *
      */
+    @SerializedName("clientEngineVersion")
     val clientEngineVersion: String,
 
     /**
      * Device name.
      *
      */
+    @SerializedName("deviceName")
     val deviceName: String,
 
     /**
      * Device brand name.
      *
      */
+    @SerializedName("deviceBrand")
     val deviceBrand: String,
 
     /**
      * Device model name.
      *
      */
+    @SerializedName("deviceModel")
     val deviceModel: String,
 
     /**
      * Country two-character ISO 3166-1 alpha code.
      *
      */
+    @SerializedName("countryCode")
     val countryCode: String,
 
     /**
      * Country name.
      *
      */
+    @SerializedName("countryName")
     val countryName: String,
 
     /**
      * Returns true if this the current user session.
      *
      */
+    @SerializedName("current")
     val current: Boolean
 ) {
     companion object {

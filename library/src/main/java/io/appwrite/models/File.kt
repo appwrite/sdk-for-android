@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * File
  */
@@ -8,48 +10,56 @@ data class File(
      * File ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * File read permissions.
      *
      */
+    @SerializedName("\$read")
     val read: List<Any>,
 
     /**
      * File write permissions.
      *
      */
+    @SerializedName("\$write")
     val write: List<Any>,
 
     /**
      * File name.
      *
      */
+    @SerializedName("name")
     val name: String,
 
     /**
      * File creation date in Unix timestamp.
      *
      */
+    @SerializedName("dateCreated")
     val dateCreated: Long,
 
     /**
      * File MD5 signature.
      *
      */
+    @SerializedName("signature")
     val signature: String,
 
     /**
      * File mime type.
      *
      */
+    @SerializedName("mimeType")
     val mimeType: String,
 
     /**
      * File original size in bytes.
      *
      */
+    @SerializedName("sizeOriginal")
     val sizeOriginal: Long
 ) {
     companion object {
