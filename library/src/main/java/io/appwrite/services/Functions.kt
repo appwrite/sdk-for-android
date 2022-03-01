@@ -11,6 +11,36 @@ import java.io.File
 class Functions(client: Client) : Service(client) {
 
     /**
+     * Retry Build
+     *
+     * @param functionId Function ID.
+     * @param deploymentId Deployment ID.
+     * @param buildId Build unique ID.
+     * @return [Any]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun retryBuild(
+		functionId: String,
+		deploymentId: String,
+		buildId: String
+	): Any {
+        val path = "/functions/{functionId}/deployments/{deploymentId}/builds/{buildId}".replace("{functionId}", functionId).replace("{deploymentId}", deploymentId).replace("{buildId}", buildId)
+        val params = mutableMapOf<String, Any?>(
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
+    }
+    
+    /**
      * List Executions
      *
      * Get a list of all the current user function execution logs. You can use the
@@ -37,14 +67,14 @@ class Functions(client: Client) : Service(client) {
 		cursorDirection: String? = null
 	): io.appwrite.models.ExecutionList {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "limit" to limit,
             "offset" to offset,
             "search" to search,
             "cursor" to cursor,
             "cursorDirection" to cursorDirection
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.ExecutionList = {
@@ -56,7 +86,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.ExecutionList::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -70,19 +100,22 @@ class Functions(client: Client) : Service(client) {
      *
      * @param functionId Function ID.
      * @param data String of custom data to send to function.
+     * @param async Execute code asynchronously. Default value is true.
      * @return [io.appwrite.models.Execution]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createExecution(
 		functionId: String,
-		data: String? = null
+		data: String? = null,
+		async: Boolean? = null
 	): io.appwrite.models.Execution {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
-        val params = mapOf<String, Any?>(
-            "data" to data
+        val params = mutableMapOf<String, Any?>(
+            "data" to data,
+            "async" to async
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
@@ -94,7 +127,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -114,9 +147,9 @@ class Functions(client: Client) : Service(client) {
 		executionId: String
 	): io.appwrite.models.Execution {
         val path = "/functions/{functionId}/executions/{executionId}".replace("{functionId}", functionId).replace("{executionId}", executionId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
@@ -128,7 +161,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     

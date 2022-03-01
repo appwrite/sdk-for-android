@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = storage.deleteFile(
+                bucketId = "[BUCKET_ID]",
                 fileId = "[FILE_ID]"
             )
             val json = response.body?.string()        

@@ -42,11 +42,25 @@ data class Session(
     val providerUid: String,
 
     /**
-     * Session Provider Token.
+     * Session Provider Access Token.
      *
      */
-    @SerializedName("providerToken")
-    val providerToken: String,
+    @SerializedName("providerAccessToken")
+    val providerAccessToken: String,
+
+    /**
+     * Date, the Unix timestamp of when the access token expires.
+     *
+     */
+    @SerializedName("providerAccessTokenExpiry")
+    val providerAccessTokenExpiry: Long,
+
+    /**
+     * Session Provider Refresh Token.
+     *
+     */
+    @SerializedName("providerRefreshToken")
+    val providerRefreshToken: String,
 
     /**
      * IP in use when the session was created.
@@ -168,7 +182,9 @@ data class Session(
             expire = (map["expire"] as Number).toLong(),
             provider = map["provider"] as String,
             providerUid = map["providerUid"] as String,
-            providerToken = map["providerToken"] as String,
+            providerAccessToken = map["providerAccessToken"] as String,
+            providerAccessTokenExpiry = (map["providerAccessTokenExpiry"] as Number).toLong(),
+            providerRefreshToken = map["providerRefreshToken"] as String,
             ip = map["ip"] as String,
             osCode = map["osCode"] as String,
             osName = map["osName"] as String,
@@ -194,7 +210,9 @@ data class Session(
         "expire" to expire as Any,
         "provider" to provider as Any,
         "providerUid" to providerUid as Any,
-        "providerToken" to providerToken as Any,
+        "providerAccessToken" to providerAccessToken as Any,
+        "providerAccessTokenExpiry" to providerAccessTokenExpiry as Any,
+        "providerRefreshToken" to providerRefreshToken as Any,
         "ip" to ip as Any,
         "osCode" to osCode as Any,
         "osName" to osName as Any,

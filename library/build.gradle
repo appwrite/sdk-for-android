@@ -19,6 +19,8 @@ ext {
     GITHUB_SCM_CONNECTION = 'scm:git:git://github.com/appwrite/sdk-for-android.git'
 }
 
+version PUBLISH_VERSION
+
 android {
     compileSdkVersion(31)
 

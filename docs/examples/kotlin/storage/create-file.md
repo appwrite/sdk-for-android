@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = storage.createFile(
+                bucketId = "[BUCKET_ID]",
                 fileId = "[FILE_ID]",
                 file = File("./path-to-files/image.jpg"),
             )

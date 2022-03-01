@@ -3,7 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.services.Storage
+import io.appwrite.services.Functions
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,14 +14,15 @@ class MainActivity : AppCompatActivity() {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2") // Your project ID
 
-        val storage = Storage(client)
+        val functions = Functions(client)
 
         GlobalScope.launch {
-            val result = storage.getFileView(
-                bucketId = "[BUCKET_ID]",
-                fileId = "[FILE_ID]"
+            val response = functions.retryBuild(
+                functionId = "[FUNCTION_ID]",
+                deploymentId = "[DEPLOYMENT_ID]",
+                buildId = "[BUILD_ID]"
             )
-            println(result); // Resource URL        
+            val json = response.body?.string()        
         }
     }
 }

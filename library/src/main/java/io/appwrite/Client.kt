@@ -42,6 +42,10 @@ class Client @JvmOverloads constructor(
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
 
+    companion object {
+        const val CHUNK_SIZE = 5*1024*1024; // 5MB
+    }
+
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
@@ -231,7 +235,7 @@ class Client @JvmOverloads constructor(
      * @param headers
      * @param params
      *
-     * @return [Response]    
+     * @return [T]    
      */
     @Throws(AppwriteException::class)
     suspend fun <T> call(
@@ -285,8 +289,7 @@ class Client @JvmOverloads constructor(
             filteredParams.forEach {
                 when {
                     it.key == "file" -> {
-                        val file = it.value as File
-                        builder.addFormDataPart(it.key, file.name, file.asRequestBody())
+                        builder.addPart(it.value as MultipartBody.Part)
                     }
                     it.value is List<*> -> {
                         val list = it.value as List<*>
@@ -315,6 +318,83 @@ class Client @JvmOverloads constructor(
             .build()
 
         return awaitResponse(request, responseType, convert)
+    }
+
+    /**
+     * Upload a file in chunks
+     *
+     * @param path
+     * @param headers
+     * @param params
+     *
+     * @return [T]
+     */
+    @Throws(AppwriteException::class)
+    suspend fun <T> chunkedUpload(
+        path: String,
+        headers:  MutableMap<String, String>,
+        params: MutableMap<String, Any?>,
+        responseType: Class<T>,
+        convert: ((Map<String, Any,>) -> T),
+        paramName: String,
+        onProgress: ((Double) -> Unit)? = null,
+    ): T {
+        val file = params[paramName] as File
+        val size = file.length()
+
+        if (size < CHUNK_SIZE) {
+            params[paramName] = MultipartBody.Part.createFormData(
+                paramName,
+                file.name,
+                file.asRequestBody()
+            )
+            return call(
+                "POST",
+                path,
+                headers,
+                params,
+                responseType,
+                convert
+            )
+        }
+
+        val input = file.inputStream().buffered()
+        val buffer = ByteArray(CHUNK_SIZE)
+        var offset = 0L
+        var result: Map<*, *>? = null
+
+        generateSequence {
+            val readBytes = input.read(buffer)
+            if (readBytes >= 0) {
+                buffer.copyOf(readBytes)
+            } else {
+                input.close()
+                null
+            }
+        }.forEach {
+            params[paramName] = MultipartBody.Part.createFormData(
+                paramName,
+                file.name,
+                it.toRequestBody()
+            )
+
+            headers["Content-Range"] =
+                "bytes $offset-${((offset + CHUNK_SIZE) - 1).coerceAtMost(size)}/$size"
+
+            result = call(
+                "POST",
+                path,
+                headers,
+                params,
+                Map::class.java
+            )
+
+            offset += CHUNK_SIZE
+            headers["x-appwrite-id"] = result!!["\$id"].toString()
+            onProgress?.invoke(offset.coerceAtMost(size).toDouble()/size * 100)
+        }
+
+        return convert(result as Map<String, Any>)
     }
 
     /**
@@ -355,7 +435,8 @@ class Client @JvmOverloads constructor(
                         )
                         AppwriteException(
                             map["message"] as? String ?: "", 
-                            (map["code"] as Number).toInt(), 
+                            (map["code"] as Number).toInt(),
+                            map["type"] as? String ?: "", 
                             body
                         )
                     } else {

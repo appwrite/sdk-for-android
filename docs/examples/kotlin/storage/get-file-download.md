@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val result = storage.getFileDownload(
+                bucketId = "[BUCKET_ID]",
                 fileId = "[FILE_ID]"
             )
             println(result); // Resource URL        

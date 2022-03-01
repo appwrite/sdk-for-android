@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Storage storage = new Storage(client);
 
         storage.createFile(
+            "[BUCKET_ID]", 
             "[FILE_ID]", 
             File("./path-to-files/image.jpg"), 
             new Continuation<Object>() {

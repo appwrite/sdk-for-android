@@ -1,5 +1,6 @@
 package io.appwrite.models
 
+import kotlin.collections.Collection
 import java.io.Closeable
 
 data class RealtimeSubscription(
