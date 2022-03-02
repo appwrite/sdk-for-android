@@ -100,7 +100,7 @@ class Storage(client: Client) : Service(client) {
 		fileId: String,
 		file: File,
 		read: List<Any>? = null,
-		write: List<Any>? = null, onProgress: ((Double) -> Unit)? = null
+		write: List<Any>? = null, onProgress: ((UploadProgress) -> Unit)? = null
 	): io.appwrite.models.File {
         val path = "/storage/buckets/{bucketId}/files".replace("{bucketId}", bucketId)
         val params = mutableMapOf<String, Any?>(

@@ -8,6 +8,7 @@ import io.appwrite.appwrite.BuildConfig
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.fromJson
 import io.appwrite.json.PreciseNumberAdapter
+import io.appwrite.models.UploadProgress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -83,7 +84,7 @@ class Client @JvmOverloads constructor(
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
             "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",            
-            "x-appwrite-response-format" to "0.12.0"
+            "x-appwrite-response-format" to "0.13.0"
         )
         config = mutableMapOf()
         
@@ -337,7 +338,7 @@ class Client @JvmOverloads constructor(
         responseType: Class<T>,
         convert: ((Map<String, Any,>) -> T),
         paramName: String,
-        onProgress: ((Double) -> Unit)? = null,
+        onProgress: ((UploadProgress) -> Unit)? = null,
     ): T {
         val file = params[paramName] as File
         val size = file.length()
@@ -391,7 +392,13 @@ class Client @JvmOverloads constructor(
 
             offset += CHUNK_SIZE
             headers["x-appwrite-id"] = result!!["\$id"].toString()
-            onProgress?.invoke(offset.coerceAtMost(size).toDouble()/size * 100)
+            onProgress?.invoke(UploadProgress(
+                id = result!!["\$id"].toString(),
+                progress = offset.coerceAtMost(size).toDouble()/size * 100,
+                sizeUploaded = offset.coerceAtMost(size),
+                chunksTotal = result!!["chunksTotal"].toString().toInt(),
+                chunksUploaded = result!!["chunksUploaded"].toString().toInt(),
+            ))
         }
 
         return convert(result as Map<String, Any>)
