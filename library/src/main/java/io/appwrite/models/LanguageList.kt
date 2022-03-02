@@ -7,11 +7,11 @@ import com.google.gson.annotations.SerializedName
  */
 data class LanguageList(
     /**
-     * Total number of items available on the server.
+     * Total number of languages documents that matched your query.
      *
      */
-    @SerializedName("sum")
-    val sum: Long,
+    @SerializedName("total")
+    val total: Long,
 
     /**
      * List of languages.
@@ -23,13 +23,13 @@ data class LanguageList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = LanguageList(
-            sum = (map["sum"] as Number).toLong(),
+            total = (map["total"] as Number).toLong(),
             languages = (map["languages"] as List<Map<String, Any>>).map { Language.from(map = it) }
         )
     }
 
     fun toMap(): Map<String, Any> = mapOf(
-        "sum" to sum as Any,
+        "total" to total as Any,
         "languages" to languages.map { it.toMap() } as Any
     )
 }

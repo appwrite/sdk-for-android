@@ -49,11 +49,11 @@ data class Execution(
     val status: String,
 
     /**
-     * The script exit code.
+     * The script status code.
      *
      */
-    @SerializedName("exitCode")
-    val exitCode: Long,
+    @SerializedName("statusCode")
+    val statusCode: Long,
 
     /**
      * The script stdout output string. Logs the last 4,000 characters of the execution stdout output.
@@ -85,7 +85,7 @@ data class Execution(
             dateCreated = (map["dateCreated"] as Number).toLong(),
             trigger = map["trigger"] as String,
             status = map["status"] as String,
-            exitCode = (map["exitCode"] as Number).toLong(),
+            statusCode = (map["statusCode"] as Number).toLong(),
             stdout = map["stdout"] as String,
             stderr = map["stderr"] as String,
             time = (map["time"] as Number).toDouble()
@@ -99,7 +99,7 @@ data class Execution(
         "dateCreated" to dateCreated as Any,
         "trigger" to trigger as Any,
         "status" to status as Any,
-        "exitCode" to exitCode as Any,
+        "statusCode" to statusCode as Any,
         "stdout" to stdout as Any,
         "stderr" to stderr as Any,
         "time" to time as Any

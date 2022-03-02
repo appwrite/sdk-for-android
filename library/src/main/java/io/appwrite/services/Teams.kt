@@ -38,7 +38,7 @@ class Teams(client: Client) : Service(client) {
 		orderType: String? = null
 	): io.appwrite.models.TeamList {
         val path = "/teams"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "search" to search,
             "limit" to limit,
             "offset" to offset,
@@ -46,7 +46,7 @@ class Teams(client: Client) : Service(client) {
             "cursorDirection" to cursorDirection,
             "orderType" to orderType
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.TeamList = {
@@ -58,7 +58,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.TeamList::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -69,7 +69,7 @@ class Teams(client: Client) : Service(client) {
      * assigned as the owner of the team. Only the users with the owner role can
      * invite new members, add new owners and delete or update the team.
      *
-     * @param teamId Team ID. Choose your own unique ID or pass the string `unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
+     * @param teamId Team ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param name Team name. Max length: 128 chars.
      * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Max length for each role is 32 chars.
      * @return [io.appwrite.models.Team]     
@@ -82,12 +82,12 @@ class Teams(client: Client) : Service(client) {
 		roles: List<Any>? = null
 	): io.appwrite.models.Team {
         val path = "/teams"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "teamId" to teamId,
             "name" to name,
             "roles" to roles
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Team = {
@@ -99,7 +99,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Team::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -117,9 +117,9 @@ class Teams(client: Client) : Service(client) {
 		teamId: String
 	): io.appwrite.models.Team {
         val path = "/teams/{teamId}".replace("{teamId}", teamId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Team = {
@@ -131,7 +131,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Team::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -152,10 +152,10 @@ class Teams(client: Client) : Service(client) {
 		name: String
 	): io.appwrite.models.Team {
         val path = "/teams/{teamId}".replace("{teamId}", teamId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "name" to name
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Team = {
@@ -167,7 +167,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Team::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -186,9 +186,9 @@ class Teams(client: Client) : Service(client) {
 		teamId: String
 	): Any {
         val path = "/teams/{teamId}".replace("{teamId}", teamId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         return client.call(
@@ -227,7 +227,7 @@ class Teams(client: Client) : Service(client) {
 		orderType: String? = null
 	): io.appwrite.models.MembershipList {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "search" to search,
             "limit" to limit,
             "offset" to offset,
@@ -235,7 +235,7 @@ class Teams(client: Client) : Service(client) {
             "cursorDirection" to cursorDirection,
             "orderType" to orderType
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.MembershipList = {
@@ -247,7 +247,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.MembershipList::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -287,13 +287,13 @@ class Teams(client: Client) : Service(client) {
 		name: String? = null
 	): io.appwrite.models.Membership {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "email" to email,
             "roles" to roles,
             "url" to url,
             "name" to name
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Membership = {
@@ -305,7 +305,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -326,9 +326,9 @@ class Teams(client: Client) : Service(client) {
 		membershipId: String
 	): io.appwrite.models.MembershipList {
         val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.MembershipList = {
@@ -340,7 +340,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.MembershipList::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -364,10 +364,10 @@ class Teams(client: Client) : Service(client) {
 		roles: List<Any>
 	): io.appwrite.models.Membership {
         val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "roles" to roles
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Membership = {
@@ -379,7 +379,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     
@@ -401,9 +401,9 @@ class Teams(client: Client) : Service(client) {
 		membershipId: String
 	): Any {
         val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         return client.call(
@@ -421,6 +421,10 @@ class Teams(client: Client) : Service(client) {
      * Use this endpoint to allow a user to accept an invitation to join a team
      * after being redirected back to your app from the invitation email received
      * by the user.
+     * 
+     * If the request is successful, a session for the user is automatically
+     * created.
+     * 
      *
      * @param teamId Team ID.
      * @param membershipId Membership ID.
@@ -437,11 +441,11 @@ class Teams(client: Client) : Service(client) {
 		secret: String
 	): io.appwrite.models.Membership {
         val path = "/teams/{teamId}/memberships/{membershipId}/status".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
         val convert: (Map<String, Any>) -> io.appwrite.models.Membership = {
@@ -453,7 +457,7 @@ class Teams(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
-            convert = convert
+            convert = convert,
         )
     }
     

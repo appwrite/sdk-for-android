@@ -28,11 +28,11 @@ data class Team(
     val dateCreated: Long,
 
     /**
-     * Total sum of team members.
+     * Total number of team members.
      *
      */
-    @SerializedName("sum")
-    val sum: Long
+    @SerializedName("total")
+    val total: Long
 ) {
     companion object {
         @Suppress("UNCHECKED_CAST")
@@ -40,7 +40,7 @@ data class Team(
             id = map["\$id"] as String,
             name = map["name"] as String,
             dateCreated = (map["dateCreated"] as Number).toLong(),
-            sum = (map["sum"] as Number).toLong()
+            total = (map["total"] as Number).toLong()
         )
     }
 
@@ -48,6 +48,6 @@ data class Team(
         "\$id" to id as Any,
         "name" to name as Any,
         "dateCreated" to dateCreated as Any,
-        "sum" to sum as Any
+        "total" to total as Any
     )
 }

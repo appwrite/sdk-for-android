@@ -35,7 +35,7 @@ class Avatars(client: Client) : Service(client) {
 		quality: Long? = null
 	): ByteArray {
         val path = "/avatars/browsers/{code}".replace("{code}", code)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
             "quality" to quality,
@@ -71,7 +71,7 @@ class Avatars(client: Client) : Service(client) {
 		quality: Long? = null
 	): ByteArray {
         val path = "/avatars/credit-cards/{code}".replace("{code}", code)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
             "quality" to quality,
@@ -101,7 +101,7 @@ class Avatars(client: Client) : Service(client) {
 		url: String
 	): ByteArray {
         val path = "/avatars/favicon"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "url" to url,
             "project" to client.config["project"]
         )
@@ -135,7 +135,7 @@ class Avatars(client: Client) : Service(client) {
 		quality: Long? = null
 	): ByteArray {
         val path = "/avatars/flags/{code}".replace("{code}", code)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
             "quality" to quality,
@@ -170,7 +170,7 @@ class Avatars(client: Client) : Service(client) {
 		height: Long? = null
 	): ByteArray {
         val path = "/avatars/image"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "url" to url,
             "width" to width,
             "height" to height,
@@ -215,7 +215,7 @@ class Avatars(client: Client) : Service(client) {
 		background: String? = null
 	): ByteArray {
         val path = "/avatars/initials"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "name" to name,
             "width" to width,
             "height" to height,
@@ -252,7 +252,7 @@ class Avatars(client: Client) : Service(client) {
 		download: Boolean? = null
 	): ByteArray {
         val path = "/avatars/qr"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "text" to text,
             "size" to size,
             "margin" to margin,

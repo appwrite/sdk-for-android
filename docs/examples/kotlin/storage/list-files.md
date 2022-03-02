@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = storage.listFiles(
+                bucketId = "[BUCKET_ID]",
             )
             val json = response.body?.string()        
         }

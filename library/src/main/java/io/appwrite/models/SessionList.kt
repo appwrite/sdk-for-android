@@ -7,11 +7,11 @@ import com.google.gson.annotations.SerializedName
  */
 data class SessionList(
     /**
-     * Total number of items available on the server.
+     * Total number of sessions documents that matched your query.
      *
      */
-    @SerializedName("sum")
-    val sum: Long,
+    @SerializedName("total")
+    val total: Long,
 
     /**
      * List of sessions.
@@ -23,13 +23,13 @@ data class SessionList(
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = SessionList(
-            sum = (map["sum"] as Number).toLong(),
+            total = (map["total"] as Number).toLong(),
             sessions = (map["sessions"] as List<Map<String, Any>>).map { Session.from(map = it) }
         )
     }
 
     fun toMap(): Map<String, Any> = mapOf(
-        "sum" to sum as Any,
+        "total" to total as Any,
         "sessions" to sessions.map { it.toMap() } as Any
     )
 }

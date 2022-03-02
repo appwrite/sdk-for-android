@@ -19,9 +19,8 @@ public class MainActivity extends AppCompatActivity {
         Storage storage = new Storage(client);
 
         storage.updateFile(
+            "[BUCKET_ID]", 
             "[FILE_ID]", 
-            listOf(), 
-            listOf()
             new Continuation<Object>() {
                 @NotNull
                 @Override

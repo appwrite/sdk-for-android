@@ -18,9 +18,8 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = storage.updateFile(
+                bucketId = "[BUCKET_ID]",
                 fileId = "[FILE_ID]",
-                read = listOf(),
-                write = listOf()
             )
             val json = response.body?.string()        
         }
