@@ -51,7 +51,7 @@ class Storage(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.FileList = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.FileList = {
             io.appwrite.models.FileList.from(map = it)
         }
         return client.call(
@@ -60,7 +60,7 @@ class Storage(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.FileList::class.java,
-            convert = convert,
+            converter,
         )
     }
     
@@ -112,17 +112,20 @@ class Storage(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "multipart/form-data"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.File = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.File = {
             io.appwrite.models.File.from(map = it)
         }
+        val idParamName: String? = "fileId"    
+        idParamName = "fileId"
         val paramName = "file"
         return client.chunkedUpload(
             path,
             headers,
             params,
             responseType = io.appwrite.models.File::class.java,
-            convert = convert,
+            converter,
             paramName,
+            idParamName,
             onProgress,
         )
     }
@@ -149,7 +152,7 @@ class Storage(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.File = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.File = {
             io.appwrite.models.File.from(map = it)
         }
         return client.call(
@@ -158,7 +161,7 @@ class Storage(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.File::class.java,
-            convert = convert,
+            converter,
         )
     }
     
@@ -190,7 +193,7 @@ class Storage(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.File = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.File = {
             io.appwrite.models.File.from(map = it)
         }
         return client.call(
@@ -199,7 +202,7 @@ class Storage(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.File::class.java,
-            convert = convert,
+            converter,
         )
     }
     

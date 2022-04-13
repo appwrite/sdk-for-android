@@ -77,7 +77,7 @@ class Functions(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.ExecutionList = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.ExecutionList = {
             io.appwrite.models.ExecutionList.from(map = it)
         }
         return client.call(
@@ -86,7 +86,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.ExecutionList::class.java,
-            convert = convert,
+            converter,
         )
     }
     
@@ -118,7 +118,7 @@ class Functions(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.Execution = {
             io.appwrite.models.Execution.from(map = it)
         }
         return client.call(
@@ -127,7 +127,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,
-            convert = convert,
+            converter,
         )
     }
     
@@ -152,7 +152,7 @@ class Functions(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.Execution = {
             io.appwrite.models.Execution.from(map = it)
         }
         return client.call(
@@ -161,7 +161,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,
-            convert = convert,
+            converter,
         )
     }
     

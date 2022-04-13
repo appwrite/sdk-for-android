@@ -53,7 +53,7 @@ class Database(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.DocumentList = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.DocumentList = {
             io.appwrite.models.DocumentList.from(map = it)
         }
         return client.call(
@@ -62,7 +62,7 @@ class Database(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.DocumentList::class.java,
-            convert = convert,
+            converter,
         )
     }
     
@@ -100,7 +100,7 @@ class Database(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.Document = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.Document = {
             io.appwrite.models.Document.from(map = it)
         }
         return client.call(
@@ -109,7 +109,7 @@ class Database(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Document::class.java,
-            convert = convert,
+            converter,
         )
     }
     
@@ -135,7 +135,7 @@ class Database(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.Document = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.Document = {
             io.appwrite.models.Document.from(map = it)
         }
         return client.call(
@@ -144,7 +144,7 @@ class Database(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Document::class.java,
-            convert = convert,
+            converter,
         )
     }
     
@@ -179,7 +179,7 @@ class Database(client: Client) : Service(client) {
         val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.Document = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.Document = {
             io.appwrite.models.Document.from(map = it)
         }
         return client.call(
@@ -188,7 +188,7 @@ class Database(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Document::class.java,
-            convert = convert,
+            converter,
         )
     }
     
