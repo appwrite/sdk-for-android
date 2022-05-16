@@ -56,11 +56,11 @@ data class Execution(
     val statusCode: Long,
 
     /**
-     * The script stdout output string. Logs the last 4,000 characters of the execution stdout output.
+     * The script response output string. Logs the last 4,000 characters of the execution response output.
      *
      */
-    @SerializedName("stdout")
-    val stdout: String,
+    @SerializedName("response")
+    val response: String,
 
     /**
      * The script stderr output string. Logs the last 4,000 characters of the execution stderr output
@@ -86,7 +86,7 @@ data class Execution(
             trigger = map["trigger"] as String,
             status = map["status"] as String,
             statusCode = (map["statusCode"] as Number).toLong(),
-            stdout = map["stdout"] as String,
+            response = map["response"] as String,
             stderr = map["stderr"] as String,
             time = (map["time"] as Number).toDouble()
         )
@@ -100,7 +100,7 @@ data class Execution(
         "trigger" to trigger as Any,
         "status" to status as Any,
         "statusCode" to statusCode as Any,
-        "stdout" to stdout as Any,
+        "response" to response as Any,
         "stderr" to stderr as Any,
         "time" to time as Any
     )

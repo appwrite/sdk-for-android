@@ -21,6 +21,20 @@ data class Membership(
     val userId: String,
 
     /**
+     * User name.
+     *
+     */
+    @SerializedName("userName")
+    val userName: String,
+
+    /**
+     * User email address.
+     *
+     */
+    @SerializedName("userEmail")
+    val userEmail: String,
+
+    /**
      * Team ID.
      *
      */
@@ -28,18 +42,11 @@ data class Membership(
     val teamId: String,
 
     /**
-     * User name.
+     * Team name.
      *
      */
-    @SerializedName("name")
-    val name: String,
-
-    /**
-     * User email address.
-     *
-     */
-    @SerializedName("email")
-    val email: String,
+    @SerializedName("teamName")
+    val teamName: String,
 
     /**
      * Date, the user has been invited to join the team in Unix timestamp.
@@ -74,9 +81,10 @@ data class Membership(
         fun from(map: Map<String, Any>) = Membership(
             id = map["\$id"] as String,
             userId = map["userId"] as String,
+            userName = map["userName"] as String,
+            userEmail = map["userEmail"] as String,
             teamId = map["teamId"] as String,
-            name = map["name"] as String,
-            email = map["email"] as String,
+            teamName = map["teamName"] as String,
             invited = (map["invited"] as Number).toLong(),
             joined = (map["joined"] as Number).toLong(),
             confirm = map["confirm"] as Boolean,
@@ -87,9 +95,10 @@ data class Membership(
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
         "userId" to userId as Any,
+        "userName" to userName as Any,
+        "userEmail" to userEmail as Any,
         "teamId" to teamId as Any,
-        "name" to name as Any,
-        "email" to email as Any,
+        "teamName" to teamName as Any,
         "invited" to invited as Any,
         "joined" to joined as Any,
         "confirm" to confirm as Any,

@@ -91,35 +91,6 @@ class Account(client: Client) : Service(client) {
     }
     
     /**
-     * Delete Account
-     *
-     * Delete a currently logged in user account. Behind the scene, the user
-     * record is not deleted but permanently blocked from any access. This is done
-     * to avoid deleted accounts being overtaken by new users with the same email
-     * address. Any user-related resources like documents or storage files should
-     * be deleted separately.
-     *
-     * @return [Any]     
-     */
-    @JvmOverloads
-    @Throws(AppwriteException::class)
-    suspend fun delete(): Any {
-        val path = "/account"
-        val params = mutableMapOf<String, Any?>(
-        )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
-        return client.call(
-            "DELETE",
-            path,
-            headers,
-            params,
-            responseType = Any::class.java,
-        )
-    }
-    
-    /**
      * Update Account Email
      *
      * Update currently logged in user account email address. After changing user
@@ -270,7 +241,7 @@ class Account(client: Client) : Service(client) {
      *
      * Update currently logged in user password. For validation, user is required
      * to pass in the new password, and the old password. For users created with
-     * OAuth and Team Invites, oldPassword is optional.
+     * OAuth, Team Invites and Magic URL, oldPassword is optional.
      *
      * @param password New user password. Must be at least 8 chars.
      * @param oldPassword Current user password. Must be at least 8 chars.
@@ -697,10 +668,10 @@ class Account(client: Client) : Service(client) {
      * user..
      * 
      *
-     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, bitbucket, bitly, box, discord, dropbox, facebook, github, gitlab, google, linkedin, microsoft, notion, paypal, paypalSandbox, salesforce, slack, spotify, tradeshift, tradeshiftBox, twitch, vk, yahoo, yammer, yandex, wordpress, stripe.
+     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, bitbucket, bitly, box, discord, dropbox, facebook, github, gitlab, google, linkedin, microsoft, notion, okta, paypal, paypalSandbox, salesforce, slack, spotify, tradeshift, tradeshiftBox, twitch, zoom, yahoo, yammer, yandex, wordpress, stripe.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
-     * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes.
+     * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 128 characters long.
      *      
      */
     @JvmOverloads
@@ -799,6 +770,10 @@ class Account(client: Client) : Service(client) {
     /**
      * Update Session (Refresh Tokens)
      *
+     * Access tokens have limited lifespan and expire to mitigate security risks.
+     * If session was created using an OAuth provider, this route can be used to
+     * "refresh" the access token.
+     *
      * @param sessionId Session ID. Use the string &#039;current&#039; to update the current device session.
      * @return [io.appwrite.models.Session]     
      */
@@ -854,6 +829,37 @@ class Account(client: Client) : Service(client) {
             headers,
             params,
             responseType = Any::class.java,
+        )
+    }
+    
+    /**
+     * Update Account Status
+     *
+     * Block the currently logged in user account. Behind the scene, the user
+     * record is not deleted but permanently blocked from any access. To
+     * completely delete a user, use the Users API instead.
+     *
+     * @return [io.appwrite.models.User]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun updateStatus(): io.appwrite.models.User {
+        val path = "/account/status"
+        val params = mutableMapOf<String, Any?>(
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        val converter: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            converter,
         )
     }
     
