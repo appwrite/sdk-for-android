@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Session
  */
@@ -8,132 +10,168 @@ data class Session(
      * Session ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * User ID.
      *
      */
+    @SerializedName("userId")
     val userId: String,
 
     /**
      * Session expiration date in Unix timestamp.
      *
      */
+    @SerializedName("expire")
     val expire: Long,
 
     /**
      * Session Provider.
      *
      */
+    @SerializedName("provider")
     val provider: String,
 
     /**
      * Session Provider User ID.
      *
      */
+    @SerializedName("providerUid")
     val providerUid: String,
 
     /**
-     * Session Provider Token.
+     * Session Provider Access Token.
      *
      */
-    val providerToken: String,
+    @SerializedName("providerAccessToken")
+    val providerAccessToken: String,
+
+    /**
+     * Date, the Unix timestamp of when the access token expires.
+     *
+     */
+    @SerializedName("providerAccessTokenExpiry")
+    val providerAccessTokenExpiry: Long,
+
+    /**
+     * Session Provider Refresh Token.
+     *
+     */
+    @SerializedName("providerRefreshToken")
+    val providerRefreshToken: String,
 
     /**
      * IP in use when the session was created.
      *
      */
+    @SerializedName("ip")
     val ip: String,
 
     /**
      * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
      *
      */
+    @SerializedName("osCode")
     val osCode: String,
 
     /**
      * Operating system name.
      *
      */
+    @SerializedName("osName")
     val osName: String,
 
     /**
      * Operating system version.
      *
      */
+    @SerializedName("osVersion")
     val osVersion: String,
 
     /**
      * Client type.
      *
      */
+    @SerializedName("clientType")
     val clientType: String,
 
     /**
      * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
      *
      */
+    @SerializedName("clientCode")
     val clientCode: String,
 
     /**
      * Client name.
      *
      */
+    @SerializedName("clientName")
     val clientName: String,
 
     /**
      * Client version.
      *
      */
+    @SerializedName("clientVersion")
     val clientVersion: String,
 
     /**
      * Client engine name.
      *
      */
+    @SerializedName("clientEngine")
     val clientEngine: String,
 
     /**
      * Client engine name.
      *
      */
+    @SerializedName("clientEngineVersion")
     val clientEngineVersion: String,
 
     /**
      * Device name.
      *
      */
+    @SerializedName("deviceName")
     val deviceName: String,
 
     /**
      * Device brand name.
      *
      */
+    @SerializedName("deviceBrand")
     val deviceBrand: String,
 
     /**
      * Device model name.
      *
      */
+    @SerializedName("deviceModel")
     val deviceModel: String,
 
     /**
      * Country two-character ISO 3166-1 alpha code.
      *
      */
+    @SerializedName("countryCode")
     val countryCode: String,
 
     /**
      * Country name.
      *
      */
+    @SerializedName("countryName")
     val countryName: String,
 
     /**
      * Returns true if this the current user session.
      *
      */
+    @SerializedName("current")
     val current: Boolean
 ) {
     companion object {
@@ -141,10 +179,12 @@ data class Session(
         fun from(map: Map<String, Any>) = Session(
             id = map["\$id"] as String,
             userId = map["userId"] as String,
-            expire = map["expire"] as Long,
+            expire = (map["expire"] as Number).toLong(),
             provider = map["provider"] as String,
             providerUid = map["providerUid"] as String,
-            providerToken = map["providerToken"] as String,
+            providerAccessToken = map["providerAccessToken"] as String,
+            providerAccessTokenExpiry = (map["providerAccessTokenExpiry"] as Number).toLong(),
+            providerRefreshToken = map["providerRefreshToken"] as String,
             ip = map["ip"] as String,
             osCode = map["osCode"] as String,
             osName = map["osName"] as String,
@@ -170,7 +210,9 @@ data class Session(
         "expire" to expire as Any,
         "provider" to provider as Any,
         "providerUid" to providerUid as Any,
-        "providerToken" to providerToken as Any,
+        "providerAccessToken" to providerAccessToken as Any,
+        "providerAccessTokenExpiry" to providerAccessTokenExpiry as Any,
+        "providerRefreshToken" to providerRefreshToken as Any,
         "ip" to ip as Any,
         "osCode" to osCode as Any,
         "osName" to osName as Any,

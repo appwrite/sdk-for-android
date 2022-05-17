@@ -1,31 +1,35 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Languages List
  */
 data class LanguageList(
     /**
-     * Total number of items available on the server.
+     * Total number of languages documents that matched your query.
      *
      */
-    val sum: Long,
+    @SerializedName("total")
+    val total: Long,
 
     /**
      * List of languages.
      *
      */
+    @SerializedName("languages")
     val languages: List<Language>
 ) {
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = LanguageList(
-            sum = map["sum"] as Long,
+            total = (map["total"] as Number).toLong(),
             languages = (map["languages"] as List<Map<String, Any>>).map { Language.from(map = it) }
         )
     }
 
     fun toMap(): Map<String, Any> = mapOf(
-        "sum" to sum as Any,
+        "total" to total as Any,
         "languages" to languages.map { it.toMap() } as Any
     )
 }

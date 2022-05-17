@@ -1,5 +1,6 @@
 package io.appwrite.models
 
+import kotlin.collections.Collection
 import java.io.Closeable
 
 data class RealtimeSubscription(
@@ -20,7 +21,7 @@ open class RealtimeResponse(
 )
 
 data class RealtimeResponseEvent<T>(
-    val event: String,
+    val events: Collection<String>,
     val channels: Collection<String>,
     val timestamp: Long,
     var payload: T

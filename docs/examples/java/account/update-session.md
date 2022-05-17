@@ -3,7 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.services.Database
+import io.appwrite.services.Account
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,12 +16,10 @@ public class MainActivity extends AppCompatActivity {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2"); // Your project ID
 
-        Database database = new Database(client);
+        Account account = new Account(client);
 
-        database.createDocument(
-            "[COLLECTION_ID]", 
-            "[DOCUMENT_ID]", 
-            mapOf( "a" to "b" ), 
+        account.updateSession(
+            "[SESSION_ID]"
             new Continuation<Object>() {
                 @NotNull
                 @Override

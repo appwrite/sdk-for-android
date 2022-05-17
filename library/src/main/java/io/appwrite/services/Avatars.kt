@@ -16,9 +16,14 @@ class Avatars(client: Client) : Service(client) {
      * Get Browser Icon
      *
      * You can use this endpoint to show different browser icons to your users.
-     * The code argument receives the browser code as it appears in your user
-     * /account/sessions endpoint. Use width, height and quality arguments to
-     * change the output settings.
+     * The code argument receives the browser code as it appears in your user [GET
+     * /account/sessions](/docs/client/account#accountGetSessions) endpoint. Use
+     * width, height and quality arguments to change the output settings.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
      *
      * @param code Browser Code.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
@@ -35,7 +40,7 @@ class Avatars(client: Client) : Service(client) {
 		quality: Long? = null
 	): ByteArray {
         val path = "/avatars/browsers/{code}".replace("{code}", code)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
             "quality" to quality,
@@ -55,6 +60,12 @@ class Avatars(client: Client) : Service(client) {
      * The credit card endpoint will return you the icon of the credit card
      * provider you need. Use width, height and quality arguments to change the
      * output settings.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
+     * 
      *
      * @param code Credit Card Code. Possible values: amex, argencard, cabal, censosud, diners, discover, elo, hipercard, jcb, mastercard, naranja, targeta-shopping, union-china-pay, visa, mir, maestro.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
@@ -71,7 +82,7 @@ class Avatars(client: Client) : Service(client) {
 		quality: Long? = null
 	): ByteArray {
         val path = "/avatars/credit-cards/{code}".replace("{code}", code)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
             "quality" to quality,
@@ -101,7 +112,7 @@ class Avatars(client: Client) : Service(client) {
 		url: String
 	): ByteArray {
         val path = "/avatars/favicon"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "url" to url,
             "project" to client.config["project"]
         )
@@ -119,6 +130,12 @@ class Avatars(client: Client) : Service(client) {
      * You can use this endpoint to show different country flags icons to your
      * users. The code argument receives the 2 letter country code. Use width,
      * height and quality arguments to change the output settings.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
+     * 
      *
      * @param code Country Code. ISO Alpha-2 country code format.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
@@ -135,7 +152,7 @@ class Avatars(client: Client) : Service(client) {
 		quality: Long? = null
 	): ByteArray {
         val path = "/avatars/flags/{code}".replace("{code}", code)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
             "quality" to quality,
@@ -156,10 +173,16 @@ class Avatars(client: Client) : Service(client) {
      * you want. This endpoint is very useful if you need to crop and display
      * remote images in your app or in case you want to make sure a 3rd party
      * image is properly served using a TLS protocol.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 400x400px.
+     * 
      *
      * @param url Image URL which you want to crop.
-     * @param width Resize preview image width, Pass an integer between 0 to 2000.
-     * @param height Resize preview image height, Pass an integer between 0 to 2000.
+     * @param width Resize preview image width, Pass an integer between 0 to 2000. Defaults to 400.
+     * @param height Resize preview image height, Pass an integer between 0 to 2000. Defaults to 400.
      * @return [ByteArray]     
      */
     @JvmOverloads
@@ -170,7 +193,7 @@ class Avatars(client: Client) : Service(client) {
 		height: Long? = null
 	): ByteArray {
         val path = "/avatars/image"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "url" to url,
             "width" to width,
             "height" to height,
@@ -197,6 +220,12 @@ class Avatars(client: Client) : Service(client) {
      * default, a random theme will be selected. The random theme will persist for
      * the user's initials when reloading the same theme will always return for
      * the same initials.
+     * 
+     * When one dimension is specified and the other is 0, the image is scaled
+     * with preserved aspect ratio. If both dimensions are 0, the API provides an
+     * image at source quality. If dimensions are not specified, the default size
+     * of image returned is 100x100px.
+     * 
      *
      * @param name Full Name. When empty, current user name or email will be used. Max length: 128 chars.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
@@ -215,7 +244,7 @@ class Avatars(client: Client) : Service(client) {
 		background: String? = null
 	): ByteArray {
         val path = "/avatars/initials"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "name" to name,
             "width" to width,
             "height" to height,
@@ -236,9 +265,10 @@ class Avatars(client: Client) : Service(client) {
      *
      * Converts a given plain text to a QR code image. You can use the query
      * parameters to change the size and style of the resulting image.
+     * 
      *
      * @param text Plain text to be converted to QR code image.
-     * @param size QR code size. Pass an integer between 0 to 1000. Defaults to 400.
+     * @param size QR code size. Pass an integer between 1 to 1000. Defaults to 400.
      * @param margin Margin from edge. Pass an integer between 0 to 10. Defaults to 1.
      * @param download Return resulting image with &#039;Content-Disposition: attachment &#039; headers for the browser to start downloading it. Pass 0 for no header, or 1 for otherwise. Default value is set to 0.
      * @return [ByteArray]     
@@ -252,7 +282,7 @@ class Avatars(client: Client) : Service(client) {
 		download: Boolean? = null
 	): ByteArray {
         val path = "/avatars/qr"
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "text" to text,
             "size" to size,
             "margin" to margin,

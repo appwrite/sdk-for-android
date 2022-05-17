@@ -17,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         val account = Account(client)
 
         GlobalScope.launch {
-            val response = account.delete()
+            val response = account.updateSession(
+                sessionId = "[SESSION_ID]"
+            )
             val json = response.body?.string()        
         }
     }

@@ -11,6 +11,36 @@ import java.io.File
 class Functions(client: Client) : Service(client) {
 
     /**
+     * Retry Build
+     *
+     * @param functionId Function ID.
+     * @param deploymentId Deployment ID.
+     * @param buildId Build unique ID.
+     * @return [Any]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun retryBuild(
+		functionId: String,
+		deploymentId: String,
+		buildId: String
+	): Any {
+        val path = "/functions/{functionId}/deployments/{deploymentId}/builds/{buildId}".replace("{functionId}", functionId).replace("{deploymentId}", deploymentId).replace("{buildId}", buildId)
+        val params = mutableMapOf<String, Any?>(
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = Any::class.java,
+        )
+    }
+    
+    /**
      * List Executions
      *
      * Get a list of all the current user function execution logs. You can use the
@@ -18,11 +48,11 @@ class Functions(client: Client) : Service(client) {
      * return a list of all of the project's executions. [Learn more about
      * different API modes](/docs/admin).
      *
-     * @param functionId Function unique ID.
-     * @param limit Results limit value. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Results offset. The default value is 0. Use this param to manage pagination.
+     * @param functionId Function ID.
+     * @param limit Maximum number of executions to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
+     * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data.
+     * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursorDirection Direction of the cursor.
      * @return [io.appwrite.models.ExecutionList]     
      */
@@ -37,17 +67,17 @@ class Functions(client: Client) : Service(client) {
 		cursorDirection: String? = null
 	): io.appwrite.models.ExecutionList {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
             "limit" to limit,
             "offset" to offset,
             "search" to search,
             "cursor" to cursor,
             "cursorDirection" to cursorDirection
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.ExecutionList = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.ExecutionList = {
             io.appwrite.models.ExecutionList.from(map = it)
         }
         return client.call(
@@ -56,7 +86,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.ExecutionList::class.java,
-            convert = convert
+            converter,
         )
     }
     
@@ -68,24 +98,27 @@ class Functions(client: Client) : Service(client) {
      * updates on the current execution status. Once this endpoint is called, your
      * function execution process will start asynchronously.
      *
-     * @param functionId Function unique ID.
+     * @param functionId Function ID.
      * @param data String of custom data to send to function.
+     * @param async Execute code asynchronously. Default value is true.
      * @return [io.appwrite.models.Execution]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createExecution(
 		functionId: String,
-		data: String? = null
+		data: String? = null,
+		async: Boolean? = null
 	): io.appwrite.models.Execution {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
-        val params = mapOf<String, Any?>(
-            "data" to data
+        val params = mutableMapOf<String, Any?>(
+            "data" to data,
+            "async" to async
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.Execution = {
             io.appwrite.models.Execution.from(map = it)
         }
         return client.call(
@@ -94,7 +127,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,
-            convert = convert
+            converter,
         )
     }
     
@@ -103,8 +136,8 @@ class Functions(client: Client) : Service(client) {
      *
      * Get a function execution log by its unique ID.
      *
-     * @param functionId Function unique ID.
-     * @param executionId Execution unique ID.
+     * @param functionId Function ID.
+     * @param executionId Execution ID.
      * @return [io.appwrite.models.Execution]     
      */
     @JvmOverloads
@@ -114,12 +147,12 @@ class Functions(client: Client) : Service(client) {
 		executionId: String
 	): io.appwrite.models.Execution {
         val path = "/functions/{functionId}/executions/{executionId}".replace("{functionId}", functionId).replace("{executionId}", executionId)
-        val params = mapOf<String, Any?>(
+        val params = mutableMapOf<String, Any?>(
         )
-        val headers = mapOf(
+        val headers = mutableMapOf(
             "content-type" to "application/json"
         )
-        val convert: (Map<String, Any>) -> io.appwrite.models.Execution = {
+        val converter: (Map<String, Any>) -> io.appwrite.models.Execution = {
             io.appwrite.models.Execution.from(map = it)
         }
         return client.call(
@@ -128,7 +161,7 @@ class Functions(client: Client) : Service(client) {
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,
-            convert = convert
+            converter,
         )
     }
     

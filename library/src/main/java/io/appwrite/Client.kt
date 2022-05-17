@@ -5,14 +5,15 @@ import android.content.pm.PackageManager
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import io.appwrite.appwrite.BuildConfig
+import io.appwrite.cookies.stores.SharedPreferencesCookieStore
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.fromJson
 import io.appwrite.json.PreciseNumberAdapter
+import io.appwrite.models.UploadProgress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.suspendCancellableCoroutine
-import net.gotev.cookiestore.SharedPreferencesCookieStore
 import okhttp3.*
 import okhttp3.Headers.Companion.toHeaders
 import okhttp3.HttpUrl.Companion.toHttpUrl
@@ -22,6 +23,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.BufferedInputStream
 import java.io.BufferedReader
 import java.io.File
+import java.io.RandomAccessFile
 import java.io.IOException
 import java.net.CookieManager
 import java.net.CookiePolicy
@@ -41,6 +43,10 @@ class Client @JvmOverloads constructor(
     var endPointRealtime: String? = null,
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
+
+    companion object {
+        const val CHUNK_SIZE = 5*1024*1024; // 5MB
+    }
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -79,7 +85,7 @@ class Client @JvmOverloads constructor(
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
             "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",            
-            "x-appwrite-response-format" to "0.11.0"
+            "x-appwrite-response-format" to "0.14.0"
         )
         config = mutableMapOf()
         
@@ -231,7 +237,7 @@ class Client @JvmOverloads constructor(
      * @param headers
      * @param params
      *
-     * @return [Response]    
+     * @return [T]    
      */
     @Throws(AppwriteException::class)
     suspend fun <T> call(
@@ -240,7 +246,7 @@ class Client @JvmOverloads constructor(
         headers:  Map<String, String> = mapOf(), 
         params: Map<String, Any?> = mapOf(),
         responseType: Class<T>,
-        convert: ((Map<String, Any,>) -> T)? = null
+        converter: ((Map<String, Any,>) -> T)? = null
     ): T {
         val filteredParams = params.filterValues { it != null }
 
@@ -276,7 +282,7 @@ class Client @JvmOverloads constructor(
                 .get()
                 .build()
 
-            return awaitResponse(request, responseType, convert)
+            return awaitResponse(request, responseType, converter)
         }
 
         val body = if (MultipartBody.FORM.toString() == headers["content-type"]) {
@@ -285,8 +291,7 @@ class Client @JvmOverloads constructor(
             filteredParams.forEach {
                 when {
                     it.key == "file" -> {
-                        val file = it.value as File
-                        builder.addFormDataPart(it.key, file.name, file.asRequestBody())
+                        builder.addPart(it.value as MultipartBody.Part)
                     }
                     it.value is List<*> -> {
                         val list = it.value as List<*>
@@ -314,7 +319,101 @@ class Client @JvmOverloads constructor(
             .method(method, body)
             .build()
 
-        return awaitResponse(request, responseType, convert)
+        return awaitResponse(request, responseType, converter)
+    }
+
+    /**
+     * Upload a file in chunks
+     *
+     * @param path
+     * @param headers
+     * @param params
+     *
+     * @return [T]
+     */
+    @Throws(AppwriteException::class)
+    suspend fun <T> chunkedUpload(
+        path: String,
+        headers:  MutableMap<String, String>,
+        params: MutableMap<String, Any?>,
+        responseType: Class<T>,
+        converter: ((Map<String, Any,>) -> T),
+        paramName: String,
+        idParamName: String? = null,
+        onProgress: ((UploadProgress) -> Unit)? = null,
+    ): T {
+        val file = params[paramName] as File
+        val size = file.length()
+
+        if (size < CHUNK_SIZE) {
+            params[paramName] = MultipartBody.Part.createFormData(
+                paramName,
+                file.name,
+                file.asRequestBody()
+            )
+            return call(
+                method = "POST",
+                path,
+                headers,
+                params,
+                responseType,
+                converter
+            )
+        }
+
+        val input = RandomAccessFile(file, "r")
+        val buffer = ByteArray(CHUNK_SIZE)
+        var offset = 0L
+        var result: Map<*, *>? = null
+
+        if (idParamName?.isNotEmpty() == true && params[idParamName] != "unique()") {
+            // Make a request to check if a file already exists
+            val current = call(
+                method = "GET",
+                path = "$path/${params[idParamName]}",
+                headers = headers,
+                params = emptyMap(),
+                responseType = Map::class.java,
+            )
+            val chunksUploaded = current["chunksUploaded"] as Long
+            offset = (chunksUploaded * CHUNK_SIZE).coerceAtMost(size)
+        }
+
+        while (offset < size) {
+            input.seek(offset)
+            input.read(buffer)
+
+            params[paramName] = MultipartBody.Part.createFormData(
+                paramName,
+                file.name,
+                buffer.toRequestBody()
+            )
+
+            headers["Content-Range"] =
+                "bytes $offset-${((offset + CHUNK_SIZE) - 1).coerceAtMost(size)}/$size"
+
+            result = call(
+                method = "POST",
+                path,
+                headers,
+                params,
+                responseType = Map::class.java
+            )
+
+            offset += CHUNK_SIZE
+            headers["x-appwrite-id"] = result!!["\$id"].toString()
+            onProgress?.invoke(
+                UploadProgress(
+                    id = result!!["\$id"].toString(),
+                    progress = offset.coerceAtMost(size).toDouble() / size * 100,
+                    sizeUploaded = offset.coerceAtMost(size),
+                    chunksTotal = result!!["chunksTotal"].toString().toInt(),
+                    chunksUploaded = result!!["chunksUploaded"].toString().toInt(),
+                )
+            )
+        }
+
+        return converter(result as Map<String, Any>)
     }
 
     /**
@@ -322,7 +421,7 @@ class Client @JvmOverloads constructor(
      *
      * @param request
      * @param responseType
-     * @param convert
+     * @param converter
      *
      * @return [T]
      */
@@ -330,7 +429,7 @@ class Client @JvmOverloads constructor(
     private suspend fun <T> awaitResponse(
         request: Request,
         responseType: Class<T>,
-        convert: ((Map<String, Any,>) -> T)? = null
+        converter: ((Map<String, Any,>) -> T)? = null
     ) = suspendCancellableCoroutine<T> {
         http.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -347,8 +446,18 @@ class Client @JvmOverloads constructor(
                         .charStream()
                         .buffered()
                         .use(BufferedReader::readText)
+                        
                     val error = if (response.headers["content-type"]?.contains("application/json") == true) {
-                        body.fromJson()
+                        val map = gson.fromJson<Map<String, Any>>(
+                            body,
+                            object : TypeToken<Map<String, Any>>(){}.type
+                        )
+                        AppwriteException(
+                            map["message"] as? String ?: "", 
+                            (map["code"] as Number).toInt(),
+                            map["type"] as? String ?: "", 
+                            body
+                        )
                     } else {
                         AppwriteException(body, response.code)
                     }
@@ -386,7 +495,7 @@ class Client @JvmOverloads constructor(
                     object : TypeToken<Map<String, Any>>(){}.type
                 )
                 it.resume(
-                    convert?.invoke(map) ?: map as T
+                    converter?.invoke(map) ?: map as T
                 )
             }
         })

@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Storage storage = new Storage(client);
 
         storage.getFileView(
+            "[BUCKET_ID]", 
             "[FILE_ID]"
             new Continuation<Object>() {
                 @NotNull

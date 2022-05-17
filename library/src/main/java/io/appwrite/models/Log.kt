@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Log
  */
@@ -8,126 +10,147 @@ data class Log(
      * Event name.
      *
      */
+    @SerializedName("event")
     val event: String,
 
     /**
      * User ID.
      *
      */
+    @SerializedName("userId")
     val userId: String,
 
     /**
      * User Email.
      *
      */
+    @SerializedName("userEmail")
     val userEmail: String,
 
     /**
      * User Name.
      *
      */
+    @SerializedName("userName")
     val userName: String,
 
     /**
      * API mode when event triggered.
      *
      */
+    @SerializedName("mode")
     val mode: String,
 
     /**
      * IP session in use when the session was created.
      *
      */
+    @SerializedName("ip")
     val ip: String,
 
     /**
      * Log creation time in Unix timestamp.
      *
      */
+    @SerializedName("time")
     val time: Long,
 
     /**
      * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
      *
      */
+    @SerializedName("osCode")
     val osCode: String,
 
     /**
      * Operating system name.
      *
      */
+    @SerializedName("osName")
     val osName: String,
 
     /**
      * Operating system version.
      *
      */
+    @SerializedName("osVersion")
     val osVersion: String,
 
     /**
      * Client type.
      *
      */
+    @SerializedName("clientType")
     val clientType: String,
 
     /**
      * Client code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/clients.json).
      *
      */
+    @SerializedName("clientCode")
     val clientCode: String,
 
     /**
      * Client name.
      *
      */
+    @SerializedName("clientName")
     val clientName: String,
 
     /**
      * Client version.
      *
      */
+    @SerializedName("clientVersion")
     val clientVersion: String,
 
     /**
      * Client engine name.
      *
      */
+    @SerializedName("clientEngine")
     val clientEngine: String,
 
     /**
      * Client engine name.
      *
      */
+    @SerializedName("clientEngineVersion")
     val clientEngineVersion: String,
 
     /**
      * Device name.
      *
      */
+    @SerializedName("deviceName")
     val deviceName: String,
 
     /**
      * Device brand name.
      *
      */
+    @SerializedName("deviceBrand")
     val deviceBrand: String,
 
     /**
      * Device model name.
      *
      */
+    @SerializedName("deviceModel")
     val deviceModel: String,
 
     /**
      * Country two-character ISO 3166-1 alpha code.
      *
      */
+    @SerializedName("countryCode")
     val countryCode: String,
 
     /**
      * Country name.
      *
      */
+    @SerializedName("countryName")
     val countryName: String
 ) {
     companion object {
@@ -139,7 +162,7 @@ data class Log(
             userName = map["userName"] as String,
             mode = map["mode"] as String,
             ip = map["ip"] as String,
-            time = map["time"] as Long,
+            time = (map["time"] as Number).toLong(),
             osCode = map["osCode"] as String,
             osName = map["osName"] as String,
             osVersion = map["osVersion"] as String,

@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * JWT
  */
@@ -8,6 +10,7 @@ data class Jwt(
      * JWT encoded string.
      *
      */
+    @SerializedName("jwt")
     val jwt: String
 ) {
     companion object {

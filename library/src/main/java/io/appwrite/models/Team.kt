@@ -1,5 +1,7 @@
 package io.appwrite.models
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * Team
  */
@@ -8,33 +10,37 @@ data class Team(
      * Team ID.
      *
      */
+    @SerializedName("\$id")
     val id: String,
 
     /**
      * Team name.
      *
      */
+    @SerializedName("name")
     val name: String,
 
     /**
      * Team creation date in Unix timestamp.
      *
      */
+    @SerializedName("dateCreated")
     val dateCreated: Long,
 
     /**
-     * Total sum of team members.
+     * Total number of team members.
      *
      */
-    val sum: Long
+    @SerializedName("total")
+    val total: Long
 ) {
     companion object {
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Team(
             id = map["\$id"] as String,
             name = map["name"] as String,
-            dateCreated = map["dateCreated"] as Long,
-            sum = map["sum"] as Long
+            dateCreated = (map["dateCreated"] as Number).toLong(),
+            total = (map["total"] as Number).toLong()
         )
     }
 
@@ -42,6 +48,6 @@ data class Team(
         "\$id" to id as Any,
         "name" to name as Any,
         "dateCreated" to dateCreated as Any,
-        "sum" to sum as Any
+        "total" to total as Any
     )
 }
