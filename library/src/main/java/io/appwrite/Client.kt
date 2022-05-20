@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken
 import io.appwrite.appwrite.BuildConfig
 import io.appwrite.cookies.stores.SharedPreferencesCookieStore
 import io.appwrite.exceptions.AppwriteException
-import io.appwrite.extensions.fromJson
 import io.appwrite.json.PreciseNumberAdapter
 import io.appwrite.models.UploadProgress
 import kotlinx.coroutines.CoroutineScope
@@ -20,32 +19,24 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.BufferedInputStream
-import java.io.BufferedReader
-import java.io.File
-import java.io.RandomAccessFile
-import java.io.IOException
+import java.io.*
 import java.net.CookieManager
 import java.net.CookiePolicy
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
+import javax.net.ssl.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.resume
 
 class Client @JvmOverloads constructor(
     context: Context,
-    var endPoint: String = "https://appwrite.io/v1",
+    var endPoint: String = AppWritePaths.BASE_URL,
     var endPointRealtime: String? = null,
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
 
     companion object {
-        const val CHUNK_SIZE = 5*1024*1024; // 5MB
+        const val CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
     }
 
     override val coroutineContext: CoroutineContext
@@ -54,14 +45,14 @@ class Client @JvmOverloads constructor(
     private val job = Job()
 
     private val gson = GsonBuilder().registerTypeAdapter(
-        object : TypeToken<Map<String, Any>>(){}.type,
+        object : TypeToken<Map<String, Any>>() {}.type,
         PreciseNumberAdapter()
     ).create()
 
     lateinit var http: OkHttpClient
 
     private val headers: MutableMap<String, String>
-    
+
     val config: MutableMap<String, String>
 
     private val cookieJar = CookieManager(
@@ -84,11 +75,11 @@ class Client @JvmOverloads constructor(
             "content-type" to "application/json",
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
-            "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",            
+            "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",
             "x-appwrite-response-format" to "0.14.0"
         )
         config = mutableMapOf()
-        
+
         setSelfSigned(selfSigned)
     }
 
@@ -137,10 +128,10 @@ class Client @JvmOverloads constructor(
 
     /**
      * Set self Signed
-     * 
+     *
      * @param status
      *
-     * @return this     
+     * @return this
      */
     fun setSelfSigned(status: Boolean): Client {
         selfSigned = status
@@ -160,11 +151,19 @@ class Client @JvmOverloads constructor(
                 @Suppress("CustomX509TrustManager")
                 object : X509TrustManager {
                     @Suppress("TrustAllX509TrustManager")
-                    override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
+                    override fun checkClientTrusted(
+                        chain: Array<X509Certificate>,
+                        authType: String
+                    ) {
                     }
+
                     @Suppress("TrustAllX509TrustManager")
-                    override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
+                    override fun checkServerTrusted(
+                        chain: Array<X509Certificate>,
+                        authType: String
+                    ) {
                     }
+
                     override fun getAcceptedIssuers(): Array<X509Certificate> {
                         return arrayOf()
                     }
@@ -189,10 +188,10 @@ class Client @JvmOverloads constructor(
 
     /**
      * Set endpoint and realtime endpoint.
-     * 
+     *
      * @param endpoint
      *
-     * @return this     
+     * @return this
      */
     fun setEndpoint(endPoint: String): Client {
         this.endPoint = endPoint
@@ -205,12 +204,12 @@ class Client @JvmOverloads constructor(
     }
 
     /**
-    * Set realtime endpoint
-    *
-    * @param endpoint
-    *
-    * @return this
-    */
+     * Set realtime endpoint
+     *
+     * @param endpoint
+     *
+     * @return this
+     */
     fun setEndpointRealtime(endPoint: String): Client {
         this.endPointRealtime = endPoint
         return this
@@ -218,11 +217,11 @@ class Client @JvmOverloads constructor(
 
     /**
      * Add Header
-     * 
+     *
      * @param key
      * @param value
      *
-     * @return this     
+     * @return this
      */
     fun addHeader(key: String, value: String): Client {
         headers[key] = value
@@ -231,22 +230,22 @@ class Client @JvmOverloads constructor(
 
     /**
      * Send the HTTP request
-     * 
+     *
      * @param method
      * @param path
      * @param headers
      * @param params
      *
-     * @return [T]    
+     * @return [T]
      */
     @Throws(AppwriteException::class)
     suspend fun <T> call(
-        method: String, 
-        path: String, 
-        headers:  Map<String, String> = mapOf(), 
+        method: String,
+        path: String,
+        headers: Map<String, String> = mapOf(),
         params: Map<String, Any?> = mapOf(),
         responseType: Class<T>,
-        converter: ((Map<String, Any,>) -> T)? = null
+        converter: ((Map<String, Any>) -> T)? = null
     ): T {
         val filteredParams = params.filterValues { it != null }
 
@@ -334,10 +333,10 @@ class Client @JvmOverloads constructor(
     @Throws(AppwriteException::class)
     suspend fun <T> chunkedUpload(
         path: String,
-        headers:  MutableMap<String, String>,
+        headers: MutableMap<String, String>,
         params: MutableMap<String, Any?>,
         responseType: Class<T>,
-        converter: ((Map<String, Any,>) -> T),
+        converter: ((Map<String, Any>) -> T),
         paramName: String,
         idParamName: String? = null,
         onProgress: ((UploadProgress) -> Unit)? = null,
@@ -429,7 +428,7 @@ class Client @JvmOverloads constructor(
     private suspend fun <T> awaitResponse(
         request: Request,
         responseType: Class<T>,
-        converter: ((Map<String, Any,>) -> T)? = null
+        converter: ((Map<String, Any>) -> T)? = null
     ) = suspendCancellableCoroutine<T> {
         http.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -446,21 +445,22 @@ class Client @JvmOverloads constructor(
                         .charStream()
                         .buffered()
                         .use(BufferedReader::readText)
-                        
-                    val error = if (response.headers["content-type"]?.contains("application/json") == true) {
-                        val map = gson.fromJson<Map<String, Any>>(
-                            body,
-                            object : TypeToken<Map<String, Any>>(){}.type
-                        )
-                        AppwriteException(
-                            map["message"] as? String ?: "", 
-                            (map["code"] as Number).toInt(),
-                            map["type"] as? String ?: "", 
-                            body
-                        )
-                    } else {
-                        AppwriteException(body, response.code)
-                    }
+
+                    val error =
+                        if (response.headers["content-type"]?.contains("application/json") == true) {
+                            val map = gson.fromJson<Map<String, Any>>(
+                                body,
+                                object : TypeToken<Map<String, Any>>() {}.type
+                            )
+                            AppwriteException(
+                                map["message"] as? String ?: "",
+                                (map["code"] as Number).toInt(),
+                                map["type"] as? String ?: "",
+                                body
+                            )
+                        } else {
+                            AppwriteException(body, response.code)
+                        }
                     it.cancel(error)
                     return
                 }
@@ -470,10 +470,11 @@ class Client @JvmOverloads constructor(
                         return
                     }
                     responseType == ByteArray::class.java -> {
-                        it.resume(response.body!!
-                            .byteStream()
-                            .buffered()
-                            .use(BufferedInputStream::readBytes) as T
+                        it.resume(
+                            response.body!!
+                                .byteStream()
+                                .buffered()
+                                .use(BufferedInputStream::readBytes) as T
                         )
                         return
                     }
@@ -492,7 +493,7 @@ class Client @JvmOverloads constructor(
                 }
                 val map = gson.fromJson<Map<String, Any>>(
                     body,
-                    object : TypeToken<Map<String, Any>>(){}.type
+                    object : TypeToken<Map<String, Any>>() {}.type
                 )
                 it.resume(
                     converter?.invoke(map) ?: map as T

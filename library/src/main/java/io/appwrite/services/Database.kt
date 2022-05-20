@@ -1,12 +1,10 @@
 package io.appwrite.services
 
-import android.net.Uri
+import io.appwrite.AppWritePaths
 import io.appwrite.Client
-import io.appwrite.models.*
+import io.appwrite.RequestType
+import io.appwrite.contentTypeJson
 import io.appwrite.exceptions.AppwriteException
-import okhttp3.Cookie
-import okhttp3.Response
-import java.io.File
 
 class Database(client: Client) : Service(client) {
 
@@ -26,21 +24,21 @@ class Database(client: Client) : Service(client) {
      * @param cursorDirection Direction of the cursor.
      * @param orderAttributes Array of attributes used to sort results. Maximum of 100 order attributes are allowed, each 128 characters long.
      * @param orderTypes Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order. Maximum of 100 order types are allowed.
-     * @return [io.appwrite.models.DocumentList]     
+     * @return [io.appwrite.models.DocumentList]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listDocuments(
-		collectionId: String,
-		queries: List<Any>? = null,
-		limit: Long? = null,
-		offset: Long? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null,
-		orderAttributes: List<Any>? = null,
-		orderTypes: List<Any>? = null
-	): io.appwrite.models.DocumentList {
-        val path = "/database/collections/{collectionId}/documents".replace("{collectionId}", collectionId)
+        collectionId: String,
+        queries: List<Any>? = null,
+        limit: Long? = null,
+        offset: Long? = null,
+        cursor: String? = null,
+        cursorDirection: String? = null,
+        orderAttributes: List<Any>? = null,
+        orderTypes: List<Any>? = null
+    ): io.appwrite.models.DocumentList {
+        val path = AppWritePaths.getCollectionIdPath(collectionId)
         val params = mutableMapOf<String, Any?>(
             "queries" to queries,
             "limit" to limit,
@@ -50,22 +48,20 @@ class Database(client: Client) : Service(client) {
             "orderAttributes" to orderAttributes,
             "orderTypes" to orderTypes
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.DocumentList = {
             io.appwrite.models.DocumentList.from(map = it)
         }
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.DocumentList::class.java,
             converter,
         )
     }
-    
+
     /**
      * Create Document
      *
@@ -79,40 +75,38 @@ class Database(client: Client) : Service(client) {
      * @param data Document data as JSON object.
      * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @return [io.appwrite.models.Document]     
+     * @return [io.appwrite.models.Document]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createDocument(
-		collectionId: String,
-		documentId: String,
-		data: Any,
-		read: List<Any>? = null,
-		write: List<Any>? = null
-	): io.appwrite.models.Document {
-        val path = "/database/collections/{collectionId}/documents".replace("{collectionId}", collectionId)
+        collectionId: String,
+        documentId: String,
+        data: Any,
+        read: List<Any>? = null,
+        write: List<Any>? = null
+    ): io.appwrite.models.Document {
+        val path = AppWritePaths.getCollectionIdPath(collectionId)
         val params = mutableMapOf<String, Any?>(
             "documentId" to documentId,
             "data" to data,
             "read" to read,
             "write" to write
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.Document = {
             io.appwrite.models.Document.from(map = it)
         }
         return client.call(
-            "POST",
+            RequestType.POST,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.Document::class.java,
             converter,
         )
     }
-    
+
     /**
      * Get Document
      *
@@ -121,15 +115,15 @@ class Database(client: Client) : Service(client) {
      *
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
      * @param documentId Document ID.
-     * @return [io.appwrite.models.Document]     
+     * @return [io.appwrite.models.Document]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getDocument(
-		collectionId: String,
-		documentId: String
-	): io.appwrite.models.Document {
-        val path = "/database/collections/{collectionId}/documents/{documentId}".replace("{collectionId}", collectionId).replace("{documentId}", documentId)
+        collectionId: String,
+        documentId: String
+    ): io.appwrite.models.Document {
+        val path = AppWritePaths.getDocumentIdPath(collectionId, documentId)
         val params = mutableMapOf<String, Any?>(
         )
         val headers = mutableMapOf(
@@ -139,7 +133,7 @@ class Database(client: Client) : Service(client) {
             io.appwrite.models.Document.from(map = it)
         }
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
             headers,
             params,
@@ -147,7 +141,7 @@ class Database(client: Client) : Service(client) {
             converter,
         )
     }
-    
+
     /**
      * Update Document
      *
@@ -159,39 +153,37 @@ class Database(client: Client) : Service(client) {
      * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
      * @param read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @param write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @return [io.appwrite.models.Document]     
+     * @return [io.appwrite.models.Document]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateDocument(
-		collectionId: String,
-		documentId: String,
-		data: Any,
-		read: List<Any>? = null,
-		write: List<Any>? = null
-	): io.appwrite.models.Document {
-        val path = "/database/collections/{collectionId}/documents/{documentId}".replace("{collectionId}", collectionId).replace("{documentId}", documentId)
+        collectionId: String,
+        documentId: String,
+        data: Any,
+        read: List<Any>? = null,
+        write: List<Any>? = null
+    ): io.appwrite.models.Document {
+        val path = AppWritePaths.getDocumentIdPath(collectionId, documentId)
         val params = mutableMapOf<String, Any?>(
             "data" to data,
             "read" to read,
             "write" to write
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.Document = {
             io.appwrite.models.Document.from(map = it)
         }
         return client.call(
-            "PATCH",
+            RequestType.PATCH,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.Document::class.java,
             converter,
         )
     }
-    
+
     /**
      * Delete Document
      *
@@ -199,27 +191,25 @@ class Database(client: Client) : Service(client) {
      *
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
      * @param documentId Document ID.
-     * @return [Any]     
+     * @return [Any]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun deleteDocument(
-		collectionId: String,
-		documentId: String
-	): Any {
-        val path = "/database/collections/{collectionId}/documents/{documentId}".replace("{collectionId}", collectionId).replace("{documentId}", documentId)
+        collectionId: String,
+        documentId: String
+    ): Any {
+        val path = AppWritePaths.getDocumentIdPath(collectionId, documentId)
         val params = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         return client.call(
-            "DELETE",
+            RequestType.DELETE,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = Any::class.java,
         )
     }
-    
+
 }

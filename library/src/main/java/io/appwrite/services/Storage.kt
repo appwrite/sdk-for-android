@@ -1,13 +1,11 @@
 package io.appwrite.services
 
-import android.net.Uri
+import io.appwrite.AppWritePaths
 import io.appwrite.Client
-import io.appwrite.models.*
+import io.appwrite.RequestType
+import io.appwrite.contentTypeJson
 import io.appwrite.exceptions.AppwriteException
-import okhttp3.Cookie
-import okhttp3.Response
-import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrl
+import io.appwrite.models.*
 import java.io.File
 
 class Storage(client: Client) : Service(client) {
@@ -26,20 +24,20 @@ class Storage(client: Client) : Service(client) {
      * @param cursor ID of the file used as the starting point for the query, excluding the file itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursorDirection Direction of the cursor.
      * @param orderType Order result by ASC or DESC order.
-     * @return [io.appwrite.models.FileList]     
+     * @return [io.appwrite.models.FileList]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listFiles(
-		bucketId: String,
-		search: String? = null,
-		limit: Long? = null,
-		offset: Long? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null,
-		orderType: String? = null
-	): io.appwrite.models.FileList {
-        val path = "/storage/buckets/{bucketId}/files".replace("{bucketId}", bucketId)
+        bucketId: String,
+        search: String? = null,
+        limit: Long? = null,
+        offset: Long? = null,
+        cursor: String? = null,
+        cursorDirection: String? = null,
+        orderType: String? = null
+    ): io.appwrite.models.FileList {
+        val path = AppWritePaths.getBucketPath(bucketId)
         val params = mutableMapOf<String, Any?>(
             "search" to search,
             "limit" to limit,
@@ -48,22 +46,20 @@ class Storage(client: Client) : Service(client) {
             "cursorDirection" to cursorDirection,
             "orderType" to orderType
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.FileList = {
             io.appwrite.models.FileList.from(map = it)
         }
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.FileList::class.java,
             converter,
         )
     }
-    
+
     /**
      * Create File
      *
@@ -71,55 +67,53 @@ class Storage(client: Client) : Service(client) {
      * resource using either a [server
      * integration](/docs/server/database#storageCreateBucket) API or directly
      * from your Appwrite console.
-     * 
+     *
      * Larger files should be uploaded using multiple requests with the
      * [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range)
      * header to send a partial request with a maximum supported chunk of `5MB`.
      * The `content-range` header values should always be in bytes.
-     * 
+     *
      * When the first request is sent, the server will return the **File** object,
      * and the subsequent part request must include the file's **id** in
      * `x-appwrite-id` header to allow the server to know that the partial upload
      * is for the existing file and not for a new one.
-     * 
+     *
      * If you're creating a new file using one of the Appwrite SDKs, all the
      * chunking logic will be managed by the SDK internally.
-     * 
+     *
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param fileId File ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param file Binary file.
      * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @return [io.appwrite.models.File]     
+     * @return [io.appwrite.models.File]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createFile(
-		bucketId: String,
-		fileId: String,
-		file: File,
-		read: List<Any>? = null,
-		write: List<Any>? = null, onProgress: ((UploadProgress) -> Unit)? = null
-	): io.appwrite.models.File {
-        val path = "/storage/buckets/{bucketId}/files".replace("{bucketId}", bucketId)
+        bucketId: String,
+        fileId: String,
+        file: File,
+        read: List<Any>? = null,
+        write: List<Any>? = null, onProgress: ((UploadProgress) -> Unit)? = null
+    ): io.appwrite.models.File {
+        val path = AppWritePaths.getBucketPath(bucketId)
         val params = mutableMapOf<String, Any?>(
             "fileId" to fileId,
             "file" to file,
             "read" to read,
             "write" to write
         )
-        val headers = mutableMapOf(
-            "content-type" to "multipart/form-data"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.File = {
             io.appwrite.models.File.from(map = it)
         }
-        val idParamName: String? = "fileId"    
+        val idParamName: String? = "fileId"
         val paramName = "file"
         return client.chunkedUpload(
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.File::class.java,
             converter,
@@ -128,7 +122,7 @@ class Storage(client: Client) : Service(client) {
             onProgress,
         )
     }
-    
+
     /**
      * Get File
      *
@@ -137,33 +131,31 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param fileId File ID.
-     * @return [io.appwrite.models.File]     
+     * @return [io.appwrite.models.File]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFile(
-		bucketId: String,
-		fileId: String
-	): io.appwrite.models.File {
-        val path = "/storage/buckets/{bucketId}/files/{fileId}".replace("{bucketId}", bucketId).replace("{fileId}", fileId)
+        bucketId: String,
+        fileId: String
+    ): io.appwrite.models.File {
+        val path = AppWritePaths.getFileIdPath(fileId, bucketId)
         val params = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.File = {
             io.appwrite.models.File.from(map = it)
         }
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.File::class.java,
             converter,
         )
     }
-    
+
     /**
      * Update File
      *
@@ -174,37 +166,35 @@ class Storage(client: Client) : Service(client) {
      * @param fileId File unique ID.
      * @param read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
      * @param write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @return [io.appwrite.models.File]     
+     * @return [io.appwrite.models.File]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateFile(
-		bucketId: String,
-		fileId: String,
-		read: List<Any>? = null,
-		write: List<Any>? = null
-	): io.appwrite.models.File {
-        val path = "/storage/buckets/{bucketId}/files/{fileId}".replace("{bucketId}", bucketId).replace("{fileId}", fileId)
+        bucketId: String,
+        fileId: String,
+        read: List<Any>? = null,
+        write: List<Any>? = null
+    ): io.appwrite.models.File {
+        val path = AppWritePaths.getFileIdPath(fileId, bucketId)
         val params = mutableMapOf<String, Any?>(
             "read" to read,
             "write" to write
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.File = {
             io.appwrite.models.File.from(map = it)
         }
         return client.call(
-            "PUT",
+            RequestType.PUT,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.File::class.java,
             converter,
         )
     }
-    
+
     /**
      * Delete File
      *
@@ -213,29 +203,27 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param fileId File ID.
-     * @return [Any]     
+     * @return [Any]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun deleteFile(
-		bucketId: String,
-		fileId: String
-	): Any {
-        val path = "/storage/buckets/{bucketId}/files/{fileId}".replace("{bucketId}", bucketId).replace("{fileId}", fileId)
+        bucketId: String,
+        fileId: String
+    ): Any {
+        val path =AppWritePaths.getFileIdPath(fileId,bucketId)
         val params = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         return client.call(
-            "DELETE",
+            RequestType.DELETE,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = Any::class.java,
         )
     }
-    
+
     /**
      * Get File for Download
      *
@@ -245,26 +233,26 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param fileId File ID.
-     * @return [ByteArray]     
+     * @return [ByteArray]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFileDownload(
-		bucketId: String,
-		fileId: String
-	): ByteArray {
-        val path = "/storage/buckets/{bucketId}/files/{fileId}/download".replace("{bucketId}", bucketId).replace("{fileId}", fileId)
+        bucketId: String,
+        fileId: String
+    ): ByteArray {
+        val path =AppWritePaths.getDownloadPath(fileId,bucketId)
         val params = mutableMapOf<String, Any?>(
             "project" to client.config["project"]
         )
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
             params = params,
             responseType = ByteArray::class.java
         )
     }
-    
+
     /**
      * Get File Preview
      *
@@ -287,26 +275,26 @@ class Storage(client: Client) : Service(client) {
      * @param rotation Preview image rotation in degrees. Pass an integer between -360 and 360.
      * @param background Preview image background color. Only works with transparent images (png). Use a valid HEX color, no # is needed for prefix.
      * @param output Output format type (jpeg, jpg, png, gif and webp).
-     * @return [ByteArray]     
+     * @return [ByteArray]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFilePreview(
-		bucketId: String,
-		fileId: String,
-		width: Long? = null,
-		height: Long? = null,
-		gravity: String? = null,
-		quality: Long? = null,
-		borderWidth: Long? = null,
-		borderColor: String? = null,
-		borderRadius: Long? = null,
-		opacity: Double? = null,
-		rotation: Long? = null,
-		background: String? = null,
-		output: String? = null
-	): ByteArray {
-        val path = "/storage/buckets/{bucketId}/files/{fileId}/preview".replace("{bucketId}", bucketId).replace("{fileId}", fileId)
+        bucketId: String,
+        fileId: String,
+        width: Long? = null,
+        height: Long? = null,
+        gravity: String? = null,
+        quality: Long? = null,
+        borderWidth: Long? = null,
+        borderColor: String? = null,
+        borderRadius: Long? = null,
+        opacity: Double? = null,
+        rotation: Long? = null,
+        background: String? = null,
+        output: String? = null
+    ): ByteArray {
+        val path =AppWritePaths.getFilePreviewPath(fileId,bucketId)
         val params = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
@@ -322,13 +310,13 @@ class Storage(client: Client) : Service(client) {
             "project" to client.config["project"]
         )
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
             params = params,
             responseType = ByteArray::class.java
         )
     }
-    
+
     /**
      * Get File for View
      *
@@ -338,24 +326,24 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param fileId File ID.
-     * @return [ByteArray]     
+     * @return [ByteArray]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getFileView(
-		bucketId: String,
-		fileId: String
-	): ByteArray {
-        val path = "/storage/buckets/{bucketId}/files/{fileId}/view".replace("{bucketId}", bucketId).replace("{fileId}", fileId)
+        bucketId: String,
+        fileId: String
+    ): ByteArray {
+        val path =AppWritePaths.getFileViewPath(fileId,bucketId)
         val params = mutableMapOf<String, Any?>(
             "project" to client.config["project"]
         )
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
             params = params,
             responseType = ByteArray::class.java
         )
     }
-    
+
 }

@@ -1,12 +1,10 @@
 package io.appwrite.services
 
-import android.net.Uri
+import io.appwrite.AppWritePaths
 import io.appwrite.Client
-import io.appwrite.models.*
+import io.appwrite.RequestType
+import io.appwrite.contentTypeJson
 import io.appwrite.exceptions.AppwriteException
-import okhttp3.Cookie
-import okhttp3.Response
-import java.io.File
 
 class Functions(client: Client) : Service(client) {
 
@@ -16,30 +14,28 @@ class Functions(client: Client) : Service(client) {
      * @param functionId Function ID.
      * @param deploymentId Deployment ID.
      * @param buildId Build unique ID.
-     * @return [Any]     
+     * @return [Any]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun retryBuild(
-		functionId: String,
-		deploymentId: String,
-		buildId: String
-	): Any {
-        val path = "/functions/{functionId}/deployments/{deploymentId}/builds/{buildId}".replace("{functionId}", functionId).replace("{deploymentId}", deploymentId).replace("{buildId}", buildId)
+        functionId: String,
+        deploymentId: String,
+        buildId: String
+    ): Any {
+        val path = AppWritePaths.getRetryPathPath(functionId, deploymentId, buildId)
         val params = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         return client.call(
-            "POST",
+            RequestType.POST,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = Any::class.java,
         )
     }
-    
+
     /**
      * List Executions
      *
@@ -54,19 +50,19 @@ class Functions(client: Client) : Service(client) {
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursorDirection Direction of the cursor.
-     * @return [io.appwrite.models.ExecutionList]     
+     * @return [io.appwrite.models.ExecutionList]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listExecutions(
-		functionId: String,
-		limit: Long? = null,
-		offset: Long? = null,
-		search: String? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null
-	): io.appwrite.models.ExecutionList {
-        val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
+        functionId: String,
+        limit: Long? = null,
+        offset: Long? = null,
+        search: String? = null,
+        cursor: String? = null,
+        cursorDirection: String? = null
+    ): io.appwrite.models.ExecutionList {
+        val path = AppWritePaths.getExecutionPath(functionId)
         val params = mutableMapOf<String, Any?>(
             "limit" to limit,
             "offset" to offset,
@@ -81,7 +77,7 @@ class Functions(client: Client) : Service(client) {
             io.appwrite.models.ExecutionList.from(map = it)
         }
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
             headers,
             params,
@@ -89,7 +85,7 @@ class Functions(client: Client) : Service(client) {
             converter,
         )
     }
-    
+
     /**
      * Create Execution
      *
@@ -101,36 +97,34 @@ class Functions(client: Client) : Service(client) {
      * @param functionId Function ID.
      * @param data String of custom data to send to function.
      * @param async Execute code asynchronously. Default value is true.
-     * @return [io.appwrite.models.Execution]     
+     * @return [io.appwrite.models.Execution]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createExecution(
-		functionId: String,
-		data: String? = null,
-		async: Boolean? = null
-	): io.appwrite.models.Execution {
-        val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
+        functionId: String,
+        data: String? = null,
+        async: Boolean? = null
+    ): io.appwrite.models.Execution {
+        val path = AppWritePaths.getExecutionPath(functionId)
         val params = mutableMapOf<String, Any?>(
             "data" to data,
             "async" to async
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.Execution = {
             io.appwrite.models.Execution.from(map = it)
         }
         return client.call(
-            "POST",
+            RequestType.POST,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.Execution::class.java,
             converter,
         )
     }
-    
+
     /**
      * Get Execution
      *
@@ -138,31 +132,29 @@ class Functions(client: Client) : Service(client) {
      *
      * @param functionId Function ID.
      * @param executionId Execution ID.
-     * @return [io.appwrite.models.Execution]     
+     * @return [io.appwrite.models.Execution]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getExecution(
-		functionId: String,
-		executionId: String
-	): io.appwrite.models.Execution {
-        val path = "/functions/{functionId}/executions/{executionId}".replace("{functionId}", functionId).replace("{executionId}", executionId)
+        functionId: String,
+        executionId: String
+    ): io.appwrite.models.Execution {
+        val path = AppWritePaths.getExecutionIdPath(functionId, executionId)
         val params = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
+
         val converter: (Map<String, Any>) -> io.appwrite.models.Execution = {
             io.appwrite.models.Execution.from(map = it)
         }
         return client.call(
-            "GET",
+            RequestType.GET,
             path,
-            headers,
+            contentTypeJson,
             params,
             responseType = io.appwrite.models.Execution::class.java,
             converter,
         )
     }
-    
+
 }
