@@ -8,7 +8,9 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Teams(client: Client) : Service(client) {
+class Teams : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * List Teams
@@ -23,7 +25,7 @@ class Teams(client: Client) : Service(client) {
      * @param limit Maximum number of teams to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
      * @param offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursor ID of the team used as the starting point for the query, excluding the team itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor.
+     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
      * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.TeamList]     
      */
@@ -211,7 +213,7 @@ class Teams(client: Client) : Service(client) {
      * @param limit Maximum number of memberships to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
      * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param cursor ID of the membership used as the starting point for the query, excluding the membership itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor.
+     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
      * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.MembershipList]     
      */

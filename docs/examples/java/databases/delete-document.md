@@ -3,7 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.services.Storage
+import io.appwrite.services.Databases
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,12 +16,11 @@ public class MainActivity extends AppCompatActivity {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2"); // Your project ID
 
-        Storage storage = new Storage(client);
+        Databases databases = new Databases(client, "[DATABASE_ID]");
 
-        storage.createFile(
-            "[BUCKET_ID]", 
-            "[FILE_ID]", 
-            InputFile.fromPath("file.png"), 
+        databases.deleteDocument(
+            "[COLLECTION_ID]", 
+            "[DOCUMENT_ID]"
             new Continuation<Object>() {
                 @NotNull
                 @Override

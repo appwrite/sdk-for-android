@@ -12,7 +12,9 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
-class Account(client: Client) : Service(client) {
+class Account : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * Get Account
@@ -275,6 +277,45 @@ class Account(client: Client) : Service(client) {
     }
     
     /**
+     * Update Account Phone
+     *
+     * Update currently logged in user account phone number. After changing phone
+     * number, the user confirmation status will get reset. A new confirmation SMS
+     * is not sent automatically however you can use the phone confirmation
+     * endpoint again to send the confirmation SMS.
+     *
+     * @param number Phone number. Format this number with a leading &#039;+&#039; and a country code, e.g., +16175551212.
+     * @param password User password. Must be at least 8 chars.
+     * @return [io.appwrite.models.User]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun updatePhone(
+		number: String,
+		password: String
+	): io.appwrite.models.User {
+        val path = "/account/phone"
+        val params = mutableMapOf<String, Any?>(
+            "number" to number,
+            "password" to password
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        val converter: (Map<String, Any>) -> io.appwrite.models.User = {
+            io.appwrite.models.User.from(map = it)
+        }
+        return client.call(
+            "PATCH",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.User::class.java,
+            converter,
+        )
+    }
+    
+    /**
      * Get Account Preferences
      *
      * Get currently logged in user preferences as a key-value object.
@@ -462,43 +503,6 @@ class Account(client: Client) : Service(client) {
     }
     
     /**
-     * Create Account Session
-     *
-     * Allow the user to login into their account by providing a valid email and
-     * password combination. This route will create a new session for the user.
-     *
-     * @param email User email.
-     * @param password User password. Must be at least 8 chars.
-     * @return [io.appwrite.models.Session]     
-     */
-    @JvmOverloads
-    @Throws(AppwriteException::class)
-    suspend fun createSession(
-		email: String,
-		password: String
-	): io.appwrite.models.Session {
-        val path = "/account/sessions"
-        val params = mutableMapOf<String, Any?>(
-            "email" to email,
-            "password" to password
-        )
-        val headers = mutableMapOf(
-            "content-type" to "application/json"
-        )
-        val converter: (Map<String, Any>) -> io.appwrite.models.Session = {
-            io.appwrite.models.Session.from(map = it)
-        }
-        return client.call(
-            "POST",
-            path,
-            headers,
-            params,
-            responseType = io.appwrite.models.Session::class.java,
-            converter,
-        )
-    }
-    
-    /**
      * Delete All Account Sessions
      *
      * Delete all sessions from the user account and remove any sessions cookies
@@ -541,6 +545,43 @@ class Account(client: Client) : Service(client) {
     suspend fun createAnonymousSession(): io.appwrite.models.Session {
         val path = "/account/sessions/anonymous"
         val params = mutableMapOf<String, Any?>(
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        val converter: (Map<String, Any>) -> io.appwrite.models.Session = {
+            io.appwrite.models.Session.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Session::class.java,
+            converter,
+        )
+    }
+    
+    /**
+     * Create Account Session with Email
+     *
+     * Allow the user to login into their account by providing a valid email and
+     * password combination. This route will create a new session for the user.
+     *
+     * @param email User email.
+     * @param password User password. Must be at least 8 chars.
+     * @return [io.appwrite.models.Session]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun createEmailSession(
+		email: String,
+		password: String
+	): io.appwrite.models.Session {
+        val path = "/account/sessions/email"
+        val params = mutableMapOf<String, Any?>(
+            "email" to email,
+            "password" to password
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"
@@ -668,10 +709,10 @@ class Account(client: Client) : Service(client) {
      * user..
      * 
      *
-     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, bitbucket, bitly, box, discord, dropbox, facebook, github, gitlab, google, linkedin, microsoft, notion, okta, paypal, paypalSandbox, salesforce, slack, spotify, tradeshift, tradeshiftBox, twitch, zoom, yahoo, yammer, yandex, wordpress, stripe.
+     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, bitbucket, bitly, box, dailymotion, discord, dropbox, facebook, github, gitlab, google, linkedin, microsoft, notion, okta, paypal, paypalSandbox, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoom.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
-     * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 128 characters long.
+     * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
      *      
      */
     @JvmOverloads
@@ -732,6 +773,92 @@ class Account(client: Client) : Service(client) {
                 listOf(cookie)
             )
         }
+    }
+    
+    /**
+     * Create Phone session
+     *
+     * Sends the user a SMS with a secret key for creating a session. Use the
+     * returned user ID and the secret to submit a request to the [PUT
+     * /account/sessions/phone](/docs/client/account#accountUpdatePhoneSession)
+     * endpoint to complete the login process. The secret sent to the user's phone
+     * is valid for 15 minutes.
+     *
+     * @param userId Unique Id. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
+     * @param number Phone number. Format this number with a leading &#039;+&#039; and a country code, e.g., +16175551212.
+     * @return [io.appwrite.models.Token]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun createPhoneSession(
+		userId: String,
+		number: String
+	): io.appwrite.models.Token {
+        val path = "/account/sessions/phone"
+        val params = mutableMapOf<String, Any?>(
+            "userId" to userId,
+            "number" to number
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        val converter: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+    
+    /**
+     * Create Phone session (confirmation)
+     *
+     * Use this endpoint to complete creating the session with the Magic URL. Both
+     * the **userId** and **secret** arguments will be passed as query parameters
+     * to the redirect URL you have provided when sending your request to the
+     * [POST
+     * /account/sessions/magic-url](/docs/client/account#accountCreateMagicURLSession)
+     * endpoint.
+     * 
+     * Please note that in order to avoid a [Redirect
+     * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md)
+     * the only valid redirect URLs are the ones from domains you have set when
+     * adding your platforms in the console interface.
+     *
+     * @param userId User ID.
+     * @param secret Valid verification token.
+     * @return [io.appwrite.models.Session]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun updatePhoneSession(
+		userId: String,
+		secret: String
+	): io.appwrite.models.Session {
+        val path = "/account/sessions/phone"
+        val params = mutableMapOf<String, Any?>(
+            "userId" to userId,
+            "secret" to secret
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        val converter: (Map<String, Any>) -> io.appwrite.models.Session = {
+            io.appwrite.models.Session.from(map = it)
+        }
+        return client.call(
+            "PUT",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Session::class.java,
+            converter,
+        )
     }
     
     /**
@@ -873,8 +1000,8 @@ class Account(client: Client) : Service(client) {
      * should redirect the user back to your app and allow you to complete the
      * verification process by verifying both the **userId** and **secret**
      * parameters. Learn more about how to [complete the verification
-     * process](/docs/client/account#accountUpdateVerification). The verification
-     * link sent to the user's email address is valid for 7 days.
+     * process](/docs/client/account#accountUpdateEmailVerification). The
+     * verification link sent to the user's email address is valid for 7 days.
      * 
      * Please note that in order to avoid a [Redirect
      * Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md),
@@ -929,6 +1056,80 @@ class Account(client: Client) : Service(client) {
 		secret: String
 	): io.appwrite.models.Token {
         val path = "/account/verification"
+        val params = mutableMapOf<String, Any?>(
+            "userId" to userId,
+            "secret" to secret
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        val converter: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "PUT",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+    
+    /**
+     * Create Phone Verification
+     *
+     * Use this endpoint to send a verification message to your user's phone
+     * number to confirm they are the valid owners of that address. The provided
+     * secret should allow you to complete the verification process by verifying
+     * both the **userId** and **secret** parameters. Learn more about how to
+     * [complete the verification
+     * process](/docs/client/account#accountUpdatePhoneVerification). The
+     * verification link sent to the user's phone number is valid for 15 minutes.
+     *
+     * @return [io.appwrite.models.Token]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun createPhoneVerification(): io.appwrite.models.Token {
+        val path = "/account/verification/phone"
+        val params = mutableMapOf<String, Any?>(
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json"
+        )
+        val converter: (Map<String, Any>) -> io.appwrite.models.Token = {
+            io.appwrite.models.Token.from(map = it)
+        }
+        return client.call(
+            "POST",
+            path,
+            headers,
+            params,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+    
+    /**
+     * Create Phone Verification (confirmation)
+     *
+     * Use this endpoint to complete the user phone verification process. Use the
+     * **userId** and **secret** that were sent to your user's phone number to
+     * verify the user email ownership. If confirmed this route will return a 200
+     * status code.
+     *
+     * @param userId User ID.
+     * @param secret Valid verification token.
+     * @return [io.appwrite.models.Token]     
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun updatePhoneVerification(
+		userId: String,
+		secret: String
+	): io.appwrite.models.Token {
+        val path = "/account/verification/phone"
         val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret

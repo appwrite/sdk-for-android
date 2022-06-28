@@ -8,7 +8,9 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Locale(client: Client) : Service(client) {
+class Locale : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * Get User Locale

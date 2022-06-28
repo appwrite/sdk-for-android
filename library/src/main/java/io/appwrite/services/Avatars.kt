@@ -10,7 +10,9 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
-class Avatars(client: Client) : Service(client) {
+class Avatars : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * Get Browser Icon

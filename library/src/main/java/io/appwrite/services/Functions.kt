@@ -8,7 +8,9 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Functions(client: Client) : Service(client) {
+class Functions : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * Retry Build
@@ -53,7 +55,7 @@ class Functions(client: Client) : Service(client) {
      * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor.
+     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
      * @return [io.appwrite.models.ExecutionList]     
      */
     @JvmOverloads

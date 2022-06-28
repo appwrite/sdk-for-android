@@ -3,7 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.services.Storage
+import io.appwrite.services.Account
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,13 +14,12 @@ class MainActivity : AppCompatActivity() {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2") // Your project ID
 
-        val storage = Storage(client)
+        val account = Account(client)
 
         GlobalScope.launch {
-            val response = storage.createFile(
-                bucketId = "[BUCKET_ID]",
-                fileId = "[FILE_ID]",
-                file = InputFile.fromPath("file.png"),
+            val response = account.updatePhoneSession(
+                userId = "[USER_ID]",
+                secret = "[SECRET]"
             )
             val json = response.body?.string()        
         }

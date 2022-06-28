@@ -14,6 +14,20 @@ data class Execution(
     val id: String,
 
     /**
+     * Execution creation date in Unix timestamp.
+     *
+     */
+    @SerializedName("\$createdAt")
+    val createdAt: Long,
+
+    /**
+     * Execution update date in Unix timestamp.
+     *
+     */
+    @SerializedName("\$updatedAt")
+    val updatedAt: Long,
+
+    /**
      * Execution read permissions.
      *
      */
@@ -26,13 +40,6 @@ data class Execution(
      */
     @SerializedName("functionId")
     val functionId: String,
-
-    /**
-     * The execution creation date in Unix timestamp.
-     *
-     */
-    @SerializedName("dateCreated")
-    val dateCreated: Long,
 
     /**
      * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
@@ -80,9 +87,10 @@ data class Execution(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Execution(
             id = map["\$id"] as String,
+            createdAt = (map["\$createdAt"] as Number).toLong(),
+            updatedAt = (map["\$updatedAt"] as Number).toLong(),
             read = map["\$read"] as List<Any>,
             functionId = map["functionId"] as String,
-            dateCreated = (map["dateCreated"] as Number).toLong(),
             trigger = map["trigger"] as String,
             status = map["status"] as String,
             statusCode = (map["statusCode"] as Number).toLong(),
@@ -94,9 +102,10 @@ data class Execution(
 
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
+        "\$createdAt" to createdAt as Any,
+        "\$updatedAt" to updatedAt as Any,
         "\$read" to read as Any,
         "functionId" to functionId as Any,
-        "dateCreated" to dateCreated as Any,
         "trigger" to trigger as Any,
         "status" to status as Any,
         "statusCode" to statusCode as Any,
