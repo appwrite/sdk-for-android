@@ -10,7 +10,9 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
-class Storage(client: Client) : Service(client) {
+class Storage : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * List Files
@@ -20,33 +22,21 @@ class Storage(client: Client) : Service(client) {
      * project's files. [Learn more about different API modes](/docs/admin).
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param limit Maximum number of files to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursor ID of the file used as the starting point for the query, excluding the file itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor.
-     * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.FileList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listFiles(
 		bucketId: String,
-		search: String? = null,
-		limit: Long? = null,
-		offset: Long? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null,
-		orderType: String? = null
+		queries: List<String>? = null,
+		search: String? = null
 	): io.appwrite.models.FileList {
         val path = "/storage/buckets/{bucketId}/files".replace("{bucketId}", bucketId)
         val params = mutableMapOf<String, Any?>(
-            "search" to search,
-            "limit" to limit,
-            "offset" to offset,
-            "cursor" to cursor,
-            "cursorDirection" to cursorDirection,
-            "orderType" to orderType
+            "queries" to queries,
+            "search" to search
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"
@@ -69,8 +59,8 @@ class Storage(client: Client) : Service(client) {
      *
      * Create a new file. Before using this route, you should create a new bucket
      * resource using either a [server
-     * integration](/docs/server/database#storageCreateBucket) API or directly
-     * from your Appwrite console.
+     * integration](/docs/server/storage#storageCreateBucket) API or directly from
+     * your Appwrite console.
      * 
      * Larger files should be uploaded using multiple requests with the
      * [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range)
@@ -89,8 +79,7 @@ class Storage(client: Client) : Service(client) {
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param fileId File ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param file Binary file.
-     * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param permissions An array of permission strings. By default the current user is granted with all permissions. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
@@ -98,16 +87,14 @@ class Storage(client: Client) : Service(client) {
     suspend fun createFile(
 		bucketId: String,
 		fileId: String,
-		file: File,
-		read: List<Any>? = null,
-		write: List<Any>? = null, onProgress: ((UploadProgress) -> Unit)? = null
+		file: InputFile,
+		permissions: List<String>? = null, onProgress: ((UploadProgress) -> Unit)? = null
 	): io.appwrite.models.File {
         val path = "/storage/buckets/{bucketId}/files".replace("{bucketId}", bucketId)
         val params = mutableMapOf<String, Any?>(
             "fileId" to fileId,
             "file" to file,
-            "read" to read,
-            "write" to write
+            "permissions" to permissions
         )
         val headers = mutableMapOf(
             "content-type" to "multipart/form-data"
@@ -172,8 +159,7 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param fileId File unique ID.
-     * @param read An array of strings with read permissions. By default no user is granted with any read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default no user is granted with any write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param permissions An array of permission string. By default the current permissions are inherited. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.File]     
      */
     @JvmOverloads
@@ -181,13 +167,11 @@ class Storage(client: Client) : Service(client) {
     suspend fun updateFile(
 		bucketId: String,
 		fileId: String,
-		read: List<Any>? = null,
-		write: List<Any>? = null
+		permissions: List<String>? = null
 	): io.appwrite.models.File {
         val path = "/storage/buckets/{bucketId}/files/{fileId}".replace("{bucketId}", bucketId).replace("{fileId}", fileId)
         val params = mutableMapOf<String, Any?>(
-            "read" to read,
-            "write" to write
+            "permissions" to permissions
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"

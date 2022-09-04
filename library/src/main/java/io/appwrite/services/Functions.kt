@@ -8,7 +8,9 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Functions(client: Client) : Service(client) {
+class Functions : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * Retry Build
@@ -49,30 +51,21 @@ class Functions(client: Client) : Service(client) {
      * different API modes](/docs/admin).
      *
      * @param functionId Function ID.
-     * @param limit Maximum number of executions to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, statusCode, time
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor.
      * @return [io.appwrite.models.ExecutionList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listExecutions(
 		functionId: String,
-		limit: Long? = null,
-		offset: Long? = null,
-		search: String? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null
+		queries: List<String>? = null,
+		search: String? = null
 	): io.appwrite.models.ExecutionList {
         val path = "/functions/{functionId}/executions".replace("{functionId}", functionId)
         val params = mutableMapOf<String, Any?>(
-            "limit" to limit,
-            "offset" to offset,
-            "search" to search,
-            "cursor" to cursor,
-            "cursorDirection" to cursorDirection
+            "queries" to queries,
+            "search" to search
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"

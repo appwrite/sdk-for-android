@@ -3,7 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.services.Database
+import io.appwrite.services.Account
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,11 +14,12 @@ class MainActivity : AppCompatActivity() {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2") // Your project ID
 
-        val database = Database(client)
+        val account = Account(client)
 
         GlobalScope.launch {
-            val response = database.listDocuments(
-                collectionId = "[COLLECTION_ID]",
+            val response = account.createEmailSession(
+                email = "email@example.com",
+                password = "password"
             )
             val json = response.body?.string()        
         }

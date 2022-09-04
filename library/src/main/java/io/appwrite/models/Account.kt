@@ -3,15 +3,29 @@ package io.appwrite.models
 import com.google.gson.annotations.SerializedName
 
 /**
- * User
+ * Account
  */
-data class User(
+data class Account(
     /**
      * User ID.
      *
      */
     @SerializedName("\$id")
     val id: String,
+
+    /**
+     * User creation date in Datetime.
+     *
+     */
+    @SerializedName("\$createdAt")
+    val createdAt: String,
+
+    /**
+     * User update date in Datetime.
+     *
+     */
+    @SerializedName("\$updatedAt")
+    val updatedAt: String,
 
     /**
      * User name.
@@ -21,11 +35,11 @@ data class User(
     val name: String,
 
     /**
-     * User registration date in Unix timestamp.
+     * User registration date in Datetime.
      *
      */
     @SerializedName("registration")
-    val registration: Long,
+    val registration: String,
 
     /**
      * User status. Pass `true` for enabled and `false` for disabled.
@@ -35,11 +49,11 @@ data class User(
     val status: Boolean,
 
     /**
-     * Unix timestamp of the most recent password update
+     * Datetime of the most recent password update
      *
      */
     @SerializedName("passwordUpdate")
-    val passwordUpdate: Long,
+    val passwordUpdate: String,
 
     /**
      * User email address.
@@ -49,11 +63,25 @@ data class User(
     val email: String,
 
     /**
+     * User phone number in E.164 format.
+     *
+     */
+    @SerializedName("phone")
+    val phone: String,
+
+    /**
      * Email verification status.
      *
      */
     @SerializedName("emailVerification")
     val emailVerification: Boolean,
+
+    /**
+     * Phone verification status.
+     *
+     */
+    @SerializedName("phoneVerification")
+    val phoneVerification: Boolean,
 
     /**
      * User preferences as a key-value object
@@ -64,26 +92,34 @@ data class User(
 ) {
     companion object {
         @Suppress("UNCHECKED_CAST")
-        fun from(map: Map<String, Any>) = User(
+        fun from(map: Map<String, Any>) = Account(
             id = map["\$id"] as String,
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
             name = map["name"] as String,
-            registration = (map["registration"] as Number).toLong(),
+            registration = map["registration"] as String,
             status = map["status"] as Boolean,
-            passwordUpdate = (map["passwordUpdate"] as Number).toLong(),
+            passwordUpdate = map["passwordUpdate"] as String,
             email = map["email"] as String,
+            phone = map["phone"] as String,
             emailVerification = map["emailVerification"] as Boolean,
+            phoneVerification = map["phoneVerification"] as Boolean,
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>)
         )
     }
 
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
+        "\$createdAt" to createdAt as Any,
+        "\$updatedAt" to updatedAt as Any,
         "name" to name as Any,
         "registration" to registration as Any,
         "status" to status as Any,
         "passwordUpdate" to passwordUpdate as Any,
         "email" to email as Any,
+        "phone" to phone as Any,
         "emailVerification" to emailVerification as Any,
+        "phoneVerification" to phoneVerification as Any,
         "prefs" to prefs.toMap() as Any
     )
 }

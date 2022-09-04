@@ -21,18 +21,25 @@ data class File(
     val bucketId: String,
 
     /**
-     * File read permissions.
+     * File creation date in Datetime
      *
      */
-    @SerializedName("\$read")
-    val read: List<Any>,
+    @SerializedName("\$createdAt")
+    val createdAt: String,
 
     /**
-     * File write permissions.
+     * File update date in Datetime
      *
      */
-    @SerializedName("\$write")
-    val write: List<Any>,
+    @SerializedName("\$updatedAt")
+    val updatedAt: String,
+
+    /**
+     * File permissions. [Learn more about permissions](/docs/permissions).
+     *
+     */
+    @SerializedName("\$permissions")
+    val permissions: List<Any>,
 
     /**
      * File name.
@@ -40,13 +47,6 @@ data class File(
      */
     @SerializedName("name")
     val name: String,
-
-    /**
-     * File creation date in Unix timestamp.
-     *
-     */
-    @SerializedName("dateCreated")
-    val dateCreated: Long,
 
     /**
      * File MD5 signature.
@@ -88,10 +88,10 @@ data class File(
         fun from(map: Map<String, Any>) = File(
             id = map["\$id"] as String,
             bucketId = map["bucketId"] as String,
-            read = map["\$read"] as List<Any>,
-            write = map["\$write"] as List<Any>,
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
+            permissions = map["\$permissions"] as List<Any>,
             name = map["name"] as String,
-            dateCreated = (map["dateCreated"] as Number).toLong(),
             signature = map["signature"] as String,
             mimeType = map["mimeType"] as String,
             sizeOriginal = (map["sizeOriginal"] as Number).toLong(),
@@ -103,10 +103,10 @@ data class File(
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
         "bucketId" to bucketId as Any,
-        "\$read" to read as Any,
-        "\$write" to write as Any,
+        "\$createdAt" to createdAt as Any,
+        "\$updatedAt" to updatedAt as Any,
+        "\$permissions" to permissions as Any,
         "name" to name as Any,
-        "dateCreated" to dateCreated as Any,
         "signature" to signature as Any,
         "mimeType" to mimeType as Any,
         "sizeOriginal" to sizeOriginal as Any,

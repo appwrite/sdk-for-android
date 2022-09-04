@@ -9,6 +9,7 @@ import io.appwrite.cookies.stores.SharedPreferencesCookieStore
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.fromJson
 import io.appwrite.json.PreciseNumberAdapter
+import io.appwrite.models.InputFile
 import io.appwrite.models.UploadProgress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,7 +40,7 @@ import kotlin.coroutines.resume
 
 class Client @JvmOverloads constructor(
     context: Context,
-    var endPoint: String = "https://appwrite.io/v1",
+    var endPoint: String = "https://HOSTNAME/v1",
     var endPointRealtime: String? = null,
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
@@ -84,8 +85,11 @@ class Client @JvmOverloads constructor(
             "content-type" to "application/json",
             "origin" to "appwrite-android://${context.packageName}",
             "user-agent" to "${context.packageName}/${appVersion}, ${System.getProperty("http.agent")}",
-            "x-sdk-version" to "appwrite:android:${BuildConfig.SDK_VERSION}",            
-            "x-appwrite-response-format" to "0.14.0"
+            "x-sdk-name" to "Android",
+            "x-sdk-platform" to "client",
+            "x-sdk-language" to "android",
+            "x-sdk-version" to "0.8.0-SNAPSHOT",            
+            "x-appwrite-response-format" to "1.0.0-RC1"
         )
         config = mutableMapOf()
         
@@ -342,14 +346,29 @@ class Client @JvmOverloads constructor(
         idParamName: String? = null,
         onProgress: ((UploadProgress) -> Unit)? = null,
     ): T {
-        val file = params[paramName] as File
-        val size = file.length()
+        var file: RandomAccessFile? = null
+        val input = params[paramName] as InputFile
+        val size: Long = when(input.sourceType) {
+            "path", "file" -> {
+                file = RandomAccessFile(input.path, "r")
+                file.length()
+            }
+            "bytes" -> {
+                (input.data as ByteArray).size.toLong()
+            }
+            else -> throw UnsupportedOperationException()
+        }
 
         if (size < CHUNK_SIZE) {
+            val data = when(input.sourceType) {
+                "file", "path" -> File(input.path).asRequestBody()
+                "bytes" -> (input.data as ByteArray).toRequestBody(input.mimeType.toMediaType())
+                else -> throw UnsupportedOperationException()
+            }
             params[paramName] = MultipartBody.Part.createFormData(
                 paramName,
-                file.name,
-                file.asRequestBody()
+                input.filename,
+                data
             )
             return call(
                 method = "POST",
@@ -361,7 +380,6 @@ class Client @JvmOverloads constructor(
             )
         }
 
-        val input = RandomAccessFile(file, "r")
         val buffer = ByteArray(CHUNK_SIZE)
         var offset = 0L
         var result: Map<*, *>? = null
@@ -380,12 +398,29 @@ class Client @JvmOverloads constructor(
         }
 
         while (offset < size) {
-            input.seek(offset)
-            input.read(buffer)
+            when(input.sourceType) {
+                "file", "path" -> {
+                    file!!.seek(offset)
+                    file!!.read(buffer)
+                }
+                "bytes" -> {
+                    val end = if (offset + CHUNK_SIZE < size) {
+                        offset + CHUNK_SIZE
+                    } else {
+                        size - 1
+                    }
+                    (input.data as ByteArray).copyInto(
+                        buffer,
+                        startIndex = offset.toInt(),
+                        endIndex = end.toInt()
+                    )
+                }
+                else -> throw UnsupportedOperationException()
+            }
 
             params[paramName] = MultipartBody.Part.createFormData(
                 paramName,
-                file.name,
+                input.filename,
                 buffer.toRequestBody()
             )
 

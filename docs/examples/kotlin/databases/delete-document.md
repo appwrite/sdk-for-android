@@ -3,8 +3,7 @@ import android.os.Bundle
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import io.appwrite.Client
-import io.appwrite.models.InputFile
-import io.appwrite.services.Storage
+import io.appwrite.services.Databases
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,13 +14,13 @@ class MainActivity : AppCompatActivity() {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2") // Your project ID
 
-        val storage = Storage(client)
+        val databases = Databases(client)
 
         GlobalScope.launch {
-            val response = storage.createFile(
-                bucketId = "[BUCKET_ID]",
-                fileId = "[FILE_ID]",
-                file = InputFile.fromPath("file.png"),
+            val response = databases.deleteDocument(
+                databaseId = "[DATABASE_ID]",
+                collectionId = "[COLLECTION_ID]",
+                documentId = "[DOCUMENT_ID]"
             )
             val json = response.body?.string()        
         }

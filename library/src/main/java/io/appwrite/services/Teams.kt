@@ -8,7 +8,9 @@ import okhttp3.Cookie
 import okhttp3.Response
 import java.io.File
 
-class Teams(client: Client) : Service(client) {
+class Teams : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * List Teams
@@ -19,32 +21,20 @@ class Teams(client: Client) : Service(client) {
      * In admin mode, this endpoint returns a list of all the teams in the current
      * project. [Learn more about different API modes](/docs/admin).
      *
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param limit Maximum number of teams to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursor ID of the team used as the starting point for the query, excluding the team itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor.
-     * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.TeamList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun list(
-		search: String? = null,
-		limit: Long? = null,
-		offset: Long? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null,
-		orderType: String? = null
+		queries: List<String>? = null,
+		search: String? = null
 	): io.appwrite.models.TeamList {
         val path = "/teams"
         val params = mutableMapOf<String, Any?>(
-            "search" to search,
-            "limit" to limit,
-            "offset" to offset,
-            "cursor" to cursor,
-            "cursorDirection" to cursorDirection,
-            "orderType" to orderType
+            "queries" to queries,
+            "search" to search
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"
@@ -79,7 +69,7 @@ class Teams(client: Client) : Service(client) {
     suspend fun create(
 		teamId: String,
 		name: String,
-		roles: List<Any>? = null
+		roles: List<String>? = null
 	): io.appwrite.models.Team {
         val path = "/teams"
         val params = mutableMapOf<String, Any?>(
@@ -207,33 +197,21 @@ class Teams(client: Client) : Service(client) {
      * members have read access to this endpoint.
      *
      * @param teamId Team ID.
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, teamId, invited, joined, confirm
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param limit Maximum number of memberships to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursor ID of the membership used as the starting point for the query, excluding the membership itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor.
-     * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.MembershipList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getMemberships(
 		teamId: String,
-		search: String? = null,
-		limit: Long? = null,
-		offset: Long? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null,
-		orderType: String? = null
+		queries: List<String>? = null,
+		search: String? = null
 	): io.appwrite.models.MembershipList {
         val path = "/teams/{teamId}/memberships".replace("{teamId}", teamId)
         val params = mutableMapOf<String, Any?>(
-            "search" to search,
-            "limit" to limit,
-            "offset" to offset,
-            "cursor" to cursor,
-            "cursorDirection" to cursorDirection,
-            "orderType" to orderType
+            "queries" to queries,
+            "search" to search
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"
@@ -282,7 +260,7 @@ class Teams(client: Client) : Service(client) {
     suspend fun createMembership(
 		teamId: String,
 		email: String,
-		roles: List<Any>,
+		roles: List<String>,
 		url: String,
 		name: String? = null
 	): io.appwrite.models.Membership {
@@ -361,7 +339,7 @@ class Teams(client: Client) : Service(client) {
     suspend fun updateMembershipRoles(
 		teamId: String,
 		membershipId: String,
-		roles: List<Any>
+		roles: List<String>
 	): io.appwrite.models.Membership {
         val path = "/teams/{teamId}/memberships/{membershipId}".replace("{teamId}", teamId).replace("{membershipId}", membershipId)
         val params = mutableMapOf<String, Any?>(

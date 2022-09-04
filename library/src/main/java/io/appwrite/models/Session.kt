@@ -14,6 +14,13 @@ data class Session(
     val id: String,
 
     /**
+     * Session creation date in Datetime
+     *
+     */
+    @SerializedName("\$createdAt")
+    val createdAt: String,
+
+    /**
      * User ID.
      *
      */
@@ -21,11 +28,11 @@ data class Session(
     val userId: String,
 
     /**
-     * Session expiration date in Unix timestamp.
+     * Session expiration date in Datetime
      *
      */
     @SerializedName("expire")
-    val expire: Long,
+    val expire: String,
 
     /**
      * Session Provider.
@@ -49,11 +56,11 @@ data class Session(
     val providerAccessToken: String,
 
     /**
-     * Date, the Unix timestamp of when the access token expires.
+     * The date of when the access token expires in Datetime format.
      *
      */
     @SerializedName("providerAccessTokenExpiry")
-    val providerAccessTokenExpiry: Long,
+    val providerAccessTokenExpiry: String,
 
     /**
      * Session Provider Refresh Token.
@@ -178,12 +185,13 @@ data class Session(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Session(
             id = map["\$id"] as String,
+            createdAt = map["\$createdAt"] as String,
             userId = map["userId"] as String,
-            expire = (map["expire"] as Number).toLong(),
+            expire = map["expire"] as String,
             provider = map["provider"] as String,
             providerUid = map["providerUid"] as String,
             providerAccessToken = map["providerAccessToken"] as String,
-            providerAccessTokenExpiry = (map["providerAccessTokenExpiry"] as Number).toLong(),
+            providerAccessTokenExpiry = map["providerAccessTokenExpiry"] as String,
             providerRefreshToken = map["providerRefreshToken"] as String,
             ip = map["ip"] as String,
             osCode = map["osCode"] as String,
@@ -206,6 +214,7 @@ data class Session(
 
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
+        "\$createdAt" to createdAt as Any,
         "userId" to userId as Any,
         "expire" to expire as Any,
         "provider" to provider as Any,

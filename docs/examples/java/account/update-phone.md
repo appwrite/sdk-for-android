@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
         Account account = new Account(client);
 
-        account.createSession(
-            "email@example.com", 
+        account.updatePhone(
+            "", 
             "password"
             new Continuation<Object>() {
                 @NotNull

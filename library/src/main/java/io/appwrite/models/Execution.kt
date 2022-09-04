@@ -14,11 +14,25 @@ data class Execution(
     val id: String,
 
     /**
-     * Execution read permissions.
+     * Execution creation date in Datetime
      *
      */
-    @SerializedName("\$read")
-    val read: List<Any>,
+    @SerializedName("\$createdAt")
+    val createdAt: String,
+
+    /**
+     * Execution upate date in Datetime
+     *
+     */
+    @SerializedName("\$updatedAt")
+    val updatedAt: String,
+
+    /**
+     * Execution roles.
+     *
+     */
+    @SerializedName("\$permissions")
+    val permissions: List<Any>,
 
     /**
      * Function ID.
@@ -26,13 +40,6 @@ data class Execution(
      */
     @SerializedName("functionId")
     val functionId: String,
-
-    /**
-     * The execution creation date in Unix timestamp.
-     *
-     */
-    @SerializedName("dateCreated")
-    val dateCreated: Long,
 
     /**
      * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
@@ -63,7 +70,14 @@ data class Execution(
     val response: String,
 
     /**
-     * The script stderr output string. Logs the last 4,000 characters of the execution stderr output
+     * The script stdout output string. Logs the last 4,000 characters of the execution stdout output. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+     *
+     */
+    @SerializedName("stdout")
+    val stdout: String,
+
+    /**
+     * The script stderr output string. Logs the last 4,000 characters of the execution stderr output. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
      *
      */
     @SerializedName("stderr")
@@ -80,13 +94,15 @@ data class Execution(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Execution(
             id = map["\$id"] as String,
-            read = map["\$read"] as List<Any>,
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
+            permissions = map["\$permissions"] as List<Any>,
             functionId = map["functionId"] as String,
-            dateCreated = (map["dateCreated"] as Number).toLong(),
             trigger = map["trigger"] as String,
             status = map["status"] as String,
             statusCode = (map["statusCode"] as Number).toLong(),
             response = map["response"] as String,
+            stdout = map["stdout"] as String,
             stderr = map["stderr"] as String,
             time = (map["time"] as Number).toDouble()
         )
@@ -94,13 +110,15 @@ data class Execution(
 
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
-        "\$read" to read as Any,
+        "\$createdAt" to createdAt as Any,
+        "\$updatedAt" to updatedAt as Any,
+        "\$permissions" to permissions as Any,
         "functionId" to functionId as Any,
-        "dateCreated" to dateCreated as Any,
         "trigger" to trigger as Any,
         "status" to status as Any,
         "statusCode" to statusCode as Any,
         "response" to response as Any,
+        "stdout" to stdout as Any,
         "stderr" to stderr as Any,
         "time" to time as Any
     )

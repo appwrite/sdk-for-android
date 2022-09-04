@@ -21,18 +21,25 @@ data class Document(
     val collection: String,
 
     /**
-     * Document read permissions.
+     * Document creation date in Datetime
      *
      */
-    @SerializedName("\$read")
-    val read: List<Any>,
+    @SerializedName("\$createdAt")
+    val createdAt: String,
 
     /**
-     * Document write permissions.
+     * Document update date in Datetime
      *
      */
-    @SerializedName("\$write")
-    val write: List<Any>,
+    @SerializedName("\$updatedAt")
+    val updatedAt: String,
+
+    /**
+     * Document permissions. [Learn more about permissions](/docs/permissions).
+     *
+     */
+    @SerializedName("\$permissions")
+    val permissions: List<Any>,
 
     val data: Map<String, Any>
 ) {
@@ -41,8 +48,9 @@ data class Document(
         fun from(map: Map<String, Any>) = Document(
             id = map["\$id"] as String,
             collection = map["\$collection"] as String,
-            read = map["\$read"] as List<Any>,
-            write = map["\$write"] as List<Any>,
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
+            permissions = map["\$permissions"] as List<Any>,
             data = map
         )
     }
@@ -50,8 +58,9 @@ data class Document(
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
         "\$collection" to collection as Any,
-        "\$read" to read as Any,
-        "\$write" to write as Any,
+        "\$createdAt" to createdAt as Any,
+        "\$updatedAt" to updatedAt as Any,
+        "\$permissions" to permissions as Any,
         "data" to data
     )
 
