@@ -16,9 +16,10 @@ public class MainActivity extends AppCompatActivity {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2"); // Your project ID
 
-        Databases databases = new Databases(client, "[DATABASE_ID]");
+        Databases databases = new Databases(client);
 
         databases.getDocument(
+            "[DATABASE_ID]", 
             "[COLLECTION_ID]", 
             "[DOCUMENT_ID]"
             new Continuation<Object>() {

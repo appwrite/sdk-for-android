@@ -14,18 +14,18 @@ data class Team(
     val id: String,
 
     /**
-     * Team creation date in Unix timestamp.
+     * Team creation date in ISO 8601 format.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: Long,
+    val createdAt: String,
 
     /**
-     * Team update date in Unix timestamp.
+     * Team update date in ISO 8601 format.
      *
      */
     @SerializedName("\$updatedAt")
-    val updatedAt: Long,
+    val updatedAt: String,
 
     /**
      * Team name.
@@ -45,8 +45,8 @@ data class Team(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Team(
             id = map["\$id"] as String,
-            createdAt = (map["\$createdAt"] as Number).toLong(),
-            updatedAt = (map["\$updatedAt"] as Number).toLong(),
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
             name = map["name"] as String,
             total = (map["total"] as Number).toLong()
         )

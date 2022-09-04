@@ -14,11 +14,11 @@ data class Session(
     val id: String,
 
     /**
-     * Session creation date in Unix timestamp.
+     * Session creation date in ISO 8601 format.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: Long,
+    val createdAt: String,
 
     /**
      * User ID.
@@ -28,7 +28,7 @@ data class Session(
     val userId: String,
 
     /**
-     * Session expiration date in Datetime
+     * Session expiration date in ISO 8601 format.
      *
      */
     @SerializedName("expire")
@@ -56,7 +56,7 @@ data class Session(
     val providerAccessToken: String,
 
     /**
-     * The date of when the access token expires in Datetime format.
+     * The date of when the access token expires in ISO 8601 format.
      *
      */
     @SerializedName("providerAccessTokenExpiry")
@@ -185,7 +185,7 @@ data class Session(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Session(
             id = map["\$id"] as String,
-            createdAt = (map["\$createdAt"] as Number).toLong(),
+            createdAt = map["\$createdAt"] as String,
             userId = map["userId"] as String,
             expire = map["expire"] as String,
             provider = map["provider"] as String,

@@ -23,11 +23,6 @@ class Teams : Service {
      *
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param limit Maximum number of teams to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursor ID of the team used as the starting point for the query, excluding the team itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
-     * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.TeamList]     
      */
     @JvmOverloads
@@ -204,11 +199,6 @@ class Teams : Service {
      * @param teamId Team ID.
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, teamId, invited, joined, confirm
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param limit Maximum number of memberships to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursor ID of the membership used as the starting point for the query, excluding the membership itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
-     * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.MembershipList]     
      */
     @JvmOverloads

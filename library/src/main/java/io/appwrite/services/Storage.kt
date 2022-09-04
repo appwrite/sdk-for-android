@@ -24,11 +24,6 @@ class Storage : Service {
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param limit Maximum number of files to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this param to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursor ID of the file used as the starting point for the query, excluding the file itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
-     * @param orderType Order result by ASC or DESC order.
      * @return [io.appwrite.models.FileList]     
      */
     @JvmOverloads
@@ -93,8 +88,7 @@ class Storage : Service {
 		bucketId: String,
 		fileId: String,
 		file: InputFile,
-		read: List<Any>? = null,
-		write: List<Any>? = null, onProgress: ((UploadProgress) -> Unit)? = null
+		permissions: List<String>? = null, onProgress: ((UploadProgress) -> Unit)? = null
 	): io.appwrite.models.File {
         val path = "/storage/buckets/{bucketId}/files".replace("{bucketId}", bucketId)
         val params = mutableMapOf<String, Any?>(

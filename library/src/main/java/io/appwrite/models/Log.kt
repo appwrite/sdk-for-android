@@ -49,7 +49,7 @@ data class Log(
     val ip: String,
 
     /**
-     * Log creation date in Datetime.
+     * Log creation date in ISO 8601 format.
      *
      */
     @SerializedName("time")

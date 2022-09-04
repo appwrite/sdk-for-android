@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch {
             val response = account.createPhoneSession(
                 userId = "[USER_ID]",
-                number = ""
+                phone = ""
             )
             val json = response.body?.string()        
         }

@@ -14,10 +14,11 @@ class MainActivity : AppCompatActivity() {
             .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
             .setProject("5df5acd0d48c2") // Your project ID
 
-        val databases = Databases(client, "[DATABASE_ID]")
+        val databases = Databases(client)
 
         GlobalScope.launch {
             val response = databases.createDocument(
+                databaseId = "[DATABASE_ID]",
                 collectionId = "[COLLECTION_ID]",
                 documentId = "[DOCUMENT_ID]",
                 data = mapOf( "a" to "b" ),

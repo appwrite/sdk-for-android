@@ -53,8 +53,6 @@ class Functions : Service {
      * @param functionId Function ID.
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, statusCode, time
      * @param search Search term to filter your list results. Max length: 256 chars.
-     * @param cursor ID of the execution used as the starting point for the query, excluding the execution itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
      * @return [io.appwrite.models.ExecutionList]     
      */
     @JvmOverloads
