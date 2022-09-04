@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         GlobalScope.launch {
             val response = account.updatePhone(
-                phone = "",
+                number = "",
                 password = "password"
             )
             val json = response.body?.string()        

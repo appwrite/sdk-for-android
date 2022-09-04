@@ -14,18 +14,18 @@ data class Account(
     val id: String,
 
     /**
-     * User creation date in Datetime.
+     * User creation date in Unix timestamp.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: String,
+    val createdAt: Long,
 
     /**
-     * User update date in Datetime.
+     * User update date in Unix timestamp.
      *
      */
     @SerializedName("\$updatedAt")
-    val updatedAt: String,
+    val updatedAt: Long,
 
     /**
      * User name.
@@ -94,8 +94,8 @@ data class Account(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Account(
             id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
+            createdAt = (map["\$createdAt"] as Number).toLong(),
+            updatedAt = (map["\$updatedAt"] as Number).toLong(),
             name = map["name"] as String,
             registration = map["registration"] as String,
             status = map["status"] as Boolean,

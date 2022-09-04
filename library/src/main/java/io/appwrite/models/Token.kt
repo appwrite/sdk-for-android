@@ -14,11 +14,11 @@ data class Token(
     val id: String,
 
     /**
-     * Token creation date in Datetime
+     * Token creation date in Unix timestamp.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: String,
+    val createdAt: Long,
 
     /**
      * User ID.
@@ -45,7 +45,7 @@ data class Token(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Token(
             id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
+            createdAt = (map["\$createdAt"] as Number).toLong(),
             userId = map["userId"] as String,
             secret = map["secret"] as String,
             expire = map["expire"] as String

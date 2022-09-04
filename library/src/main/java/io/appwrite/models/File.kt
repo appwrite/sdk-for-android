@@ -21,7 +21,21 @@ data class File(
     val bucketId: String,
 
     /**
-     * File creation date in Datetime
+     * File creation date in Unix timestamp.
+     *
+     */
+    @SerializedName("\$createdAt")
+    val createdAt: Long,
+
+    /**
+     * File update date in Unix timestamp.
+     *
+     */
+    @SerializedName("\$updatedAt")
+    val updatedAt: Long,
+
+    /**
+     * File read permissions.
      *
      */
     @SerializedName("\$createdAt")
@@ -40,13 +54,6 @@ data class File(
      */
     @SerializedName("\$permissions")
     val permissions: List<Any>,
-
-    /**
-     * File name.
-     *
-     */
-    @SerializedName("name")
-    val name: String,
 
     /**
      * File MD5 signature.
@@ -88,9 +95,10 @@ data class File(
         fun from(map: Map<String, Any>) = File(
             id = map["\$id"] as String,
             bucketId = map["bucketId"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            permissions = map["\$permissions"] as List<Any>,
+            createdAt = (map["\$createdAt"] as Number).toLong(),
+            updatedAt = (map["\$updatedAt"] as Number).toLong(),
+            read = map["\$read"] as List<Any>,
+            write = map["\$write"] as List<Any>,
             name = map["name"] as String,
             signature = map["signature"] as String,
             mimeType = map["mimeType"] as String,
@@ -105,7 +113,8 @@ data class File(
         "bucketId" to bucketId as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
-        "\$permissions" to permissions as Any,
+        "\$read" to read as Any,
+        "\$write" to write as Any,
         "name" to name as Any,
         "signature" to signature as Any,
         "mimeType" to mimeType as Any,

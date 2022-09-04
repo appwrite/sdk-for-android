@@ -14,18 +14,18 @@ data class Membership(
     val id: String,
 
     /**
-     * Membership creation date in Datetime
+     * Membership creation date in Unix timestamp.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: String,
+    val createdAt: Long,
 
     /**
-     * Membership update date in Datetime
+     * Membership update date in Unix timestamp.
      *
      */
     @SerializedName("\$updatedAt")
-    val updatedAt: String,
+    val updatedAt: Long,
 
     /**
      * User ID.
@@ -94,8 +94,8 @@ data class Membership(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Membership(
             id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
+            createdAt = (map["\$createdAt"] as Number).toLong(),
+            updatedAt = (map["\$updatedAt"] as Number).toLong(),
             userId = map["userId"] as String,
             userName = map["userName"] as String,
             userEmail = map["userEmail"] as String,
