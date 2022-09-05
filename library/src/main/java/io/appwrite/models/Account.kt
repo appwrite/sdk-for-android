@@ -3,9 +3,9 @@ package io.appwrite.models
 import com.google.gson.annotations.SerializedName
 
 /**
- * User
+ * Account
  */
-data class User(
+data class Account(
     /**
      * User ID.
      *
@@ -14,18 +14,18 @@ data class User(
     val id: String,
 
     /**
-     * User creation date in Unix timestamp.
+     * User creation date in ISO 8601 format.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: Long,
+    val createdAt: String,
 
     /**
-     * User update date in Unix timestamp.
+     * User update date in ISO 8601 format.
      *
      */
     @SerializedName("\$updatedAt")
-    val updatedAt: Long,
+    val updatedAt: String,
 
     /**
      * User name.
@@ -35,11 +35,11 @@ data class User(
     val name: String,
 
     /**
-     * User registration date in Unix timestamp.
+     * User registration date in ISO 8601 format.
      *
      */
     @SerializedName("registration")
-    val registration: Long,
+    val registration: String,
 
     /**
      * User status. Pass `true` for enabled and `false` for disabled.
@@ -49,11 +49,11 @@ data class User(
     val status: Boolean,
 
     /**
-     * Unix timestamp of the most recent password update
+     * Password update time in ISO 8601 format.
      *
      */
     @SerializedName("passwordUpdate")
-    val passwordUpdate: Long,
+    val passwordUpdate: String,
 
     /**
      * User email address.
@@ -92,14 +92,14 @@ data class User(
 ) {
     companion object {
         @Suppress("UNCHECKED_CAST")
-        fun from(map: Map<String, Any>) = User(
+        fun from(map: Map<String, Any>) = Account(
             id = map["\$id"] as String,
-            createdAt = (map["\$createdAt"] as Number).toLong(),
-            updatedAt = (map["\$updatedAt"] as Number).toLong(),
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
             name = map["name"] as String,
-            registration = (map["registration"] as Number).toLong(),
+            registration = map["registration"] as String,
             status = map["status"] as Boolean,
-            passwordUpdate = (map["passwordUpdate"] as Number).toLong(),
+            passwordUpdate = map["passwordUpdate"] as String,
             email = map["email"] as String,
             phone = map["phone"] as String,
             emailVerification = map["emailVerification"] as Boolean,

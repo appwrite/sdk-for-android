@@ -21,32 +21,25 @@ data class File(
     val bucketId: String,
 
     /**
-     * File creation date in Unix timestamp.
+     * File creation date in ISO 8601 format.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: Long,
+    val createdAt: String,
 
     /**
-     * File update date in Unix timestamp.
+     * File update date in ISO 8601 format.
      *
      */
     @SerializedName("\$updatedAt")
-    val updatedAt: Long,
+    val updatedAt: String,
 
     /**
-     * File read permissions.
+     * File permissions. [Learn more about permissions](/docs/permissions).
      *
      */
-    @SerializedName("\$read")
-    val read: List<Any>,
-
-    /**
-     * File write permissions.
-     *
-     */
-    @SerializedName("\$write")
-    val write: List<Any>,
+    @SerializedName("\$permissions")
+    val permissions: List<Any>,
 
     /**
      * File name.
@@ -95,10 +88,9 @@ data class File(
         fun from(map: Map<String, Any>) = File(
             id = map["\$id"] as String,
             bucketId = map["bucketId"] as String,
-            createdAt = (map["\$createdAt"] as Number).toLong(),
-            updatedAt = (map["\$updatedAt"] as Number).toLong(),
-            read = map["\$read"] as List<Any>,
-            write = map["\$write"] as List<Any>,
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
+            permissions = map["\$permissions"] as List<Any>,
             name = map["name"] as String,
             signature = map["signature"] as String,
             mimeType = map["mimeType"] as String,
@@ -113,8 +105,7 @@ data class File(
         "bucketId" to bucketId as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
-        "\$read" to read as Any,
-        "\$write" to write as Any,
+        "\$permissions" to permissions as Any,
         "name" to name as Any,
         "signature" to signature as Any,
         "mimeType" to mimeType as Any,

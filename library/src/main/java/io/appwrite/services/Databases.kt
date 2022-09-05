@@ -10,46 +10,31 @@ import java.io.File
 
 class Databases : Service {
 
-    val databaseId: String
-
-    public constructor(client: Client, databaseId: String) : super(client) {
-        this.databaseId = databaseId
-    }
+    public constructor (client: Client) : super(client) { }
 
     /**
      * List Documents
      *
-     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/database#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long.
-     * @param limit Maximum number of documents to return in response. By default will return maximum 25 results. Maximum of 100 results allowed per request.
-     * @param offset Offset value. The default value is 0. Use this value to manage pagination. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursor ID of the document used as the starting point for the query, excluding the document itself. Should be used for efficient pagination when working with large sets of data. [learn more about pagination](https://appwrite.io/docs/pagination)
-     * @param cursorDirection Direction of the cursor, can be either &#039;before&#039; or &#039;after&#039;.
-     * @param orderAttributes Array of attributes used to sort results. Maximum of 100 order attributes are allowed, each 4096 characters long.
-     * @param orderTypes Array of order directions for sorting attribtues. Possible values are DESC for descending order, or ASC for ascending order. Maximum of 100 order types are allowed.
+     * Get a list of all the user's documents in a given collection. You can use
+     * the query params to filter your results. On admin mode, this endpoint will
+     * return a list of all of documents belonging to the provided collectionId.
+     * [Learn more about different API modes](/docs/admin).
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.DocumentList]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listDocuments(
+		databaseId: String,
 		collectionId: String,
-		queries: List<Any>? = null,
-		limit: Long? = null,
-		offset: Long? = null,
-		cursor: String? = null,
-		cursorDirection: String? = null,
-		orderAttributes: List<Any>? = null,
-		orderTypes: List<Any>? = null
+		queries: List<String>? = null
 	): io.appwrite.models.DocumentList {
         val path = "/databases/{databaseId}/collections/{collectionId}/documents".replace("{databaseId}", databaseId).replace("{collectionId}", collectionId)
         val params = mutableMapOf<String, Any?>(
-            "queries" to queries,
-            "limit" to limit,
-            "offset" to offset,
-            "cursor" to cursor,
-            "cursorDirection" to cursorDirection,
-            "orderAttributes" to orderAttributes,
-            "orderTypes" to orderTypes
+            "queries" to queries
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"
@@ -70,28 +55,32 @@ class Databases : Service {
     /**
      * Create Document
      *
-     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection). Make sure to define attributes before creating documents.
+     * Create a new Document. Before using this route, you should create a new
+     * collection resource using either a [server
+     * integration](/docs/server/databases#databasesCreateCollection) API or
+     * directly from your database console.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
      * @param documentId Document ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
-     * @param read An array of strings with read permissions. By default only the current user is granted with read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default only the current user is granted with write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param permissions An array of permissions strings. By default the current user is granted with all permissions. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.Document]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createDocument(
+		databaseId: String,
 		collectionId: String,
 		documentId: String,
 		data: Any,
-		read: List<Any>? = null,
-		write: List<Any>? = null
+		permissions: List<String>? = null
 	): io.appwrite.models.Document {
         val path = "/databases/{databaseId}/collections/{collectionId}/documents".replace("{databaseId}", databaseId).replace("{collectionId}", collectionId)
         val params = mutableMapOf<String, Any?>(
             "documentId" to documentId,
             "data" to data,
-            "read" to read,
-            "write" to write
+            "permissions" to permissions
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"
@@ -112,13 +101,18 @@ class Databases : Service {
     /**
      * Get Document
      *
-     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * Get a document by its unique ID. This endpoint response returns a JSON
+     * object with the document data.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param documentId Document ID.
      * @return [io.appwrite.models.Document]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getDocument(
+		databaseId: String,
 		collectionId: String,
 		documentId: String
 	): io.appwrite.models.Document {
@@ -144,27 +138,29 @@ class Databases : Service {
     /**
      * Update Document
      *
+     * Update a document by its unique ID. Using the patch method you can pass
+     * only specific fields that will get updated.
+     *
+     * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
-     * @param read An array of strings with read permissions. By default inherits the existing read permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
-     * @param write An array of strings with write permissions. By default inherits the existing write permissions. [learn more about permissions](https://appwrite.io/docs/permissions) and get a full list of available permissions.
+     * @param permissions An array of permissions strings. By default the current permissions are inherited. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.Document]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateDocument(
+		databaseId: String,
 		collectionId: String,
 		documentId: String,
 		data: Any? = null,
-		read: List<Any>? = null,
-		write: List<Any>? = null
+		permissions: List<String>? = null
 	): io.appwrite.models.Document {
         val path = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}".replace("{databaseId}", databaseId).replace("{collectionId}", collectionId).replace("{documentId}", documentId)
         val params = mutableMapOf<String, Any?>(
             "data" to data,
-            "read" to read,
-            "write" to write
+            "permissions" to permissions
         )
         val headers = mutableMapOf(
             "content-type" to "application/json"
@@ -185,13 +181,17 @@ class Databases : Service {
     /**
      * Delete Document
      *
-     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/database#createCollection).
+     * Delete a document by its unique ID.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param documentId Document ID.
      * @return [Any]     
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun deleteDocument(
+		databaseId: String,
 		collectionId: String,
 		documentId: String
 	): Any {

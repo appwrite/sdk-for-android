@@ -21,32 +21,25 @@ data class Document(
     val collection: String,
 
     /**
-     * Document creation date in Unix timestamp.
+     * Document creation date in ISO 8601 format.
      *
      */
     @SerializedName("\$createdAt")
-    val createdAt: Long,
+    val createdAt: String,
 
     /**
-     * Document update date in Unix timestamp.
+     * Document update date in ISO 8601 format.
      *
      */
     @SerializedName("\$updatedAt")
-    val updatedAt: Long,
+    val updatedAt: String,
 
     /**
-     * Document read permissions.
+     * Document permissions. [Learn more about permissions](/docs/permissions).
      *
      */
-    @SerializedName("\$read")
-    val read: List<Any>,
-
-    /**
-     * Document write permissions.
-     *
-     */
-    @SerializedName("\$write")
-    val write: List<Any>,
+    @SerializedName("\$permissions")
+    val permissions: List<Any>,
 
     val data: Map<String, Any>
 ) {
@@ -55,10 +48,9 @@ data class Document(
         fun from(map: Map<String, Any>) = Document(
             id = map["\$id"] as String,
             collection = map["\$collection"] as String,
-            createdAt = (map["\$createdAt"] as Number).toLong(),
-            updatedAt = (map["\$updatedAt"] as Number).toLong(),
-            read = map["\$read"] as List<Any>,
-            write = map["\$write"] as List<Any>,
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
+            permissions = map["\$permissions"] as List<Any>,
             data = map
         )
     }
@@ -68,8 +60,7 @@ data class Document(
         "\$collection" to collection as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
-        "\$read" to read as Any,
-        "\$write" to write as Any,
+        "\$permissions" to permissions as Any,
         "data" to data
     )
 

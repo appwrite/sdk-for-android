@@ -49,11 +49,11 @@ data class Log(
     val ip: String,
 
     /**
-     * Log creation time in Unix timestamp.
+     * Log creation date in ISO 8601 format.
      *
      */
     @SerializedName("time")
-    val time: Long,
+    val time: String,
 
     /**
      * Operating system code name. View list of [available options](https://github.com/appwrite/appwrite/blob/master/docs/lists/os.json).
@@ -162,7 +162,7 @@ data class Log(
             userName = map["userName"] as String,
             mode = map["mode"] as String,
             ip = map["ip"] as String,
-            time = (map["time"] as Number).toLong(),
+            time = map["time"] as String,
             osCode = map["osCode"] as String,
             osName = map["osName"] as String,
             osVersion = map["osVersion"] as String,

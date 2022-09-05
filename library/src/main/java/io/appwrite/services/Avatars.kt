@@ -131,7 +131,8 @@ class Avatars : Service {
      *
      * You can use this endpoint to show different country flags icons to your
      * users. The code argument receives the 2 letter country code. Use width,
-     * height and quality arguments to change the output settings.
+     * height and quality arguments to change the output settings. Country codes
+     * follow the [ISO 3166-1](http://en.wikipedia.org/wiki/ISO_3166-1) standard.
      * 
      * When one dimension is specified and the other is 0, the image is scaled
      * with preserved aspect ratio. If both dimensions are 0, the API provides an
@@ -232,7 +233,6 @@ class Avatars : Service {
      * @param name Full Name. When empty, current user name or email will be used. Max length: 128 chars.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
      * @param height Image height. Pass an integer between 0 to 2000. Defaults to 100.
-     * @param color Changes text color. By default a random color will be picked and stay will persistent to the given name.
      * @param background Changes background color. By default a random color will be picked and stay will persistent to the given name.
      * @return [ByteArray]     
      */
@@ -242,7 +242,6 @@ class Avatars : Service {
 		name: String? = null,
 		width: Long? = null,
 		height: Long? = null,
-		color: String? = null,
 		background: String? = null
 	): ByteArray {
         val path = "/avatars/initials"
@@ -250,7 +249,6 @@ class Avatars : Service {
             "name" to name,
             "width" to width,
             "height" to height,
-            "color" to color,
             "background" to background,
             "project" to client.config["project"]
         )
