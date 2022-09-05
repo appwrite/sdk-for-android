@@ -233,7 +233,6 @@ class Avatars : Service {
      * @param name Full Name. When empty, current user name or email will be used. Max length: 128 chars.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
      * @param height Image height. Pass an integer between 0 to 2000. Defaults to 100.
-     * @param color Changes text color. By default a random color will be picked and stay will persistent to the given name.
      * @param background Changes background color. By default a random color will be picked and stay will persistent to the given name.
      * @return [ByteArray]     
      */
@@ -243,7 +242,6 @@ class Avatars : Service {
 		name: String? = null,
 		width: Long? = null,
 		height: Long? = null,
-		color: String? = null,
 		background: String? = null
 	): ByteArray {
         val path = "/avatars/initials"
@@ -251,7 +249,6 @@ class Avatars : Service {
             "name" to name,
             "width" to width,
             "height" to height,
-            "color" to color,
             "background" to background,
             "project" to client.config["project"]
         )

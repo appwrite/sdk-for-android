@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:0.8.0-SNAPSHOT")
+implementation("io.appwrite:sdk-for-android:1.0.0-SNAPSHOT")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>0.8.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </dependency>
 </dependencies>
 ```
