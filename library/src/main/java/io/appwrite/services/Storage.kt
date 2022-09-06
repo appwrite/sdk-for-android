@@ -77,7 +77,7 @@ class Storage : Service {
      * 
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](/docs/server/storage#createBucket).
-     * @param fileId File ID. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
+     * @param fileId File ID. Choose your own unique ID or pass the string "unique()" to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param file Binary file.
      * @param permissions An array of permission strings. By default the current user is granted with all permissions. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.File]     

@@ -55,7 +55,7 @@ class Account : Service {
      * login to their new account, you need to create a new [account
      * session](/docs/client/account#accountCreateSession).
      *
-     * @param userId Unique Id. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
+     * @param userId Unique Id. Choose your own unique ID or pass the string "unique()" to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
      * @param name User name. Max length: 128 chars.
@@ -282,7 +282,7 @@ class Account : Service {
      * /account/verification/phone](/docs/client/account#accountCreatePhoneVerification)
      * endpoint to send a confirmation SMS.
      *
-     * @param phone Phone number. Format this number with a leading &#039;+&#039; and a country code, e.g., +16175551212.
+     * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param password User password. Must be at least 8 chars.
      * @return [io.appwrite.models.Account]     
      */
@@ -612,7 +612,7 @@ class Account : Service {
      * the URL parameter empty, so that the login completion will be handled by
      * your Appwrite instance by default.
      *
-     * @param userId Unique Id. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
+     * @param userId Unique Id. Choose your own unique ID or pass the string "unique()" to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
      * @param url URL to redirect the user back to your app from the magic URL login. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @return [io.appwrite.models.Token]     
@@ -784,8 +784,8 @@ class Account : Service {
      * endpoint to complete the login process. The secret sent to the user's phone
      * is valid for 15 minutes.
      *
-     * @param userId Unique Id. Choose your own unique ID or pass the string &quot;unique()&quot; to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can&#039;t start with a special char. Max length is 36 chars.
-     * @param phone Phone number. Format this number with a leading &#039;+&#039; and a country code, e.g., +16175551212.
+     * @param userId Unique Id. Choose your own unique ID or pass the string "unique()" to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @return [io.appwrite.models.Token]     
      */
     @JvmOverloads
@@ -861,7 +861,7 @@ class Account : Service {
      * Use this endpoint to get a logged in user's session using a Session ID.
      * Inputting 'current' will return the current session being used.
      *
-     * @param sessionId Session ID. Use the string &#039;current&#039; to get the current device session.
+     * @param sessionId Session ID. Use the string 'current' to get the current device session.
      * @return [io.appwrite.models.Session]     
      */
     @JvmOverloads
@@ -895,7 +895,7 @@ class Account : Service {
      * If session was created using an OAuth provider, this route can be used to
      * "refresh" the access token.
      *
-     * @param sessionId Session ID. Use the string &#039;current&#039; to update the current device session.
+     * @param sessionId Session ID. Use the string 'current' to update the current device session.
      * @return [io.appwrite.models.Session]     
      */
     @JvmOverloads
@@ -930,7 +930,7 @@ class Account : Service {
      * Session ID argument, only the unique session ID provided is deleted.
      * 
      *
-     * @param sessionId Session ID. Use the string &#039;current&#039; to delete the current device session.
+     * @param sessionId Session ID. Use the string 'current' to delete the current device session.
      * @return [Any]     
      */
     @JvmOverloads
