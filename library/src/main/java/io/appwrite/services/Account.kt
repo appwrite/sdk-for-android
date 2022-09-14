@@ -169,7 +169,7 @@ class Account : Service {
     }
     
     /**
-     * Get Account Logs
+     * List Account Logs
      *
      * Get currently logged in user list of latest security activity logs. Each
      * log returns user IP address, location and date and time of log.
@@ -179,7 +179,7 @@ class Account : Service {
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun getLogs(
+    suspend fun listLogs(
 		queries: List<String>? = null
 	): io.appwrite.models.LogList {
         val path = "/account/logs"
@@ -471,7 +471,7 @@ class Account : Service {
     }
     
     /**
-     * Get Account Sessions
+     * List Account Sessions
      *
      * Get currently logged in user list of active sessions across different
      * devices.
@@ -480,7 +480,7 @@ class Account : Service {
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun getSessions(): io.appwrite.models.SessionList {
+    suspend fun listSessions(): io.appwrite.models.SessionList {
         val path = "/account/sessions"
         val params = mutableMapOf<String, Any?>(
         )

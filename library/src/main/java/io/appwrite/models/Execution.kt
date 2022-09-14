@@ -84,11 +84,11 @@ data class Execution(
     val stderr: String,
 
     /**
-     * The script execution time in seconds.
+     * The script execution duration in seconds.
      *
      */
-    @SerializedName("time")
-    val time: Double
+    @SerializedName("duration")
+    val duration: Double
 ) {
     companion object {
         @Suppress("UNCHECKED_CAST")
@@ -104,7 +104,7 @@ data class Execution(
             response = map["response"] as String,
             stdout = map["stdout"] as String,
             stderr = map["stderr"] as String,
-            time = (map["time"] as Number).toDouble()
+            duration = (map["duration"] as Number).toDouble()
         )
     }
 
@@ -120,6 +120,6 @@ data class Execution(
         "response" to response as Any,
         "stdout" to stdout as Any,
         "stderr" to stderr as Any,
-        "time" to time as Any
+        "duration" to duration as Any
     )
 }
