@@ -51,7 +51,7 @@ class Functions : Service {
      * different API modes](/docs/admin).
      *
      * @param functionId Function ID.
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, statusCode, time
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, statusCode, duration
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @return [io.appwrite.models.ExecutionList]     
      */
@@ -93,7 +93,7 @@ class Functions : Service {
      *
      * @param functionId Function ID.
      * @param data String of custom data to send to function.
-     * @param async Execute code asynchronously. Default value is true.
+     * @param async Execute code in the background. Default value is false.
      * @return [io.appwrite.models.Execution]     
      */
     @JvmOverloads

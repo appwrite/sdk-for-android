@@ -17,8 +17,15 @@ data class Document(
      * Collection ID.
      *
      */
-    @SerializedName("\$collection")
-    val collection: String,
+    @SerializedName("\$collectionId")
+    val collectionId: String,
+
+    /**
+     * Database ID.
+     *
+     */
+    @SerializedName("\$databaseId")
+    val databaseId: String,
 
     /**
      * Document creation date in ISO 8601 format.
@@ -47,7 +54,8 @@ data class Document(
         @Suppress("UNCHECKED_CAST")
         fun from(map: Map<String, Any>) = Document(
             id = map["\$id"] as String,
-            collection = map["\$collection"] as String,
+            collectionId = map["\$collectionId"] as String,
+            databaseId = map["\$databaseId"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
             permissions = map["\$permissions"] as List<Any>,
@@ -57,7 +65,8 @@ data class Document(
 
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
-        "\$collection" to collection as Any,
+        "\$collectionId" to collectionId as Any,
+        "\$databaseId" to databaseId as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
         "\$permissions" to permissions as Any,
