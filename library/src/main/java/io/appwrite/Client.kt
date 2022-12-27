@@ -88,7 +88,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "1.1.0",            
+            "x-sdk-version" to "1.2.0",            
             "x-appwrite-response-format" to "1.0.0"
         )
         config = mutableMapOf()
@@ -250,7 +250,7 @@ class Client @JvmOverloads constructor(
         headers:  Map<String, String> = mapOf(), 
         params: Map<String, Any?> = mapOf(),
         responseType: Class<T>,
-        converter: ((Map<String, Any,>) -> T)? = null
+        converter: ((Any) -> T)? = null
     ): T {
         val filteredParams = params.filterValues { it != null }
 
@@ -341,7 +341,7 @@ class Client @JvmOverloads constructor(
         headers:  MutableMap<String, String>,
         params: MutableMap<String, Any?>,
         responseType: Class<T>,
-        converter: ((Map<String, Any,>) -> T),
+        converter: ((Any) -> T),
         paramName: String,
         idParamName: String? = null,
         onProgress: ((UploadProgress) -> Unit)? = null,
@@ -464,7 +464,7 @@ class Client @JvmOverloads constructor(
     private suspend fun <T> awaitResponse(
         request: Request,
         responseType: Class<T>,
-        converter: ((Map<String, Any,>) -> T)? = null
+        converter: ((Any) -> T)? = null
     ) = suspendCancellableCoroutine<T> {
         http.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -525,9 +525,9 @@ class Client @JvmOverloads constructor(
                     it.resume(true as T)
                     return
                 }
-                val map = gson.fromJson<Map<String, Any>>(
+                val map = gson.fromJson<Any>(
                     body,
-                    object : TypeToken<Map<String, Any>>(){}.type
+                    object : TypeToken<Any>(){}.type
                 )
                 it.resume(
                     converter?.invoke(map) ?: map as T

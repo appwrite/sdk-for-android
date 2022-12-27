@@ -1,25 +1,35 @@
 package io.appwrite.models
 
 import com.google.gson.annotations.SerializedName
+import io.appwrite.extensions.jsonCast
 
 /**
  * Preferences
  */
-data class Preferences(
-    val data: Map<String, Any>
+data class Preferences<T>(
+    /**
+     * Additional properties
+     */
+    @SerializedName("data")
+    val data: T
 ) {
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun from(map: Map<String, Any>) = Preferences(
-            data = map
-        )
-    }
-
     fun toMap(): Map<String, Any> = mapOf(
-        "data" to data
+        "data" to data!!.jsonCast(to = Map::class.java)
     )
 
-    fun <T> convertTo(fromJson: (Map<String, Any>) -> T): T {
-        return fromJson(data)
+    companion object {
+        operator fun invoke(
+            data: Map<String, Any>
+        ) = Preferences<Map<String, Any>>(
+            data
+        )
+
+        @Suppress("UNCHECKED_CAST")
+        fun <T> from(
+            map: Map<String, Any>,
+            nestedType: Class<T>
+        ) = Preferences<T>(
+            data = map.jsonCast(to = nestedType)
+        )
     }
 }
