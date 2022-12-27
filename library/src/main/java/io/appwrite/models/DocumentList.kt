@@ -1,38 +1,46 @@
 package io.appwrite.models
 
 import com.google.gson.annotations.SerializedName
+import io.appwrite.extensions.jsonCast
 
 /**
  * Documents List
  */
-data class DocumentList(
+data class DocumentList<T>(
     /**
      * Total number of documents documents that matched your query.
-     *
      */
     @SerializedName("total")
     val total: Long,
 
     /**
      * List of documents.
-     *
      */
     @SerializedName("documents")
-    val documents: List<Document>
-) {
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun from(map: Map<String, Any>) = DocumentList(
-            total = (map["total"] as Number).toLong(),
-            documents = (map["documents"] as List<Map<String, Any>>).map { Document.from(map = it) }
-        )
-    }
+    val documents: List<Document<T>>,
 
+) {
     fun toMap(): Map<String, Any> = mapOf(
         "total" to total as Any,
-        "documents" to documents.map { it.toMap() } as Any
+        "documents" to documents.map { it.toMap() } as Any,
     )
 
-    fun <T> convertTo(fromJson: (Map<String, Any>) -> T) =
-        documents.map { it.convertTo(fromJson = fromJson) }
+    companion object {
+        operator fun invoke(
+            total: Long,
+            documents: List<Document<Map<String, Any>>>,
+        ) = DocumentList<Map<String, Any>>(
+            total,
+            documents,
+        )
+
+        @Suppress("UNCHECKED_CAST")
+        fun <T> from(
+            map: Map<String, Any>,
+            nestedType: Class<T>
+        ) = DocumentList<T>(
+            total = (map["total"] as Number).toLong(),
+            documents = (map["documents"] as List<Map<String, Any>>).map { Document.from(map = it, nestedType) },
+        )
+    }
 }
