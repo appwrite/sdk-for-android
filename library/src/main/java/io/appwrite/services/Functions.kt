@@ -37,13 +37,14 @@ class Functions : Service {
         val params = mutableMapOf<String, Any?>(
             "queries" to queries,
             "search" to search,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ExecutionList = {
-                io.appwrite.models.ExecutionList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.ExecutionList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -77,13 +78,14 @@ class Functions : Service {
         val params = mutableMapOf<String, Any?>(
             "data" to data,
             "async" to async,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
-                io.appwrite.models.Execution.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Execution.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -113,13 +115,14 @@ class Functions : Service {
             .replace("{executionId}", executionId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
-                io.appwrite.models.Execution.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Execution.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,

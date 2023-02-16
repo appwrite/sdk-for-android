@@ -32,13 +32,14 @@ class Account : Service {
         val path = "/account"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "GET",
             path,
@@ -67,7 +68,7 @@ class Account : Service {
      *
      * Use this endpoint to allow a new user to register a new account in your project. After the user registration completes successfully, you can use the [/account/verfication](/docs/client/account#accountCreateVerification) route to start verifying the user email address. To allow the new user to login to their new account, you need to create a new [account session](/docs/client/account#accountCreateSession).
      *
-     * @param userId Unique Id. Choose your own unique ID or pass the string `ID.unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
      * @param name User name. Max length: 128 chars.
@@ -88,13 +89,14 @@ class Account : Service {
             "email" to email,
             "password" to password,
             "name" to name,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "POST",
             path,
@@ -110,7 +112,7 @@ class Account : Service {
      *
      * Use this endpoint to allow a new user to register a new account in your project. After the user registration completes successfully, you can use the [/account/verfication](/docs/client/account#accountCreateVerification) route to start verifying the user email address. To allow the new user to login to their new account, you need to create a new [account session](/docs/client/account#accountCreateSession).
      *
-     * @param userId Unique Id. Choose your own unique ID or pass the string `ID.unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
      * @param name User name. Max length: 128 chars.
@@ -150,13 +152,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "email" to email,
             "password" to password,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "PATCH",
             path,
@@ -198,13 +201,14 @@ class Account : Service {
         val path = "/account/jwt"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Jwt = {
-                io.appwrite.models.Jwt.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Jwt.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -232,13 +236,14 @@ class Account : Service {
 
         val params = mutableMapOf<String, Any?>(
             "queries" to queries,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LogList = {
-                io.appwrite.models.LogList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.LogList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -266,13 +271,14 @@ class Account : Service {
 
         val params = mutableMapOf<String, Any?>(
             "name" to name,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "PATCH",
             path,
@@ -319,13 +325,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "password" to password,
             "oldPassword" to oldPassword,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "PATCH",
             path,
@@ -375,13 +382,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "phone" to phone,
             "password" to password,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "PATCH",
             path,
@@ -424,13 +432,14 @@ class Account : Service {
         val path = "/account/prefs"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
-                io.appwrite.models.Preferences.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Preferences.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "GET",
             path,
@@ -470,13 +479,14 @@ class Account : Service {
 
         val params = mutableMapOf<String, Any?>(
             "prefs" to prefs,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "PATCH",
             path,
@@ -521,13 +531,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "email" to email,
             "url" to url,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -563,13 +574,14 @@ class Account : Service {
             "secret" to secret,
             "password" to password,
             "passwordAgain" to passwordAgain,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PUT",
             path,
@@ -593,13 +605,14 @@ class Account : Service {
         val path = "/account/sessions"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.SessionList = {
-                io.appwrite.models.SessionList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.SessionList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -623,6 +636,7 @@ class Account : Service {
         val path = "/account/sessions"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
@@ -649,13 +663,14 @@ class Account : Service {
         val path = "/account/sessions/anonymous"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
-                io.appwrite.models.Session.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -685,13 +700,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "email" to email,
             "password" to password,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
-                io.appwrite.models.Session.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -708,7 +724,7 @@ class Account : Service {
      *
      * Sends the user an email with a secret key for creating a session. If the provided user ID has not be registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [PUT /account/sessions/magic-url](/docs/client/account#accountUpdateMagicURLSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour. If you are on a mobile device you can leave the URL parameter empty, so that the login completion will be handled by your Appwrite instance by default.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication#limits).
      *
-     * @param userId Unique Id. Choose your own unique ID or pass the string `ID.unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
      * @param url URL to redirect the user back to your app from the magic URL login. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @return [io.appwrite.models.Token]
@@ -725,13 +741,14 @@ class Account : Service {
             "userId" to userId,
             "email" to email,
             "url" to url,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -761,13 +778,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
-                io.appwrite.models.Session.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PUT",
             path,
@@ -804,6 +822,7 @@ class Account : Service {
             "success" to success,
             "failure" to failure,
             "scopes" to scopes,
+            "project" to client.config["project"],
         )
         val query = mutableListOf<String>()
         params.forEach {
@@ -855,7 +874,7 @@ class Account : Service {
      *
      * Sends the user an SMS with a secret key for creating a session. If the provided user ID has not be registered, a new user will be created. Use the returned user ID and secret and submit a request to the [PUT /account/sessions/phone](/docs/client/account#accountUpdatePhoneSession) endpoint to complete the login process. The secret sent to the user&#039;s phone is valid for 15 minutes.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication#limits).
      *
-     * @param userId Unique Id. Choose your own unique ID or pass the string `ID.unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @return [io.appwrite.models.Token]
      */
@@ -868,13 +887,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "phone" to phone,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -904,13 +924,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
-                io.appwrite.models.Session.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PUT",
             path,
@@ -937,13 +958,14 @@ class Account : Service {
             .replace("{sessionId}", sessionId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
-                io.appwrite.models.Session.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -970,13 +992,14 @@ class Account : Service {
             .replace("{sessionId}", sessionId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
-                io.appwrite.models.Session.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PATCH",
             path,
@@ -1003,6 +1026,7 @@ class Account : Service {
             .replace("{sessionId}", sessionId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
@@ -1030,13 +1054,14 @@ class Account : Service {
         val path = "/account/status"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Account<T> = {
-                io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "PATCH",
             path,
@@ -1075,13 +1100,14 @@ class Account : Service {
 
         val params = mutableMapOf<String, Any?>(
             "url" to url,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -1111,13 +1137,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PUT",
             path,
@@ -1141,13 +1168,14 @@ class Account : Service {
         val path = "/account/verification/phone"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -1177,13 +1205,14 @@ class Account : Service {
         val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
-                io.appwrite.models.Token.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PUT",
             path,

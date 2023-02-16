@@ -42,6 +42,7 @@ class Avatars : Service {
             "width" to width,
             "height" to height,
             "quality" to quality,
+            "project" to client.config["project"],
         )
         return client.call(
             "GET",
@@ -77,6 +78,7 @@ class Avatars : Service {
             "width" to width,
             "height" to height,
             "quality" to quality,
+            "project" to client.config["project"],
         )
         return client.call(
             "GET",
@@ -102,6 +104,7 @@ class Avatars : Service {
 
         val params = mutableMapOf<String, Any?>(
             "url" to url,
+            "project" to client.config["project"],
         )
         return client.call(
             "GET",
@@ -137,6 +140,7 @@ class Avatars : Service {
             "width" to width,
             "height" to height,
             "quality" to quality,
+            "project" to client.config["project"],
         )
         return client.call(
             "GET",
@@ -169,6 +173,7 @@ class Avatars : Service {
             "url" to url,
             "width" to width,
             "height" to height,
+            "project" to client.config["project"],
         )
         return client.call(
             "GET",
@@ -204,6 +209,7 @@ class Avatars : Service {
             "width" to width,
             "height" to height,
             "background" to background,
+            "project" to client.config["project"],
         )
         return client.call(
             "GET",
@@ -239,6 +245,7 @@ class Avatars : Service {
             "size" to size,
             "margin" to margin,
             "download" to download,
+            "project" to client.config["project"],
         )
         return client.call(
             "GET",

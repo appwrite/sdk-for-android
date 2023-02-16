@@ -30,14 +30,15 @@ class Graphql : Service {
 
         val params = mutableMapOf<String, Any?>(
             "query" to query,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "x-sdk-graphql" to "true",
             "content-type" to "application/json",
         )
         val converter: (Any) -> Any = {
-                    it
-                }
+            it
+        }
         return client.call(
             "POST",
             path,
@@ -64,14 +65,15 @@ class Graphql : Service {
 
         val params = mutableMapOf<String, Any?>(
             "query" to query,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "x-sdk-graphql" to "true",
             "content-type" to "application/json",
         )
         val converter: (Any) -> Any = {
-                    it
-                }
+            it
+        }
         return client.call(
             "POST",
             path,

@@ -27,13 +27,14 @@ class Locale : Service {
         val path = "/locale"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Locale = {
-                io.appwrite.models.Locale.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Locale.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -57,13 +58,14 @@ class Locale : Service {
         val path = "/locale/continents"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ContinentList = {
-                io.appwrite.models.ContinentList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.ContinentList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -87,13 +89,14 @@ class Locale : Service {
         val path = "/locale/countries"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
-                io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -117,13 +120,14 @@ class Locale : Service {
         val path = "/locale/countries/eu"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
-                io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -147,13 +151,14 @@ class Locale : Service {
         val path = "/locale/countries/phones"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.PhoneList = {
-                io.appwrite.models.PhoneList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.PhoneList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -177,13 +182,14 @@ class Locale : Service {
         val path = "/locale/currencies"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CurrencyList = {
-                io.appwrite.models.CurrencyList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.CurrencyList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -207,13 +213,14 @@ class Locale : Service {
         val path = "/locale/languages"
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LanguageList = {
-                io.appwrite.models.LanguageList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.LanguageList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,

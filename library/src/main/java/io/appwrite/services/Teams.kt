@@ -34,13 +34,14 @@ class Teams : Service {
         val params = mutableMapOf<String, Any?>(
             "queries" to queries,
             "search" to search,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.TeamList = {
-                io.appwrite.models.TeamList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.TeamList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -57,7 +58,7 @@ class Teams : Service {
      *
      * Create a new team. The user who creates the team will automatically be assigned as the owner of the team. Only the users with the owner role can invite new members, add new owners and delete or update the team.
      *
-     * @param teamId Team ID. Choose your own unique ID or pass the string `ID.unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param teamId Team ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param name Team name. Max length: 128 chars.
      * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
      * @return [io.appwrite.models.Team]
@@ -74,13 +75,14 @@ class Teams : Service {
             "teamId" to teamId,
             "name" to name,
             "roles" to roles,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team = {
-                io.appwrite.models.Team.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Team.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -107,13 +109,14 @@ class Teams : Service {
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team = {
-                io.appwrite.models.Team.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Team.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -143,13 +146,14 @@ class Teams : Service {
 
         val params = mutableMapOf<String, Any?>(
             "name" to name,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team = {
-                io.appwrite.models.Team.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Team.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PUT",
             path,
@@ -176,6 +180,7 @@ class Teams : Service {
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
@@ -212,13 +217,14 @@ class Teams : Service {
         val params = mutableMapOf<String, Any?>(
             "queries" to queries,
             "search" to search,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MembershipList = {
-                io.appwrite.models.MembershipList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.MembershipList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -258,13 +264,14 @@ class Teams : Service {
             "roles" to roles,
             "url" to url,
             "name" to name,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-                io.appwrite.models.Membership.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Membership.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -294,13 +301,14 @@ class Teams : Service {
             .replace("{membershipId}", membershipId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-                io.appwrite.models.Membership.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Membership.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -333,13 +341,14 @@ class Teams : Service {
 
         val params = mutableMapOf<String, Any?>(
             "roles" to roles,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-                io.appwrite.models.Membership.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Membership.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PATCH",
             path,
@@ -369,6 +378,7 @@ class Teams : Service {
             .replace("{membershipId}", membershipId)
 
         val params = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
@@ -407,13 +417,14 @@ class Teams : Service {
         val params = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret,
+            "project" to client.config["project"],
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-                io.appwrite.models.Membership.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Membership.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PATCH",
             path,
