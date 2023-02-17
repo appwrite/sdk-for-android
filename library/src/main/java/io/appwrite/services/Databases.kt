@@ -43,8 +43,8 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
-                io.appwrite.models.DocumentList.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.DocumentList.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "GET",
             path,
@@ -85,9 +85,9 @@ class Databases : Service {
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
-     * @param documentId Document ID. Choose your own unique ID or pass the string `ID.unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param documentId Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
-     * @param permissions An array of permissions strings. By default the current user is granted with all permissions. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -112,8 +112,8 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
-                io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "POST",
             path,
@@ -131,9 +131,9 @@ class Databases : Service {
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
-     * @param documentId Document ID. Choose your own unique ID or pass the string `ID.unique()` to auto generate it. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param documentId Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
-     * @param permissions An array of permissions strings. By default the current user is granted with all permissions. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -180,8 +180,8 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
-                io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "GET",
             path,
@@ -223,7 +223,7 @@ class Databases : Service {
      * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
-     * @param permissions An array of permissions strings. By default the current permissions are inherited. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -248,8 +248,8 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
-                io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
-                }
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
         return client.call(
             "PATCH",
             path,
@@ -269,7 +269,7 @@ class Databases : Service {
      * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
-     * @param permissions An array of permissions strings. By default the current permissions are inherited. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads

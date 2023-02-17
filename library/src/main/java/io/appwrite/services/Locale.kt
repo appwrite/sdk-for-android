@@ -32,8 +32,8 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Locale = {
-                io.appwrite.models.Locale.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Locale.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -62,8 +62,8 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ContinentList = {
-                io.appwrite.models.ContinentList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.ContinentList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -92,8 +92,8 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
-                io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -122,8 +122,8 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
-                io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -152,8 +152,8 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.PhoneList = {
-                io.appwrite.models.PhoneList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.PhoneList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -182,8 +182,8 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CurrencyList = {
-                io.appwrite.models.CurrencyList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.CurrencyList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -212,8 +212,8 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LanguageList = {
-                io.appwrite.models.LanguageList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.LanguageList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,

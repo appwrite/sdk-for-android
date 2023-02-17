@@ -42,8 +42,8 @@ class Functions : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ExecutionList = {
-                io.appwrite.models.ExecutionList.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.ExecutionList.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,
@@ -82,8 +82,8 @@ class Functions : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
-                io.appwrite.models.Execution.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Execution.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "POST",
             path,
@@ -118,8 +118,8 @@ class Functions : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
-                io.appwrite.models.Execution.from(map = it as Map<String, Any>)
-                }
+            io.appwrite.models.Execution.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "GET",
             path,

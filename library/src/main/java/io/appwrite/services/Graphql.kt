@@ -36,8 +36,8 @@ class Graphql : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> Any = {
-                    it
-                }
+            it
+        }
         return client.call(
             "POST",
             path,
@@ -70,8 +70,8 @@ class Graphql : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> Any = {
-                    it
-                }
+            it
+        }
         return client.call(
             "POST",
             path,

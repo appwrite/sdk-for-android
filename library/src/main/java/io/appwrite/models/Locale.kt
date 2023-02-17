@@ -38,7 +38,7 @@ data class Locale(
     val continent: String,
 
     /**
-     * True if country is part of the Europian Union.
+     * True if country is part of the European Union.
      */
     @SerializedName("eu")
     val eu: Boolean,
