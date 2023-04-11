@@ -22,7 +22,7 @@ class Databases : Service {
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @JvmOverloads
@@ -62,7 +62,7 @@ class Databases : Service {
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @JvmOverloads
@@ -71,7 +71,7 @@ class Databases : Service {
         databaseId: String,
         collectionId: String,
         queries: List<String>? = null,
-    ) = listDocuments(
+    ): io.appwrite.models.DocumentList<Map<String, Any>> = listDocuments(
         databaseId,
         collectionId,
         queries,
@@ -144,7 +144,7 @@ class Databases : Service {
         documentId: String,
         data: Any,
         permissions: List<String>? = null,
-    ) = createDocument(
+    ): io.appwrite.models.Document<Map<String, Any>> = createDocument(
         databaseId,
         collectionId,
         documentId,
@@ -161,12 +161,15 @@ class Databases : Service {
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param documentId Document ID.
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Only method allowed is select.
      * @return [io.appwrite.models.Document<T>]
      */
+    @JvmOverloads
     suspend fun <T> getDocument(
         databaseId: String,
         collectionId: String,
         documentId: String,
+        queries: List<String>? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
         val path = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
@@ -175,6 +178,7 @@ class Databases : Service {
             .replace("{documentId}", documentId)
 
         val params = mutableMapOf<String, Any?>(
+            "queries" to queries,
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
@@ -200,17 +204,21 @@ class Databases : Service {
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param documentId Document ID.
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Only method allowed is select.
      * @return [io.appwrite.models.Document<T>]
      */
+    @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getDocument(
         databaseId: String,
         collectionId: String,
         documentId: String,
-    ) = getDocument(
+        queries: List<String>? = null,
+    ): io.appwrite.models.Document<Map<String, Any>> = getDocument(
         databaseId,
         collectionId,
         documentId,
+        queries,
         nestedType = classOf(),
     )
 
@@ -280,7 +288,7 @@ class Databases : Service {
         documentId: String,
         data: Any? = null,
         permissions: List<String>? = null,
-    ) = updateDocument(
+    ): io.appwrite.models.Document<Map<String, Any>> = updateDocument(
         databaseId,
         collectionId,
         documentId,

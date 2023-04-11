@@ -6,7 +6,7 @@ import io.appwrite.extensions.jsonCast
 /**
  * Teams List
  */
-data class TeamList(
+data class TeamList<T>(
     /**
      * Total number of teams documents that matched your query.
      */
@@ -17,7 +17,7 @@ data class TeamList(
      * List of teams.
      */
     @SerializedName("teams")
-    val teams: List<Team>,
+    val teams: List<Team<T>>,
 
 ) {
     fun toMap(): Map<String, Any> = mapOf(
@@ -26,13 +26,21 @@ data class TeamList(
     )
 
     companion object {
+        operator fun invoke(
+            total: Long,
+            teams: List<Team<Map<String, Any>>>,
+        ) = TeamList<Map<String, Any>>(
+            total,
+            teams,
+        )
 
         @Suppress("UNCHECKED_CAST")
-        fun from(
+        fun <T> from(
             map: Map<String, Any>,
-        ) = TeamList(
+            nestedType: Class<T>
+        ) = TeamList<T>(
             total = (map["total"] as Number).toLong(),
-            teams = (map["teams"] as List<Map<String, Any>>).map { Team.from(map = it) },
+            teams = (map["teams"] as List<Map<String, Any>>).map { Team.from(map = it, nestedType) },
         )
     }
 }

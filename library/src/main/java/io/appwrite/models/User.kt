@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 import io.appwrite.extensions.jsonCast
 
 /**
- * Account
+ * User
  */
-data class Account<T>(
+data class User<T>(
     /**
      * User ID.
      */
@@ -30,6 +30,24 @@ data class Account<T>(
      */
     @SerializedName("name")
     val name: String,
+
+    /**
+     * Hashed user password.
+     */
+    @SerializedName("password")
+    var password: String?,
+
+    /**
+     * Password hashing algorithm.
+     */
+    @SerializedName("hash")
+    var hash: String?,
+
+    /**
+     * Password hashing algorithm configuration.
+     */
+    @SerializedName("hashOptions")
+    var hashOptions: Any?,
 
     /**
      * User registration date in ISO 8601 format.
@@ -85,6 +103,9 @@ data class Account<T>(
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
         "name" to name as Any,
+        "password" to password as Any,
+        "hash" to hash as Any,
+        "hashOptions" to hashOptions as Any,
         "registration" to registration as Any,
         "status" to status as Any,
         "passwordUpdate" to passwordUpdate as Any,
@@ -101,6 +122,9 @@ data class Account<T>(
             createdAt: String,
             updatedAt: String,
             name: String,
+            password: String?,
+            hash: String?,
+            hashOptions: Any?,
             registration: String,
             status: Boolean,
             passwordUpdate: String,
@@ -109,11 +133,14 @@ data class Account<T>(
             emailVerification: Boolean,
             phoneVerification: Boolean,
             prefs: Preferences<Map<String, Any>>,
-        ) = Account<Map<String, Any>>(
+        ) = User<Map<String, Any>>(
             id,
             createdAt,
             updatedAt,
             name,
+            password,
+            hash,
+            hashOptions,
             registration,
             status,
             passwordUpdate,
@@ -128,11 +155,14 @@ data class Account<T>(
         fun <T> from(
             map: Map<String, Any>,
             nestedType: Class<T>
-        ) = Account<T>(
+        ) = User<T>(
             id = map["\$id"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
             name = map["name"] as String,
+            password = map["password"] as? String?,
+            hash = map["hash"] as? String?,
+            hashOptions = map["hashOptions"] as? Any?,
             registration = map["registration"] as String,
             status = map["status"] as Boolean,
             passwordUpdate = map["passwordUpdate"] as String,

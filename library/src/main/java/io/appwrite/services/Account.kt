@@ -24,11 +24,11 @@ class Account : Service {
      *
      * Get currently logged in user data as JSON object.
      *
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> get(
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account"
 
         val params = mutableMapOf<String, Any?>(
@@ -36,8 +36,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "GET",
@@ -54,11 +54,11 @@ class Account : Service {
      *
      * Get currently logged in user data as JSON object.
      *
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
     suspend fun get(
-    ) = get(
+    ): io.appwrite.models.User<Map<String, Any>> = get(
         nestedType = classOf(),
     )
 
@@ -69,9 +69,9 @@ class Account : Service {
      *
      * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
-     * @param password User password. Must be at least 8 chars.
+     * @param password New user password. Must be at least 8 chars.
      * @param name User name. Max length: 128 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @JvmOverloads
     suspend fun <T> create(
@@ -80,7 +80,7 @@ class Account : Service {
         password: String,
         name: String? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account"
 
         val params = mutableMapOf<String, Any?>(
@@ -92,8 +92,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "POST",
@@ -112,9 +112,9 @@ class Account : Service {
      *
      * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
-     * @param password User password. Must be at least 8 chars.
+     * @param password New user password. Must be at least 8 chars.
      * @param name User name. Max length: 128 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -123,7 +123,7 @@ class Account : Service {
         email: String,
         password: String,
         name: String? = null,
-    ) = create(
+    ): io.appwrite.models.User<Map<String, Any>> = create(
         userId,
         email,
         password,
@@ -138,13 +138,13 @@ class Account : Service {
      *
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> updateEmail(
         email: String,
         password: String,
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account/email"
 
         val params = mutableMapOf<String, Any?>(
@@ -154,8 +154,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "PATCH",
@@ -174,13 +174,13 @@ class Account : Service {
      *
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
     suspend fun updateEmail(
         email: String,
         password: String,
-    ) = updateEmail(
+    ): io.appwrite.models.User<Map<String, Any>> = updateEmail(
         email,
         password,
         nestedType = classOf(),
@@ -221,7 +221,7 @@ class Account : Service {
      *
      * Get currently logged in user list of latest security activity logs. Each log returns user IP address, location and date and time of log.
      *
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Only supported methods are limit and offset
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
      * @return [io.appwrite.models.LogList]
      */
     @JvmOverloads
@@ -256,12 +256,12 @@ class Account : Service {
      * Update currently logged in user account name.
      *
      * @param name User name. Max length: 128 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> updateName(
         name: String,
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account/name"
 
         val params = mutableMapOf<String, Any?>(
@@ -270,8 +270,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "PATCH",
@@ -289,12 +289,12 @@ class Account : Service {
      * Update currently logged in user account name.
      *
      * @param name User name. Max length: 128 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
     suspend fun updateName(
         name: String,
-    ) = updateName(
+    ): io.appwrite.models.User<Map<String, Any>> = updateName(
         name,
         nestedType = classOf(),
     )
@@ -306,14 +306,14 @@ class Account : Service {
      *
      * @param password New user password. Must be at least 8 chars.
      * @param oldPassword Current user password. Must be at least 8 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @JvmOverloads
     suspend fun <T> updatePassword(
         password: String,
         oldPassword: String? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account/password"
 
         val params = mutableMapOf<String, Any?>(
@@ -323,8 +323,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "PATCH",
@@ -343,14 +343,14 @@ class Account : Service {
      *
      * @param password New user password. Must be at least 8 chars.
      * @param oldPassword Current user password. Must be at least 8 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updatePassword(
         password: String,
         oldPassword: String? = null,
-    ) = updatePassword(
+    ): io.appwrite.models.User<Map<String, Any>> = updatePassword(
         password,
         oldPassword,
         nestedType = classOf(),
@@ -363,13 +363,13 @@ class Account : Service {
      *
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param password User password. Must be at least 8 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> updatePhone(
         phone: String,
         password: String,
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account/phone"
 
         val params = mutableMapOf<String, Any?>(
@@ -379,8 +379,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "PATCH",
@@ -399,13 +399,13 @@ class Account : Service {
      *
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param password User password. Must be at least 8 chars.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
     suspend fun updatePhone(
         phone: String,
         password: String,
-    ) = updatePhone(
+    ): io.appwrite.models.User<Map<String, Any>> = updatePhone(
         phone,
         password,
         nestedType = classOf(),
@@ -450,7 +450,7 @@ class Account : Service {
      */
     @Throws(AppwriteException::class)
     suspend fun getPrefs(
-    ) = getPrefs(
+    ): io.appwrite.models.Preferences<Map<String, Any>> = getPrefs(
         nestedType = classOf(),
     )
 
@@ -460,12 +460,12 @@ class Account : Service {
      * Update currently logged in user account preferences. The object you pass is stored as is, and replaces any previous value. The maximum allowed prefs size is 64kB and throws error if exceeded.
      *
      * @param prefs Prefs key-value JSON object.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> updatePrefs(
         prefs: Any,
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account/prefs"
 
         val params = mutableMapOf<String, Any?>(
@@ -474,8 +474,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "PATCH",
@@ -493,12 +493,12 @@ class Account : Service {
      * Update currently logged in user account preferences. The object you pass is stored as is, and replaces any previous value. The maximum allowed prefs size is 64kB and throws error if exceeded.
      *
      * @param prefs Prefs key-value JSON object.
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
     suspend fun updatePrefs(
         prefs: Any,
-    ) = updatePrefs(
+    ): io.appwrite.models.User<Map<String, Any>> = updatePrefs(
         prefs,
         nestedType = classOf(),
     )
@@ -670,7 +670,7 @@ class Account : Service {
     /**
      * Create Email Session
      *
-     * Allow the user to login into their account by providing a valid email and password combination. This route will create a new session for the user.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication#limits).
+     * Allow the user to login into their account by providing a valid email and password combination. This route will create a new session for the user.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication-security#limits).
      *
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
@@ -706,7 +706,7 @@ class Account : Service {
     /**
      * Create Magic URL session
      *
-     * Sends the user an email with a secret key for creating a session. If the provided user ID has not be registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [PUT /account/sessions/magic-url](/docs/client/account#accountUpdateMagicURLSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour. If you are on a mobile device you can leave the URL parameter empty, so that the login completion will be handled by your Appwrite instance by default.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication#limits).
+     * Sends the user an email with a secret key for creating a session. If the provided user ID has not be registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [PUT /account/sessions/magic-url](/docs/client/account#accountUpdateMagicURLSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour. If you are on a mobile device you can leave the URL parameter empty, so that the login completion will be handled by your Appwrite instance by default.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication-security#limits).
      *
      * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
@@ -782,7 +782,7 @@ class Account : Service {
     /**
      * Create OAuth2 Session
      *
-     * Allow the user to login to their account using the OAuth2 provider of their choice. Each OAuth2 provider should be enabled from the Appwrite console first. Use the success and failure arguments to provide a redirect URL&#039;s back to your app when login is completed.If there is already an active session, the new session will be attached to the logged-in account. If there are no active sessions, the server will attempt to look for a user with the same email address as the email received from the OAuth2 provider and attach the new session to the existing user. If no matching user is found - the server will create a new user.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication#limits).
+     * Allow the user to login to their account using the OAuth2 provider of their choice. Each OAuth2 provider should be enabled from the Appwrite console first. Use the success and failure arguments to provide a redirect URL&#039;s back to your app when login is completed.If there is already an active session, the new session will be attached to the logged-in account. If there are no active sessions, the server will attempt to look for a user with the same email address as the email received from the OAuth2 provider and attach the new session to the existing user. If no matching user is found - the server will create a new user.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication-security#limits).
      *
      * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, github, gitlab, google, linkedin, microsoft, notion, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoom.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
@@ -854,7 +854,7 @@ class Account : Service {
     /**
      * Create Phone session
      *
-     * Sends the user an SMS with a secret key for creating a session. If the provided user ID has not be registered, a new user will be created. Use the returned user ID and secret and submit a request to the [PUT /account/sessions/phone](/docs/client/account#accountUpdatePhoneSession) endpoint to complete the login process. The secret sent to the user&#039;s phone is valid for 15 minutes.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication#limits).
+     * Sends the user an SMS with a secret key for creating a session. If the provided user ID has not be registered, a new user will be created. Use the returned user ID and secret and submit a request to the [PUT /account/sessions/phone](/docs/client/account#accountUpdatePhoneSession) endpoint to complete the login process. The secret sent to the user&#039;s phone is valid for 15 minutes.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](/docs/authentication-security#limits).
      *
      * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
@@ -1023,11 +1023,11 @@ class Account : Service {
      *
      * Block the currently logged in user account. Behind the scene, the user record is not deleted but permanently blocked from any access. To completely delete a user, use the Users API instead.
      *
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> updateStatus(
         nestedType: Class<T>,
-    ): io.appwrite.models.Account<T> {
+    ): io.appwrite.models.User<T> {
         val path = "/account/status"
 
         val params = mutableMapOf<String, Any?>(
@@ -1035,8 +1035,8 @@ class Account : Service {
         val headers = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Account<T> = {
-            io.appwrite.models.Account.from(map = it as Map<String, Any>, nestedType)
+        val converter: (Any) -> io.appwrite.models.User<T> = {
+            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
             "PATCH",
@@ -1053,11 +1053,11 @@ class Account : Service {
      *
      * Block the currently logged in user account. Behind the scene, the user record is not deleted but permanently blocked from any access. To completely delete a user, use the Users API instead.
      *
-     * @return [io.appwrite.models.Account<T>]
+     * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
     suspend fun updateStatus(
-    ) = updateStatus(
+    ): io.appwrite.models.User<Map<String, Any>> = updateStatus(
         nestedType = classOf(),
     )
 

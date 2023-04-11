@@ -11,7 +11,7 @@ Account account = new Account(client);
 account.create(
     "[USER_ID]",
     "email@example.com",
-    "password",
+    "",
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

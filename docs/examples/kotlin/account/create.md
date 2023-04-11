@@ -10,5 +10,5 @@ val account = Account(client)
 val response = account.create(
     userId = "[USER_ID]",
     email = "email@example.com",
-    password = "password",
+    password = "",
 )

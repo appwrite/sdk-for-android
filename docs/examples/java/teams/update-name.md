@@ -8,7 +8,7 @@ Client client = new Client(context)
 
 Teams teams = new Teams(client);
 
-teams.update(
+teams.updateName(
     "[TEAM_ID]",
     "[NAME]"
     new CoroutineCallback<>((result, error) -> {
