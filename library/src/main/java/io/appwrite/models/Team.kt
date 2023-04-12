@@ -6,7 +6,7 @@ import io.appwrite.extensions.jsonCast
 /**
  * Team
  */
-data class Team(
+data class Team<T>(
     /**
      * Team ID.
      */
@@ -37,6 +37,12 @@ data class Team(
     @SerializedName("total")
     val total: Long,
 
+    /**
+     * Team preferences as a key-value object
+     */
+    @SerializedName("prefs")
+    val prefs: Preferences<T>,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -44,19 +50,37 @@ data class Team(
         "\$updatedAt" to updatedAt as Any,
         "name" to name as Any,
         "total" to total as Any,
+        "prefs" to prefs.toMap() as Any,
     )
 
     companion object {
+        operator fun invoke(
+            id: String,
+            createdAt: String,
+            updatedAt: String,
+            name: String,
+            total: Long,
+            prefs: Preferences<Map<String, Any>>,
+        ) = Team<Map<String, Any>>(
+            id,
+            createdAt,
+            updatedAt,
+            name,
+            total,
+            prefs,
+        )
 
         @Suppress("UNCHECKED_CAST")
-        fun from(
+        fun <T> from(
             map: Map<String, Any>,
-        ) = Team(
+            nestedType: Class<T>
+        ) = Team<T>(
             id = map["\$id"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
             name = map["name"] as String,
             total = (map["total"] as Number).toLong(),
+            prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),
         )
     }
 }

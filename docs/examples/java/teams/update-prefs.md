@@ -8,10 +8,9 @@ Client client = new Client(context)
 
 Teams teams = new Teams(client);
 
-teams.createMembership(
+teams.updatePrefs(
     "[TEAM_ID]",
-    listOf(),
-    "https://example.com",
+    mapOf( "a" to "b" )
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

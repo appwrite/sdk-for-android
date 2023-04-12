@@ -10,5 +10,5 @@ val databases = Databases(client)
 val response = databases.getDocument(
     databaseId = "[DATABASE_ID]",
     collectionId = "[COLLECTION_ID]",
-    documentId = "[DOCUMENT_ID]"
+    documentId = "[DOCUMENT_ID]",
 )
