@@ -21,7 +21,7 @@ class Functions : Service {
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
      * @param functionId Function ID.
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, statusCode, duration
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @return [io.appwrite.models.ExecutionList]
      */
@@ -31,7 +31,7 @@ class Functions : Service {
         queries: List<String>? = null,
         search: String? = null,
     ): io.appwrite.models.ExecutionList {
-        val path = "/functions/{functionId}/executions"
+        val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
 
         val params = mutableMapOf<String, Any?>(
@@ -46,7 +46,7 @@ class Functions : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.ExecutionList::class.java,
@@ -61,22 +61,31 @@ class Functions : Service {
      * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
      *
      * @param functionId Function ID.
-     * @param data String of custom data to send to function.
+     * @param body HTTP body of execution. Default value is empty string.
      * @param async Execute code in the background. Default value is false.
+     * @param path HTTP path of execution. Path can include query params. Default value is /
+     * @param method HTTP method of execution. Default value is GET.
+     * @param headers HTTP headers of execution. Defaults to empty.
      * @return [io.appwrite.models.Execution]
      */
     @JvmOverloads
     suspend fun createExecution(
         functionId: String,
-        data: String? = null,
+        body: String? = null,
         async: Boolean? = null,
+        path: String? = null,
+        method: String? = null,
+        headers: Any? = null,
     ): io.appwrite.models.Execution {
-        val path = "/functions/{functionId}/executions"
+        val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
 
         val params = mutableMapOf<String, Any?>(
-            "data" to data,
+            "body" to body,
             "async" to async,
+            "path" to path,
+            "method" to method,
+            "headers" to headers,
         )
         val headers = mutableMapOf(
             "content-type" to "application/json",
@@ -86,7 +95,7 @@ class Functions : Service {
         }
         return client.call(
             "POST",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,
@@ -108,7 +117,7 @@ class Functions : Service {
         functionId: String,
         executionId: String,
     ): io.appwrite.models.Execution {
-        val path = "/functions/{functionId}/executions/{executionId}"
+        val apiPath = "/functions/{functionId}/executions/{executionId}"
             .replace("{functionId}", functionId)
             .replace("{executionId}", executionId)
 
@@ -122,7 +131,7 @@ class Functions : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.Execution::class.java,

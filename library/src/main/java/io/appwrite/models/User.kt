@@ -62,6 +62,12 @@ data class User<T>(
     val status: Boolean,
 
     /**
+     * Labels for the user.
+     */
+    @SerializedName("labels")
+    val labels: List<Any>,
+
+    /**
      * Password update time in ISO 8601 format.
      */
     @SerializedName("passwordUpdate")
@@ -97,6 +103,12 @@ data class User<T>(
     @SerializedName("prefs")
     val prefs: Preferences<T>,
 
+    /**
+     * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+     */
+    @SerializedName("accessedAt")
+    val accessedAt: String,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -108,12 +120,14 @@ data class User<T>(
         "hashOptions" to hashOptions as Any,
         "registration" to registration as Any,
         "status" to status as Any,
+        "labels" to labels as Any,
         "passwordUpdate" to passwordUpdate as Any,
         "email" to email as Any,
         "phone" to phone as Any,
         "emailVerification" to emailVerification as Any,
         "phoneVerification" to phoneVerification as Any,
         "prefs" to prefs.toMap() as Any,
+        "accessedAt" to accessedAt as Any,
     )
 
     companion object {
@@ -127,12 +141,14 @@ data class User<T>(
             hashOptions: Any?,
             registration: String,
             status: Boolean,
+            labels: List<Any>,
             passwordUpdate: String,
             email: String,
             phone: String,
             emailVerification: Boolean,
             phoneVerification: Boolean,
             prefs: Preferences<Map<String, Any>>,
+            accessedAt: String,
         ) = User<Map<String, Any>>(
             id,
             createdAt,
@@ -143,12 +159,14 @@ data class User<T>(
             hashOptions,
             registration,
             status,
+            labels,
             passwordUpdate,
             email,
             phone,
             emailVerification,
             phoneVerification,
             prefs,
+            accessedAt,
         )
 
         @Suppress("UNCHECKED_CAST")
@@ -165,12 +183,14 @@ data class User<T>(
             hashOptions = map["hashOptions"] as? Any?,
             registration = map["registration"] as String,
             status = map["status"] as Boolean,
+            labels = map["labels"] as List<Any>,
             passwordUpdate = map["passwordUpdate"] as String,
             email = map["email"] as String,
             phone = map["phone"] as String,
             emailVerification = map["emailVerification"] as Boolean,
             phoneVerification = map["phoneVerification"] as Boolean,
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),
+            accessedAt = map["accessedAt"] as String,
         )
     }
 }

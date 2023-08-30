@@ -24,7 +24,7 @@ class Locale : Service {
      */
     suspend fun get(
     ): io.appwrite.models.Locale {
-        val path = "/locale"
+        val apiPath = "/locale"
 
         val params = mutableMapOf<String, Any?>(
         )
@@ -36,10 +36,40 @@ class Locale : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.Locale::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * List Locale Codes
+     *
+     * List of all locale codes in [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
+     *
+     * @return [io.appwrite.models.LocaleCodeList]
+     */
+    suspend fun listCodes(
+    ): io.appwrite.models.LocaleCodeList {
+        val apiPath = "/locale/codes"
+
+        val params = mutableMapOf<String, Any?>(
+        )
+        val headers = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.LocaleCodeList = {
+            io.appwrite.models.LocaleCodeList.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            headers,
+            params,
+            responseType = io.appwrite.models.LocaleCodeList::class.java,
             converter,
         )
     }
@@ -54,7 +84,7 @@ class Locale : Service {
      */
     suspend fun listContinents(
     ): io.appwrite.models.ContinentList {
-        val path = "/locale/continents"
+        val apiPath = "/locale/continents"
 
         val params = mutableMapOf<String, Any?>(
         )
@@ -66,7 +96,7 @@ class Locale : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.ContinentList::class.java,
@@ -84,7 +114,7 @@ class Locale : Service {
      */
     suspend fun listCountries(
     ): io.appwrite.models.CountryList {
-        val path = "/locale/countries"
+        val apiPath = "/locale/countries"
 
         val params = mutableMapOf<String, Any?>(
         )
@@ -96,7 +126,7 @@ class Locale : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.CountryList::class.java,
@@ -114,7 +144,7 @@ class Locale : Service {
      */
     suspend fun listCountriesEU(
     ): io.appwrite.models.CountryList {
-        val path = "/locale/countries/eu"
+        val apiPath = "/locale/countries/eu"
 
         val params = mutableMapOf<String, Any?>(
         )
@@ -126,7 +156,7 @@ class Locale : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.CountryList::class.java,
@@ -144,7 +174,7 @@ class Locale : Service {
      */
     suspend fun listCountriesPhones(
     ): io.appwrite.models.PhoneList {
-        val path = "/locale/countries/phones"
+        val apiPath = "/locale/countries/phones"
 
         val params = mutableMapOf<String, Any?>(
         )
@@ -156,7 +186,7 @@ class Locale : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.PhoneList::class.java,
@@ -174,7 +204,7 @@ class Locale : Service {
      */
     suspend fun listCurrencies(
     ): io.appwrite.models.CurrencyList {
-        val path = "/locale/currencies"
+        val apiPath = "/locale/currencies"
 
         val params = mutableMapOf<String, Any?>(
         )
@@ -186,7 +216,7 @@ class Locale : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.CurrencyList::class.java,
@@ -204,7 +234,7 @@ class Locale : Service {
      */
     suspend fun listLanguages(
     ): io.appwrite.models.LanguageList {
-        val path = "/locale/languages"
+        val apiPath = "/locale/languages"
 
         val params = mutableMapOf<String, Any?>(
         )
@@ -216,7 +246,7 @@ class Locale : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.LanguageList::class.java,

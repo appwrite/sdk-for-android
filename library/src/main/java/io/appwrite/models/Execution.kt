@@ -50,31 +50,55 @@ data class Execution(
     val status: String,
 
     /**
-     * The script status code.
+     * HTTP request method type.
      */
-    @SerializedName("statusCode")
-    val statusCode: Long,
+    @SerializedName("requestMethod")
+    val requestMethod: String,
 
     /**
-     * The script response output string. Logs the last 4,000 characters of the execution response output.
+     * HTTP request path and query.
      */
-    @SerializedName("response")
-    val response: String,
+    @SerializedName("requestPath")
+    val requestPath: String,
 
     /**
-     * The script stdout output string. Logs the last 4,000 characters of the execution stdout output. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+     * HTTP response headers as a key-value object. This will return only whitelisted headers. All headers are returned if execution is created as synchronous.
      */
-    @SerializedName("stdout")
-    val stdout: String,
+    @SerializedName("requestHeaders")
+    val requestHeaders: List<Headers>,
 
     /**
-     * The script stderr output string. Logs the last 4,000 characters of the execution stderr output. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+     * HTTP response status code.
      */
-    @SerializedName("stderr")
-    val stderr: String,
+    @SerializedName("responseStatusCode")
+    val responseStatusCode: Long,
 
     /**
-     * The script execution duration in seconds.
+     * HTTP response body. This will return empty unless execution is created as synchronous.
+     */
+    @SerializedName("responseBody")
+    val responseBody: String,
+
+    /**
+     * HTTP response headers as a key-value object. This will return only whitelisted headers. All headers are returned if execution is created as synchronous.
+     */
+    @SerializedName("responseHeaders")
+    val responseHeaders: List<Headers>,
+
+    /**
+     * Function logs. Includes the last 4,000 characters. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+     */
+    @SerializedName("logs")
+    val logs: String,
+
+    /**
+     * Function errors. Includes the last 4,000 characters. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+     */
+    @SerializedName("errors")
+    val errors: String,
+
+    /**
+     * Function execution duration in seconds.
      */
     @SerializedName("duration")
     val duration: Double,
@@ -88,10 +112,14 @@ data class Execution(
         "functionId" to functionId as Any,
         "trigger" to trigger as Any,
         "status" to status as Any,
-        "statusCode" to statusCode as Any,
-        "response" to response as Any,
-        "stdout" to stdout as Any,
-        "stderr" to stderr as Any,
+        "requestMethod" to requestMethod as Any,
+        "requestPath" to requestPath as Any,
+        "requestHeaders" to requestHeaders.map { it.toMap() } as Any,
+        "responseStatusCode" to responseStatusCode as Any,
+        "responseBody" to responseBody as Any,
+        "responseHeaders" to responseHeaders.map { it.toMap() } as Any,
+        "logs" to logs as Any,
+        "errors" to errors as Any,
         "duration" to duration as Any,
     )
 
@@ -108,10 +136,14 @@ data class Execution(
             functionId = map["functionId"] as String,
             trigger = map["trigger"] as String,
             status = map["status"] as String,
-            statusCode = (map["statusCode"] as Number).toLong(),
-            response = map["response"] as String,
-            stdout = map["stdout"] as String,
-            stderr = map["stderr"] as String,
+            requestMethod = map["requestMethod"] as String,
+            requestPath = map["requestPath"] as String,
+            requestHeaders = (map["requestHeaders"] as List<Map<String, Any>>).map { Headers.from(map = it) },
+            responseStatusCode = (map["responseStatusCode"] as Number).toLong(),
+            responseBody = map["responseBody"] as String,
+            responseHeaders = (map["responseHeaders"] as List<Map<String, Any>>).map { Headers.from(map = it) },
+            logs = map["logs"] as String,
+            errors = map["errors"] as String,
             duration = (map["duration"] as Number).toDouble(),
         )
     }

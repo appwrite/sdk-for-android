@@ -32,7 +32,7 @@ class Databases : Service {
         queries: List<String>? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.DocumentList<T> {
-        val path = "/databases/{databaseId}/collections/{collectionId}/documents"
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
@@ -47,7 +47,7 @@ class Databases : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -99,7 +99,7 @@ class Databases : Service {
         permissions: List<String>? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val path = "/databases/{databaseId}/collections/{collectionId}/documents"
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
@@ -116,7 +116,7 @@ class Databases : Service {
         }
         return client.call(
             "POST",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -172,7 +172,7 @@ class Databases : Service {
         queries: List<String>? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val path = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -188,7 +188,7 @@ class Databases : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -243,7 +243,7 @@ class Databases : Service {
         permissions: List<String>? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val path = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -260,7 +260,7 @@ class Databases : Service {
         }
         return client.call(
             "PATCH",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -312,7 +312,7 @@ class Databases : Service {
         collectionId: String,
         documentId: String,
     ): Any {
-        val path = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -324,7 +324,7 @@ class Databases : Service {
         )
         return client.call(
             "DELETE",
-            path,
+            apiPath,
             headers,
             params,
             responseType = Any::class.java,
