@@ -1,17 +1,15 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
-import io.appwrite.services.Teams;
+import io.appwrite.services.Account;
 
 Client client = new Client(context)
-    .setEndpoint("https://[HOSTNAME_OR_IP]/v1") // Your API Endpoint
+    .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("5df5acd0d48c2"); // Your project ID
 
-Teams teams = new Teams(client);
+Account account = new Account(client);
 
-teams.updateMembershipRoles(
-    "[TEAM_ID]",
-    "[MEMBERSHIP_ID]",
-    listOf()
+account.deleteIdentity(
+    "[IDENTITY_ID]"
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

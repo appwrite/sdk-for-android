@@ -30,7 +30,7 @@ class Teams : Service {
         search: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.TeamList<T> {
-        val path = "/teams"
+        val apiPath = "/teams"
 
         val params = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -44,7 +44,7 @@ class Teams : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -89,7 +89,7 @@ class Teams : Service {
         roles: List<String>? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Team<T> {
-        val path = "/teams"
+        val apiPath = "/teams"
 
         val params = mutableMapOf<String, Any?>(
             "teamId" to teamId,
@@ -104,7 +104,7 @@ class Teams : Service {
         }
         return client.call(
             "POST",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -147,7 +147,7 @@ class Teams : Service {
         teamId: String,
         nestedType: Class<T>,
     ): io.appwrite.models.Team<T> {
-        val path = "/teams/{teamId}"
+        val apiPath = "/teams/{teamId}"
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
@@ -160,7 +160,7 @@ class Teams : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -198,7 +198,7 @@ class Teams : Service {
         name: String,
         nestedType: Class<T>,
     ): io.appwrite.models.Team<T> {
-        val path = "/teams/{teamId}"
+        val apiPath = "/teams/{teamId}"
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
@@ -212,7 +212,7 @@ class Teams : Service {
         }
         return client.call(
             "PUT",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -250,7 +250,7 @@ class Teams : Service {
     suspend fun delete(
         teamId: String,
     ): Any {
-        val path = "/teams/{teamId}"
+        val apiPath = "/teams/{teamId}"
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
@@ -260,7 +260,7 @@ class Teams : Service {
         )
         return client.call(
             "DELETE",
-            path,
+            apiPath,
             headers,
             params,
             responseType = Any::class.java,
@@ -284,7 +284,7 @@ class Teams : Service {
         queries: List<String>? = null,
         search: String? = null,
     ): io.appwrite.models.MembershipList {
-        val path = "/teams/{teamId}/memberships"
+        val apiPath = "/teams/{teamId}/memberships"
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
@@ -299,7 +299,7 @@ class Teams : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.MembershipList::class.java,
@@ -332,7 +332,7 @@ class Teams : Service {
         phone: String? = null,
         name: String? = null,
     ): io.appwrite.models.Membership {
-        val path = "/teams/{teamId}/memberships"
+        val apiPath = "/teams/{teamId}/memberships"
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
@@ -351,7 +351,7 @@ class Teams : Service {
         }
         return client.call(
             "POST",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
@@ -373,7 +373,7 @@ class Teams : Service {
         teamId: String,
         membershipId: String,
     ): io.appwrite.models.Membership {
-        val path = "/teams/{teamId}/memberships/{membershipId}"
+        val apiPath = "/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
@@ -387,7 +387,7 @@ class Teams : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
@@ -397,7 +397,7 @@ class Teams : Service {
 
 
     /**
-     * Update Membership Roles
+     * Update Membership
      *
      * Modify the roles of a team member. Only team members with the owner role have access to this endpoint. Learn more about [roles and permissions](/docs/permissions).
      *
@@ -406,12 +406,12 @@ class Teams : Service {
      * @param roles An array of strings. Use this param to set the user's roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
      * @return [io.appwrite.models.Membership]
      */
-    suspend fun updateMembershipRoles(
+    suspend fun updateMembership(
         teamId: String,
         membershipId: String,
         roles: List<String>,
     ): io.appwrite.models.Membership {
-        val path = "/teams/{teamId}/memberships/{membershipId}"
+        val apiPath = "/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
@@ -426,7 +426,7 @@ class Teams : Service {
         }
         return client.call(
             "PATCH",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
@@ -448,7 +448,7 @@ class Teams : Service {
         teamId: String,
         membershipId: String,
     ): Any {
-        val path = "/teams/{teamId}/memberships/{membershipId}"
+        val apiPath = "/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
@@ -459,7 +459,7 @@ class Teams : Service {
         )
         return client.call(
             "DELETE",
-            path,
+            apiPath,
             headers,
             params,
             responseType = Any::class.java,
@@ -484,7 +484,7 @@ class Teams : Service {
         userId: String,
         secret: String,
     ): io.appwrite.models.Membership {
-        val path = "/teams/{teamId}/memberships/{membershipId}/status"
+        val apiPath = "/teams/{teamId}/memberships/{membershipId}/status"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
@@ -500,7 +500,7 @@ class Teams : Service {
         }
         return client.call(
             "PATCH",
-            path,
+            apiPath,
             headers,
             params,
             responseType = io.appwrite.models.Membership::class.java,
@@ -521,7 +521,7 @@ class Teams : Service {
         teamId: String,
         nestedType: Class<T>,
     ): io.appwrite.models.Preferences<T> {
-        val path = "/teams/{teamId}/prefs"
+        val apiPath = "/teams/{teamId}/prefs"
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
@@ -534,7 +534,7 @@ class Teams : Service {
         }
         return client.call(
             "GET",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
@@ -572,7 +572,7 @@ class Teams : Service {
         prefs: Any,
         nestedType: Class<T>,
     ): io.appwrite.models.Preferences<T> {
-        val path = "/teams/{teamId}/prefs"
+        val apiPath = "/teams/{teamId}/prefs"
             .replace("{teamId}", teamId)
 
         val params = mutableMapOf<String, Any?>(
@@ -586,7 +586,7 @@ class Teams : Service {
         }
         return client.call(
             "PUT",
-            path,
+            apiPath,
             headers,
             params,
             responseType = classOf(),
