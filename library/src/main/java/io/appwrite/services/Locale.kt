@@ -26,9 +26,9 @@ class Locale : Service {
     ): io.appwrite.models.Locale {
         val apiPath = "/locale"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Locale = {
@@ -37,8 +37,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.Locale::class.java,
             converter,
         )
@@ -56,9 +56,9 @@ class Locale : Service {
     ): io.appwrite.models.LocaleCodeList {
         val apiPath = "/locale/codes"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LocaleCodeList = {
@@ -67,8 +67,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.LocaleCodeList::class.java,
             converter,
         )
@@ -86,9 +86,9 @@ class Locale : Service {
     ): io.appwrite.models.ContinentList {
         val apiPath = "/locale/continents"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ContinentList = {
@@ -97,8 +97,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.ContinentList::class.java,
             converter,
         )
@@ -116,9 +116,9 @@ class Locale : Service {
     ): io.appwrite.models.CountryList {
         val apiPath = "/locale/countries"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
@@ -127,8 +127,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.CountryList::class.java,
             converter,
         )
@@ -146,9 +146,9 @@ class Locale : Service {
     ): io.appwrite.models.CountryList {
         val apiPath = "/locale/countries/eu"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
@@ -157,8 +157,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.CountryList::class.java,
             converter,
         )
@@ -176,9 +176,9 @@ class Locale : Service {
     ): io.appwrite.models.PhoneList {
         val apiPath = "/locale/countries/phones"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.PhoneList = {
@@ -187,8 +187,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.PhoneList::class.java,
             converter,
         )
@@ -206,9 +206,9 @@ class Locale : Service {
     ): io.appwrite.models.CurrencyList {
         val apiPath = "/locale/currencies"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CurrencyList = {
@@ -217,8 +217,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.CurrencyList::class.java,
             converter,
         )
@@ -236,9 +236,9 @@ class Locale : Service {
     ): io.appwrite.models.LanguageList {
         val apiPath = "/locale/languages"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LanguageList = {
@@ -247,8 +247,8 @@ class Locale : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.LanguageList::class.java,
             converter,
         )

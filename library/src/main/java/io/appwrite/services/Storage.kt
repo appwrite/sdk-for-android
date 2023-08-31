@@ -36,11 +36,11 @@ class Storage : Service {
         val apiPath = "/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "search" to search,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.FileList = {
@@ -49,8 +49,8 @@ class Storage : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.FileList::class.java,
             converter,
         )
@@ -79,12 +79,12 @@ class Storage : Service {
         val apiPath = "/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "fileId" to fileId,
             "file" to file,
             "permissions" to permissions,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "multipart/form-data",
         )
         val converter: (Any) -> io.appwrite.models.File = {
@@ -94,8 +94,8 @@ class Storage : Service {
         val paramName = "file"
         return client.chunkedUpload(
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.File::class.java,
             converter,
             paramName,
@@ -122,9 +122,9 @@ class Storage : Service {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
@@ -133,8 +133,8 @@ class Storage : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.File::class.java,
             converter,
         )
@@ -163,11 +163,11 @@ class Storage : Service {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "name" to name,
             "permissions" to permissions,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
@@ -176,8 +176,8 @@ class Storage : Service {
         return client.call(
             "PUT",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = io.appwrite.models.File::class.java,
             converter,
         )
@@ -201,16 +201,16 @@ class Storage : Service {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         return client.call(
             "DELETE",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = Any::class.java,
         )
     }
@@ -233,13 +233,13 @@ class Storage : Service {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "project" to client.config["project"],
         )
         return client.call(
             "GET",
             apiPath,
-            params = params,
+            params = apiParams,
             responseType = ByteArray::class.java
         )
     }
@@ -285,7 +285,7 @@ class Storage : Service {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
             "gravity" to gravity,
@@ -302,7 +302,7 @@ class Storage : Service {
         return client.call(
             "GET",
             apiPath,
-            params = params,
+            params = apiParams,
             responseType = ByteArray::class.java
         )
     }
@@ -325,13 +325,13 @@ class Storage : Service {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "project" to client.config["project"],
         )
         return client.call(
             "GET",
             apiPath,
-            params = params,
+            params = apiParams,
             responseType = ByteArray::class.java
         )
     }
