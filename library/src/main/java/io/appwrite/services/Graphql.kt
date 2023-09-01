@@ -28,10 +28,10 @@ class Graphql : Service {
     ): Any {
         val apiPath = "/graphql"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "query" to query,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "x-sdk-graphql" to "true",
             "content-type" to "application/json",
         )
@@ -41,8 +41,8 @@ class Graphql : Service {
         return client.call(
             "POST",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = Any::class.java,
             converter,
         )
@@ -62,10 +62,10 @@ class Graphql : Service {
     ): Any {
         val apiPath = "/graphql/mutation"
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "query" to query,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "x-sdk-graphql" to "true",
             "content-type" to "application/json",
         )
@@ -75,8 +75,8 @@ class Graphql : Service {
         return client.call(
             "POST",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = Any::class.java,
             converter,
         )

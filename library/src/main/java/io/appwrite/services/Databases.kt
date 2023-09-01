@@ -36,10 +36,10 @@ class Databases : Service {
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
@@ -48,8 +48,8 @@ class Databases : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = classOf(),
             converter,
         )
@@ -103,12 +103,12 @@ class Databases : Service {
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "documentId" to documentId,
             "data" to data,
             "permissions" to permissions,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
@@ -117,8 +117,8 @@ class Databases : Service {
         return client.call(
             "POST",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = classOf(),
             converter,
         )
@@ -177,10 +177,10 @@ class Databases : Service {
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
@@ -189,8 +189,8 @@ class Databases : Service {
         return client.call(
             "GET",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = classOf(),
             converter,
         )
@@ -248,11 +248,11 @@ class Databases : Service {
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
             "permissions" to permissions,
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
@@ -261,8 +261,8 @@ class Databases : Service {
         return client.call(
             "PATCH",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = classOf(),
             converter,
         )
@@ -317,16 +317,16 @@ class Databases : Service {
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
 
-        val params = mutableMapOf<String, Any?>(
+        val apiParams = mutableMapOf<String, Any?>(
         )
-        val headers = mutableMapOf(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         return client.call(
             "DELETE",
             apiPath,
-            headers,
-            params,
+            apiHeaders,
+            apiParams,
             responseType = Any::class.java,
         )
     }
