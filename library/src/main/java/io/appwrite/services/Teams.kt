@@ -315,10 +315,10 @@ class Teams : Service {
      *
      * @param teamId Team ID.
      * @param roles Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
-     * @param url URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param email Email of the new team member.
      * @param userId ID of the user to be added to a team.
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
+     * @param url URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param name Name of the new team member. Max length: 128 chars.
      * @return [io.appwrite.models.Membership]
      */
@@ -326,10 +326,10 @@ class Teams : Service {
     suspend fun createMembership(
         teamId: String,
         roles: List<String>,
-        url: String,
         email: String? = null,
         userId: String? = null,
         phone: String? = null,
+        url: String? = null,
         name: String? = null,
     ): io.appwrite.models.Membership {
         val apiPath = "/teams/{teamId}/memberships"
