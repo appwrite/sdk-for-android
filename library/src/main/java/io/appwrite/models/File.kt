@@ -32,7 +32,7 @@ data class File(
     val updatedAt: String,
 
     /**
-     * File permissions. [Learn more about permissions](/docs/permissions).
+     * File permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      */
     @SerializedName("\$permissions")
     val permissions: List<Any>,

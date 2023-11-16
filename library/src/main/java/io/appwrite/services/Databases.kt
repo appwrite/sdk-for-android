@@ -16,7 +16,7 @@ class Databases : Service {
     public constructor (client: Client) : super(client) { }
 
     /**
-     * List Documents
+     * List documents
      *
      * Get a list of all the user&#039;s documents in a given collection. You can use the query params to filter your results.
      *
@@ -56,7 +56,7 @@ class Databases : Service {
     }
 
     /**
-     * List Documents
+     * List documents
      *
      * Get a list of all the user&#039;s documents in a given collection. You can use the query params to filter your results.
      *
@@ -79,15 +79,15 @@ class Databases : Service {
     )
 
     /**
-     * Create Document
+     * Create document
      *
-     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
      * @param documentId Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
-     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -125,15 +125,15 @@ class Databases : Service {
     }
 
     /**
-     * Create Document
+     * Create document
      *
-     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
      * @param documentId Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
-     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -154,7 +154,7 @@ class Databases : Service {
     )
 
     /**
-     * Get Document
+     * Get document
      *
      * Get a document by its unique ID. This endpoint response returns a JSON object with the document data.
      *
@@ -197,7 +197,7 @@ class Databases : Service {
     }
 
     /**
-     * Get Document
+     * Get document
      *
      * Get a document by its unique ID. This endpoint response returns a JSON object with the document data.
      *
@@ -223,7 +223,7 @@ class Databases : Service {
     )
 
     /**
-     * Update Document
+     * Update document
      *
      * Update a document by its unique ID. Using the patch method you can pass only specific fields that will get updated.
      *
@@ -231,7 +231,7 @@ class Databases : Service {
      * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
-     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -269,7 +269,7 @@ class Databases : Service {
     }
 
     /**
-     * Update Document
+     * Update document
      *
      * Update a document by its unique ID. Using the patch method you can pass only specific fields that will get updated.
      *
@@ -277,7 +277,7 @@ class Databases : Service {
      * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
-     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](/docs/permissions).
+     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -298,7 +298,7 @@ class Databases : Service {
     )
 
     /**
-     * Delete Document
+     * Delete document
      *
      * Delete a document by its unique ID.
      *
