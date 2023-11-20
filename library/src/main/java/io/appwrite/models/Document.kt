@@ -38,7 +38,7 @@ data class Document<T>(
     val updatedAt: String,
 
     /**
-     * Document permissions. [Learn more about permissions](/docs/permissions).
+     * Document permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      */
     @SerializedName("\$permissions")
     val permissions: List<Any>,

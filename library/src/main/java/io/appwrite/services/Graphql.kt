@@ -16,7 +16,7 @@ class Graphql : Service {
     public constructor (client: Client) : super(client) { }
 
     /**
-     * GraphQL Endpoint
+     * GraphQL endpoint
      *
      * Execute a GraphQL mutation.
      *
@@ -50,7 +50,7 @@ class Graphql : Service {
 
 
     /**
-     * GraphQL Endpoint
+     * GraphQL endpoint
      *
      * Execute a GraphQL mutation.
      *
