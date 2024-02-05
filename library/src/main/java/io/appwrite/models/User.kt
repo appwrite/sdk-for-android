@@ -98,10 +98,28 @@ data class User<T>(
     val phoneVerification: Boolean,
 
     /**
+     * Multi factor authentication status.
+     */
+    @SerializedName("mfa")
+    val mfa: Boolean,
+
+    /**
+     * TOTP status.
+     */
+    @SerializedName("totp")
+    val totp: Boolean,
+
+    /**
      * User preferences as a key-value object
      */
     @SerializedName("prefs")
     val prefs: Preferences<T>,
+
+    /**
+     * A user-owned message receiver. A single user may have multiple e.g. emails, phones, and a browser. Each target is registered with a single provider.
+     */
+    @SerializedName("targets")
+    val targets: List<Target>,
 
     /**
      * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
@@ -126,7 +144,10 @@ data class User<T>(
         "phone" to phone as Any,
         "emailVerification" to emailVerification as Any,
         "phoneVerification" to phoneVerification as Any,
+        "mfa" to mfa as Any,
+        "totp" to totp as Any,
         "prefs" to prefs.toMap() as Any,
+        "targets" to targets.map { it.toMap() } as Any,
         "accessedAt" to accessedAt as Any,
     )
 
@@ -147,7 +168,10 @@ data class User<T>(
             phone: String,
             emailVerification: Boolean,
             phoneVerification: Boolean,
+            mfa: Boolean,
+            totp: Boolean,
             prefs: Preferences<Map<String, Any>>,
+            targets: List<Target>,
             accessedAt: String,
         ) = User<Map<String, Any>>(
             id,
@@ -165,7 +189,10 @@ data class User<T>(
             phone,
             emailVerification,
             phoneVerification,
+            mfa,
+            totp,
             prefs,
+            targets,
             accessedAt,
         )
 
@@ -189,7 +216,10 @@ data class User<T>(
             phone = map["phone"] as String,
             emailVerification = map["emailVerification"] as Boolean,
             phoneVerification = map["phoneVerification"] as Boolean,
+            mfa = map["mfa"] as Boolean,
+            totp = map["totp"] as Boolean,
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),
+            targets = (map["targets"] as List<Map<String, Any>>).map { Target.from(map = it) },
             accessedAt = map["accessedAt"] as String,
         )
     }

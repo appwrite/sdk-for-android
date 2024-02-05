@@ -10,7 +10,7 @@ Teams teams = new Teams(client);
 
 teams.updatePrefs(
     "[TEAM_ID]",
-    mapOf( "a" to "b" )
+    mapOf( "a" to "b" ),
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

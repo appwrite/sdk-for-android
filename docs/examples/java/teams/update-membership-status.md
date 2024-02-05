@@ -12,7 +12,7 @@ teams.updateMembershipStatus(
     "[TEAM_ID]",
     "[MEMBERSHIP_ID]",
     "[USER_ID]",
-    "[SECRET]"
+    "[SECRET]",
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

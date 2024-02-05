@@ -3,6 +3,7 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.models.*
+import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -11,9 +12,7 @@ import java.io.File
 /**
  * The Databases service allows you to create structured collections of documents, query and filter lists of documents
 **/
-class Databases : Service {
-
-    public constructor (client: Client) : super(client) { }
+class Databases(client: Client) : Service(client) {
 
     /**
      * List documents
@@ -43,6 +42,7 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.DocumentList.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -112,6 +112,7 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -161,7 +162,7 @@ class Databases : Service {
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param documentId Document ID.
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Only method allowed is select.
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -184,6 +185,7 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -204,7 +206,7 @@ class Databases : Service {
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param documentId Document ID.
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Only method allowed is select.
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
@@ -256,6 +258,7 @@ class Databases : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(

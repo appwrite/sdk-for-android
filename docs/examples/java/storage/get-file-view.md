@@ -10,7 +10,7 @@ Storage storage = new Storage(client);
 
 storage.getFileView(
     "[BUCKET_ID]",
-    "[FILE_ID]"
+    "[FILE_ID]",
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

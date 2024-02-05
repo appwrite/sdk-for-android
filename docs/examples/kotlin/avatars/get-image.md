@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Avatars
 
 val client = Client(context)
@@ -7,6 +8,6 @@ val client = Client(context)
 
 val avatars = Avatars(client)
 
-val result = avatars.getImage(
+val result =avatars.getImage(
     url = "https://example.com",
 )

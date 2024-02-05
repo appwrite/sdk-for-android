@@ -3,6 +3,7 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.models.*
+import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -13,9 +14,7 @@ import java.io.File
 /**
  * The Storage service allows you to manage your project files.
 **/
-class Storage : Service {
-
-    public constructor (client: Client) : super(client) { }
+class Storage(client: Client) : Service(client) {
 
     /**
      * List files
@@ -44,6 +43,7 @@ class Storage : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.FileList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.FileList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -88,6 +88,7 @@ class Storage : Service {
             "content-type" to "multipart/form-data",
         )
         val converter: (Any) -> io.appwrite.models.File = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
         val idParamName: String? = "fileId"    
@@ -128,6 +129,7 @@ class Storage : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -171,6 +173,7 @@ class Storage : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -271,7 +274,7 @@ class Storage : Service {
         fileId: String,
         width: Long? = null,
         height: Long? = null,
-        gravity: String? = null,
+        gravity: ImageGravity? = null,
         quality: Long? = null,
         borderWidth: Long? = null,
         borderColor: String? = null,
@@ -279,7 +282,7 @@ class Storage : Service {
         opacity: Double? = null,
         rotation: Long? = null,
         background: String? = null,
-        output: String? = null,
+        output: ImageFormat? = null,
     ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replace("{bucketId}", bucketId)

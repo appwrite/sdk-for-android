@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Avatars
 
 val client = Client(context)
@@ -7,5 +8,5 @@ val client = Client(context)
 
 val avatars = Avatars(client)
 
-val result = avatars.getInitials(
+val result =avatars.getInitials(
 )

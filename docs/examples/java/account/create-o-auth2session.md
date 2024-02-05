@@ -1,6 +1,7 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
 import io.appwrite.services.Account;
+import io.appwrite.enums.OAuthProvider;
 
 Client client = new Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -9,7 +10,7 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.createOAuth2Session(
-    "amazon",
+    OAuthProvider.AMAZON,
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
