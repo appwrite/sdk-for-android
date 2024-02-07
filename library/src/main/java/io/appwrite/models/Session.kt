@@ -161,7 +161,7 @@ data class Session(
      * Returns a list of active session factors.
      */
     @SerializedName("factors")
-    val factors: Long,
+    val factors: List<Any>,
 
     /**
      * Secret used to authenticate the user. Only included if the request was made with an API key
@@ -231,7 +231,7 @@ data class Session(
             countryCode = map["countryCode"] as String,
             countryName = map["countryName"] as String,
             current = map["current"] as Boolean,
-            factors = (map["factors"] as Number).toLong(),
+            factors = map["factors"] as List<Any>,
             secret = map["secret"] as String,
         )
     }
