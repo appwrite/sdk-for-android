@@ -10,7 +10,7 @@ Functions functions = new Functions(client);
 
 functions.getExecution(
     "[FUNCTION_ID]",
-    "[EXECUTION_ID]",
+    "[EXECUTION_ID]"
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -1,7 +1,7 @@
 package io.appwrite.cookies.stores
 
 import io.appwrite.cookies.InternalCookie
-import android.content.SharedPreferences
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import com.google.gson.Gson
@@ -10,9 +10,11 @@ import java.net.HttpCookie
 import java.net.URI
 
 open class SharedPreferencesCookieStore(
-    private val preferences: SharedPreferences,
-) : InMemoryCookieStore() {
+    context: Context,
+    private val name: String
+) : InMemoryCookieStore(name) {
 
+    private val preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
     private val gson = Gson()
 
     init {
@@ -28,7 +30,7 @@ open class SharedPreferencesCookieStore(
                 } catch (exception: Throwable) {
                     Log.e(
                         javaClass.simpleName,
-                        "Error while loading key = $key, value = $value from cookie store",
+                        "Error while loading key = $key, value = $value from cookie store named $name",
                         exception
                     )
                 }

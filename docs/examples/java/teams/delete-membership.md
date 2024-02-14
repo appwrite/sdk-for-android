@@ -10,7 +10,7 @@ Teams teams = new Teams(client);
 
 teams.deleteMembership(
     "[TEAM_ID]",
-    "[MEMBERSHIP_ID]",
+    "[MEMBERSHIP_ID]"
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

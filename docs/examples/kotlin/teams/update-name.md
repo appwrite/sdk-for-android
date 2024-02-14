@@ -1,5 +1,4 @@
 import io.appwrite.Client
-import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Teams
 
 val client = Client(context)
@@ -10,5 +9,5 @@ val teams = Teams(client)
 
 val response = teams.updateName(
     teamId = "[TEAM_ID]",
-    name = "[NAME]",
+    name = "[NAME]"
 )

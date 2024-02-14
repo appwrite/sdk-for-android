@@ -10,7 +10,7 @@ Teams teams = new Teams(client);
 
 teams.updateName(
     "[TEAM_ID]",
-    "[NAME]",
+    "[NAME]"
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

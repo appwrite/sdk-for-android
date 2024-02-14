@@ -3,7 +3,6 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.models.*
-import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -14,7 +13,9 @@ import java.io.File
 /**
  * The Avatars service aims to help you complete everyday tasks related to your app image, icons, and avatars.
 **/
-class Avatars(client: Client) : Service(client) {
+class Avatars : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * Get browser icon
@@ -29,13 +30,13 @@ class Avatars(client: Client) : Service(client) {
      */
     @JvmOverloads
     suspend fun getBrowser(
-        code: Browser,
+        code: String,
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
     ): ByteArray {
         val apiPath = "/avatars/browsers/{code}"
-            .replace("{code}", code.value)
+            .replace("{code}", code)
 
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
@@ -65,13 +66,13 @@ class Avatars(client: Client) : Service(client) {
      */
     @JvmOverloads
     suspend fun getCreditCard(
-        code: CreditCard,
+        code: String,
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
     ): ByteArray {
         val apiPath = "/avatars/credit-cards/{code}"
-            .replace("{code}", code.value)
+            .replace("{code}", code)
 
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
@@ -127,13 +128,13 @@ class Avatars(client: Client) : Service(client) {
      */
     @JvmOverloads
     suspend fun getFlag(
-        code: Flag,
+        code: String,
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
     ): ByteArray {
         val apiPath = "/avatars/flags/{code}"
-            .replace("{code}", code.value)
+            .replace("{code}", code)
 
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,

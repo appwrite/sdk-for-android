@@ -1,7 +1,5 @@
 import io.appwrite.Client
-import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Avatars
-import io.appwrite.enums.Browser
 
 val client = Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -9,6 +7,6 @@ val client = Client(context)
 
 val avatars = Avatars(client)
 
-val result =avatars.getBrowser(
-    code = Browser.AVANT_BROWSER,
+val result = avatars.getBrowser(
+    code = "aa",
 )

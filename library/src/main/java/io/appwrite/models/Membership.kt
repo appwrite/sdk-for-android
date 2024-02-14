@@ -74,12 +74,6 @@ data class Membership(
     val confirm: Boolean,
 
     /**
-     * Multi factor authentication status, true if the user has MFA enabled or false otherwise.
-     */
-    @SerializedName("mfa")
-    val mfa: Boolean,
-
-    /**
      * User list of roles
      */
     @SerializedName("roles")
@@ -98,7 +92,6 @@ data class Membership(
         "invited" to invited as Any,
         "joined" to joined as Any,
         "confirm" to confirm as Any,
-        "mfa" to mfa as Any,
         "roles" to roles as Any,
     )
 
@@ -119,7 +112,6 @@ data class Membership(
             invited = map["invited"] as String,
             joined = map["joined"] as String,
             confirm = map["confirm"] as Boolean,
-            mfa = map["mfa"] as Boolean,
             roles = map["roles"] as List<Any>,
         )
     }

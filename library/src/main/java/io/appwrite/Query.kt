@@ -1,65 +1,60 @@
 package io.appwrite
 
-import io.appwrite.extensions.toJson
-import io.appwrite.extensions.fromJson
+class Query {
+  companion object {
+    fun equal(attribute: String, value: Any) = addQuery(attribute, "equal", value)
 
-class Query(
-    val method: String,
-    val attribute: String? = null,
-    val values: List<Any>? = null,
-) {
-    override fun toString() = this.toJson()
+    fun notEqual(attribute: String, value: Any) = Query.addQuery(attribute, "notEqual", value)
 
-    companion object {
-        fun equal(attribute: String, value: Any) = Query("equal", attribute, parseValue(value)).toJson()
+    fun lessThan(attribute: String, value: Any) = Query.addQuery(attribute, "lessThan", value)
 
-        fun notEqual(attribute: String, value: Any) = Query("notEqual", attribute, parseValue(value)).toJson()
+    fun lessThanEqual(attribute: String, value: Any) = Query.addQuery(attribute, "lessThanEqual", value)
 
-        fun lessThan(attribute: String, value: Any) = Query("lessThan", attribute, parseValue(value)).toJson()
+    fun greaterThan(attribute: String, value: Any) = Query.addQuery(attribute, "greaterThan", value)
 
-        fun lessThanEqual(attribute: String, value: Any) = Query("lessThanEqual", attribute, parseValue(value)).toJson()
+    fun greaterThanEqual(attribute: String, value: Any) = Query.addQuery(attribute, "greaterThanEqual", value)
+    
+    fun search(attribute: String, value: String) = Query.addQuery(attribute, "search", value)
 
-        fun greaterThan(attribute: String, value: Any) = Query("greaterThan", attribute, parseValue(value)).toJson()
+    fun isNull(attribute: String) = "isNull(\"${attribute}\")"
 
-        fun greaterThanEqual(attribute: String, value: Any) = Query("greaterThanEqual", attribute, parseValue(value)).toJson()
+    fun isNotNull(attribute: String) = "isNotNull(\"${attribute}\")"
 
-        fun search(attribute: String, value: String) = Query("search", attribute, listOf(value)).toJson()
+    fun between(attribute: String, start: Int, end: Int) = "between(\"${attribute}\", ${start}, ${end})"
 
-        fun isNull(attribute: String) = Query("isNull", attribute).toJson()
+    fun between(attribute: String, start: Double, end: Double) = "between(\"${attribute}\", ${start}, ${end})"
 
-        fun isNotNull(attribute: String) = Query("isNotNull", attribute).toJson()
+    fun between(attribute: String, start: String, end: String) = "between(\"${attribute}\", \"${start}\", \"${end}\")"
 
-        fun between(attribute: String, start: Any, end: Any) = Query("between", attribute, listOf(start, end)).toJson()
+    fun startsWith(attribute: String, value: String) = Query.addQuery(attribute, "startsWith", value)
 
-        fun startsWith(attribute: String, value: String) = Query("startsWith", attribute, listOf(value)).toJson()
+    fun endsWith(attribute: String, value: String) = Query.addQuery(attribute, "endsWith", value)
 
-        fun endsWith(attribute: String, value: String) = Query("endsWith", attribute, listOf(value)).toJson()
+    fun select(attributes: List<String>) = "select([${attributes.joinToString(",") { "\"$it\"" }}])"
 
-        fun select(attributes: List<String>) = Query("select", null, attributes).toJson()
+    fun orderAsc(attribute: String) = "orderAsc(\"${attribute}\")"
 
-        fun orderAsc(attribute: String) = Query("orderAsc", attribute).toJson()
+    fun orderDesc(attribute: String) = "orderDesc(\"${attribute}\")"
 
-        fun orderDesc(attribute: String) = Query("orderDesc", attribute).toJson()
+    fun cursorBefore(documentId: String) = "cursorBefore(\"${documentId}\")"
 
-        fun cursorBefore(documentId: String) = Query("cursorBefore", null, listOf(documentId)).toJson()
+    fun cursorAfter(documentId: String) = "cursorAfter(\"${documentId}\")"
 
-        fun cursorAfter(documentId: String) = Query("cursorAfter", null, listOf(documentId)).toJson()
+    fun limit(limit: Int) = "limit(${limit})"
 
-        fun limit(limit: Int) = Query("limit", null, listOf(limit)).toJson()
+    fun offset(offset: Int) = "offset(${offset})"
 
-        fun offset(offset: Int) = Query("offset", null, listOf(offset)).toJson()
-
-        fun contains(attribute: String, value: Any) = Query("contains", attribute, parseValue(value)).toJson()
-
-        fun or(queries: List<String>) = Query("or", null, queries.map { it.fromJson<Query>() }).toJson()
-
-        fun and(queries: List<String>) = Query("and", null, queries.map { it.fromJson<Query>() }).toJson()
-
-        private fun parseValue(value: Any): List<Any> {
-            return when (value) {
-                is List<*> -> value as List<Any>
-                else -> listOf(value)
-            }
-        }
+    private fun addQuery(attribute: String, method: String, value: Any): String {
+      return when (value) {
+        is List<*> -> "${method}(\"${attribute}\", [${value.map{it -> parseValues(it!!)}.joinToString(",")}])"
+    	  else -> "${method}(\"${attribute}\", [${Query.parseValues(value)}])"
+      }
     }
+    private fun parseValues(value: Any): String {
+      return when (value) {
+        is String -> "\"${value}\""
+    	  else -> "${value}"
+      }
+    }
+  }
 }

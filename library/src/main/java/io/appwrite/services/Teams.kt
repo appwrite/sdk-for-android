@@ -3,7 +3,6 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.models.*
-import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -12,14 +11,16 @@ import java.io.File
 /**
  * The Teams service allows you to group users of your project and to enable them to share read and write access to your project resources
 **/
-class Teams(client: Client) : Service(client) {
+class Teams : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * List teams
      *
      * Get a list of all the teams in which the current user is a member. You can use the parameters to filter your results.
      *
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total, billingPlan
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @return [io.appwrite.models.TeamList<T>]
      */
@@ -39,7 +40,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.TeamList<T> = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.TeamList.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -57,7 +57,7 @@ class Teams(client: Client) : Service(client) {
      *
      * Get a list of all the teams in which the current user is a member. You can use the parameters to filter your results.
      *
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total, billingPlan
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @return [io.appwrite.models.TeamList<T>]
      */
@@ -100,7 +100,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Team.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -157,7 +156,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Team.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -210,7 +208,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Team.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -298,7 +295,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MembershipList = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MembershipList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -351,7 +347,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -388,7 +383,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -428,7 +422,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -503,7 +496,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -538,7 +530,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Preferences.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
@@ -591,7 +582,6 @@ class Teams(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Preferences.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(

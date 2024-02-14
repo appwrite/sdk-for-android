@@ -3,7 +3,6 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.models.*
-import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -12,7 +11,9 @@ import java.io.File
 /**
  * The Functions Service allows you view, create and manage your Cloud Functions.
 **/
-class Functions(client: Client) : Service(client) {
+class Functions : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * List executions
@@ -41,7 +42,6 @@ class Functions(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ExecutionList = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.ExecutionList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -74,7 +74,7 @@ class Functions(client: Client) : Service(client) {
         body: String? = null,
         async: Boolean? = null,
         path: String? = null,
-        method: ExecutionMethod? = null,
+        method: String? = null,
         headers: Any? = null,
     ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions"
@@ -91,7 +91,6 @@ class Functions(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -128,7 +127,6 @@ class Functions(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
         return client.call(

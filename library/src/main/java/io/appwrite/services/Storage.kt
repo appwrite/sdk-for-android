@@ -3,7 +3,6 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.models.*
-import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -14,7 +13,9 @@ import java.io.File
 /**
  * The Storage service allows you to manage your project files.
 **/
-class Storage(client: Client) : Service(client) {
+class Storage : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * List files
@@ -43,7 +44,6 @@ class Storage(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.FileList = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.FileList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -88,7 +88,6 @@ class Storage(client: Client) : Service(client) {
             "content-type" to "multipart/form-data",
         )
         val converter: (Any) -> io.appwrite.models.File = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
         val idParamName: String? = "fileId"    
@@ -129,7 +128,6 @@ class Storage(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -173,7 +171,6 @@ class Storage(client: Client) : Service(client) {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
-            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -274,7 +271,7 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         width: Long? = null,
         height: Long? = null,
-        gravity: ImageGravity? = null,
+        gravity: String? = null,
         quality: Long? = null,
         borderWidth: Long? = null,
         borderColor: String? = null,
@@ -282,7 +279,7 @@ class Storage(client: Client) : Service(client) {
         opacity: Double? = null,
         rotation: Long? = null,
         background: String? = null,
-        output: ImageFormat? = null,
+        output: String? = null,
     ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replace("{bucketId}", bucketId)

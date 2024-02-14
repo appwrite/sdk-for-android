@@ -10,7 +10,7 @@ Account account = new Account(client);
 
 account.createRecovery(
     "email@example.com",
-    "https://example.com",
+    "https://example.com"
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -10,7 +10,7 @@ Account account = new Account(client);
 
 account.updateEmail(
     "email@example.com",
-    "password",
+    "password"
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

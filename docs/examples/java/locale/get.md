@@ -9,7 +9,7 @@ Client client = new Client(context)
 Locale locale = new Locale(client);
 
 locale.get(new CoroutineCallback<>((result, error) -> {
-    if (error != null) {
+   if (error != null)
         error.printStackTrace();
         return;
     }

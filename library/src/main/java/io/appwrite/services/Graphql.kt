@@ -3,7 +3,6 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.models.*
-import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -12,7 +11,9 @@ import java.io.File
 /**
  * The GraphQL API allows you to query and mutate your Appwrite server using GraphQL.
 **/
-class Graphql(client: Client) : Service(client) {
+class Graphql : Service {
+
+    public constructor (client: Client) : super(client) { }
 
     /**
      * GraphQL endpoint

@@ -1,5 +1,4 @@
 import io.appwrite.Client
-import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Account
 
 val client = Client(context)
@@ -10,5 +9,5 @@ val account = Account(client)
 
 val response = account.updateEmail(
     email = "email@example.com",
-    password = "password",
+    password = "password"
 )

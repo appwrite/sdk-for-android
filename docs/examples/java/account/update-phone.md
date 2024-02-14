@@ -10,7 +10,7 @@ Account account = new Account(client);
 
 account.updatePhone(
     "+12065550100",
-    "password",
+    "password"
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
