@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Graphql
 
 val client = Client(context)
@@ -8,5 +9,5 @@ val client = Client(context)
 val graphql = Graphql(client)
 
 val response = graphql.query(
-    query = mapOf( "a" to "b" )
+    query = mapOf( "a" to "b" ),
 )

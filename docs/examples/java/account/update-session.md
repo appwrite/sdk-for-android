@@ -9,7 +9,7 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.updateSession(
-    "[SESSION_ID]"
+    "[SESSION_ID]",
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

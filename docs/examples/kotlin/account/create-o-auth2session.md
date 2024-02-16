@@ -1,5 +1,7 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Account
+import io.appwrite.enums.OAuthProvider
 
 val client = Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -8,5 +10,5 @@ val client = Client(context)
 val account = Account(client)
 
 account.createOAuth2Session(
-    provider = "amazon",
+    provider = OAuthProvider.AMAZON,
 )

@@ -11,8 +11,7 @@ Account account = new Account(client);
 account.updateRecovery(
     "[USER_ID]",
     "[SECRET]",
-    "password",
-    "password"
+    "",
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

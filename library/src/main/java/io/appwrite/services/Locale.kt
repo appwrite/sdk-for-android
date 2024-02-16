@@ -2,7 +2,9 @@ package io.appwrite.services
 
 import android.net.Uri
 import io.appwrite.Client
+import io.appwrite.Service
 import io.appwrite.models.*
+import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
@@ -11,9 +13,7 @@ import java.io.File
 /**
  * The Locale service allows you to customize your app based on your users&#039; location.
 **/
-class Locale : Service {
-
-    public constructor (client: Client) : super(client) { }
+class Locale(client: Client) : Service(client) {
 
     /**
      * Get user locale
@@ -32,6 +32,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Locale = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Locale.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -62,6 +63,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LocaleCodeList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.LocaleCodeList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -92,6 +94,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ContinentList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.ContinentList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -122,6 +125,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -152,6 +156,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.CountryList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -182,6 +187,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.PhoneList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.PhoneList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -212,6 +218,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.CurrencyList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.CurrencyList.from(map = it as Map<String, Any>)
         }
         return client.call(
@@ -242,6 +249,7 @@ class Locale : Service {
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LanguageList = {
+            @Suppress("UNCHECKED_CAST")
             io.appwrite.models.LanguageList.from(map = it as Map<String, Any>)
         }
         return client.call(

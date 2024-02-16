@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Databases
 
 val client = Client(context)
@@ -10,5 +11,5 @@ val databases = Databases(client)
 val response = databases.deleteDocument(
     databaseId = "[DATABASE_ID]",
     collectionId = "[COLLECTION_ID]",
-    documentId = "[DOCUMENT_ID]"
+    documentId = "[DOCUMENT_ID]",
 )

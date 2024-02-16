@@ -37,6 +37,12 @@ data class Token(
     @SerializedName("expire")
     val expire: String,
 
+    /**
+     * Security phrase of a token. Empty if security phrase was not requested when creating a token. It includes randomly generated phrase which is also sent in the external resource such as email.
+     */
+    @SerializedName("phrase")
+    val phrase: String,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -44,6 +50,7 @@ data class Token(
         "userId" to userId as Any,
         "secret" to secret as Any,
         "expire" to expire as Any,
+        "phrase" to phrase as Any,
     )
 
     companion object {
@@ -57,6 +64,7 @@ data class Token(
             userId = map["userId"] as String,
             secret = map["secret"] as String,
             expire = map["expire"] as String,
+            phrase = map["phrase"] as String,
         )
     }
 }
