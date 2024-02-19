@@ -1,6 +1,6 @@
 package io.appwrite.enums
 
-enum class Factor(val value: String) {
+enum class AuthenticationFactor(val value: String) {
     TOTP("totp"),
     PHONE("phone"),
     EMAIL("email");

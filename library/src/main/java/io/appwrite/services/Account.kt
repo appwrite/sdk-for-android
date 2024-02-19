@@ -378,7 +378,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaChallenge]
      */
     suspend fun create2FAChallenge(
-        factor: Factor,
+        factor: AuthenticationFactor,
     ): io.appwrite.models.MfaChallenge {
         val apiPath = "/account/mfa/challenge"
 
@@ -475,7 +475,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaType]
      */
     suspend fun addAuthenticator(
-        type: Type,
+        type: AuthenticatorType,
     ): io.appwrite.models.MfaType {
         val apiPath = "/account/mfa/{type}"
             .replace("{type}", type.value)
@@ -510,7 +510,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> verifyAuthenticator(
-        type: Type,
+        type: AuthenticatorType,
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
@@ -548,7 +548,7 @@ class Account(client: Client) : Service(client) {
      */
     @Throws(AppwriteException::class)
     suspend fun verifyAuthenticator(
-        type: Type,
+        type: AuthenticatorType,
         otp: String,
     ): io.appwrite.models.User<Map<String, Any>> = verifyAuthenticator(
         type,
@@ -566,7 +566,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> deleteAuthenticator(
-        type: Type,
+        type: AuthenticatorType,
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
@@ -604,7 +604,7 @@ class Account(client: Client) : Service(client) {
      */
     @Throws(AppwriteException::class)
     suspend fun deleteAuthenticator(
-        type: Type,
+        type: AuthenticatorType,
         otp: String,
     ): io.appwrite.models.User<Map<String, Any>> = deleteAuthenticator(
         type,
