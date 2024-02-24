@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:5.0.0-rc.4")
+implementation("io.appwrite:sdk-for-android:5.0.0-rc.5")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>5.0.0-rc.4</version>
+        <version>5.0.0-rc.5</version>
     </dependency>
 </dependencies>
 ```
@@ -109,8 +109,9 @@ When trying to connect to Appwrite from an emulator or a mobile device, localhos
 val account = Account(client)
 val response = account.create(
     ID.unique(),
-    "email@example.com", 
-    "password"
+    "email@example.com",
+    "password",
+    "Walter O'Brien"
 )
 ```
 
@@ -129,8 +130,9 @@ val client = Client(context)
 val account = Account(client)
 val user = account.create(
     ID.unique(),
-    "email@example.com", 
-    "password"
+    "email@example.com",
+    "password",
+    "Walter O'Brien"
 )
 ```
 
@@ -139,7 +141,7 @@ The Appwrite Android SDK raises an `AppwriteException` object with `message`, `c
 
 ```kotlin
 try {
-    var user = account.create(ID.unique(), "email@example.com", "password")
+    var user = account.create(ID.unique(),"email@example.com","password","Walter O'Brien")
     Log.d("Appwrite user", user.toMap())
 } catch(e : AppwriteException) {
     e.printStackTrace()
@@ -152,6 +154,7 @@ You can use the following resources to learn more and get help
 - 📜 [Appwrite Docs](https://appwrite.io/docs)
 - 💬 [Discord Community](https://appwrite.io/discord)
 - 🚂 [Appwrite Android Playground](https://github.com/appwrite/playground-for-android)
+
 
 ## Contribution
 

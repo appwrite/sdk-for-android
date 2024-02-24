@@ -16,7 +16,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 17
-        # Base64 decodes and pipes the GPG key content into the secret file
       - name: Prepare environment
         env:
           GPG_KEY_CONTENTS: ${{ secrets.GPG_KEY_CONTENTS }}

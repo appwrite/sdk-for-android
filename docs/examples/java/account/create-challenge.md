@@ -9,7 +9,7 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.create2FAChallenge(
+account.createChallenge(
     AuthenticationFactor.TOTP, // factor 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
