@@ -322,7 +322,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Update MFA
      *
-     * 
+     * Enable or disable MFA on an account.
      *
      * @param mfa Enable or disable MFA.
      * @return [io.appwrite.models.User<T>]
@@ -356,7 +356,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Update MFA
      *
-     * 
+     * Enable or disable MFA on an account.
      *
      * @param mfa Enable or disable MFA.
      * @return [io.appwrite.models.User<T>]
@@ -406,7 +406,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Create MFA Challenge (confirmation)
      *
-     * 
+     * Complete the MFA challenge by providing the one-time password.
      *
      * @param challengeId ID of the challenge.
      * @param otp Valid verification token.
@@ -438,7 +438,7 @@ class Account(client: Client) : Service(client) {
     /**
      * List Factors
      *
-     * 
+     * List the factors available on the account to be used as a MFA challange.
      *
      * @return [io.appwrite.models.MfaFactors]
      */
@@ -469,7 +469,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Add Authenticator
      *
-     * 
+     * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#verifyAuthenticator) method.
      *
      * @param type Type of authenticator.
      * @return [io.appwrite.models.MfaType]
@@ -503,7 +503,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Verify Authenticator
      *
-     * 
+     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#addAuthenticator) method.
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.
@@ -540,7 +540,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Verify Authenticator
      *
-     * 
+     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#addAuthenticator) method.
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.
@@ -559,7 +559,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Delete Authenticator
      *
-     * 
+     * Delete an authenticator for a user by ID.
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.
@@ -596,7 +596,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Delete Authenticator
      *
-     * 
+     * Delete an authenticator for a user by ID.
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.
@@ -1073,7 +1073,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Create session (deprecated)
+     * Update magic URL session
      *
      * Use this endpoint to create a session from token. Provide the **userId** and **secret** parameters from the successful response of authentication flows initiated by token creation. For example, magic URL and phone login.
      *
@@ -1182,6 +1182,43 @@ class Account(client: Client) : Service(client) {
 
 
     /**
+     * Update phone session
+     *
+     * Use this endpoint to create a session from token. Provide the **userId** and **secret** parameters from the successful response of authentication flows initiated by token creation. For example, magic URL and phone login.
+     *
+     * @param userId User ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param secret Valid verification token.
+     * @return [io.appwrite.models.Session]
+     */
+    suspend fun updatePhoneSession(
+        userId: String,
+        secret: String,
+    ): io.appwrite.models.Session {
+        val apiPath = "/account/sessions/phone"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "userId" to userId,
+            "secret" to secret,
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Session = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Session::class.java,
+            converter,
+        )
+    }
+
+
+    /**
      * Create session
      *
      * Use this endpoint to create a session from token. Provide the **userId** and **secret** parameters from the successful response of authentication flows initiated by token creation. For example, magic URL and phone login.
@@ -1253,7 +1290,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Update (or renew) a session
+     * Update (or renew) session
      *
      * Extend session&#039;s expiry to increase it&#039;s lifespan. Extending a session is useful when session length is short such as 5 minutes.
      *
@@ -1360,7 +1397,7 @@ class Account(client: Client) : Service(client) {
     )
 
     /**
-     * Create a push target
+     * Create push target
      *
      * 
      *
@@ -1401,7 +1438,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Update a push target
+     * Update push target
      *
      * 
      *
@@ -1438,7 +1475,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Delete a push target
+     * Delete push target
      *
      * 
      *

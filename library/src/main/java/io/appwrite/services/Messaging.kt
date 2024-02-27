@@ -16,7 +16,7 @@ import java.io.File
 class Messaging(client: Client) : Service(client) {
 
     /**
-     * Create a subscriber
+     * Create subscriber
      *
      * Create a new subscriber.
      *
@@ -56,7 +56,7 @@ class Messaging(client: Client) : Service(client) {
 
 
     /**
-     * Delete a subscriber
+     * Delete subscriber
      *
      * Delete a subscriber by its unique ID.
      *

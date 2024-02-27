@@ -8,4 +8,7 @@ val client = Client(context)
 
 val account = Account(client)
 
-val result = account.listFactors()
+val result = account.updatePhoneSession(
+    userId = "<USER_ID>", 
+    secret = "<SECRET>", 
+)
