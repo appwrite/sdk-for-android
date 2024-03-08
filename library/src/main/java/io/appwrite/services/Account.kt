@@ -378,7 +378,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaType]
      */
     suspend fun createMfaAuthenticator(
-        type: AuthenticatorType,
+        type: io.appwrite.enums.AuthenticatorType,
     ): io.appwrite.models.MfaType {
         val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
@@ -413,7 +413,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> updateMfaAuthenticator(
-        type: AuthenticatorType,
+        type: io.appwrite.enums.AuthenticatorType,
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
@@ -451,7 +451,7 @@ class Account(client: Client) : Service(client) {
      */
     @Throws(AppwriteException::class)
     suspend fun updateMfaAuthenticator(
-        type: AuthenticatorType,
+        type: io.appwrite.enums.AuthenticatorType,
         otp: String,
     ): io.appwrite.models.User<Map<String, Any>> = updateMfaAuthenticator(
         type,
@@ -469,7 +469,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     suspend fun <T> deleteMfaAuthenticator(
-        type: AuthenticatorType,
+        type: io.appwrite.enums.AuthenticatorType,
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
@@ -507,7 +507,7 @@ class Account(client: Client) : Service(client) {
      */
     @Throws(AppwriteException::class)
     suspend fun deleteMfaAuthenticator(
-        type: AuthenticatorType,
+        type: io.appwrite.enums.AuthenticatorType,
         otp: String,
     ): io.appwrite.models.User<Map<String, Any>> = deleteMfaAuthenticator(
         type,
@@ -524,7 +524,7 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaChallenge]
      */
     suspend fun createMfaChallenge(
-        factor: AuthenticationFactor,
+        factor: io.appwrite.enums.AuthenticationFactor,
     ): io.appwrite.models.MfaChallenge {
         val apiPath = "/account/mfa/challenge"
 
@@ -1215,7 +1215,7 @@ class Account(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun createOAuth2Session(
         activity: ComponentActivity,
-        provider: OAuthProvider,
+        provider: io.appwrite.enums.OAuthProvider,
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,
@@ -1694,7 +1694,7 @@ class Account(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun createOAuth2Token(
         activity: ComponentActivity,
-        provider: OAuthProvider,
+        provider: io.appwrite.enums.OAuthProvider,
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,

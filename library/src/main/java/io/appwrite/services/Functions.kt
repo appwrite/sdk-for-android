@@ -75,7 +75,7 @@ class Functions(client: Client) : Service(client) {
         body: String? = null,
         async: Boolean? = null,
         path: String? = null,
-        method: ExecutionMethod? = null,
+        method: io.appwrite.enums.ExecutionMethod? = null,
         headers: Any? = null,
     ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions"

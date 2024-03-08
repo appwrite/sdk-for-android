@@ -275,7 +275,7 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         width: Long? = null,
         height: Long? = null,
-        gravity: ImageGravity? = null,
+        gravity: io.appwrite.enums.ImageGravity? = null,
         quality: Long? = null,
         borderWidth: Long? = null,
         borderColor: String? = null,
@@ -283,7 +283,7 @@ class Storage(client: Client) : Service(client) {
         opacity: Double? = null,
         rotation: Long? = null,
         background: String? = null,
-        output: ImageFormat? = null,
+        output: io.appwrite.enums.ImageFormat? = null,
     ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replace("{bucketId}", bucketId)
