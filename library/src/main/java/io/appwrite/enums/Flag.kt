@@ -18,7 +18,7 @@ enum class Flag(val value: String) {
     @SerializedName("am")
     ARMENIA("am"),
     @SerializedName("ag")
-    ANTIGUAAND_BARBUDA("ag"),
+    ANTIGUA_AND_BARBUDA("ag"),
     @SerializedName("au")
     AUSTRALIA("au"),
     @SerializedName("at")
@@ -42,7 +42,7 @@ enum class Flag(val value: String) {
     @SerializedName("bs")
     BAHAMAS("bs"),
     @SerializedName("ba")
-    BOSNIAAND_HERZEGOVINA("ba"),
+    BOSNIA_AND_HERZEGOVINA("ba"),
     @SerializedName("by")
     BELARUS("by"),
     @SerializedName("bz")
@@ -70,13 +70,13 @@ enum class Flag(val value: String) {
     @SerializedName("cn")
     CHINA("cn"),
     @SerializedName("ci")
-    CTED_IVOIRE("ci"),
+    COTE_DIVOIRE("ci"),
     @SerializedName("cm")
     CAMEROON("cm"),
     @SerializedName("cd")
-    DEMOCRATIC_REPUBLICOFTHE_CONGO("cd"),
+    DEMOCRATIC_REPUBLIC_OF_THE_CONGO("cd"),
     @SerializedName("cg")
-    REPUBLICOFTHE_CONGO("cg"),
+    REPUBLIC_OF_THE_CONGO("cg"),
     @SerializedName("co")
     COLOMBIA("co"),
     @SerializedName("km")
@@ -122,7 +122,7 @@ enum class Flag(val value: String) {
     @SerializedName("fr")
     FRANCE("fr"),
     @SerializedName("fm")
-    MICRONESIA_FEDERATED_STATESOF("fm"),
+    MICRONESIA_FEDERATED_STATES_OF("fm"),
     @SerializedName("ga")
     GABON("ga"),
     @SerializedName("gb")
@@ -162,7 +162,7 @@ enum class Flag(val value: String) {
     @SerializedName("ie")
     IRELAND("ie"),
     @SerializedName("ir")
-    IRAN_ISLAMIC_REPUBLICOF("ir"),
+    IRAN_ISLAMIC_REPUBLIC_OF("ir"),
     @SerializedName("iq")
     IRAQ("iq"),
     @SerializedName("is")
@@ -188,7 +188,7 @@ enum class Flag(val value: String) {
     @SerializedName("ki")
     KIRIBATI("ki"),
     @SerializedName("kn")
-    SAINT_KITTSAND_NEVIS("kn"),
+    SAINT_KITTS_AND_NEVIS("kn"),
     @SerializedName("kr")
     SOUTH_KOREA("kr"),
     @SerializedName("kw")
@@ -322,7 +322,7 @@ enum class Flag(val value: String) {
     @SerializedName("ss")
     SOUTH_SUDAN("ss"),
     @SerializedName("st")
-    SAO_TOMEAND_PRINCIPE("st"),
+    SAO_TOME_AND_PRINCIPE("st"),
     @SerializedName("sr")
     SURINAME("sr"),
     @SerializedName("sk")
@@ -352,7 +352,7 @@ enum class Flag(val value: String) {
     @SerializedName("to")
     TONGA("to"),
     @SerializedName("tt")
-    TRINIDADAND_TOBAGO("tt"),
+    TRINIDAD_AND_TOBAGO("tt"),
     @SerializedName("tn")
     TUNISIA("tn"),
     @SerializedName("tr")
@@ -374,7 +374,7 @@ enum class Flag(val value: String) {
     @SerializedName("va")
     VATICAN_CITY("va"),
     @SerializedName("vc")
-    SAINT_VINCENTANDTHE_GRENADINES("vc"),
+    SAINT_VINCENT_AND_THE_GRENADINES("vc"),
     @SerializedName("ve")
     VENEZUELA("ve"),
     @SerializedName("vn")

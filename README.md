@@ -11,7 +11,7 @@
 
 Appwrite is an open-source backend as a service server that abstract and simplify complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Android SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)
 
-![Appwrite](https://appwrite.io/images/github.png)
+![Appwrite](https://github.com/appwrite/appwrite/raw/main/public/images/github.png)
 
 ## Installation
 
@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:5.0.0-rc.6")
+implementation("io.appwrite:sdk-for-android:5.0.0")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>5.0.0-rc.6</version>
+        <version>5.0.0</version>
     </dependency>
 </dependencies>
 ```

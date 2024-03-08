@@ -169,6 +169,12 @@ data class Session(
     @SerializedName("secret")
     val secret: String,
 
+    /**
+     * Most recent date in ISO 8601 format when the session successfully passed MFA challenge.
+     */
+    @SerializedName("mfaUpdatedAt")
+    val mfaUpdatedAt: String,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -198,6 +204,7 @@ data class Session(
         "current" to current as Any,
         "factors" to factors as Any,
         "secret" to secret as Any,
+        "mfaUpdatedAt" to mfaUpdatedAt as Any,
     )
 
     companion object {
@@ -233,6 +240,7 @@ data class Session(
             current = map["current"] as Boolean,
             factors = map["factors"] as List<Any>,
             secret = map["secret"] as String,
+            mfaUpdatedAt = map["mfaUpdatedAt"] as String,
         )
     }
 }

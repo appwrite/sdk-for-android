@@ -6,11 +6,11 @@ enum class Browser(val value: String) {
     @SerializedName("aa")
     AVANT_BROWSER("aa"),
     @SerializedName("an")
-    ANDROID_WEB_VIEW_BETA("an"),
+    ANDROID_WEBVIEW_BETA("an"),
     @SerializedName("ch")
     GOOGLE_CHROME("ch"),
     @SerializedName("ci")
-    GOOGLE_CHROMEI_OS("ci"),
+    GOOGLE_CHROME_IOS("ci"),
     @SerializedName("cm")
     GOOGLE_CHROME_MOBILE("cm"),
     @SerializedName("cr")
@@ -24,7 +24,7 @@ enum class Browser(val value: String) {
     @SerializedName("ps")
     MICROSOFT_EDGE("ps"),
     @SerializedName("oi")
-    MICROSOFT_EDGEI_OS("oi"),
+    MICROSOFT_EDGE_IOS("oi"),
     @SerializedName("om")
     OPERA_MINI("om"),
     @SerializedName("op")

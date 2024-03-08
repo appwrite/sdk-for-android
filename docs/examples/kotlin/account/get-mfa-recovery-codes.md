@@ -8,4 +8,4 @@ val client = Client(context)
 
 val account = Account(client)
 
-val result = account.listFactors()
+val result = account.getMfaRecoveryCodes()

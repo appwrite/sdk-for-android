@@ -50,7 +50,7 @@ enum class OAuthProvider(val value: String) {
     @SerializedName("paypal")
     PAYPAL("paypal"),
     @SerializedName("paypalSandbox")
-    PAYPAL_SANDBOX("paypalSandbox"),
+    PAYPALSANDBOX("paypalSandbox"),
     @SerializedName("podio")
     PODIO("podio"),
     @SerializedName("salesforce")
@@ -64,7 +64,7 @@ enum class OAuthProvider(val value: String) {
     @SerializedName("tradeshift")
     TRADESHIFT("tradeshift"),
     @SerializedName("tradeshiftBox")
-    TRADESHIFT_BOX("tradeshiftBox"),
+    TRADESHIFTBOX("tradeshiftBox"),
     @SerializedName("twitch")
     TWITCH("twitch"),
     @SerializedName("wordpress")

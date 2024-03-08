@@ -9,7 +9,7 @@ val client = Client(context)
 
 val account = Account(client)
 
-val result = account.deleteAuthenticator(
+val result = account.deleteMfaAuthenticator(
     type = AuthenticatorType.TOTP,
     otp = "<OTP>", 
 )

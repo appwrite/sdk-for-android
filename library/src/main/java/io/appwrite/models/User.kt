@@ -104,12 +104,6 @@ data class User<T>(
     val mfa: Boolean,
 
     /**
-     * TOTP status.
-     */
-    @SerializedName("totp")
-    val totp: Boolean,
-
-    /**
      * User preferences as a key-value object
      */
     @SerializedName("prefs")
@@ -145,7 +139,6 @@ data class User<T>(
         "emailVerification" to emailVerification as Any,
         "phoneVerification" to phoneVerification as Any,
         "mfa" to mfa as Any,
-        "totp" to totp as Any,
         "prefs" to prefs.toMap() as Any,
         "targets" to targets.map { it.toMap() } as Any,
         "accessedAt" to accessedAt as Any,
@@ -169,7 +162,6 @@ data class User<T>(
             emailVerification: Boolean,
             phoneVerification: Boolean,
             mfa: Boolean,
-            totp: Boolean,
             prefs: Preferences<Map<String, Any>>,
             targets: List<Target>,
             accessedAt: String,
@@ -190,7 +182,6 @@ data class User<T>(
             emailVerification,
             phoneVerification,
             mfa,
-            totp,
             prefs,
             targets,
             accessedAt,
@@ -217,7 +208,6 @@ data class User<T>(
             emailVerification = map["emailVerification"] as Boolean,
             phoneVerification = map["phoneVerification"] as Boolean,
             mfa = map["mfa"] as Boolean,
-            totp = map["totp"] as Boolean,
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),
             targets = (map["targets"] as List<Map<String, Any>>).map { Target.from(map = it) },
             accessedAt = map["accessedAt"] as String,

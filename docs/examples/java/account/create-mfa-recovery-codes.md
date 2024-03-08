@@ -1,7 +1,6 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
 import io.appwrite.services.Account;
-import io.appwrite.enums.AuthenticatorType;
 
 Client client = new Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -9,15 +8,11 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.addAuthenticator(
-    AuthenticatorType.TOTP, // type 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+account.createMfaRecoveryCodes(new CoroutineCallback<>((result, error) -> {
+    if (error != null) {
+        error.printStackTrace();
+        return;
+    }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+    Log.d("Appwrite", result.toString());
+}));

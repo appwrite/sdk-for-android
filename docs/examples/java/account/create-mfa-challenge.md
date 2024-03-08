@@ -1,7 +1,7 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
 import io.appwrite.services.Account;
-import io.appwrite.enums.AuthenticatorType;
+import io.appwrite.enums.AuthenticationFactor;
 
 Client client = new Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -9,9 +9,8 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.verifyAuthenticator(
-    AuthenticatorType.TOTP, // type 
-    "<OTP>", // otp 
+account.createMfaChallenge(
+    AuthenticationFactor.EMAIL, // factor 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

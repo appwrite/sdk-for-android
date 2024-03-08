@@ -9,9 +9,8 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.deleteAuthenticator(
+account.createMfaAuthenticator(
     AuthenticatorType.TOTP, // type 
-    "<OTP>", // otp 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

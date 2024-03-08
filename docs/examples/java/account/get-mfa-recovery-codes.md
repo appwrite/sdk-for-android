@@ -8,16 +8,11 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.updateChallenge(
-    "<CHALLENGE_ID>", // challengeId 
-    "<OTP>", // otp 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+account.getMfaRecoveryCodes(new CoroutineCallback<>((result, error) -> {
+    if (error != null) {
+        error.printStackTrace();
+        return;
+    }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+    Log.d("Appwrite", result.toString());
+}));

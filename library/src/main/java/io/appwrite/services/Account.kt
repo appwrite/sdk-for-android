@@ -370,114 +370,17 @@ class Account(client: Client) : Service(client) {
     )
 
     /**
-     * Create 2FA Challenge
-     *
-     * 
-     *
-     * @param factor Factor used for verification.
-     * @return [io.appwrite.models.MfaChallenge]
-     */
-    suspend fun createChallenge(
-        factor: AuthenticationFactor,
-    ): io.appwrite.models.MfaChallenge {
-        val apiPath = "/account/mfa/challenge"
-
-        val apiParams = mutableMapOf<String, Any?>(
-            "factor" to factor,
-        )
-        val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
-        )
-        val converter: (Any) -> io.appwrite.models.MfaChallenge = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.MfaChallenge.from(map = it as Map<String, Any>)
-        }
-        return client.call(
-            "POST",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = io.appwrite.models.MfaChallenge::class.java,
-            converter,
-        )
-    }
-
-
-    /**
-     * Create MFA Challenge (confirmation)
-     *
-     * Complete the MFA challenge by providing the one-time password.
-     *
-     * @param challengeId ID of the challenge.
-     * @param otp Valid verification token.
-     * @return [Any]
-     */
-    suspend fun updateChallenge(
-        challengeId: String,
-        otp: String,
-    ): Any {
-        val apiPath = "/account/mfa/challenge"
-
-        val apiParams = mutableMapOf<String, Any?>(
-            "challengeId" to challengeId,
-            "otp" to otp,
-        )
-        val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
-        )
-        return client.call(
-            "PUT",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = Any::class.java,
-        )
-    }
-
-
-    /**
-     * List Factors
-     *
-     * List the factors available on the account to be used as a MFA challange.
-     *
-     * @return [io.appwrite.models.MfaFactors]
-     */
-    suspend fun listFactors(
-    ): io.appwrite.models.MfaFactors {
-        val apiPath = "/account/mfa/factors"
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
-        val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
-        )
-        val converter: (Any) -> io.appwrite.models.MfaFactors = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.MfaFactors.from(map = it as Map<String, Any>)
-        }
-        return client.call(
-            "GET",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = io.appwrite.models.MfaFactors::class.java,
-            converter,
-        )
-    }
-
-
-    /**
      * Add Authenticator
      *
      * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#verifyAuthenticator) method.
      *
-     * @param type Type of authenticator.
+     * @param type Type of authenticator. Must be `totp`
      * @return [io.appwrite.models.MfaType]
      */
-    suspend fun addAuthenticator(
+    suspend fun createMfaAuthenticator(
         type: AuthenticatorType,
     ): io.appwrite.models.MfaType {
-        val apiPath = "/account/mfa/{type}"
+        val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -509,12 +412,12 @@ class Account(client: Client) : Service(client) {
      * @param otp Valid verification token.
      * @return [io.appwrite.models.User<T>]
      */
-    suspend fun <T> verifyAuthenticator(
+    suspend fun <T> updateMfaAuthenticator(
         type: AuthenticatorType,
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/mfa/{type}"
+        val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -547,10 +450,10 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
-    suspend fun verifyAuthenticator(
+    suspend fun updateMfaAuthenticator(
         type: AuthenticatorType,
         otp: String,
-    ): io.appwrite.models.User<Map<String, Any>> = verifyAuthenticator(
+    ): io.appwrite.models.User<Map<String, Any>> = updateMfaAuthenticator(
         type,
         otp,
         nestedType = classOf(),
@@ -565,12 +468,12 @@ class Account(client: Client) : Service(client) {
      * @param otp Valid verification token.
      * @return [io.appwrite.models.User<T>]
      */
-    suspend fun <T> deleteAuthenticator(
+    suspend fun <T> deleteMfaAuthenticator(
         type: AuthenticatorType,
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/mfa/{type}"
+        val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -603,14 +506,204 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     @Throws(AppwriteException::class)
-    suspend fun deleteAuthenticator(
+    suspend fun deleteMfaAuthenticator(
         type: AuthenticatorType,
         otp: String,
-    ): io.appwrite.models.User<Map<String, Any>> = deleteAuthenticator(
+    ): io.appwrite.models.User<Map<String, Any>> = deleteMfaAuthenticator(
         type,
         otp,
         nestedType = classOf(),
     )
+
+    /**
+     * Create 2FA Challenge
+     *
+     * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
+     *
+     * @param factor Factor used for verification. Must be one of following: `email`, `phone`, `totp`, `recoveryCode`.
+     * @return [io.appwrite.models.MfaChallenge]
+     */
+    suspend fun createMfaChallenge(
+        factor: AuthenticationFactor,
+    ): io.appwrite.models.MfaChallenge {
+        val apiPath = "/account/mfa/challenge"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "factor" to factor,
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.MfaChallenge = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.MfaChallenge.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.MfaChallenge::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Create MFA Challenge (confirmation)
+     *
+     * Complete the MFA challenge by providing the one-time password. Finish the process of MFA verification by providing the one-time password. To begin the flow, use [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method.
+     *
+     * @param challengeId ID of the challenge.
+     * @param otp Valid verification token.
+     * @return [Any]
+     */
+    suspend fun updateMfaChallenge(
+        challengeId: String,
+        otp: String,
+    ): Any {
+        val apiPath = "/account/mfa/challenge"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "challengeId" to challengeId,
+            "otp" to otp,
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = Any::class.java,
+        )
+    }
+
+
+    /**
+     * List Factors
+     *
+     * List the factors available on the account to be used as a MFA challange.
+     *
+     * @return [io.appwrite.models.MfaFactors]
+     */
+    suspend fun listMfaFactors(
+    ): io.appwrite.models.MfaFactors {
+        val apiPath = "/account/mfa/factors"
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.MfaFactors = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.MfaFactors.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.MfaFactors::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Get MFA Recovery Codes
+     *
+     * Get recovery codes that can be used as backup for MFA flow. Before getting codes, they must be generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method. An OTP challenge is required to read recovery codes.
+     *
+     * @return [io.appwrite.models.MfaRecoveryCodes]
+     */
+    suspend fun getMfaRecoveryCodes(
+    ): io.appwrite.models.MfaRecoveryCodes {
+        val apiPath = "/account/mfa/recovery-codes"
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.MfaRecoveryCodes = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.MfaRecoveryCodes.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.MfaRecoveryCodes::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Create MFA Recovery Codes
+     *
+     * Generate recovery codes as backup for MFA flow. It&#039;s recommended to generate and show then immediately after user successfully adds their authehticator. Recovery codes can be used as a MFA verification type in [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method.
+     *
+     * @return [io.appwrite.models.MfaRecoveryCodes]
+     */
+    suspend fun createMfaRecoveryCodes(
+    ): io.appwrite.models.MfaRecoveryCodes {
+        val apiPath = "/account/mfa/recovery-codes"
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.MfaRecoveryCodes = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.MfaRecoveryCodes.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.MfaRecoveryCodes::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Regenerate MFA Recovery Codes
+     *
+     * Regenerate recovery codes that can be used as backup for MFA flow. Before regenerating codes, they must be first generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method. An OTP challenge is required to regenreate recovery codes.
+     *
+     * @return [io.appwrite.models.MfaRecoveryCodes]
+     */
+    suspend fun updateMfaRecoveryCodes(
+    ): io.appwrite.models.MfaRecoveryCodes {
+        val apiPath = "/account/mfa/recovery-codes"
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.MfaRecoveryCodes = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.MfaRecoveryCodes.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.MfaRecoveryCodes::class.java,
+            converter,
+        )
+    }
+
 
     /**
      * Update name
@@ -1290,9 +1383,9 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Update (or renew) session
+     * Update session
      *
-     * Extend session&#039;s expiry to increase it&#039;s lifespan. Extending a session is useful when session length is short such as 5 minutes.
+     * Use this endpoint to extend a session&#039;s length. Extending a session is useful when session expiry is short. If the session was created using an OAuth provider, this endpoint refreshes the access token from the provider.
      *
      * @param sessionId Session ID. Use the string 'current' to update the current device session.
      * @return [io.appwrite.models.Session]

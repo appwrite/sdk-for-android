@@ -8,7 +8,7 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.listFactors(new CoroutineCallback<>((result, error) -> {
+account.updateMfaRecoveryCodes(new CoroutineCallback<>((result, error) -> {
     if (error != null) {
         error.printStackTrace();
         return;
