@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Storage
 
 val client = Client(context)
@@ -7,7 +8,7 @@ val client = Client(context)
 
 val storage = Storage(client)
 
-val response = storage.deleteFile(
-    bucketId = "[BUCKET_ID]",
-    fileId = "[FILE_ID]"
+val result = storage.deleteFile(
+    bucketId = "<BUCKET_ID>", 
+    fileId = "<FILE_ID>", 
 )

@@ -9,7 +9,7 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.updateStatus(new CoroutineCallback<>((result, error) -> {
-   if (error != null)
+    if (error != null) {
         error.printStackTrace();
         return;
     }

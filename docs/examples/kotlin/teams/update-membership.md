@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Teams
 
 val client = Client(context)
@@ -7,8 +8,8 @@ val client = Client(context)
 
 val teams = Teams(client)
 
-val response = teams.updateMembership(
-    teamId = "[TEAM_ID]",
-    membershipId = "[MEMBERSHIP_ID]",
-    roles = listOf()
+val result = teams.updateMembership(
+    teamId = "<TEAM_ID>", 
+    membershipId = "<MEMBERSHIP_ID>", 
+    roles = listOf(), 
 )

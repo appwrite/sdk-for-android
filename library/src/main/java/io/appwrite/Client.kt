@@ -1,14 +1,13 @@
 package io.appwrite
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
-import io.appwrite.appwrite.BuildConfig
+import io.appwrite.cookies.ListenableCookieJar
 import io.appwrite.cookies.stores.SharedPreferencesCookieStore
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.fromJson
-import io.appwrite.json.PreciseNumberAdapter
+import io.appwrite.extensions.toJson
 import io.appwrite.models.InputFile
 import io.appwrite.models.UploadProgress
 import kotlinx.coroutines.CoroutineScope
@@ -30,7 +29,6 @@ import java.net.CookieManager
 import java.net.CookiePolicy
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
-import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManager
@@ -40,13 +38,15 @@ import kotlin.coroutines.resume
 
 class Client @JvmOverloads constructor(
     context: Context,
-    var endPoint: String = "https://HOSTNAME/v1",
-    var endPointRealtime: String? = null,
+    var endpoint: String = "https://cloud.appwrite.io/v1",
+    var endpointRealtime: String? = null,
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
 
     companion object {
-        const val CHUNK_SIZE = 5*1024*1024; // 5MB
+        internal const val CHUNK_SIZE = 5*1024*1024; // 5MB
+        internal const val GLOBAL_PREFS = "io.appwrite"
+        internal const val COOKIE_PREFS = "myCookie"
     }
 
     override val coroutineContext: CoroutineContext
@@ -54,21 +54,16 @@ class Client @JvmOverloads constructor(
 
     private val job = Job()
 
-    private val gson = GsonBuilder().registerTypeAdapter(
-        object : TypeToken<Map<String, Any>>(){}.type,
-        PreciseNumberAdapter()
-    ).create()
+    internal lateinit var http: OkHttpClient
 
-    lateinit var http: OkHttpClient
-
-    private val headers: MutableMap<String, String>
+    internal val headers: MutableMap<String, String>
     
     val config: MutableMap<String, String>
 
-    private val cookieJar = CookieManager(
-        SharedPreferencesCookieStore(context, "myCookie"),
+    internal val cookieJar = ListenableCookieJar(CookieManager(
+        SharedPreferencesCookieStore(context.getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE)),
         CookiePolicy.ACCEPT_ALL
-    )
+    ))
 
     private val appVersion by lazy {
         try {
@@ -88,8 +83,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "4.0.1",            
-            "x-appwrite-response-format" to "1.4.0"
+            "x-sdk-version" to "5.0.0",            
+            "x-appwrite-response-format" to "1.5.0"
         )
         config = mutableMapOf()
         
@@ -140,6 +135,21 @@ class Client @JvmOverloads constructor(
     }
 
     /**
+     * Set Session
+     *
+     * The user session to authenticate with
+     *
+     * @param {string} session
+     *
+     * @return this
+     */
+    fun setSession(value: String): Client {
+        config["session"] = value
+        addHeader("x-appwrite-session", value)
+        return this
+    }
+
+    /**
      * Set self Signed
      * 
      * @param status
@@ -151,7 +161,7 @@ class Client @JvmOverloads constructor(
 
         val builder = OkHttpClient()
             .newBuilder()
-            .cookieJar(JavaNetCookieJar(cookieJar))
+            .cookieJar(cookieJar)
 
         if (!selfSigned) {
             http = builder.build()
@@ -181,7 +191,7 @@ class Client @JvmOverloads constructor(
             // Create an ssl socket factory with our all-trusting manager
             val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
             builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            builder.hostnameVerifier(HostnameVerifier { _, _ -> true })
+            builder.hostnameVerifier { _, _ -> true }
 
             http = builder.build()
         } catch (e: Exception) {
@@ -198,11 +208,11 @@ class Client @JvmOverloads constructor(
      *
      * @return this     
      */
-    fun setEndpoint(endPoint: String): Client {
-        this.endPoint = endPoint
+    fun setEndpoint(endpoint: String): Client {
+        this.endpoint = endpoint
 
-        if (this.endPointRealtime == null && endPoint.startsWith("http")) {
-            this.endPointRealtime = endPoint.replaceFirst("http", "ws")
+        if (this.endpointRealtime == null && endpoint.startsWith("http")) {
+            this.endpointRealtime = endpoint.replaceFirst("http", "ws")
         }
 
         return this
@@ -215,8 +225,8 @@ class Client @JvmOverloads constructor(
     *
     * @return this
     */
-    fun setEndpointRealtime(endPoint: String): Client {
-        this.endPointRealtime = endPoint
+    fun setEndpointRealtime(endpoint: String): Client {
+        this.endpointRealtime = endpoint
         return this
     }
 
@@ -258,7 +268,7 @@ class Client @JvmOverloads constructor(
             .addAll(headers.toHeaders())
             .build()
 
-        val httpBuilder = (endPoint + path).toHttpUrl().newBuilder()
+        val httpBuilder = (endpoint + path).toHttpUrl().newBuilder()
 
         if ("GET" == method) {
             filteredParams.forEach {
@@ -313,7 +323,8 @@ class Client @JvmOverloads constructor(
             }
             builder.build()
         } else {
-            gson.toJson(filteredParams)
+            filteredParams
+                .toJson()
                 .toRequestBody("application/json".toMediaType())
         }
 
@@ -436,14 +447,14 @@ class Client @JvmOverloads constructor(
             )
 
             offset += CHUNK_SIZE
-            headers["x-appwrite-id"] = result!!["\$id"].toString()
+            headers["x-appwrite-id"] = result["\$id"].toString()
             onProgress?.invoke(
                 UploadProgress(
-                    id = result!!["\$id"].toString(),
+                    id = result["\$id"].toString(),
                     progress = offset.coerceAtMost(size).toDouble() / size * 100,
                     sizeUploaded = offset.coerceAtMost(size),
-                    chunksTotal = result!!["chunksTotal"].toString().toInt(),
-                    chunksUploaded = result!!["chunksUploaded"].toString().toInt(),
+                    chunksTotal = result["chunksTotal"].toString().toInt(),
+                    chunksUploaded = result["chunksUploaded"].toString().toInt(),
                 )
             )
         }
@@ -483,10 +494,8 @@ class Client @JvmOverloads constructor(
                         .use(BufferedReader::readText)
                         
                     val error = if (response.headers["content-type"]?.contains("application/json") == true) {
-                        val map = gson.fromJson<Map<String, Any>>(
-                            body,
-                            object : TypeToken<Map<String, Any>>(){}.type
-                        )
+                        val map = body.fromJson<Map<String, Any>>()
+
                         AppwriteException(
                             map["message"] as? String ?: "", 
                             (map["code"] as Number).toInt(),
@@ -525,10 +534,9 @@ class Client @JvmOverloads constructor(
                     it.resume(true as T)
                     return
                 }
-                val map = gson.fromJson<Any>(
-                    body,
-                    object : TypeToken<Any>(){}.type
-                )
+
+                val map = body.fromJson<Any>()
+
                 it.resume(
                     converter?.invoke(map) ?: map as T
                 )

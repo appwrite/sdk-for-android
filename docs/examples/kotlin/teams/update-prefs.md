@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Teams
 
 val client = Client(context)
@@ -7,7 +8,7 @@ val client = Client(context)
 
 val teams = Teams(client)
 
-val response = teams.updatePrefs(
-    teamId = "[TEAM_ID]",
-    prefs = mapOf( "a" to "b" )
+val result = teams.updatePrefs(
+    teamId = "<TEAM_ID>", 
+    prefs = mapOf( "a" to "b" ), 
 )

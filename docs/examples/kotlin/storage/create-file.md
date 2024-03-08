@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.models.InputFile
 import io.appwrite.services.Storage
 
@@ -8,8 +9,9 @@ val client = Client(context)
 
 val storage = Storage(client)
 
-val response = storage.createFile(
-    bucketId = "[BUCKET_ID]",
-    fileId = "[FILE_ID]",
-    file = InputFile.fromPath("file.png"),
+val result = storage.createFile(
+    bucketId = "<BUCKET_ID>", 
+    fileId = "<FILE_ID>", 
+    file = InputFile.fromPath("file.png"), 
+    permissions = listOf("read("any")"), // (optional)
 )

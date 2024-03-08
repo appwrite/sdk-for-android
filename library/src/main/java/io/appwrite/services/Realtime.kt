@@ -1,5 +1,6 @@
 package io.appwrite.services
 
+import io.appwrite.Service
 import io.appwrite.Client
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.forEachAsync
@@ -55,7 +56,7 @@ class Realtime(client: Client) : Service(client), CoroutineScope {
         }
 
         val request = Request.Builder()
-            .url("${client.endPointRealtime}/realtime?$queryParamBuilder")
+            .url("${client.endpointRealtime}/realtime?$queryParamBuilder")
             .build()
 
         if (socket != null) {

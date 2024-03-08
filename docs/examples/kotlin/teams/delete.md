@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Teams
 
 val client = Client(context)
@@ -7,6 +8,6 @@ val client = Client(context)
 
 val teams = Teams(client)
 
-val response = teams.delete(
-    teamId = "[TEAM_ID]"
+val result = teams.delete(
+    teamId = "<TEAM_ID>", 
 )

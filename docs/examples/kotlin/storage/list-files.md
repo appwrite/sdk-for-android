@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Storage
 
 val client = Client(context)
@@ -7,6 +8,8 @@ val client = Client(context)
 
 val storage = Storage(client)
 
-val response = storage.listFiles(
-    bucketId = "[BUCKET_ID]",
+val result = storage.listFiles(
+    bucketId = "<BUCKET_ID>", 
+    queries = listOf(), // (optional)
+    search = "<SEARCH>", // (optional)
 )

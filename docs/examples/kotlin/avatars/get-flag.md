@@ -1,5 +1,7 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Avatars
+import io.appwrite.enums.Flag
 
 val client = Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
@@ -8,5 +10,8 @@ val client = Client(context)
 val avatars = Avatars(client)
 
 val result = avatars.getFlag(
-    code = "af",
+    code = Flag.AFGHANISTAN,
+    width = 0, // (optional)
+    height = 0, // (optional)
+    quality = 0, // (optional)
 )

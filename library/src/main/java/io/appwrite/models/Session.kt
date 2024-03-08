@@ -157,6 +157,24 @@ data class Session(
     @SerializedName("current")
     val current: Boolean,
 
+    /**
+     * Returns a list of active session factors.
+     */
+    @SerializedName("factors")
+    val factors: List<Any>,
+
+    /**
+     * Secret used to authenticate the user. Only included if the request was made with an API key
+     */
+    @SerializedName("secret")
+    val secret: String,
+
+    /**
+     * Most recent date in ISO 8601 format when the session successfully passed MFA challenge.
+     */
+    @SerializedName("mfaUpdatedAt")
+    val mfaUpdatedAt: String,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -184,6 +202,9 @@ data class Session(
         "countryCode" to countryCode as Any,
         "countryName" to countryName as Any,
         "current" to current as Any,
+        "factors" to factors as Any,
+        "secret" to secret as Any,
+        "mfaUpdatedAt" to mfaUpdatedAt as Any,
     )
 
     companion object {
@@ -217,6 +238,9 @@ data class Session(
             countryCode = map["countryCode"] as String,
             countryName = map["countryName"] as String,
             current = map["current"] as Boolean,
+            factors = map["factors"] as List<Any>,
+            secret = map["secret"] as String,
+            mfaUpdatedAt = map["mfaUpdatedAt"] as String,
         )
     }
 }

@@ -2,16 +2,16 @@
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.appwrite/sdk-for-android.svg?color=green&style=flat-square)
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-android.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-1.4.12-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-1.5.0-blue.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-**This SDK is compatible with Appwrite server version 1.4.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-android/releases).**
+**This SDK is compatible with Appwrite server version 1.5.x. For older versions, please check [previous releases](https://github.com/appwrite/sdk-for-android/releases).**
 
 Appwrite is an open-source backend as a service server that abstract and simplify complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Android SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)
 
-![Appwrite](https://appwrite.io/images/github.png)
+![Appwrite](https://github.com/appwrite/appwrite/raw/main/public/images/github.png)
 
 ## Installation
 
@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:4.0.1")
+implementation("io.appwrite:sdk-for-android:5.0.0")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>4.0.1</version>
+        <version>5.0.0</version>
     </dependency>
 </dependencies>
 ```
@@ -109,8 +109,9 @@ When trying to connect to Appwrite from an emulator or a mobile device, localhos
 val account = Account(client)
 val response = account.create(
     ID.unique(),
-    "email@example.com", 
-    "password"
+    "email@example.com",
+    "password",
+    "Walter O'Brien"
 )
 ```
 
@@ -129,8 +130,9 @@ val client = Client(context)
 val account = Account(client)
 val user = account.create(
     ID.unique(),
-    "email@example.com", 
-    "password"
+    "email@example.com",
+    "password",
+    "Walter O'Brien"
 )
 ```
 
@@ -139,7 +141,7 @@ The Appwrite Android SDK raises an `AppwriteException` object with `message`, `c
 
 ```kotlin
 try {
-    var user = account.create(ID.unique(), "email@example.com", "password")
+    var user = account.create(ID.unique(),"email@example.com","password","Walter O'Brien")
     Log.d("Appwrite user", user.toMap())
 } catch(e : AppwriteException) {
     e.printStackTrace()
@@ -152,6 +154,7 @@ You can use the following resources to learn more and get help
 - 📜 [Appwrite Docs](https://appwrite.io/docs)
 - 💬 [Discord Community](https://appwrite.io/discord)
 - 🚂 [Appwrite Android Playground](https://github.com/appwrite/playground-for-android)
+
 
 ## Contribution
 

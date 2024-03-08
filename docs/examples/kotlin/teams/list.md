@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Teams
 
 val client = Client(context)
@@ -7,5 +8,7 @@ val client = Client(context)
 
 val teams = Teams(client)
 
-val response = teams.list(
+val result = teams.list(
+    queries = listOf(), // (optional)
+    search = "<SEARCH>", // (optional)
 )

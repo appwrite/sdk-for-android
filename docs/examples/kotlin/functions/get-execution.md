@@ -1,4 +1,5 @@
 import io.appwrite.Client
+import io.appwrite.coroutines.CoroutineCallback
 import io.appwrite.services.Functions
 
 val client = Client(context)
@@ -7,7 +8,7 @@ val client = Client(context)
 
 val functions = Functions(client)
 
-val response = functions.getExecution(
-    functionId = "[FUNCTION_ID]",
-    executionId = "[EXECUTION_ID]"
+val result = functions.getExecution(
+    functionId = "<FUNCTION_ID>", 
+    executionId = "<EXECUTION_ID>", 
 )
