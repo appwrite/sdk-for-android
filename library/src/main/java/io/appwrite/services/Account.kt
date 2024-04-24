@@ -466,13 +466,12 @@ class Account(client: Client) : Service(client) {
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.
-     * @return [io.appwrite.models.User<T>]
+     * @return [Any]
      */
-    suspend fun <T> deleteMfaAuthenticator(
+    suspend fun deleteMfaAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
         otp: String,
-        nestedType: Class<T>,
-    ): io.appwrite.models.User<T> {
+    ): Any {
         val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
 
@@ -482,38 +481,15 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.User<T> = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
-        }
         return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
             apiParams,
-            responseType = classOf(),
-            converter,
+            responseType = Any::class.java,
         )
     }
 
-    /**
-     * Delete Authenticator
-     *
-     * Delete an authenticator for a user by ID.
-     *
-     * @param type Type of authenticator.
-     * @param otp Valid verification token.
-     * @return [io.appwrite.models.User<T>]
-     */
-    @Throws(AppwriteException::class)
-    suspend fun deleteMfaAuthenticator(
-        type: io.appwrite.enums.AuthenticatorType,
-        otp: String,
-    ): io.appwrite.models.User<Map<String, Any>> = deleteMfaAuthenticator(
-        type,
-        otp,
-        nestedType = classOf(),
-    )
 
     /**
      * Create 2FA Challenge

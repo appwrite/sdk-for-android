@@ -20,6 +20,12 @@ data class Session(
     val createdAt: String,
 
     /**
+     * Session update date in ISO 8601 format.
+     */
+    @SerializedName("\$updatedAt")
+    val updatedAt: String,
+
+    /**
      * User ID.
      */
     @SerializedName("userId")
@@ -179,6 +185,7 @@ data class Session(
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
+        "\$updatedAt" to updatedAt as Any,
         "userId" to userId as Any,
         "expire" to expire as Any,
         "provider" to provider as Any,
@@ -215,6 +222,7 @@ data class Session(
         ) = Session(
             id = map["\$id"] as String,
             createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
             userId = map["userId"] as String,
             expire = map["expire"] as String,
             provider = map["provider"] as String,
