@@ -372,7 +372,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Add Authenticator
      *
-     * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#verifyAuthenticator) method.
+     * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#updateMfaAuthenticator) method.
      *
      * @param type Type of authenticator. Must be `totp`
      * @return [io.appwrite.models.MfaType]
@@ -406,7 +406,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Verify Authenticator
      *
-     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#addAuthenticator) method.
+     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method. add 
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.
@@ -443,7 +443,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Verify Authenticator
      *
-     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#addAuthenticator) method.
+     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method. add 
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.

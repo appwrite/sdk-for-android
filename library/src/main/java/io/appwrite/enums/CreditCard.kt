@@ -9,8 +9,8 @@ enum class CreditCard(val value: String) {
     ARGENCARD("argencard"),
     @SerializedName("cabal")
     CABAL("cabal"),
-    @SerializedName("censosud")
-    CONSOSUD("censosud"),
+    @SerializedName("cencosud")
+    CENCOSUD("cencosud"),
     @SerializedName("diners")
     DINERS_CLUB("diners"),
     @SerializedName("discover")

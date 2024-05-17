@@ -285,6 +285,8 @@ enum class Flag(val value: String) {
     PAPUA_NEW_GUINEA("pg"),
     @SerializedName("pl")
     POLAND("pl"),
+    @SerializedName("pf")
+    FRENCH_POLYNESIA("pf"),
     @SerializedName("kp")
     NORTH_KOREA("kp"),
     @SerializedName("pt")

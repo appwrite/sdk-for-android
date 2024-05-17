@@ -58,7 +58,7 @@ class Avatars(client: Client) : Service(client) {
      *
      * The credit card endpoint will return you the icon of the credit card provider you need. Use width, height and quality arguments to change the output settings.When one dimension is specified and the other is 0, the image is scaled with preserved aspect ratio. If both dimensions are 0, the API provides an image at source quality. If dimensions are not specified, the default size of image returned is 100x100px.
      *
-     * @param code Credit Card Code. Possible values: amex, argencard, cabal, censosud, diners, discover, elo, hipercard, jcb, mastercard, naranja, targeta-shopping, union-china-pay, visa, mir, maestro.
+     * @param code Credit Card Code. Possible values: amex, argencard, cabal, cencosud, diners, discover, elo, hipercard, jcb, mastercard, naranja, targeta-shopping, union-china-pay, visa, mir, maestro.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
      * @param height Image height. Pass an integer between 0 to 2000. Defaults to 100.
      * @param quality Image quality. Pass an integer between 0 to 100. Defaults to 100.
