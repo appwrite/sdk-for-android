@@ -323,7 +323,7 @@ class Teams(client: Client) : Service(client) {
      * @param email Email of the new team member.
      * @param userId ID of the user to be added to a team.
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
-     * @param url URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @param url URL to redirect the user back to your app from the invitation email. This parameter is not required when an API key is supplied. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param name Name of the new team member. Max length: 128 chars.
      * @return [io.appwrite.models.Membership]
      */

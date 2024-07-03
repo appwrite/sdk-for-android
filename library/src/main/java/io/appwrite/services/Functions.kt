@@ -21,7 +21,7 @@ class Functions(client: Client) : Service(client) {
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
      * @param functionId Function ID.
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @return [io.appwrite.models.ExecutionList]
      */
@@ -67,6 +67,7 @@ class Functions(client: Client) : Service(client) {
      * @param path HTTP path of execution. Path can include query params. Default value is /
      * @param method HTTP method of execution. Default value is GET.
      * @param headers HTTP headers of execution. Defaults to empty.
+     * @param scheduledAt Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
      * @return [io.appwrite.models.Execution]
      */
     @JvmOverloads
@@ -77,6 +78,7 @@ class Functions(client: Client) : Service(client) {
         path: String? = null,
         method: io.appwrite.enums.ExecutionMethod? = null,
         headers: Any? = null,
+        scheduledAt: String? = null,
     ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
@@ -87,6 +89,7 @@ class Functions(client: Client) : Service(client) {
             "path" to path,
             "method" to method,
             "headers" to headers,
+            "scheduledAt" to scheduledAt,
         )
         val apiHeaders = mutableMapOf(
             "content-type" to "application/json",

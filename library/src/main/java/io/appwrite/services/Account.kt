@@ -262,7 +262,7 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createJWT(
     ): io.appwrite.models.Jwt {
-        val apiPath = "/account/jwt"
+        val apiPath = "/account/jwts"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -406,7 +406,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Verify Authenticator
      *
-     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method. add 
+     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method.
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.
@@ -443,7 +443,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Verify Authenticator
      *
-     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method. add 
+     * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method.
      *
      * @param type Type of authenticator.
      * @param otp Valid verification token.

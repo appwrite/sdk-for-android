@@ -508,6 +508,14 @@ class Client @JvmOverloads constructor(
                     it.cancel(error)
                     return
                 }
+
+                val warnings = response.headers["x-appwrite-warning"]
+                if (warnings != null) {
+                    warnings.split(";").forEach { warning ->
+                        println("Warning: $warning")
+                    }
+                }
+
                 when {
                     responseType == Boolean::class.java -> {
                         it.resume(true as T)
