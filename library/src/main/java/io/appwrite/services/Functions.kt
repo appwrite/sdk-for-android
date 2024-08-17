@@ -8,12 +8,121 @@ import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
 /**
  * The Functions Service allows you view, create and manage your Cloud Functions.
 **/
 class Functions(client: Client) : Service(client) {
+
+    /**
+     * List function templates
+     *
+     * List available function templates. You can use template details in [createFunction](/docs/references/cloud/server-nodejs/functions#create) method.
+     *
+     * @param runtimes List of runtimes allowed for filtering function templates. Maximum of 100 runtimes are allowed.
+     * @param useCases List of use cases allowed for filtering function templates. Maximum of 100 use cases are allowed.
+     * @param limit Limit the number of templates returned in the response. Default limit is 25, and maximum limit is 5000.
+     * @param offset Offset the list of returned templates. Maximum offset is 5000.
+     * @return [io.appwrite.models.TemplateFunctionList]
+     */
+    @JvmOverloads
+    suspend fun listTemplates(
+        runtimes: List<String>? = null,
+        useCases: List<String>? = null,
+        limit: Long? = null,
+        offset: Long? = null,
+    ): io.appwrite.models.TemplateFunctionList {
+        val apiPath = "/functions/templates"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "runtimes" to runtimes,
+            "useCases" to useCases,
+            "limit" to limit,
+            "offset" to offset,
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.TemplateFunctionList = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.TemplateFunctionList.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.TemplateFunctionList::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Get function template
+     *
+     * Get a function template using ID. You can use template details in [createFunction](/docs/references/cloud/server-nodejs/functions#create) method.
+     *
+     * @param templateId Template ID.
+     * @return [io.appwrite.models.TemplateFunction]
+     */
+    suspend fun getTemplate(
+        templateId: String,
+    ): io.appwrite.models.TemplateFunction {
+        val apiPath = "/functions/templates/{templateId}"
+            .replace("{templateId}", templateId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.TemplateFunction = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.TemplateFunction.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.TemplateFunction::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Download deployment
+     *
+     * Get a Deployment&#039;s contents by its unique ID. This endpoint supports range requests for partial or streaming file download.
+     *
+     * @param functionId Function ID.
+     * @param deploymentId Deployment ID.
+     * @return [ByteArray]
+     */
+    suspend fun getDeploymentDownload(
+        functionId: String,
+        deploymentId: String,
+    ): ByteArray {
+        val apiPath = "/functions/{functionId}/deployments/{deploymentId}/download"
+            .replace("{functionId}", functionId)
+            .replace("{deploymentId}", deploymentId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "project" to client.config["project"],
+        )
+        return client.call(
+            "GET",
+            apiPath,
+            params = apiParams,
+            responseType = ByteArray::class.java
+        )
+    }
+
 
     /**
      * List executions
@@ -67,7 +176,7 @@ class Functions(client: Client) : Service(client) {
      * @param path HTTP path of execution. Path can include query params. Default value is /
      * @param method HTTP method of execution. Default value is GET.
      * @param headers HTTP headers of execution. Defaults to empty.
-     * @param scheduledAt Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future.
+     * @param scheduledAt Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future with precision in minutes.
      * @return [io.appwrite.models.Execution]
      */
     @JvmOverloads
@@ -79,6 +188,7 @@ class Functions(client: Client) : Service(client) {
         method: io.appwrite.enums.ExecutionMethod? = null,
         headers: Any? = null,
         scheduledAt: String? = null,
+        onProgress: ((UploadProgress) -> Unit)? = null
     ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
@@ -92,19 +202,22 @@ class Functions(client: Client) : Service(client) {
             "scheduledAt" to scheduledAt,
         )
         val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
+            "content-type" to "multipart/form-data",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
-        return client.call(
-            "POST",
+        val idParamName: String? = null    
+        return client.chunkedUpload(
             apiPath,
             apiHeaders,
             apiParams,
             responseType = io.appwrite.models.Execution::class.java,
             converter,
+            paramName,
+            idParamName,
+            onProgress,
         )
     }
 

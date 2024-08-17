@@ -1,16 +1,15 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
-import io.appwrite.services.Account;
-import io.appwrite.enums.AuthenticatorType;
+import io.appwrite.services.Functions;
 
 Client client = new Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("&lt;YOUR_PROJECT_ID&gt;"); // Your project ID
 
-Account account = new Account(client);
+Functions functions = new Functions(client);
 
-account.deleteMfaAuthenticator(
-    AuthenticatorType.TOTP, // type 
+functions.getTemplate(
+    "<TEMPLATE_ID>", // templateId 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

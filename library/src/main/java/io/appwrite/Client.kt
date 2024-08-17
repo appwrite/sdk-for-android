@@ -44,6 +44,9 @@ class Client @JvmOverloads constructor(
 ) : CoroutineScope {
 
     companion object {
+        /**
+         * The size for chunked uploads in bytes.
+         */
         internal const val CHUNK_SIZE = 5*1024*1024; // 5MB
         internal const val GLOBAL_PREFS = "io.appwrite"
         internal const val COOKIE_PREFS = "myCookie"
@@ -83,8 +86,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "5.1.1",            
-            "x-appwrite-response-format" to "1.5.0"
+            "x-sdk-version" to "6.0.0-rc.1",            
+            "x-appwrite-response-format" to "1.6.0"
         )
         config = mutableMapOf()
         
