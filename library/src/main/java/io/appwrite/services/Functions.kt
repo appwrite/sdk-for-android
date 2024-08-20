@@ -188,7 +188,6 @@ class Functions(client: Client) : Service(client) {
         method: io.appwrite.enums.ExecutionMethod? = null,
         headers: Any? = null,
         scheduledAt: String? = null,
-        onProgress: ((UploadProgress) -> Unit)? = null
     ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
@@ -202,22 +201,19 @@ class Functions(client: Client) : Service(client) {
             "scheduledAt" to scheduledAt,
         )
         val apiHeaders = mutableMapOf(
-            "content-type" to "multipart/form-data",
+            "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
-        val idParamName: String? = null    
-        return client.chunkedUpload(
+        return client.call(
+            "POST",
             apiPath,
             apiHeaders,
             apiParams,
             responseType = io.appwrite.models.Execution::class.java,
             converter,
-            paramName,
-            idParamName,
-            onProgress,
         )
     }
 
