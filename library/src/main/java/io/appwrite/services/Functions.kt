@@ -18,50 +18,6 @@ import java.io.File
 class Functions(client: Client) : Service(client) {
 
     /**
-     * List function templates
-     *
-     * List available function templates. You can use template details in [createFunction](/docs/references/cloud/server-nodejs/functions#create) method.
-     *
-     * @param runtimes List of runtimes allowed for filtering function templates. Maximum of 100 runtimes are allowed.
-     * @param useCases List of use cases allowed for filtering function templates. Maximum of 100 use cases are allowed.
-     * @param limit Limit the number of templates returned in the response. Default limit is 25, and maximum limit is 5000.
-     * @param offset Offset the list of returned templates. Maximum offset is 5000.
-     * @return [io.appwrite.models.TemplateFunctionList]
-     */
-    @JvmOverloads
-    suspend fun listTemplates(
-        runtimes: List<String>? = null,
-        useCases: List<String>? = null,
-        limit: Long? = null,
-        offset: Long? = null,
-    ): io.appwrite.models.TemplateFunctionList {
-        val apiPath = "/functions/templates"
-
-        val apiParams = mutableMapOf<String, Any?>(
-            "runtimes" to runtimes,
-            "useCases" to useCases,
-            "limit" to limit,
-            "offset" to offset,
-        )
-        val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
-        )
-        val converter: (Any) -> io.appwrite.models.TemplateFunctionList = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.TemplateFunctionList.from(map = it as Map<String, Any>)
-        }
-        return client.call(
-            "GET",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = io.appwrite.models.TemplateFunctionList::class.java,
-            converter,
-        )
-    }
-
-
-    /**
      * Get function template
      *
      * Get a function template using ID. You can use template details in [createFunction](/docs/references/cloud/server-nodejs/functions#create) method.
