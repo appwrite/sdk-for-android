@@ -8,77 +8,12 @@ import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import okhttp3.Cookie
-import okhttp3.HttpUrl
-import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
 /**
  * The Functions Service allows you view, create and manage your Cloud Functions.
 **/
 class Functions(client: Client) : Service(client) {
-
-    /**
-     * Get function template
-     *
-     * Get a function template using ID. You can use template details in [createFunction](/docs/references/cloud/server-nodejs/functions#create) method.
-     *
-     * @param templateId Template ID.
-     * @return [io.appwrite.models.TemplateFunction]
-     */
-    suspend fun getTemplate(
-        templateId: String,
-    ): io.appwrite.models.TemplateFunction {
-        val apiPath = "/functions/templates/{templateId}"
-            .replace("{templateId}", templateId)
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
-        val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
-        )
-        val converter: (Any) -> io.appwrite.models.TemplateFunction = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.TemplateFunction.from(map = it as Map<String, Any>)
-        }
-        return client.call(
-            "GET",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = io.appwrite.models.TemplateFunction::class.java,
-            converter,
-        )
-    }
-
-
-    /**
-     * Download deployment
-     *
-     * Get a Deployment&#039;s contents by its unique ID. This endpoint supports range requests for partial or streaming file download.
-     *
-     * @param functionId Function ID.
-     * @param deploymentId Deployment ID.
-     * @return [ByteArray]
-     */
-    suspend fun getDeploymentDownload(
-        functionId: String,
-        deploymentId: String,
-    ): ByteArray {
-        val apiPath = "/functions/{functionId}/deployments/{deploymentId}/download"
-            .replace("{functionId}", functionId)
-            .replace("{deploymentId}", deploymentId)
-
-        val apiParams = mutableMapOf<String, Any?>(
-            "project" to client.config["project"],
-        )
-        return client.call(
-            "GET",
-            apiPath,
-            params = apiParams,
-            responseType = ByteArray::class.java
-        )
-    }
-
 
     /**
      * List executions
