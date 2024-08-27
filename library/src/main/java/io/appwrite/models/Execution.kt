@@ -103,6 +103,12 @@ data class Execution(
     @SerializedName("duration")
     val duration: Double,
 
+    /**
+     * The scheduled time for execution. If left empty, execution will be queued immediately.
+     */
+    @SerializedName("scheduledAt")
+    var scheduledAt: String?,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -121,6 +127,7 @@ data class Execution(
         "logs" to logs as Any,
         "errors" to errors as Any,
         "duration" to duration as Any,
+        "scheduledAt" to scheduledAt as Any,
     )
 
     companion object {
@@ -145,6 +152,7 @@ data class Execution(
             logs = map["logs"] as String,
             errors = map["errors"] as String,
             duration = (map["duration"] as Number).toDouble(),
+            scheduledAt = map["scheduledAt"] as? String?,
         )
     }
 }
