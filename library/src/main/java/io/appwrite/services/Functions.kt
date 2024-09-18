@@ -21,7 +21,7 @@ class Functions(client: Client) : Service(client) {
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
      * @param functionId Function ID.
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: trigger, status, responseStatusCode, duration, requestMethod, requestPath, deploymentId
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @return [io.appwrite.models.ExecutionList]
      */
@@ -30,22 +30,22 @@ class Functions(client: Client) : Service(client) {
         functionId: String,
         queries: List<String>? = null,
         search: String? = null,
-    ): io.appwrite.models.ExecutionList {
+            ): io.appwrite.models.ExecutionList {
         val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "queries" to queries,
-            "search" to search,
+                            "queries" to queries,
+                            "search" to search,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ExecutionList = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.ExecutionList.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -67,35 +67,39 @@ class Functions(client: Client) : Service(client) {
      * @param path HTTP path of execution. Path can include query params. Default value is /
      * @param method HTTP method of execution. Default value is GET.
      * @param headers HTTP headers of execution. Defaults to empty.
+     * @param scheduledAt Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future with precision in minutes.
      * @return [io.appwrite.models.Execution]
      */
     @JvmOverloads
     suspend fun createExecution(
         functionId: String,
-        body: String? = null,
+        body: Payload? = null,
         async: Boolean? = null,
         path: String? = null,
         method: io.appwrite.enums.ExecutionMethod? = null,
         headers: Any? = null,
-    ): io.appwrite.models.Execution {
+        scheduledAt: String? = null,
+            ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "body" to body,
-            "async" to async,
-            "path" to path,
-            "method" to method,
-            "headers" to headers,
+                            "body" to (body?.toBinary() ?: ""),
+                            "async" to async,
+                            "path" to path,
+                            "method" to method,
+                            "headers" to headers,
+                            "scheduledAt" to scheduledAt,
         )
-        val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "multipart/form-data",
+            "accept" to "multipart/form-data",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -118,21 +122,21 @@ class Functions(client: Client) : Service(client) {
     suspend fun getExecution(
         functionId: String,
         executionId: String,
-    ): io.appwrite.models.Execution {
+            ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions/{executionId}"
             .replace("{functionId}", functionId)
             .replace("{executionId}", executionId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,

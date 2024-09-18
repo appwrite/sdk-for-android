@@ -32,22 +32,22 @@ class Storage(client: Client) : Service(client) {
         bucketId: String,
         queries: List<String>? = null,
         search: String? = null,
-    ): io.appwrite.models.FileList {
+            ): io.appwrite.models.FileList {
         val apiPath = "/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "queries" to queries,
-            "search" to search,
+                            "queries" to queries,
+                            "search" to search,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.FileList = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.FileList.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -65,7 +65,7 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param fileId File ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
-     * @param file Binary file. Appwrite SDKs provide helpers to handle file input. [Learn about file input](https://appwrite.io/docs/storage#file-input).
+     * @param file Binary file. Appwrite SDKs provide helpers to handle file input. [Learn about file input](https://appwrite.io/docs/products/storage/upload-download#input-file).
      * @param permissions An array of permission strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.File]
      */
@@ -73,26 +73,26 @@ class Storage(client: Client) : Service(client) {
     suspend fun createFile(
         bucketId: String,
         fileId: String,
-        file: InputFile,
+        file: Payload,
         permissions: List<String>? = null,
-        onProgress: ((UploadProgress) -> Unit)? = null
+                onProgress: ((UploadProgress) -> Unit)? = null
     ): io.appwrite.models.File {
         val apiPath = "/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "fileId" to fileId,
-            "file" to file,
-            "permissions" to permissions,
+                            "fileId" to fileId,
+                            "file" to file,
+                            "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "multipart/form-data",
         )
         val converter: (Any) -> io.appwrite.models.File = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
-        val idParamName: String? = "fileId"    
+                val idParamName: String? = "fileId"
         val paramName = "file"
         return client.chunkedUpload(
             apiPath,
@@ -119,21 +119,21 @@ class Storage(client: Client) : Service(client) {
     suspend fun getFile(
         bucketId: String,
         fileId: String,
-    ): io.appwrite.models.File {
+            ): io.appwrite.models.File {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -161,23 +161,23 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         name: String? = null,
         permissions: List<String>? = null,
-    ): io.appwrite.models.File {
+            ): io.appwrite.models.File {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "name" to name,
-            "permissions" to permissions,
+                            "name" to name,
+                            "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -200,17 +200,17 @@ class Storage(client: Client) : Service(client) {
     suspend fun deleteFile(
         bucketId: String,
         fileId: String,
-    ): Any {
+            ): Any {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
-        return client.call(
+                return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -232,7 +232,7 @@ class Storage(client: Client) : Service(client) {
     suspend fun getFileDownload(
         bucketId: String,
         fileId: String,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/download"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
@@ -284,23 +284,23 @@ class Storage(client: Client) : Service(client) {
         rotation: Long? = null,
         background: String? = null,
         output: io.appwrite.enums.ImageFormat? = null,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "width" to width,
-            "height" to height,
-            "gravity" to gravity,
-            "quality" to quality,
-            "borderWidth" to borderWidth,
-            "borderColor" to borderColor,
-            "borderRadius" to borderRadius,
-            "opacity" to opacity,
-            "rotation" to rotation,
-            "background" to background,
-            "output" to output,
+                            "width" to width,
+                            "height" to height,
+                            "gravity" to gravity,
+                            "quality" to quality,
+                            "borderWidth" to borderWidth,
+                            "borderColor" to borderColor,
+                            "borderRadius" to borderRadius,
+                            "opacity" to opacity,
+                            "rotation" to rotation,
+                            "background" to background,
+                            "output" to output,
             "project" to client.config["project"],
         )
         return client.call(
@@ -324,7 +324,7 @@ class Storage(client: Client) : Service(client) {
     suspend fun getFileView(
         bucketId: String,
         fileId: String,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/view"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)

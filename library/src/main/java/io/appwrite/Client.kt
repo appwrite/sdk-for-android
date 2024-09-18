@@ -7,8 +7,9 @@ import io.appwrite.cookies.ListenableCookieJar
 import io.appwrite.cookies.stores.SharedPreferencesCookieStore
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.fromJson
+import io.appwrite.extensions.fromMultiPart
 import io.appwrite.extensions.toJson
-import io.appwrite.models.InputFile
+import io.appwrite.models.Payload
 import io.appwrite.models.UploadProgress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,6 +45,9 @@ class Client @JvmOverloads constructor(
 ) : CoroutineScope {
 
     companion object {
+        /**
+         * The size for chunked uploads in bytes.
+         */
         internal const val CHUNK_SIZE = 5*1024*1024; // 5MB
         internal const val GLOBAL_PREFS = "io.appwrite"
         internal const val COOKIE_PREFS = "myCookie"
@@ -57,7 +61,7 @@ class Client @JvmOverloads constructor(
     internal lateinit var http: OkHttpClient
 
     internal val headers: MutableMap<String, String>
-    
+
     val config: MutableMap<String, String>
 
     internal val cookieJar = ListenableCookieJar(CookieManager(
@@ -83,11 +87,11 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "5.1.1",            
-            "x-appwrite-response-format" to "1.5.0"
+            "x-sdk-version" to "6.0.0",
+            "x-appwrite-response-format" to "1.6.0"
         )
         config = mutableMapOf()
-        
+
         setSelfSigned(selfSigned)
     }
 
@@ -151,10 +155,10 @@ class Client @JvmOverloads constructor(
 
     /**
      * Set self Signed
-     * 
+     *
      * @param status
      *
-     * @return this     
+     * @return this
      */
     fun setSelfSigned(status: Boolean): Client {
         selfSigned = status
@@ -203,10 +207,10 @@ class Client @JvmOverloads constructor(
 
     /**
      * Set endpoint and realtime endpoint.
-     * 
+     *
      * @param endpoint
      *
-     * @return this     
+     * @return this
      */
     fun setEndpoint(endpoint: String): Client {
         this.endpoint = endpoint
@@ -232,11 +236,11 @@ class Client @JvmOverloads constructor(
 
     /**
      * Add Header
-     * 
+     *
      * @param key
      * @param value
      *
-     * @return this     
+     * @return this
      */
     fun addHeader(key: String, value: String): Client {
         headers[key] = value
@@ -245,19 +249,19 @@ class Client @JvmOverloads constructor(
 
     /**
      * Send the HTTP request
-     * 
+     *
      * @param method
      * @param path
      * @param headers
      * @param params
      *
-     * @return [T]    
+     * @return [T]
      */
     @Throws(AppwriteException::class)
     suspend fun <T> call(
-        method: String, 
-        path: String, 
-        headers:  Map<String, String> = mapOf(), 
+        method: String,
+        path: String,
+        headers:  Map<String, String> = mapOf(),
         params: Map<String, Any?> = mapOf(),
         responseType: Class<T>,
         converter: ((Any) -> T)? = null
@@ -358,14 +362,14 @@ class Client @JvmOverloads constructor(
         onProgress: ((UploadProgress) -> Unit)? = null,
     ): T {
         var file: RandomAccessFile? = null
-        val input = params[paramName] as InputFile
+        val input = params[paramName] as Payload
         val size: Long = when(input.sourceType) {
             "path", "file" -> {
                 file = RandomAccessFile(input.path, "r")
                 file.length()
             }
             "bytes" -> {
-                (input.data as ByteArray).size.toLong()
+                input.toBinary().size.toLong()
             }
             else -> throw UnsupportedOperationException()
         }
@@ -373,7 +377,7 @@ class Client @JvmOverloads constructor(
         if (size < CHUNK_SIZE) {
             val data = when(input.sourceType) {
                 "file", "path" -> File(input.path).asRequestBody()
-                "bytes" -> (input.data as ByteArray).toRequestBody(input.mimeType.toMediaType())
+                "bytes" -> input.toBinary().toRequestBody(input.mimeType?.toMediaType())
                 else -> throw UnsupportedOperationException()
             }
             params[paramName] = MultipartBody.Part.createFormData(
@@ -420,7 +424,7 @@ class Client @JvmOverloads constructor(
                     } else {
                         size - 1
                     }
-                    (input.data as ByteArray).copyInto(
+                    input.toBinary().copyInto(
                         buffer,
                         startIndex = offset.toInt(),
                         endIndex = end.toInt()
@@ -492,14 +496,14 @@ class Client @JvmOverloads constructor(
                         .charStream()
                         .buffered()
                         .use(BufferedReader::readText)
-                        
+
                     val error = if (response.headers["content-type"]?.contains("application/json") == true) {
                         val map = body.fromJson<Map<String, Any>>()
 
                         AppwriteException(
-                            map["message"] as? String ?: "", 
+                            map["message"] as? String ?: "",
                             (map["code"] as Number).toInt(),
-                            map["type"] as? String ?: "", 
+                            map["type"] as? String ?: "",
                             body
                         )
                     } else {
@@ -508,6 +512,14 @@ class Client @JvmOverloads constructor(
                     it.cancel(error)
                     return
                 }
+
+                val warnings = response.headers["x-appwrite-warning"]
+                if (warnings != null) {
+                    warnings.split(";").forEach { warning ->
+                        println("Warning: $warning")
+                    }
+                }
+
                 when {
                     responseType == Boolean::class.java -> {
                         it.resume(true as T)
@@ -526,6 +538,14 @@ class Client @JvmOverloads constructor(
                         return
                     }
                 }
+                if (response.headers["content-type"]?.contains("multipart/form-data") == true) {
+                    val binaryBody = response.body!!.bytes()
+                    val body = String(binaryBody)
+                    val map = body.fromMultiPart(binaryBody)
+                    it.resume(converter?.invoke(map) ?: map as T)
+                    return
+                }
+
                 val body = response.body!!
                     .charStream()
                     .buffered()

@@ -4,12 +4,12 @@ import io.appwrite.services.Avatars;
 
 Client client = new Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
-    .setProject("5df5acd0d48c2"); // Your project ID
+    .setProject("<YOUR_PROJECT_ID>"); // Your project ID
 
 Avatars avatars = new Avatars(client);
 
 avatars.getInitials(
-    "<NAME>", // name (optional)
+    "{$example}", // name (optional)
     0, // width (optional)
     0, // height (optional)
     "", // background (optional)

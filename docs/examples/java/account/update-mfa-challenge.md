@@ -4,13 +4,13 @@ import io.appwrite.services.Account;
 
 Client client = new Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
-    .setProject("5df5acd0d48c2"); // Your project ID
+    .setProject("<YOUR_PROJECT_ID>"); // Your project ID
 
 Account account = new Account(client);
 
 account.updateMfaChallenge(
-    "<CHALLENGE_ID>", // challengeId 
-    "<OTP>", // otp 
+    "{$example}", // challengeId 
+    "{$example}", // otp 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

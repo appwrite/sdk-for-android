@@ -31,22 +31,22 @@ class Databases(client: Client) : Service(client) {
         collectionId: String,
         queries: List<String>? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.DocumentList<T> {
+            ): io.appwrite.models.DocumentList<T> {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "queries" to queries,
+                            "queries" to queries,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.DocumentList.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -72,12 +72,12 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         queries: List<String>? = null,
-    ): io.appwrite.models.DocumentList<Map<String, Any>> = listDocuments(
+            ): io.appwrite.models.DocumentList<Map<String, Any>> = listDocuments(
         databaseId,
         collectionId,
         queries,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Create document
@@ -99,24 +99,24 @@ class Databases(client: Client) : Service(client) {
         data: Any,
         permissions: List<String>? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.Document<T> {
+            ): io.appwrite.models.Document<T> {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "documentId" to documentId,
-            "data" to data,
-            "permissions" to permissions,
+                            "documentId" to documentId,
+                            "data" to data,
+                            "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -146,14 +146,14 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         data: Any,
         permissions: List<String>? = null,
-    ): io.appwrite.models.Document<Map<String, Any>> = createDocument(
+            ): io.appwrite.models.Document<Map<String, Any>> = createDocument(
         databaseId,
         collectionId,
         documentId,
         data,
         permissions,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Get document
@@ -173,23 +173,23 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         queries: List<String>? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.Document<T> {
+            ): io.appwrite.models.Document<T> {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "queries" to queries,
+                            "queries" to queries,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -217,13 +217,13 @@ class Databases(client: Client) : Service(client) {
         collectionId: String,
         documentId: String,
         queries: List<String>? = null,
-    ): io.appwrite.models.Document<Map<String, Any>> = getDocument(
+            ): io.appwrite.models.Document<Map<String, Any>> = getDocument(
         databaseId,
         collectionId,
         documentId,
         queries,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Update document
@@ -245,24 +245,24 @@ class Databases(client: Client) : Service(client) {
         data: Any? = null,
         permissions: List<String>? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.Document<T> {
+            ): io.appwrite.models.Document<T> {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "data" to data,
-            "permissions" to permissions,
+                            "data" to data,
+                            "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -292,14 +292,14 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         data: Any? = null,
         permissions: List<String>? = null,
-    ): io.appwrite.models.Document<Map<String, Any>> = updateDocument(
+            ): io.appwrite.models.Document<Map<String, Any>> = updateDocument(
         databaseId,
         collectionId,
         documentId,
         data,
         permissions,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Delete document
@@ -315,7 +315,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-    ): Any {
+            ): Any {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -323,10 +323,10 @@ class Databases(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
-        return client.call(
+                return client.call(
             "DELETE",
             apiPath,
             apiHeaders,

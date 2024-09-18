@@ -34,14 +34,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/avatars/browsers/{code}"
             .replace("{code}", code.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "width" to width,
-            "height" to height,
-            "quality" to quality,
+                            "width" to width,
+                            "height" to height,
+                            "quality" to quality,
             "project" to client.config["project"],
         )
         return client.call(
@@ -70,14 +70,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/avatars/credit-cards/{code}"
             .replace("{code}", code.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "width" to width,
-            "height" to height,
-            "quality" to quality,
+                            "width" to width,
+                            "height" to height,
+                            "quality" to quality,
             "project" to client.config["project"],
         )
         return client.call(
@@ -92,18 +92,18 @@ class Avatars(client: Client) : Service(client) {
     /**
      * Get favicon
      *
-     * Use this endpoint to fetch the favorite icon (AKA favicon) of any remote website URL.
+     * Use this endpoint to fetch the favorite icon (AKA favicon) of any remote website URL.This endpoint does not follow HTTP redirects.
      *
      * @param url Website URL which you want to fetch the favicon from.
      * @return [ByteArray]
      */
     suspend fun getFavicon(
         url: String,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/avatars/favicon"
 
         val apiParams = mutableMapOf<String, Any?>(
-            "url" to url,
+                            "url" to url,
             "project" to client.config["project"],
         )
         return client.call(
@@ -132,14 +132,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/avatars/flags/{code}"
             .replace("{code}", code.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "width" to width,
-            "height" to height,
-            "quality" to quality,
+                            "width" to width,
+                            "height" to height,
+                            "quality" to quality,
             "project" to client.config["project"],
         )
         return client.call(
@@ -154,7 +154,7 @@ class Avatars(client: Client) : Service(client) {
     /**
      * Get image from URL
      *
-     * Use this endpoint to fetch a remote image URL and crop it to any image size you want. This endpoint is very useful if you need to crop and display remote images in your app or in case you want to make sure a 3rd party image is properly served using a TLS protocol.When one dimension is specified and the other is 0, the image is scaled with preserved aspect ratio. If both dimensions are 0, the API provides an image at source quality. If dimensions are not specified, the default size of image returned is 400x400px.
+     * Use this endpoint to fetch a remote image URL and crop it to any image size you want. This endpoint is very useful if you need to crop and display remote images in your app or in case you want to make sure a 3rd party image is properly served using a TLS protocol.When one dimension is specified and the other is 0, the image is scaled with preserved aspect ratio. If both dimensions are 0, the API provides an image at source quality. If dimensions are not specified, the default size of image returned is 400x400px.This endpoint does not follow HTTP redirects.
      *
      * @param url Image URL which you want to crop.
      * @param width Resize preview image width, Pass an integer between 0 to 2000. Defaults to 400.
@@ -166,13 +166,13 @@ class Avatars(client: Client) : Service(client) {
         url: String,
         width: Long? = null,
         height: Long? = null,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/avatars/image"
 
         val apiParams = mutableMapOf<String, Any?>(
-            "url" to url,
-            "width" to width,
-            "height" to height,
+                            "url" to url,
+                            "width" to width,
+                            "height" to height,
             "project" to client.config["project"],
         )
         return client.call(
@@ -201,14 +201,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         background: String? = null,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/avatars/initials"
 
         val apiParams = mutableMapOf<String, Any?>(
-            "name" to name,
-            "width" to width,
-            "height" to height,
-            "background" to background,
+                            "name" to name,
+                            "width" to width,
+                            "height" to height,
+                            "background" to background,
             "project" to client.config["project"],
         )
         return client.call(
@@ -237,14 +237,14 @@ class Avatars(client: Client) : Service(client) {
         size: Long? = null,
         margin: Long? = null,
         download: Boolean? = null,
-    ): ByteArray {
+            ): ByteArray {
         val apiPath = "/avatars/qr"
 
         val apiParams = mutableMapOf<String, Any?>(
-            "text" to text,
-            "size" to size,
-            "margin" to margin,
-            "download" to download,
+                            "text" to text,
+                            "size" to size,
+                            "margin" to margin,
+                            "download" to download,
             "project" to client.config["project"],
         )
         return client.call(

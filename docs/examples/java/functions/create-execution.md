@@ -4,17 +4,18 @@ import io.appwrite.services.Functions;
 
 Client client = new Client(context)
     .setEndpoint("https://cloud.appwrite.io/v1") // Your API Endpoint
-    .setProject("5df5acd0d48c2"); // Your project ID
+    .setProject("<YOUR_PROJECT_ID>"); // Your project ID
 
 Functions functions = new Functions(client);
 
 functions.createExecution(
-    "<FUNCTION_ID>", // functionId 
-    "<BODY>", // body (optional)
+    "{$example}", // functionId 
+    Payload.fromJson(mapOf("x" to "y" as Any)), // body (optional)
     false, // async (optional)
-    "<PATH>", // path (optional)
+    "{$example}", // path (optional)
     ExecutionMethod.GET, // method (optional)
     mapOf( "a" to "b" ), // headers (optional)
+    "", // scheduledAt (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

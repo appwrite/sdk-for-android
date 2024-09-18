@@ -29,21 +29,21 @@ class Teams(client: Client) : Service(client) {
         queries: List<String>? = null,
         search: String? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.TeamList<T> {
+            ): io.appwrite.models.TeamList<T> {
         val apiPath = "/teams"
 
         val apiParams = mutableMapOf<String, Any?>(
-            "queries" to queries,
-            "search" to search,
+                            "queries" to queries,
+                            "search" to search,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.TeamList<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.TeamList.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -67,11 +67,11 @@ class Teams(client: Client) : Service(client) {
     suspend fun list(
         queries: List<String>? = null,
         search: String? = null,
-    ): io.appwrite.models.TeamList<Map<String, Any>> = list(
+            ): io.appwrite.models.TeamList<Map<String, Any>> = list(
         queries,
         search,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Create team
@@ -89,22 +89,22 @@ class Teams(client: Client) : Service(client) {
         name: String,
         roles: List<String>? = null,
         nestedType: Class<T>,
-    ): io.appwrite.models.Team<T> {
+            ): io.appwrite.models.Team<T> {
         val apiPath = "/teams"
 
         val apiParams = mutableMapOf<String, Any?>(
-            "teamId" to teamId,
-            "name" to name,
-            "roles" to roles,
+                            "teamId" to teamId,
+                            "name" to name,
+                            "roles" to roles,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Team.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -130,12 +130,12 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         name: String,
         roles: List<String>? = null,
-    ): io.appwrite.models.Team<Map<String, Any>> = create(
+            ): io.appwrite.models.Team<Map<String, Any>> = create(
         teamId,
         name,
         roles,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Get team
@@ -148,20 +148,20 @@ class Teams(client: Client) : Service(client) {
     suspend fun <T> get(
         teamId: String,
         nestedType: Class<T>,
-    ): io.appwrite.models.Team<T> {
+            ): io.appwrite.models.Team<T> {
         val apiPath = "/teams/{teamId}"
             .replace("{teamId}", teamId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Team.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -182,10 +182,10 @@ class Teams(client: Client) : Service(client) {
     @Throws(AppwriteException::class)
     suspend fun get(
         teamId: String,
-    ): io.appwrite.models.Team<Map<String, Any>> = get(
+            ): io.appwrite.models.Team<Map<String, Any>> = get(
         teamId,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Update name
@@ -200,21 +200,21 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         name: String,
         nestedType: Class<T>,
-    ): io.appwrite.models.Team<T> {
+            ): io.appwrite.models.Team<T> {
         val apiPath = "/teams/{teamId}"
             .replace("{teamId}", teamId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "name" to name,
+                            "name" to name,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Team.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -237,11 +237,11 @@ class Teams(client: Client) : Service(client) {
     suspend fun updateName(
         teamId: String,
         name: String,
-    ): io.appwrite.models.Team<Map<String, Any>> = updateName(
+            ): io.appwrite.models.Team<Map<String, Any>> = updateName(
         teamId,
         name,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Delete team
@@ -253,16 +253,16 @@ class Teams(client: Client) : Service(client) {
      */
     suspend fun delete(
         teamId: String,
-    ): Any {
+            ): Any {
         val apiPath = "/teams/{teamId}"
             .replace("{teamId}", teamId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
-        return client.call(
+                return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -287,22 +287,22 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         queries: List<String>? = null,
         search: String? = null,
-    ): io.appwrite.models.MembershipList {
+            ): io.appwrite.models.MembershipList {
         val apiPath = "/teams/{teamId}/memberships"
             .replace("{teamId}", teamId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "queries" to queries,
-            "search" to search,
+                            "queries" to queries,
+                            "search" to search,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MembershipList = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MembershipList.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -323,7 +323,7 @@ class Teams(client: Client) : Service(client) {
      * @param email Email of the new team member.
      * @param userId ID of the user to be added to a team.
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
-     * @param url URL to redirect the user back to your app from the invitation email.  Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @param url URL to redirect the user back to your app from the invitation email. This parameter is not required when an API key is supplied. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param name Name of the new team member. Max length: 128 chars.
      * @return [io.appwrite.models.Membership]
      */
@@ -336,26 +336,26 @@ class Teams(client: Client) : Service(client) {
         phone: String? = null,
         url: String? = null,
         name: String? = null,
-    ): io.appwrite.models.Membership {
+            ): io.appwrite.models.Membership {
         val apiPath = "/teams/{teamId}/memberships"
             .replace("{teamId}", teamId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "email" to email,
-            "userId" to userId,
-            "phone" to phone,
-            "roles" to roles,
-            "url" to url,
-            "name" to name,
+                            "email" to email,
+                            "userId" to userId,
+                            "phone" to phone,
+                            "roles" to roles,
+                            "url" to url,
+                            "name" to name,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -378,21 +378,21 @@ class Teams(client: Client) : Service(client) {
     suspend fun getMembership(
         teamId: String,
         membershipId: String,
-    ): io.appwrite.models.Membership {
+            ): io.appwrite.models.Membership {
         val apiPath = "/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -417,22 +417,22 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         membershipId: String,
         roles: List<String>,
-    ): io.appwrite.models.Membership {
+            ): io.appwrite.models.Membership {
         val apiPath = "/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "roles" to roles,
+                            "roles" to roles,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -455,17 +455,17 @@ class Teams(client: Client) : Service(client) {
     suspend fun deleteMembership(
         teamId: String,
         membershipId: String,
-    ): Any {
+            ): Any {
         val apiPath = "/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
-        return client.call(
+                return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -491,23 +491,23 @@ class Teams(client: Client) : Service(client) {
         membershipId: String,
         userId: String,
         secret: String,
-    ): io.appwrite.models.Membership {
+            ): io.appwrite.models.Membership {
         val apiPath = "/teams/{teamId}/memberships/{membershipId}/status"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "userId" to userId,
-            "secret" to secret,
+                            "userId" to userId,
+                            "secret" to secret,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Membership.from(map = it as Map<String, Any>)
         }
-        return client.call(
+                return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -529,20 +529,20 @@ class Teams(client: Client) : Service(client) {
     suspend fun <T> getPrefs(
         teamId: String,
         nestedType: Class<T>,
-    ): io.appwrite.models.Preferences<T> {
+            ): io.appwrite.models.Preferences<T> {
         val apiPath = "/teams/{teamId}/prefs"
             .replace("{teamId}", teamId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Preferences.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -563,10 +563,10 @@ class Teams(client: Client) : Service(client) {
     @Throws(AppwriteException::class)
     suspend fun getPrefs(
         teamId: String,
-    ): io.appwrite.models.Preferences<Map<String, Any>> = getPrefs(
+            ): io.appwrite.models.Preferences<Map<String, Any>> = getPrefs(
         teamId,
         nestedType = classOf(),
-    )
+            )
 
     /**
      * Update preferences
@@ -581,21 +581,21 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         prefs: Any,
         nestedType: Class<T>,
-    ): io.appwrite.models.Preferences<T> {
+            ): io.appwrite.models.Preferences<T> {
         val apiPath = "/teams/{teamId}/prefs"
             .replace("{teamId}", teamId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "prefs" to prefs,
+                            "prefs" to prefs,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Preferences.from(map = it as Map<String, Any>, nestedType)
         }
-        return client.call(
+                return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -618,10 +618,10 @@ class Teams(client: Client) : Service(client) {
     suspend fun updatePrefs(
         teamId: String,
         prefs: Any,
-    ): io.appwrite.models.Preferences<Map<String, Any>> = updatePrefs(
+            ): io.appwrite.models.Preferences<Map<String, Any>> = updatePrefs(
         teamId,
         prefs,
         nestedType = classOf(),
-    )
+            )
 
 }
