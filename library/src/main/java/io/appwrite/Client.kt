@@ -87,7 +87,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "7.0.0-rc1",
+            "x-sdk-version" to "6.0.0",
             "x-appwrite-response-format" to "1.6.0"
         )
         config = mutableMapOf()
@@ -318,6 +318,14 @@ class Client @JvmOverloads constructor(
                                 "${it.key}[]",
                                 list[index].toString()
                             )
+                        }
+                    }
+                    it.value is Payload -> {
+                        val payload = it.value as Payload
+                        if (payload.sourceType == "path") {
+                            builder.addFormDataPart(it.key, payload.filename, File(payload.path).asRequestBody())
+                        } else {
+                            builder.addFormDataPart(it.key, payload.toString())
                         }
                     }
                     else -> {

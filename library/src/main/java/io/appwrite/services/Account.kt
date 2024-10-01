@@ -190,7 +190,7 @@ class Account(client: Client) : Service(client) {
             )
 
     /**
-     * List Identities
+     * List identities
      *
      * Get the list of identities for the currently logged in user.
      *
@@ -370,7 +370,7 @@ class Account(client: Client) : Service(client) {
             )
 
     /**
-     * Create Authenticator
+     * Create authenticator
      *
      * Add an authenticator app to be used as an MFA factor. Verify the authenticator using the [verify authenticator](/docs/references/cloud/client-web/account#updateMfaAuthenticator) method.
      *
@@ -404,7 +404,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Verify Authenticator
+     * Verify authenticator
      *
      * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method.
      *
@@ -441,7 +441,7 @@ class Account(client: Client) : Service(client) {
     }
 
     /**
-     * Verify Authenticator
+     * Verify authenticator
      *
      * Verify an authenticator app after adding it using the [add authenticator](/docs/references/cloud/client-web/account#createMfaAuthenticator) method.
      *
@@ -460,7 +460,7 @@ class Account(client: Client) : Service(client) {
             )
 
     /**
-     * Delete Authenticator
+     * Delete authenticator
      *
      * Delete an authenticator for a user by ID.
      *
@@ -489,7 +489,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Create MFA Challenge
+     * Create MFA challenge
      *
      * Begin the process of MFA verification after sign-in. Finish the flow with [updateMfaChallenge](/docs/references/cloud/client-web/account#updateMfaChallenge) method.
      *
@@ -523,7 +523,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Create MFA Challenge (confirmation)
+     * Create MFA challenge (confirmation)
      *
      * Complete the MFA challenge by providing the one-time password. Finish the process of MFA verification by providing the one-time password. To begin the flow, use [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method.
      *
@@ -555,7 +555,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * List Factors
+     * List factors
      *
      * List the factors available on the account to be used as a MFA challange.
      *
@@ -586,7 +586,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Get MFA Recovery Codes
+     * Get MFA recovery codes
      *
      * Get recovery codes that can be used as backup for MFA flow. Before getting codes, they must be generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method. An OTP challenge is required to read recovery codes.
      *
@@ -617,7 +617,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Create MFA Recovery Codes
+     * Create MFA recovery codes
      *
      * Generate recovery codes as backup for MFA flow. It&#039;s recommended to generate and show then immediately after user successfully adds their authehticator. Recovery codes can be used as a MFA verification type in [createMfaChallenge](/docs/references/cloud/client-web/account#createMfaChallenge) method.
      *
@@ -648,7 +648,7 @@ class Account(client: Client) : Service(client) {
 
 
     /**
-     * Regenerate MFA Recovery Codes
+     * Regenerate MFA recovery codes
      *
      * Regenerate recovery codes that can be used as backup for MFA flow. Before regenerating codes, they must be first generated using [createMfaRecoveryCodes](/docs/references/cloud/client-web/account#createMfaRecoveryCodes) method. An OTP challenge is required to regenreate recovery codes.
      *

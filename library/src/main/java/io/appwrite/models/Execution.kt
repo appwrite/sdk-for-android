@@ -77,7 +77,7 @@ data class Execution(
      * HTTP response body. This will return empty unless execution is created as synchronous.
      */
     @SerializedName("responseBody")
-    val responseBody: String,
+    val responseBody: Payload,
 
     /**
      * HTTP response headers as a key-value object. This will return only whitelisted headers. All headers are returned if execution is created as synchronous.
@@ -147,7 +147,7 @@ data class Execution(
             requestPath = map["requestPath"] as String,
             requestHeaders = (map["requestHeaders"] as List<Map<String, Any>>).map { Headers.from(map = it) },
             responseStatusCode = (map["responseStatusCode"] as Number).toLong(),
-            responseBody = map["responseBody"] as String,
+            responseBody = map["responseBody"] as Payload,
             responseHeaders = (map["responseHeaders"] as List<Map<String, Any>>).map { Headers.from(map = it) },
             logs = map["logs"] as String,
             errors = map["errors"] as String,

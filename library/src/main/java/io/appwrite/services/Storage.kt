@@ -189,7 +189,7 @@ class Storage(client: Client) : Service(client) {
 
 
     /**
-     * Delete File
+     * Delete file
      *
      * Delete a file by its unique ID. Only users with write permissions have access to delete this resource.
      *
