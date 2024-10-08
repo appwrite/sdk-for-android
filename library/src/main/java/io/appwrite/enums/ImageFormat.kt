@@ -12,7 +12,9 @@ enum class ImageFormat(val value: String) {
     @SerializedName("png")
     PNG("png"),
     @SerializedName("webp")
-    WEBP("webp");
+    WEBP("webp"),
+    @SerializedName("avif")
+    AVIF("avif");
 
     override fun toString() = value
 }
