@@ -32,13 +32,13 @@ data class Membership(
     val userId: String,
 
     /**
-     * User name.
+     * User name. Hide this attribute by toggling membership privacy in the Console.
      */
     @SerializedName("userName")
     val userName: String,
 
     /**
-     * User email address.
+     * User email address. Hide this attribute by toggling membership privacy in the Console.
      */
     @SerializedName("userEmail")
     val userEmail: String,
@@ -74,7 +74,7 @@ data class Membership(
     val confirm: Boolean,
 
     /**
-     * Multi factor authentication status, true if the user has MFA enabled or false otherwise.
+     * Multi factor authentication status, true if the user has MFA enabled or false otherwise. Hide this attribute by toggling membership privacy in the Console.
      */
     @SerializedName("mfa")
     val mfa: Boolean,
