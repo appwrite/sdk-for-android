@@ -9,8 +9,8 @@ Client client = new Client(context)
 Messaging messaging = new Messaging(client);
 
 messaging.deleteSubscriber(
-    "{$example}", // topicId 
-    "{$example}", // subscriberId 
+    "<TOPIC_ID>", // topicId 
+    "<SUBSCRIBER_ID>", // subscriberId 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -28,19 +28,19 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun <T> get(
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -59,9 +59,9 @@ class Account(client: Client) : Service(client) {
      */
     @Throws(AppwriteException::class)
     suspend fun get(
-            ): io.appwrite.models.User<Map<String, Any>> = get(
+    ): io.appwrite.models.User<Map<String, Any>> = get(
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Create account
@@ -81,23 +81,23 @@ class Account(client: Client) : Service(client) {
         password: String,
         name: String? = null,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "email" to email,
-                            "password" to password,
-                            "name" to name,
+            "userId" to userId,
+            "email" to email,
+            "password" to password,
+            "name" to name,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -125,13 +125,13 @@ class Account(client: Client) : Service(client) {
         email: String,
         password: String,
         name: String? = null,
-            ): io.appwrite.models.User<Map<String, Any>> = create(
+    ): io.appwrite.models.User<Map<String, Any>> = create(
         userId,
         email,
         password,
         name,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Update email
@@ -146,21 +146,21 @@ class Account(client: Client) : Service(client) {
         email: String,
         password: String,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/email"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "email" to email,
-                            "password" to password,
+            "email" to email,
+            "password" to password,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -183,11 +183,11 @@ class Account(client: Client) : Service(client) {
     suspend fun updateEmail(
         email: String,
         password: String,
-            ): io.appwrite.models.User<Map<String, Any>> = updateEmail(
+    ): io.appwrite.models.User<Map<String, Any>> = updateEmail(
         email,
         password,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * List identities
@@ -200,20 +200,20 @@ class Account(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun listIdentities(
         queries: List<String>? = null,
-            ): io.appwrite.models.IdentityList {
+    ): io.appwrite.models.IdentityList {
         val apiPath = "/account/identities"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "queries" to queries,
+            "queries" to queries,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.IdentityList = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.IdentityList.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -234,16 +234,16 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun deleteIdentity(
         identityId: String,
-            ): Any {
+    ): Any {
         val apiPath = "/account/identities/{identityId}"
             .replace("{identityId}", identityId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-                return client.call(
+        return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -261,19 +261,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.Jwt]
      */
     suspend fun createJWT(
-            ): io.appwrite.models.Jwt {
+    ): io.appwrite.models.Jwt {
         val apiPath = "/account/jwts"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Jwt = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Jwt.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -295,20 +295,20 @@ class Account(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun listLogs(
         queries: List<String>? = null,
-            ): io.appwrite.models.LogList {
+    ): io.appwrite.models.LogList {
         val apiPath = "/account/logs"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "queries" to queries,
+            "queries" to queries,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.LogList = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.LogList.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -330,20 +330,20 @@ class Account(client: Client) : Service(client) {
     suspend fun <T> updateMFA(
         mfa: Boolean,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/mfa"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "mfa" to mfa,
+            "mfa" to mfa,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -364,10 +364,10 @@ class Account(client: Client) : Service(client) {
     @Throws(AppwriteException::class)
     suspend fun updateMFA(
         mfa: Boolean,
-            ): io.appwrite.models.User<Map<String, Any>> = updateMFA(
+    ): io.appwrite.models.User<Map<String, Any>> = updateMFA(
         mfa,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Create authenticator
@@ -379,20 +379,20 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createMfaAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
-            ): io.appwrite.models.MfaType {
+    ): io.appwrite.models.MfaType {
         val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MfaType = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MfaType.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -416,21 +416,21 @@ class Account(client: Client) : Service(client) {
         type: io.appwrite.enums.AuthenticatorType,
         otp: String,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "otp" to otp,
+            "otp" to otp,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -453,11 +453,11 @@ class Account(client: Client) : Service(client) {
     suspend fun updateMfaAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
         otp: String,
-            ): io.appwrite.models.User<Map<String, Any>> = updateMfaAuthenticator(
+    ): io.appwrite.models.User<Map<String, Any>> = updateMfaAuthenticator(
         type,
         otp,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Delete authenticator
@@ -469,16 +469,16 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun deleteMfaAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
-            ): Any {
+    ): Any {
         val apiPath = "/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-                return client.call(
+        return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -498,20 +498,20 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createMfaChallenge(
         factor: io.appwrite.enums.AuthenticationFactor,
-            ): io.appwrite.models.MfaChallenge {
+    ): io.appwrite.models.MfaChallenge {
         val apiPath = "/account/mfa/challenge"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "factor" to factor,
+            "factor" to factor,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MfaChallenge = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MfaChallenge.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -534,17 +534,17 @@ class Account(client: Client) : Service(client) {
     suspend fun updateMfaChallenge(
         challengeId: String,
         otp: String,
-            ): Any {
+    ): Any {
         val apiPath = "/account/mfa/challenge"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "challengeId" to challengeId,
-                            "otp" to otp,
+            "challengeId" to challengeId,
+            "otp" to otp,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -562,19 +562,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaFactors]
      */
     suspend fun listMfaFactors(
-            ): io.appwrite.models.MfaFactors {
+    ): io.appwrite.models.MfaFactors {
         val apiPath = "/account/mfa/factors"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MfaFactors = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MfaFactors.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -593,19 +593,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaRecoveryCodes]
      */
     suspend fun getMfaRecoveryCodes(
-            ): io.appwrite.models.MfaRecoveryCodes {
+    ): io.appwrite.models.MfaRecoveryCodes {
         val apiPath = "/account/mfa/recovery-codes"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MfaRecoveryCodes = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MfaRecoveryCodes.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -624,19 +624,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaRecoveryCodes]
      */
     suspend fun createMfaRecoveryCodes(
-            ): io.appwrite.models.MfaRecoveryCodes {
+    ): io.appwrite.models.MfaRecoveryCodes {
         val apiPath = "/account/mfa/recovery-codes"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MfaRecoveryCodes = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MfaRecoveryCodes.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -655,19 +655,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaRecoveryCodes]
      */
     suspend fun updateMfaRecoveryCodes(
-            ): io.appwrite.models.MfaRecoveryCodes {
+    ): io.appwrite.models.MfaRecoveryCodes {
         val apiPath = "/account/mfa/recovery-codes"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MfaRecoveryCodes = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.MfaRecoveryCodes.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -689,20 +689,20 @@ class Account(client: Client) : Service(client) {
     suspend fun <T> updateName(
         name: String,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/name"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "name" to name,
+            "name" to name,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -723,10 +723,10 @@ class Account(client: Client) : Service(client) {
     @Throws(AppwriteException::class)
     suspend fun updateName(
         name: String,
-            ): io.appwrite.models.User<Map<String, Any>> = updateName(
+    ): io.appwrite.models.User<Map<String, Any>> = updateName(
         name,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Update password
@@ -742,21 +742,21 @@ class Account(client: Client) : Service(client) {
         password: String,
         oldPassword: String? = null,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/password"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "password" to password,
-                            "oldPassword" to oldPassword,
+            "password" to password,
+            "oldPassword" to oldPassword,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -780,11 +780,11 @@ class Account(client: Client) : Service(client) {
     suspend fun updatePassword(
         password: String,
         oldPassword: String? = null,
-            ): io.appwrite.models.User<Map<String, Any>> = updatePassword(
+    ): io.appwrite.models.User<Map<String, Any>> = updatePassword(
         password,
         oldPassword,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Update phone
@@ -799,21 +799,21 @@ class Account(client: Client) : Service(client) {
         phone: String,
         password: String,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/phone"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "phone" to phone,
-                            "password" to password,
+            "phone" to phone,
+            "password" to password,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -836,11 +836,11 @@ class Account(client: Client) : Service(client) {
     suspend fun updatePhone(
         phone: String,
         password: String,
-            ): io.appwrite.models.User<Map<String, Any>> = updatePhone(
+    ): io.appwrite.models.User<Map<String, Any>> = updatePhone(
         phone,
         password,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Get account preferences
@@ -851,19 +851,19 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun <T> getPrefs(
         nestedType: Class<T>,
-            ): io.appwrite.models.Preferences<T> {
+    ): io.appwrite.models.Preferences<T> {
         val apiPath = "/account/prefs"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Preferences.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -882,9 +882,9 @@ class Account(client: Client) : Service(client) {
      */
     @Throws(AppwriteException::class)
     suspend fun getPrefs(
-            ): io.appwrite.models.Preferences<Map<String, Any>> = getPrefs(
+    ): io.appwrite.models.Preferences<Map<String, Any>> = getPrefs(
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Update preferences
@@ -897,20 +897,20 @@ class Account(client: Client) : Service(client) {
     suspend fun <T> updatePrefs(
         prefs: Any,
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/prefs"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "prefs" to prefs,
+            "prefs" to prefs,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -931,10 +931,10 @@ class Account(client: Client) : Service(client) {
     @Throws(AppwriteException::class)
     suspend fun updatePrefs(
         prefs: Any,
-            ): io.appwrite.models.User<Map<String, Any>> = updatePrefs(
+    ): io.appwrite.models.User<Map<String, Any>> = updatePrefs(
         prefs,
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Create password recovery
@@ -948,21 +948,21 @@ class Account(client: Client) : Service(client) {
     suspend fun createRecovery(
         email: String,
         url: String,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/recovery"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "email" to email,
-                            "url" to url,
+            "email" to email,
+            "url" to url,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -987,22 +987,22 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
         password: String,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/recovery"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "secret" to secret,
-                            "password" to password,
+            "userId" to userId,
+            "secret" to secret,
+            "password" to password,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -1021,19 +1021,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.SessionList]
      */
     suspend fun listSessions(
-            ): io.appwrite.models.SessionList {
+    ): io.appwrite.models.SessionList {
         val apiPath = "/account/sessions"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.SessionList = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.SessionList.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -1052,15 +1052,15 @@ class Account(client: Client) : Service(client) {
      * @return [Any]
      */
     suspend fun deleteSessions(
-            ): Any {
+    ): Any {
         val apiPath = "/account/sessions"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-                return client.call(
+        return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -1078,19 +1078,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.Session]
      */
     suspend fun createAnonymousSession(
-            ): io.appwrite.models.Session {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/sessions/anonymous"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Session.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1113,21 +1113,21 @@ class Account(client: Client) : Service(client) {
     suspend fun createEmailPasswordSession(
         email: String,
         password: String,
-            ): io.appwrite.models.Session {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/sessions/email"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "email" to email,
-                            "password" to password,
+            "email" to email,
+            "password" to password,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Session.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1150,21 +1150,21 @@ class Account(client: Client) : Service(client) {
     suspend fun updateMagicURLSession(
         userId: String,
         secret: String,
-            ): io.appwrite.models.Session {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/sessions/magic-url"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "secret" to secret,
+            "userId" to userId,
+            "secret" to secret,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Session.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -1192,14 +1192,14 @@ class Account(client: Client) : Service(client) {
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,
-            ) {
+    ) {
         val apiPath = "/account/sessions/oauth2/{provider}"
             .replace("{provider}", provider.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "success" to success,
-                            "failure" to failure,
-                            "scopes" to scopes,
+            "success" to success,
+            "failure" to failure,
+            "scopes" to scopes,
             "project" to client.config["project"],
         )
         val apiQuery = mutableListOf<String>()
@@ -1240,7 +1240,7 @@ class Account(client: Client) : Service(client) {
                 .domain(Uri.parse(client.endpoint).host!!)
                 .httpOnly()
                 .build()
-
+            
             client.http.cookieJar.saveFromResponse(
                 client.endpoint.toHttpUrl(),
                 listOf(cookie)
@@ -1261,21 +1261,21 @@ class Account(client: Client) : Service(client) {
     suspend fun updatePhoneSession(
         userId: String,
         secret: String,
-            ): io.appwrite.models.Session {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/sessions/phone"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "secret" to secret,
+            "userId" to userId,
+            "secret" to secret,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Session.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -1298,21 +1298,21 @@ class Account(client: Client) : Service(client) {
     suspend fun createSession(
         userId: String,
         secret: String,
-            ): io.appwrite.models.Session {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/sessions/token"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "secret" to secret,
+            "userId" to userId,
+            "secret" to secret,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Session.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1333,20 +1333,20 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun getSession(
         sessionId: String,
-            ): io.appwrite.models.Session {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Session.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -1367,20 +1367,20 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun updateSession(
         sessionId: String,
-            ): io.appwrite.models.Session {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Session = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Session.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -1401,16 +1401,16 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun deleteSession(
         sessionId: String,
-            ): Any {
+    ): Any {
         val apiPath = "/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-                return client.call(
+        return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -1429,19 +1429,19 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun <T> updateStatus(
         nestedType: Class<T>,
-            ): io.appwrite.models.User<T> {
+    ): io.appwrite.models.User<T> {
         val apiPath = "/account/status"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.User<T> = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.User.from(map = it as Map<String, Any>, nestedType)
         }
-                return client.call(
+        return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
@@ -1460,9 +1460,9 @@ class Account(client: Client) : Service(client) {
      */
     @Throws(AppwriteException::class)
     suspend fun updateStatus(
-            ): io.appwrite.models.User<Map<String, Any>> = updateStatus(
+    ): io.appwrite.models.User<Map<String, Any>> = updateStatus(
         nestedType = classOf(),
-            )
+    )
 
     /**
      * Create push target
@@ -1479,22 +1479,22 @@ class Account(client: Client) : Service(client) {
         targetId: String,
         identifier: String,
         providerId: String? = null,
-            ): io.appwrite.models.Target {
+    ): io.appwrite.models.Target {
         val apiPath = "/account/targets/push"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "targetId" to targetId,
-                            "identifier" to identifier,
-                            "providerId" to providerId,
+            "targetId" to targetId,
+            "identifier" to identifier,
+            "providerId" to providerId,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Target = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Target.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1517,21 +1517,21 @@ class Account(client: Client) : Service(client) {
     suspend fun updatePushTarget(
         targetId: String,
         identifier: String,
-            ): io.appwrite.models.Target {
+    ): io.appwrite.models.Target {
         val apiPath = "/account/targets/{targetId}/push"
             .replace("{targetId}", targetId)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "identifier" to identifier,
+            "identifier" to identifier,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Target = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Target.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -1552,16 +1552,16 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun deletePushTarget(
         targetId: String,
-            ): Any {
+    ): Any {
         val apiPath = "/account/targets/{targetId}/push"
             .replace("{targetId}", targetId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-                return client.call(
+        return client.call(
             "DELETE",
             apiPath,
             apiHeaders,
@@ -1586,22 +1586,22 @@ class Account(client: Client) : Service(client) {
         userId: String,
         email: String,
         phrase: Boolean? = null,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/tokens/email"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "email" to email,
-                            "phrase" to phrase,
+            "userId" to userId,
+            "email" to email,
+            "phrase" to phrase,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1629,23 +1629,23 @@ class Account(client: Client) : Service(client) {
         email: String,
         url: String? = null,
         phrase: Boolean? = null,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/tokens/magic-url"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "email" to email,
-                            "url" to url,
-                            "phrase" to phrase,
+            "userId" to userId,
+            "email" to email,
+            "url" to url,
+            "phrase" to phrase,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1673,14 +1673,14 @@ class Account(client: Client) : Service(client) {
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,
-            ) {
+    ) {
         val apiPath = "/account/tokens/oauth2/{provider}"
             .replace("{provider}", provider.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "success" to success,
-                            "failure" to failure,
-                            "scopes" to scopes,
+            "success" to success,
+            "failure" to failure,
+            "scopes" to scopes,
             "project" to client.config["project"],
         )
         val apiQuery = mutableListOf<String>()
@@ -1721,7 +1721,7 @@ class Account(client: Client) : Service(client) {
                 .domain(Uri.parse(client.endpoint).host!!)
                 .httpOnly()
                 .build()
-
+            
             client.http.cookieJar.saveFromResponse(
                 client.endpoint.toHttpUrl(),
                 listOf(cookie)
@@ -1742,21 +1742,21 @@ class Account(client: Client) : Service(client) {
     suspend fun createPhoneToken(
         userId: String,
         phone: String,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/tokens/phone"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "phone" to phone,
+            "userId" to userId,
+            "phone" to phone,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1777,20 +1777,20 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createVerification(
         url: String,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/verification"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "url" to url,
+            "url" to url,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1813,21 +1813,21 @@ class Account(client: Client) : Service(client) {
     suspend fun updateVerification(
         userId: String,
         secret: String,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/verification"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "secret" to secret,
+            "userId" to userId,
+            "secret" to secret,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,
@@ -1846,19 +1846,19 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.Token]
      */
     suspend fun createPhoneVerification(
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/verification/phone"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -1881,21 +1881,21 @@ class Account(client: Client) : Service(client) {
     suspend fun updatePhoneVerification(
         userId: String,
         secret: String,
-            ): io.appwrite.models.Token {
+    ): io.appwrite.models.Token {
         val apiPath = "/account/verification/phone"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "userId" to userId,
-                            "secret" to secret,
+            "userId" to userId,
+            "secret" to secret,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Token = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Token.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "PUT",
             apiPath,
             apiHeaders,

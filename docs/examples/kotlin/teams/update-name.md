@@ -9,6 +9,6 @@ val client = Client(context)
 val teams = Teams(client)
 
 val result = teams.updateName(
-    teamId = "{$example}", 
-    name = "{$example}", 
+    teamId = "<TEAM_ID>", 
+    name = "<NAME>", 
 )

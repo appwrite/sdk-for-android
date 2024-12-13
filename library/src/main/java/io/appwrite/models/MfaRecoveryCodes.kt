@@ -11,7 +11,7 @@ data class MfaRecoveryCodes(
      * Recovery codes.
      */
     @SerializedName("recoveryCodes")
-    val recoveryCodes: List<Any>,
+    val recoveryCodes: List<String>,
 
 ) {
     fun toMap(): Map<String, Any> = mapOf(
@@ -24,7 +24,7 @@ data class MfaRecoveryCodes(
         fun from(
             map: Map<String, Any>,
         ) = MfaRecoveryCodes(
-            recoveryCodes = map["recoveryCodes"] as List<Any>,
+            recoveryCodes = map["recoveryCodes"] as List<String>,
         )
     }
 }

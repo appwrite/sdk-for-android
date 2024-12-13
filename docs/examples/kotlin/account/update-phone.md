@@ -9,6 +9,6 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.updatePhone(
-    phone = "{$example}", 
-    password = "{$example}", 
+    phone = "+12065550100", 
+    password = "password", 
 )

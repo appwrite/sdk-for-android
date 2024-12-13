@@ -9,8 +9,8 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.createRecovery(
-    "{$example}", // email 
-    "{$example}", // url 
+    "email@example.com", // email 
+    "https://example.com", // url 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

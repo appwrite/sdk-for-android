@@ -11,7 +11,7 @@ val account = Account(client)
 
 account.createOAuth2Session(
     provider = OAuthProvider.AMAZON,
-    success = "{$example}", // (optional)
-    failure = "{$example}", // (optional)
+    success = "https://example.com", // (optional)
+    failure = "https://example.com", // (optional)
     scopes = listOf(), // (optional)
 )

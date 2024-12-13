@@ -9,5 +9,5 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.deleteIdentity(
-    identityId = "{$example}", 
+    identityId = "<IDENTITY_ID>", 
 )

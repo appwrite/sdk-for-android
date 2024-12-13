@@ -9,10 +9,10 @@ Client client = new Client(context)
 Functions functions = new Functions(client);
 
 functions.createExecution(
-    "{$example}", // functionId 
-    Payload.fromJson(mapOf("x" to "y" as Any)), // body (optional)
+    "<FUNCTION_ID>", // functionId 
+    "<BODY>", // body (optional)
     false, // async (optional)
-    "{$example}", // path (optional)
+    "<PATH>", // path (optional)
     ExecutionMethod.GET, // method (optional)
     mapOf( "a" to "b" ), // headers (optional)
     "", // scheduledAt (optional)

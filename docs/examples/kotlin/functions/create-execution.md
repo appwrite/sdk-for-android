@@ -9,10 +9,10 @@ val client = Client(context)
 val functions = Functions(client)
 
 val result = functions.createExecution(
-    functionId = "{$example}", 
-    body = Payload.fromJson(mapOf("x" to "y" as Any)), // (optional)
+    functionId = "<FUNCTION_ID>", 
+    body = "<BODY>", // (optional)
     async = false, // (optional)
-    path = "{$example}", // (optional)
+    path = "<PATH>", // (optional)
     method = ExecutionMethod.GET, // (optional)
     headers = mapOf( "a" to "b" ), // (optional)
     scheduledAt = "", // (optional)

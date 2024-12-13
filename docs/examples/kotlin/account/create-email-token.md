@@ -9,7 +9,7 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.createEmailToken(
-    userId = "{$example}", 
-    email = "{$example}", 
+    userId = "<USER_ID>", 
+    email = "email@example.com", 
     phrase = false, // (optional)
 )

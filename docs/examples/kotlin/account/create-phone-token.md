@@ -9,6 +9,6 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.createPhoneToken(
-    userId = "{$example}", 
-    phone = "{$example}", 
+    userId = "<USER_ID>", 
+    phone = "+12065550100", 
 )

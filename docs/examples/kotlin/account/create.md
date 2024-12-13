@@ -9,8 +9,8 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.create(
-    userId = "{$example}", 
-    email = "{$example}", 
+    userId = "<USER_ID>", 
+    email = "email@example.com", 
     password = "", 
-    name = "{$example}", // (optional)
+    name = "<NAME>", // (optional)
 )

@@ -9,8 +9,8 @@ Client client = new Client(context)
 Teams teams = new Teams(client);
 
 teams.updateMembership(
-    "{$example}", // teamId 
-    "{$example}", // membershipId 
+    "<TEAM_ID>", // teamId 
+    "<MEMBERSHIP_ID>", // membershipId 
     listOf(), // roles 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

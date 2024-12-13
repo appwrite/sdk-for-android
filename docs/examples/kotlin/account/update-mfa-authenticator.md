@@ -11,5 +11,5 @@ val account = Account(client)
 
 val result = account.updateMfaAuthenticator(
     type = AuthenticatorType.TOTP,
-    otp = "{$example}", 
+    otp = "<OTP>", 
 )

@@ -9,9 +9,9 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.createMagicURLToken(
-    "{$example}", // userId 
-    "{$example}", // email 
-    "{$example}", // url (optional)
+    "<USER_ID>", // userId 
+    "email@example.com", // email 
+    "https://example.com", // url (optional)
     false, // phrase (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

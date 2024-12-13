@@ -9,5 +9,5 @@ val client = Client(context)
 val teams = Teams(client)
 
 val result = teams.get(
-    teamId = "{$example}", 
+    teamId = "<TEAM_ID>", 
 )

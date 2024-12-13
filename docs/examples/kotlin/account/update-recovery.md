@@ -9,7 +9,7 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.updateRecovery(
-    userId = "{$example}", 
-    secret = "{$example}", 
+    userId = "<USER_ID>", 
+    secret = "<SECRET>", 
     password = "", 
 )

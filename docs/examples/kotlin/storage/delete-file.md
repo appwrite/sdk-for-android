@@ -9,6 +9,6 @@ val client = Client(context)
 val storage = Storage(client)
 
 val result = storage.deleteFile(
-    bucketId = "{$example}", 
-    fileId = "{$example}", 
+    bucketId = "<BUCKET_ID>", 
+    fileId = "<FILE_ID>", 
 )

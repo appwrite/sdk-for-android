@@ -35,7 +35,7 @@ data class File(
      * File permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      */
     @SerializedName("\$permissions")
-    val permissions: List<Any>,
+    val permissions: List<String>,
 
     /**
      * File name.
@@ -98,7 +98,7 @@ data class File(
             bucketId = map["bucketId"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
-            permissions = map["\$permissions"] as List<Any>,
+            permissions = map["\$permissions"] as List<String>,
             name = map["name"] as String,
             signature = map["signature"] as String,
             mimeType = map["mimeType"] as String,

@@ -9,8 +9,8 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.updateEmail(
-    "{$example}", // email 
-    "{$example}", // password 
+    "email@example.com", // email 
+    "password", // password 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

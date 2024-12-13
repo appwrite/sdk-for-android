@@ -9,9 +9,9 @@ Client client = new Client(context)
 Databases databases = new Databases(client);
 
 databases.updateDocument(
-    "{$example}", // databaseId 
-    "{$example}", // collectionId 
-    "{$example}", // documentId 
+    "<DATABASE_ID>", // databaseId 
+    "<COLLECTION_ID>", // collectionId 
+    "<DOCUMENT_ID>", // documentId 
     mapOf( "a" to "b" ), // data (optional)
     listOf("read("any")"), // permissions (optional)
     new CoroutineCallback<>((result, error) -> {

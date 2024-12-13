@@ -34,14 +34,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
-            ): ByteArray {
+    ): ByteArray {
         val apiPath = "/avatars/browsers/{code}"
             .replace("{code}", code.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "width" to width,
-                            "height" to height,
-                            "quality" to quality,
+            "width" to width,
+            "height" to height,
+            "quality" to quality,
             "project" to client.config["project"],
         )
         return client.call(
@@ -70,14 +70,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
-            ): ByteArray {
+    ): ByteArray {
         val apiPath = "/avatars/credit-cards/{code}"
             .replace("{code}", code.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "width" to width,
-                            "height" to height,
-                            "quality" to quality,
+            "width" to width,
+            "height" to height,
+            "quality" to quality,
             "project" to client.config["project"],
         )
         return client.call(
@@ -99,11 +99,11 @@ class Avatars(client: Client) : Service(client) {
      */
     suspend fun getFavicon(
         url: String,
-            ): ByteArray {
+    ): ByteArray {
         val apiPath = "/avatars/favicon"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "url" to url,
+            "url" to url,
             "project" to client.config["project"],
         )
         return client.call(
@@ -132,14 +132,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
-            ): ByteArray {
+    ): ByteArray {
         val apiPath = "/avatars/flags/{code}"
             .replace("{code}", code.value)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "width" to width,
-                            "height" to height,
-                            "quality" to quality,
+            "width" to width,
+            "height" to height,
+            "quality" to quality,
             "project" to client.config["project"],
         )
         return client.call(
@@ -166,13 +166,13 @@ class Avatars(client: Client) : Service(client) {
         url: String,
         width: Long? = null,
         height: Long? = null,
-            ): ByteArray {
+    ): ByteArray {
         val apiPath = "/avatars/image"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "url" to url,
-                            "width" to width,
-                            "height" to height,
+            "url" to url,
+            "width" to width,
+            "height" to height,
             "project" to client.config["project"],
         )
         return client.call(
@@ -201,14 +201,14 @@ class Avatars(client: Client) : Service(client) {
         width: Long? = null,
         height: Long? = null,
         background: String? = null,
-            ): ByteArray {
+    ): ByteArray {
         val apiPath = "/avatars/initials"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "name" to name,
-                            "width" to width,
-                            "height" to height,
-                            "background" to background,
+            "name" to name,
+            "width" to width,
+            "height" to height,
+            "background" to background,
             "project" to client.config["project"],
         )
         return client.call(
@@ -237,14 +237,14 @@ class Avatars(client: Client) : Service(client) {
         size: Long? = null,
         margin: Long? = null,
         download: Boolean? = null,
-            ): ByteArray {
+    ): ByteArray {
         val apiPath = "/avatars/qr"
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "text" to text,
-                            "size" to size,
-                            "margin" to margin,
-                            "download" to download,
+            "text" to text,
+            "size" to size,
+            "margin" to margin,
+            "download" to download,
             "project" to client.config["project"],
         )
         return client.call(

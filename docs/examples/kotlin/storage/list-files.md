@@ -9,7 +9,7 @@ val client = Client(context)
 val storage = Storage(client)
 
 val result = storage.listFiles(
-    bucketId = "{$example}", 
+    bucketId = "<BUCKET_ID>", 
     queries = listOf(), // (optional)
-    search = "{$example}", // (optional)
+    search = "<SEARCH>", // (optional)
 )

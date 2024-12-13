@@ -83,7 +83,7 @@ data class Membership(
      * User list of roles
      */
     @SerializedName("roles")
-    val roles: List<Any>,
+    val roles: List<String>,
 
 ) {
     fun toMap(): Map<String, Any> = mapOf(
@@ -120,7 +120,7 @@ data class Membership(
             joined = map["joined"] as String,
             confirm = map["confirm"] as Boolean,
             mfa = map["mfa"] as Boolean,
-            roles = map["roles"] as List<Any>,
+            roles = map["roles"] as List<String>,
         )
     }
 }

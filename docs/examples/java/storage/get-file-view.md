@@ -9,8 +9,8 @@ Client client = new Client(context)
 Storage storage = new Storage(client);
 
 storage.getFileView(
-    "{$example}", // bucketId 
-    "{$example}", // fileId 
+    "<BUCKET_ID>", // bucketId 
+    "<FILE_ID>", // fileId 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

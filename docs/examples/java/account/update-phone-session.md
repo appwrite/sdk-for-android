@@ -9,8 +9,8 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.updatePhoneSession(
-    "{$example}", // userId 
-    "{$example}", // secret 
+    "<USER_ID>", // userId 
+    "<SECRET>", // secret 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

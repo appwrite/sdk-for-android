@@ -9,8 +9,8 @@ Client client = new Client(context)
 Teams teams = new Teams(client);
 
 teams.updateName(
-    "{$example}", // teamId 
-    "{$example}", // name 
+    "<TEAM_ID>", // teamId 
+    "<NAME>", // name 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

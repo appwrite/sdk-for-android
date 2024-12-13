@@ -9,6 +9,6 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.createEmailPasswordSession(
-    email = "{$example}", 
-    password = "{$example}", 
+    email = "email@example.com", 
+    password = "password", 
 )

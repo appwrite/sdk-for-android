@@ -9,7 +9,7 @@ Client client = new Client(context)
 Avatars avatars = new Avatars(client);
 
 avatars.getImage(
-    "{$example}", // url 
+    "https://example.com", // url 
     0, // width (optional)
     0, // height (optional)
     new CoroutineCallback<>((result, error) -> {

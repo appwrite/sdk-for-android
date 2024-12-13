@@ -29,7 +29,7 @@ data class Execution(
      * Execution roles.
      */
     @SerializedName("\$permissions")
-    val permissions: List<Any>,
+    val permissions: List<String>,
 
     /**
      * Function ID.
@@ -77,7 +77,7 @@ data class Execution(
      * HTTP response body. This will return empty unless execution is created as synchronous.
      */
     @SerializedName("responseBody")
-    val responseBody: Payload,
+    val responseBody: String,
 
     /**
      * HTTP response headers as a key-value object. This will return only whitelisted headers. All headers are returned if execution is created as synchronous.
@@ -139,7 +139,7 @@ data class Execution(
             id = map["\$id"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
-            permissions = map["\$permissions"] as List<Any>,
+            permissions = map["\$permissions"] as List<String>,
             functionId = map["functionId"] as String,
             trigger = map["trigger"] as String,
             status = map["status"] as String,
@@ -147,7 +147,7 @@ data class Execution(
             requestPath = map["requestPath"] as String,
             requestHeaders = (map["requestHeaders"] as List<Map<String, Any>>).map { Headers.from(map = it) },
             responseStatusCode = (map["responseStatusCode"] as Number).toLong(),
-            responseBody = map["responseBody"] as Payload,
+            responseBody = map["responseBody"] as String,
             responseHeaders = (map["responseHeaders"] as List<Map<String, Any>>).map { Headers.from(map = it) },
             logs = map["logs"] as String,
             errors = map["errors"] as String,

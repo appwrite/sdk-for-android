@@ -29,22 +29,22 @@ class Messaging(client: Client) : Service(client) {
         topicId: String,
         subscriberId: String,
         targetId: String,
-            ): io.appwrite.models.Subscriber {
+    ): io.appwrite.models.Subscriber {
         val apiPath = "/messaging/topics/{topicId}/subscribers"
             .replace("{topicId}", topicId)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "subscriberId" to subscriberId,
-                            "targetId" to targetId,
+            "subscriberId" to subscriberId,
+            "targetId" to targetId,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Subscriber = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Subscriber.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -67,17 +67,17 @@ class Messaging(client: Client) : Service(client) {
     suspend fun deleteSubscriber(
         topicId: String,
         subscriberId: String,
-            ): Any {
+    ): Any {
         val apiPath = "/messaging/topics/{topicId}/subscribers/{subscriberId}"
             .replace("{topicId}", topicId)
             .replace("{subscriberId}", subscriberId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
-                return client.call(
+        return client.call(
             "DELETE",
             apiPath,
             apiHeaders,

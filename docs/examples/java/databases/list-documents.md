@@ -9,8 +9,8 @@ Client client = new Client(context)
 Databases databases = new Databases(client);
 
 databases.listDocuments(
-    "{$example}", // databaseId 
-    "{$example}", // collectionId 
+    "<DATABASE_ID>", // databaseId 
+    "<COLLECTION_ID>", // collectionId 
     listOf(), // queries (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

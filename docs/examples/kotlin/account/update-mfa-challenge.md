@@ -9,6 +9,6 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.updateMfaChallenge(
-    challengeId = "{$example}", 
-    otp = "{$example}", 
+    challengeId = "<CHALLENGE_ID>", 
+    otp = "<OTP>", 
 )

@@ -9,8 +9,8 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.createEmailToken(
-    "{$example}", // userId 
-    "{$example}", // email 
+    "<USER_ID>", // userId 
+    "email@example.com", // email 
     false, // phrase (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

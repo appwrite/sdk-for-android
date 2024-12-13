@@ -9,6 +9,6 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.updateEmail(
-    email = "{$example}", 
-    password = "{$example}", 
+    email = "email@example.com", 
+    password = "password", 
 )

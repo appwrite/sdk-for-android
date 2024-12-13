@@ -9,7 +9,7 @@ val client = Client(context)
 val databases = Databases(client)
 
 val result = databases.listDocuments(
-    databaseId = "{$example}", 
-    collectionId = "{$example}", 
+    databaseId = "<DATABASE_ID>", 
+    collectionId = "<COLLECTION_ID>", 
     queries = listOf(), // (optional)
 )

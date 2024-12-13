@@ -9,9 +9,9 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.createPushTarget(
-    "{$example}", // targetId 
-    "{$example}", // identifier 
-    "{$example}", // providerId (optional)
+    "<TARGET_ID>", // targetId 
+    "<IDENTIFIER>", // identifier 
+    "<PROVIDER_ID>", // providerId (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -9,7 +9,7 @@ val client = Client(context)
 val teams = Teams(client)
 
 val result = teams.updateMembership(
-    teamId = "{$example}", 
-    membershipId = "{$example}", 
+    teamId = "<TEAM_ID>", 
+    membershipId = "<MEMBERSHIP_ID>", 
     roles = listOf(), 
 )

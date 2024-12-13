@@ -9,8 +9,8 @@ Client client = new Client(context)
 Teams teams = new Teams(client);
 
 teams.deleteMembership(
-    "{$example}", // teamId 
-    "{$example}", // membershipId 
+    "<TEAM_ID>", // teamId 
+    "<MEMBERSHIP_ID>", // membershipId 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

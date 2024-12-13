@@ -9,9 +9,9 @@ val client = Client(context)
 val databases = Databases(client)
 
 val result = databases.createDocument(
-    databaseId = "{$example}", 
-    collectionId = "{$example}", 
-    documentId = "{$example}", 
+    databaseId = "<DATABASE_ID>", 
+    collectionId = "<COLLECTION_ID>", 
+    documentId = "<DOCUMENT_ID>", 
     data = mapOf( "a" to "b" ), 
     permissions = listOf("read("any")"), // (optional)
 )

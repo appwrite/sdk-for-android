@@ -30,22 +30,22 @@ class Functions(client: Client) : Service(client) {
         functionId: String,
         queries: List<String>? = null,
         search: String? = null,
-            ): io.appwrite.models.ExecutionList {
+    ): io.appwrite.models.ExecutionList {
         val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "queries" to queries,
-                            "search" to search,
+            "queries" to queries,
+            "search" to search,
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ExecutionList = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.ExecutionList.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,
@@ -73,33 +73,32 @@ class Functions(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun createExecution(
         functionId: String,
-        body: Payload? = null,
+        body: String? = null,
         async: Boolean? = null,
         path: String? = null,
         method: io.appwrite.enums.ExecutionMethod? = null,
         headers: Any? = null,
         scheduledAt: String? = null,
-            ): io.appwrite.models.Execution {
+    ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
 
         val apiParams = mutableMapOf<String, Any?>(
-                            "body" to (body?.toBinary() ?: ""),
-                            "async" to async,
-                            "path" to path,
-                            "method" to method,
-                            "headers" to headers,
-                            "scheduledAt" to scheduledAt,
+            "body" to body,
+            "async" to async,
+            "path" to path,
+            "method" to method,
+            "headers" to headers,
+            "scheduledAt" to scheduledAt,
         )
-        val apiHeaders = mutableMapOf<String, String>(
-            "content-type" to "multipart/form-data",
-            "accept" to "multipart/form-data",
+        val apiHeaders = mutableMapOf(
+            "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "POST",
             apiPath,
             apiHeaders,
@@ -122,21 +121,21 @@ class Functions(client: Client) : Service(client) {
     suspend fun getExecution(
         functionId: String,
         executionId: String,
-            ): io.appwrite.models.Execution {
+    ): io.appwrite.models.Execution {
         val apiPath = "/functions/{functionId}/executions/{executionId}"
             .replace("{functionId}", functionId)
             .replace("{executionId}", executionId)
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf<String, String>(
+        val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.Execution.from(map = it as Map<String, Any>)
         }
-                return client.call(
+        return client.call(
             "GET",
             apiPath,
             apiHeaders,

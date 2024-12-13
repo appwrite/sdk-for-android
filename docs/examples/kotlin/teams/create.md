@@ -9,7 +9,7 @@ val client = Client(context)
 val teams = Teams(client)
 
 val result = teams.create(
-    teamId = "{$example}", 
-    name = "{$example}", 
+    teamId = "<TEAM_ID>", 
+    name = "<NAME>", 
     roles = listOf(), // (optional)
 )

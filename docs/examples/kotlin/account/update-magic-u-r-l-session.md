@@ -9,6 +9,6 @@ val client = Client(context)
 val account = Account(client)
 
 val result = account.updateMagicURLSession(
-    userId = "{$example}", 
-    secret = "{$example}", 
+    userId = "<USER_ID>", 
+    secret = "<SECRET>", 
 )

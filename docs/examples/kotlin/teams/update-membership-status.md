@@ -9,8 +9,8 @@ val client = Client(context)
 val teams = Teams(client)
 
 val result = teams.updateMembershipStatus(
-    teamId = "{$example}", 
-    membershipId = "{$example}", 
-    userId = "{$example}", 
-    secret = "{$example}", 
+    teamId = "<TEAM_ID>", 
+    membershipId = "<MEMBERSHIP_ID>", 
+    userId = "<USER_ID>", 
+    secret = "<SECRET>", 
 )

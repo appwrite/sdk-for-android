@@ -10,7 +10,7 @@ Account account = new Account(client);
 
 account.updatePassword(
     "", // password 
-    "{$example}", // oldPassword (optional)
+    "password", // oldPassword (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -9,7 +9,7 @@ Client client = new Client(context)
 Avatars avatars = new Avatars(client);
 
 avatars.getFavicon(
-    "{$example}", // url 
+    "https://example.com", // url 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
