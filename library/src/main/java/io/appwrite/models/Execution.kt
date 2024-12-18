@@ -29,7 +29,7 @@ data class Execution(
      * Execution roles.
      */
     @SerializedName("\$permissions")
-    val permissions: List<Any>,
+    val permissions: List<String>,
 
     /**
      * Function ID.
@@ -139,7 +139,7 @@ data class Execution(
             id = map["\$id"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
-            permissions = map["\$permissions"] as List<Any>,
+            permissions = map["\$permissions"] as List<String>,
             functionId = map["functionId"] as String,
             trigger = map["trigger"] as String,
             status = map["status"] as String,
