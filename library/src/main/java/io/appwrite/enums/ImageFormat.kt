@@ -13,6 +13,8 @@ enum class ImageFormat(val value: String) {
     PNG("png"),
     @SerializedName("webp")
     WEBP("webp"),
+    @SerializedName("heic")
+    HEIC("heic"),
     @SerializedName("avif")
     AVIF("avif");
 
