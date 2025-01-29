@@ -41,7 +41,7 @@ data class Document<T>(
      * Document permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      */
     @SerializedName("\$permissions")
-    val permissions: List<Any>,
+    val permissions: List<String>,
 
     /**
      * Additional properties
@@ -66,7 +66,7 @@ data class Document<T>(
             databaseId: String,
             createdAt: String,
             updatedAt: String,
-            permissions: List<Any>,
+            permissions: List<String>,
             data: Map<String, Any>
         ) = Document<Map<String, Any>>(
             id,
@@ -88,7 +88,7 @@ data class Document<T>(
             databaseId = map["\$databaseId"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
-            permissions = map["\$permissions"] as List<Any>,
+            permissions = map["\$permissions"] as List<String>,
             data = map.jsonCast(to = nestedType)
         )
     }

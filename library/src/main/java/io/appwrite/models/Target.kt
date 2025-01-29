@@ -55,6 +55,12 @@ data class Target(
     @SerializedName("identifier")
     val identifier: String,
 
+    /**
+     * Is the target expired.
+     */
+    @SerializedName("expired")
+    val expired: Boolean,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -65,6 +71,7 @@ data class Target(
         "providerId" to providerId as Any,
         "providerType" to providerType as Any,
         "identifier" to identifier as Any,
+        "expired" to expired as Any,
     )
 
     companion object {
@@ -81,6 +88,7 @@ data class Target(
             providerId = map["providerId"] as? String?,
             providerType = map["providerType"] as String,
             identifier = map["identifier"] as String,
+            expired = map["expired"] as Boolean,
         )
     }
 }

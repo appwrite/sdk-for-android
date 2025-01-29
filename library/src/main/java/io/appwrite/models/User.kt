@@ -65,7 +65,7 @@ data class User<T>(
      * Labels for the user.
      */
     @SerializedName("labels")
-    val labels: List<Any>,
+    val labels: List<String>,
 
     /**
      * Password update time in ISO 8601 format.
@@ -155,7 +155,7 @@ data class User<T>(
             hashOptions: Any?,
             registration: String,
             status: Boolean,
-            labels: List<Any>,
+            labels: List<String>,
             passwordUpdate: String,
             email: String,
             phone: String,
@@ -201,7 +201,7 @@ data class User<T>(
             hashOptions = map["hashOptions"] as? Any?,
             registration = map["registration"] as String,
             status = map["status"] as Boolean,
-            labels = map["labels"] as List<Any>,
+            labels = map["labels"] as List<String>,
             passwordUpdate = map["passwordUpdate"] as String,
             email = map["email"] as String,
             phone = map["phone"] as String,
