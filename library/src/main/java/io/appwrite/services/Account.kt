@@ -529,12 +529,12 @@ class Account(client: Client) : Service(client) {
      *
      * @param challengeId ID of the challenge.
      * @param otp Valid verification token.
-     * @return [Any]
+     * @return [io.appwrite.models.Session]
      */
     suspend fun updateMfaChallenge(
         challengeId: String,
         otp: String,
-    ): Any {
+    ): io.appwrite.models.Session {
         val apiPath = "/account/mfa/challenge"
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -544,12 +544,17 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf(
             "content-type" to "application/json",
         )
+        val converter: (Any) -> io.appwrite.models.Session = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
         return client.call(
             "PUT",
             apiPath,
             apiHeaders,
             apiParams,
-            responseType = Any::class.java,
+            responseType = io.appwrite.models.Session::class.java,
+            converter,
         )
     }
 
@@ -1467,7 +1472,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Create push target
      *
-     * 
+     * Use this endpoint to register a device for push notifications. Provide a target ID (custom or generated using ID.unique()), a device identifier (usually a device token), and optionally specify which provider should send notifications to this target. The target is automatically linked to the current session and includes device information like brand and model.
      *
      * @param targetId Target ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param identifier The target identifier (token, email, phone etc.)
@@ -1508,7 +1513,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Update push target
      *
-     * 
+     * Update the currently logged in user&#039;s push notification target. You can modify the target&#039;s identifier (device token) and provider ID (token, email, phone etc.). The target must exist and belong to the current user. If you change the provider ID, notifications will be sent through the new messaging provider instead.
      *
      * @param targetId Target ID.
      * @param identifier The target identifier (token, email, phone etc.)
@@ -1545,7 +1550,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Delete push target
      *
-     * 
+     * Delete a push notification target for the currently logged in user. After deletion, the device will no longer receive push notifications. The target must exist and belong to the current user.
      *
      * @param targetId Target ID.
      * @return [Any]
@@ -1615,7 +1620,7 @@ class Account(client: Client) : Service(client) {
     /**
      * Create magic URL token
      *
-     * Sends the user an email with a secret key for creating a session. If the provided user ID has not been registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour. If you are on a mobile device you can leave the URL parameter empty, so that the login completion will be handled by your Appwrite instance by default.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     * Sends the user an email with a secret key for creating a session. If the provided user ID has not been registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The link sent to the user&#039;s email address is valid for 1 hour.A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
      * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email User email.
