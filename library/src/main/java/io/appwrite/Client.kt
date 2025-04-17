@@ -25,6 +25,7 @@ import java.io.BufferedReader
 import java.io.File
 import java.io.RandomAccessFile
 import java.io.IOException
+import java.lang.IllegalArgumentException
 import java.net.CookieManager
 import java.net.CookiePolicy
 import java.security.SecureRandom
@@ -86,7 +87,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "7.0.0",
+            "x-sdk-version" to "7.0.1",
             "x-appwrite-response-format" to "1.6.0"
         )
         config = mutableMapOf()
@@ -211,24 +212,31 @@ class Client @JvmOverloads constructor(
      *
      * @return this
      */
+    @Throws(IllegalArgumentException::class)
     fun setEndpoint(endpoint: String): Client {
-        this.endpoint = endpoint
-
-        if (this.endpointRealtime == null && endpoint.startsWith("http")) {
-            this.endpointRealtime = endpoint.replaceFirst("http", "ws")
+        require(endpoint.startsWith("http://") || endpoint.startsWith("https://")) {
+            "Invalid endpoint URL: $endpoint"
         }
+
+        this.endpoint = endpoint
+        this.endpointRealtime = endpoint.replaceFirst("http", "ws")
 
         return this
     }
 
     /**
-    * Set realtime endpoint
-    *
-    * @param endpoint
-    *
-    * @return this
-    */
+     * Set realtime endpoint
+     *
+     * @param endpoint
+     *
+     * @return this
+     */
+    @Throws(IllegalArgumentException::class)
     fun setEndpointRealtime(endpoint: String): Client {
+        require(endpoint.startsWith("ws://") || endpoint.startsWith("wss://")) {
+            "Invalid realtime endpoint URL: $endpoint"
+        }
+
         this.endpointRealtime = endpoint
         return this
     }
@@ -525,7 +533,7 @@ class Client @JvmOverloads constructor(
                             body
                         )
                     } else {
-                        AppwriteException(body, response.code)
+                        AppwriteException(body, response.code, "", body)
                     }
                     it.cancel(error)
                     return

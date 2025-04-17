@@ -16,8 +16,6 @@ import java.io.File
 class Functions(client: Client) : Service(client) {
 
     /**
-     * List executions
-     *
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
      * @param functionId Function ID.
@@ -39,7 +37,6 @@ class Functions(client: Client) : Service(client) {
             "search" to search,
         )
         val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.ExecutionList = {
             @Suppress("UNCHECKED_CAST")
@@ -57,8 +54,6 @@ class Functions(client: Client) : Service(client) {
 
 
     /**
-     * Create execution
-     *
      * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
      *
      * @param functionId Function ID.
@@ -110,8 +105,6 @@ class Functions(client: Client) : Service(client) {
 
 
     /**
-     * Get execution
-     *
      * Get a function execution log by its unique ID.
      *
      * @param functionId Function ID.
@@ -129,7 +122,6 @@ class Functions(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Execution = {
             @Suppress("UNCHECKED_CAST")

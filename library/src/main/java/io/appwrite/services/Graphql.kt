@@ -16,8 +16,6 @@ import java.io.File
 class Graphql(client: Client) : Service(client) {
 
     /**
-     * GraphQL endpoint
-     *
      * Execute a GraphQL mutation.
      *
      * @param query The query or queries to execute.
@@ -50,8 +48,6 @@ class Graphql(client: Client) : Service(client) {
 
 
     /**
-     * GraphQL endpoint
-     *
      * Execute a GraphQL mutation.
      *
      * @param query The query or queries to execute.

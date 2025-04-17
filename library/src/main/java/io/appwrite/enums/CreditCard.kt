@@ -34,7 +34,9 @@ enum class CreditCard(val value: String) {
     @SerializedName("mir")
     MIR("mir"),
     @SerializedName("maestro")
-    MAESTRO("maestro");
+    MAESTRO("maestro"),
+    @SerializedName("rupay")
+    RUPAY("rupay");
 
     override fun toString() = value
 }
