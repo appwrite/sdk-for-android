@@ -16,8 +16,6 @@ import java.io.File
 class Databases(client: Client) : Service(client) {
 
     /**
-     * List documents
-     *
      * Get a list of all the user&#039;s documents in a given collection. You can use the query params to filter your results.
      *
      * @param databaseId Database ID.
@@ -40,7 +38,6 @@ class Databases(client: Client) : Service(client) {
             "queries" to queries,
         )
         val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -57,8 +54,6 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * List documents
-     *
      * Get a list of all the user&#039;s documents in a given collection. You can use the query params to filter your results.
      *
      * @param databaseId Database ID.
@@ -80,8 +75,6 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Create document
-     *
      * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
@@ -127,8 +120,6 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Create document
-     *
      * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
@@ -156,8 +147,6 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Get document
-     *
      * Get a document by its unique ID. This endpoint response returns a JSON object with the document data.
      *
      * @param databaseId Database ID.
@@ -183,7 +172,6 @@ class Databases(client: Client) : Service(client) {
             "queries" to queries,
         )
         val apiHeaders = mutableMapOf(
-            "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -200,8 +188,6 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Get document
-     *
      * Get a document by its unique ID. This endpoint response returns a JSON object with the document data.
      *
      * @param databaseId Database ID.
@@ -226,8 +212,6 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Update document
-     *
      * Update a document by its unique ID. Using the patch method you can pass only specific fields that will get updated.
      *
      * @param databaseId Database ID.
@@ -273,8 +257,6 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Update document
-     *
      * Update a document by its unique ID. Using the patch method you can pass only specific fields that will get updated.
      *
      * @param databaseId Database ID.
@@ -302,8 +284,6 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Delete document
-     *
      * Delete a document by its unique ID.
      *
      * @param databaseId Database ID.

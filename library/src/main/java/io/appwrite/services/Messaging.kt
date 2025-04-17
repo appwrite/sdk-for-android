@@ -16,8 +16,6 @@ import java.io.File
 class Messaging(client: Client) : Service(client) {
 
     /**
-     * Create subscriber
-     *
      * Create a new subscriber.
      *
      * @param topicId Topic ID. The topic ID to subscribe to.
@@ -56,8 +54,6 @@ class Messaging(client: Client) : Service(client) {
 
 
     /**
-     * Delete subscriber
-     *
      * Delete a subscriber by its unique ID.
      *
      * @param topicId Topic ID. The topic ID subscribed to.

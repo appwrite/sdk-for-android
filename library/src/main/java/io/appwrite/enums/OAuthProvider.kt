@@ -31,6 +31,8 @@ enum class OAuthProvider(val value: String) {
     ETSY("etsy"),
     @SerializedName("facebook")
     FACEBOOK("facebook"),
+    @SerializedName("figma")
+    FIGMA("figma"),
     @SerializedName("github")
     GITHUB("github"),
     @SerializedName("gitlab")
