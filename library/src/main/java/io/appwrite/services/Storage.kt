@@ -38,7 +38,7 @@ class Storage(client: Client) : Service(client) {
             "queries" to queries,
             "search" to search,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.FileList = {
             @Suppress("UNCHECKED_CAST")
@@ -80,7 +80,7 @@ class Storage(client: Client) : Service(client) {
             "file" to file,
             "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "multipart/form-data",
         )
         val converter: (Any) -> io.appwrite.models.File = {
@@ -119,7 +119,7 @@ class Storage(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.File = {
             @Suppress("UNCHECKED_CAST")
@@ -160,7 +160,7 @@ class Storage(client: Client) : Service(client) {
             "name" to name,
             "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
@@ -195,7 +195,7 @@ class Storage(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         return client.call(

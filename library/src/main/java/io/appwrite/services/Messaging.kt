@@ -35,7 +35,7 @@ class Messaging(client: Client) : Service(client) {
             "subscriberId" to subscriberId,
             "targetId" to targetId,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Subscriber = {
@@ -70,7 +70,7 @@ class Messaging(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         return client.call(
