@@ -39,7 +39,7 @@ import kotlin.coroutines.resume
 
 class Client @JvmOverloads constructor(
     context: Context,
-    var endpoint: String = "https://&lt;REGION&gt;.cloud.appwrite.io/v1",
+    var endpoint: String = "https://cloud.appwrite.io/v1",
     var endpointRealtime: String? = null,
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
