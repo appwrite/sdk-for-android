@@ -37,7 +37,7 @@ class Databases(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -102,7 +102,7 @@ class Databases(client: Client) : Service(client) {
             "data" to data,
             "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
@@ -171,7 +171,7 @@ class Databases(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -239,7 +239,7 @@ class Databases(client: Client) : Service(client) {
             "data" to data,
             "permissions" to permissions,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
@@ -303,7 +303,7 @@ class Databases(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         return client.call(

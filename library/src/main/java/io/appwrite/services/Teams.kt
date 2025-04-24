@@ -34,7 +34,7 @@ class Teams(client: Client) : Service(client) {
             "queries" to queries,
             "search" to search,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.TeamList<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -90,7 +90,7 @@ class Teams(client: Client) : Service(client) {
             "name" to name,
             "roles" to roles,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
@@ -143,7 +143,7 @@ class Teams(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -191,7 +191,7 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "name" to name,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
@@ -239,7 +239,7 @@ class Teams(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         return client.call(
@@ -273,7 +273,7 @@ class Teams(client: Client) : Service(client) {
             "queries" to queries,
             "search" to search,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.MembershipList = {
             @Suppress("UNCHECKED_CAST")
@@ -323,7 +323,7 @@ class Teams(client: Client) : Service(client) {
             "url" to url,
             "name" to name,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
@@ -358,7 +358,7 @@ class Teams(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
@@ -395,7 +395,7 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "roles" to roles,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
@@ -430,7 +430,7 @@ class Teams(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         return client.call(
@@ -466,7 +466,7 @@ class Teams(client: Client) : Service(client) {
             "userId" to userId,
             "secret" to secret,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
@@ -499,7 +499,7 @@ class Teams(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -547,7 +547,7 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "prefs" to prefs,
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {

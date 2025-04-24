@@ -26,7 +26,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.Locale = {
             @Suppress("UNCHECKED_CAST")
@@ -54,7 +54,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.LocaleCodeList = {
             @Suppress("UNCHECKED_CAST")
@@ -82,7 +82,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.ContinentList = {
             @Suppress("UNCHECKED_CAST")
@@ -110,7 +110,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
             @Suppress("UNCHECKED_CAST")
@@ -138,7 +138,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.CountryList = {
             @Suppress("UNCHECKED_CAST")
@@ -166,7 +166,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.PhoneList = {
             @Suppress("UNCHECKED_CAST")
@@ -194,7 +194,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.CurrencyList = {
             @Suppress("UNCHECKED_CAST")
@@ -222,7 +222,7 @@ class Locale(client: Client) : Service(client) {
 
         val apiParams = mutableMapOf<String, Any?>(
         )
-        val apiHeaders = mutableMapOf(
+        val apiHeaders = mutableMapOf<String, String>(
         )
         val converter: (Any) -> io.appwrite.models.LanguageList = {
             @Suppress("UNCHECKED_CAST")
