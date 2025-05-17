@@ -98,7 +98,7 @@ data class Execution(
     val errors: String,
 
     /**
-     * Function execution duration in seconds.
+     * Resource(function/site) execution duration in seconds.
      */
     @SerializedName("duration")
     val duration: Double,

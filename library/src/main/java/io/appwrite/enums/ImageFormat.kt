@@ -7,8 +7,6 @@ enum class ImageFormat(val value: String) {
     JPG("jpg"),
     @SerializedName("jpeg")
     JPEG("jpeg"),
-    @SerializedName("gif")
-    GIF("gif"),
     @SerializedName("png")
     PNG("png"),
     @SerializedName("webp")

@@ -23,7 +23,7 @@ class Avatars(client: Client) : Service(client) {
      * @param code Browser Code.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
      * @param height Image height. Pass an integer between 0 to 2000. Defaults to 100.
-     * @param quality Image quality. Pass an integer between 0 to 100. Defaults to 100.
+     * @param quality Image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
      * @return [ByteArray]
      */
     @JvmOverloads
@@ -57,7 +57,7 @@ class Avatars(client: Client) : Service(client) {
      * @param code Credit Card Code. Possible values: amex, argencard, cabal, cencosud, diners, discover, elo, hipercard, jcb, mastercard, naranja, targeta-shopping, union-china-pay, visa, mir, maestro, rupay.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
      * @param height Image height. Pass an integer between 0 to 2000. Defaults to 100.
-     * @param quality Image quality. Pass an integer between 0 to 100. Defaults to 100.
+     * @param quality Image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
      * @return [ByteArray]
      */
     @JvmOverloads
@@ -115,7 +115,7 @@ class Avatars(client: Client) : Service(client) {
      * @param code Country Code. ISO Alpha-2 country code format.
      * @param width Image width. Pass an integer between 0 to 2000. Defaults to 100.
      * @param height Image height. Pass an integer between 0 to 2000. Defaults to 100.
-     * @param quality Image quality. Pass an integer between 0 to 100. Defaults to 100.
+     * @param quality Image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
      * @return [ByteArray]
      */
     @JvmOverloads
