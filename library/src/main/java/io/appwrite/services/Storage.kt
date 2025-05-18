@@ -213,17 +213,21 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param fileId File ID.
+     * @param token File token for accessing this file.
      * @return [ByteArray]
      */
+    @JvmOverloads
     suspend fun getFileDownload(
         bucketId: String,
         fileId: String,
+        token: String? = null,
     ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/download"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
         val apiParams = mutableMapOf<String, Any?>(
+            "token" to token,
             "project" to client.config["project"],
         )
         return client.call(
@@ -243,7 +247,7 @@ class Storage(client: Client) : Service(client) {
      * @param width Resize preview image width, Pass an integer between 0 to 4000.
      * @param height Resize preview image height, Pass an integer between 0 to 4000.
      * @param gravity Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
-     * @param quality Preview image quality. Pass an integer between 0 to 100. Defaults to 100.
+     * @param quality Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
      * @param borderWidth Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
      * @param borderColor Preview image border color. Use a valid HEX color, no # is needed for prefix.
      * @param borderRadius Preview image border radius in pixels. Pass an integer between 0 to 4000.
@@ -251,6 +255,7 @@ class Storage(client: Client) : Service(client) {
      * @param rotation Preview image rotation in degrees. Pass an integer between -360 and 360.
      * @param background Preview image background color. Only works with transparent images (png). Use a valid HEX color, no # is needed for prefix.
      * @param output Output format type (jpeg, jpg, png, gif and webp).
+     * @param token File token for accessing this file.
      * @return [ByteArray]
      */
     @JvmOverloads
@@ -268,6 +273,7 @@ class Storage(client: Client) : Service(client) {
         rotation: Long? = null,
         background: String? = null,
         output: io.appwrite.enums.ImageFormat? = null,
+        token: String? = null,
     ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replace("{bucketId}", bucketId)
@@ -285,6 +291,7 @@ class Storage(client: Client) : Service(client) {
             "rotation" to rotation,
             "background" to background,
             "output" to output,
+            "token" to token,
             "project" to client.config["project"],
         )
         return client.call(
@@ -301,17 +308,21 @@ class Storage(client: Client) : Service(client) {
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param fileId File ID.
+     * @param token File token for accessing this file.
      * @return [ByteArray]
      */
+    @JvmOverloads
     suspend fun getFileView(
         bucketId: String,
         fileId: String,
+        token: String? = null,
     ): ByteArray {
         val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/view"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
 
         val apiParams = mutableMapOf<String, Any?>(
+            "token" to token,
             "project" to client.config["project"],
         )
         return client.call(
