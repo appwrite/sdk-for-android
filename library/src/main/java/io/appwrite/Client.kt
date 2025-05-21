@@ -154,6 +154,21 @@ class Client @JvmOverloads constructor(
     }
 
     /**
+     * Set DevKey
+     *
+     * Your secret dev API key
+     *
+     * @param {string} devkey
+     *
+     * @return this
+     */
+    fun setDevKey(value: String): Client {
+        config["devKey"] = value
+        addHeader("x-appwrite-dev-key", value)
+        return this
+    }
+
+    /**
      * Set self Signed
      *
      * @param status
