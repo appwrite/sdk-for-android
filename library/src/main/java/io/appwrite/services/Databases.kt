@@ -147,6 +147,64 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
+     * Create new Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
+     * @param documents Array of documents data as JSON objects.
+     * @return [io.appwrite.models.DocumentList<T>]
+     */
+    suspend fun <T> createDocuments(
+        databaseId: String,
+        collectionId: String,
+        documents: List<Any>,
+        nestedType: Class<T>,
+    ): io.appwrite.models.DocumentList<T> {
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
+            .replace("{databaseId}", databaseId)
+            .replace("{collectionId}", collectionId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "documents" to documents,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.DocumentList.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Create new Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
+     * @param documents Array of documents data as JSON objects.
+     * @return [io.appwrite.models.DocumentList<T>]
+     */
+    @Throws(AppwriteException::class)
+    suspend fun createDocuments(
+        databaseId: String,
+        collectionId: String,
+        documents: List<Any>,
+    ): io.appwrite.models.DocumentList<Map<String, Any>> = createDocuments(
+        databaseId,
+        collectionId,
+        documents,
+        nestedType = classOf(),
+    )
+
+    /**
      * Get a document by its unique ID. This endpoint response returns a JSON object with the document data.
      *
      * @param databaseId Database ID.
