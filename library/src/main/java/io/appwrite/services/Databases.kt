@@ -212,6 +212,78 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
+     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param data Document data as JSON object. Include all required attributes of the document to be created or updated.
+     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @JvmOverloads
+    suspend fun <T> upsertDocument(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        data: Any,
+        permissions: List<String>? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.Document<T> {
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+            .replace("{databaseId}", databaseId)
+            .replace("{collectionId}", collectionId)
+            .replace("{documentId}", documentId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "data" to data,
+            "permissions" to permissions,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param data Document data as JSON object. Include all required attributes of the document to be created or updated.
+     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun upsertDocument(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        data: Any,
+        permissions: List<String>? = null,
+    ): io.appwrite.models.Document<Map<String, Any>> = upsertDocument(
+        databaseId,
+        collectionId,
+        documentId,
+        data,
+        permissions,
+        nestedType = classOf(),
+    )
+
+    /**
      * Update a document by its unique ID. Using the patch method you can pass only specific fields that will get updated.
      *
      * @param databaseId Database ID.
