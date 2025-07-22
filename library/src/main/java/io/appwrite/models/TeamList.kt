@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class TeamList<T>(
     /**
-     * Total number of teams documents that matched your query.
+     * Total number of teams rows that matched your query.
      */
     @SerializedName("total")
     val total: Long,

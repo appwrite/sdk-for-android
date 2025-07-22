@@ -1,6 +1,6 @@
 import io.appwrite.Client
 import io.appwrite.coroutines.CoroutineCallback
-import io.appwrite.services.Databases
+import io.appwrite.services.Tables
 
 val client = Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -8,12 +8,12 @@ val client = Client(context)
     .setKey("") // 
     .setJWT("<YOUR_JWT>") // Your secret JSON Web Token
 
-val databases = Databases(client)
+val tables = Tables(client)
 
-val result = databases.createDocument(
+val result = tables.createRow(
     databaseId = "<DATABASE_ID>", 
-    collectionId = "<COLLECTION_ID>", 
-    documentId = "<DOCUMENT_ID>", 
+    tableId = "<TABLE_ID>", 
+    rowId = "<ROW_ID>", 
     data = mapOf( "a" to "b" ), 
     permissions = listOf("read("any")"), // (optional)
 )

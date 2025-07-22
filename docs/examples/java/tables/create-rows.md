@@ -1,20 +1,18 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
-import io.appwrite.services.Databases;
+import io.appwrite.services.Tables;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
-    .setProject("<YOUR_PROJECT_ID>"); // Your project ID
+    .setAdmin("") // 
+    .setKey(""); // 
 
-Databases databases = new Databases(client);
+Tables tables = new Tables(client);
 
-databases.decrementDocumentAttribute(
+tables.createRows(
     "<DATABASE_ID>", // databaseId 
-    "<COLLECTION_ID>", // collectionId 
-    "<DOCUMENT_ID>", // documentId 
-    "", // attribute 
-    0, // value (optional)
-    0, // min (optional)
+    "<TABLE_ID>", // tableId 
+    listOf(), // rows 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -1,21 +1,17 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
-import io.appwrite.services.Databases;
+import io.appwrite.services.Tables;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
-    .setSession("") // The user session to authenticate with
-    .setKey("") // 
-    .setJWT("<YOUR_JWT>"); // Your secret JSON Web Token
+    .setProject("<YOUR_PROJECT_ID>"); // Your project ID
 
-Databases databases = new Databases(client);
+Tables tables = new Tables(client);
 
-databases.createDocument(
+tables.listRows(
     "<DATABASE_ID>", // databaseId 
-    "<COLLECTION_ID>", // collectionId 
-    "<DOCUMENT_ID>", // documentId 
-    mapOf( "a" to "b" ), // data 
-    listOf("read("any")"), // permissions (optional)
+    "<TABLE_ID>", // tableId 
+    listOf(), // queries (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

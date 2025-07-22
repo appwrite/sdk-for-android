@@ -23,6 +23,11 @@ class Databases(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.DocumentList<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.listRows` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.listRows"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     suspend fun <T> listDocuments(
         databaseId: String,
@@ -61,6 +66,11 @@ class Databases(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.DocumentList<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.listRows` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.listRows"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listDocuments(
@@ -84,6 +94,11 @@ class Databases(client: Client) : Service(client) {
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.createRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.createRow"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     suspend fun <T> createDocument(
         databaseId: String,
@@ -129,6 +144,11 @@ class Databases(client: Client) : Service(client) {
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.createRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.createRow"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createDocument(
@@ -155,6 +175,11 @@ class Databases(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.Document<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.getRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.getRow"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     suspend fun <T> getDocument(
         databaseId: String,
@@ -196,6 +221,11 @@ class Databases(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.Document<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.getRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.getRow"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getDocument(
@@ -217,17 +247,17 @@ class Databases(client: Client) : Service(client) {
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
-     * @param data Document data as JSON object. Include all required attributes of the document to be created or updated.
-     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
-    @JvmOverloads
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.upsertRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.upsertRow"),
+        since = "1.8.0"
+    )
     suspend fun <T> upsertDocument(
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
-        permissions: List<String>? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
@@ -236,8 +266,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{documentId}", documentId)
 
         val apiParams = mutableMapOf<String, Any?>(
-            "data" to data,
-            "permissions" to permissions,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
@@ -262,24 +290,22 @@ class Databases(client: Client) : Service(client) {
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
-     * @param data Document data as JSON object. Include all required attributes of the document to be created or updated.
-     * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
-    @JvmOverloads
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.upsertRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.upsertRow"),
+        since = "1.8.0"
+    )
     @Throws(AppwriteException::class)
     suspend fun upsertDocument(
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
-        permissions: List<String>? = null,
     ): io.appwrite.models.Document<Map<String, Any>> = upsertDocument(
         databaseId,
         collectionId,
         documentId,
-        data,
-        permissions,
         nestedType = classOf(),
     )
 
@@ -293,6 +319,11 @@ class Databases(client: Client) : Service(client) {
      * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.updateRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.updateRow"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     suspend fun <T> updateDocument(
         databaseId: String,
@@ -338,6 +369,11 @@ class Databases(client: Client) : Service(client) {
      * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.Document<T>]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.updateRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.updateRow"),
+        since = "1.8.0"
+    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateDocument(
@@ -363,6 +399,11 @@ class Databases(client: Client) : Service(client) {
      * @param documentId Document ID.
      * @return [Any]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Tables.deleteRow` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Tables.deleteRow"),
+        since = "1.8.0"
+    )
     suspend fun deleteDocument(
         databaseId: String,
         collectionId: String,
@@ -387,161 +428,5 @@ class Databases(client: Client) : Service(client) {
         )
     }
 
-
-    /**
-     * Decrement a specific attribute of a document by a given value.
-     *
-     * @param databaseId Database ID.
-     * @param collectionId Collection ID.
-     * @param documentId Document ID.
-     * @param attribute Attribute key.
-     * @param value Value to decrement the attribute by. The value must be a number.
-     * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
-     * @return [io.appwrite.models.Document<T>]
-     */
-    @JvmOverloads
-    suspend fun <T> decrementDocumentAttribute(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        attribute: String,
-        value: Double? = null,
-        min: Double? = null,
-        nestedType: Class<T>,
-    ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
-            .replace("{databaseId}", databaseId)
-            .replace("{collectionId}", collectionId)
-            .replace("{documentId}", documentId)
-            .replace("{attribute}", attribute)
-
-        val apiParams = mutableMapOf<String, Any?>(
-            "value" to value,
-            "min" to min,
-        )
-        val apiHeaders = mutableMapOf<String, String>(
-            "content-type" to "application/json",
-        )
-        val converter: (Any) -> io.appwrite.models.Document<T> = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
-        }
-        return client.call(
-            "PATCH",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = classOf(),
-            converter,
-        )
-    }
-
-    /**
-     * Decrement a specific attribute of a document by a given value.
-     *
-     * @param databaseId Database ID.
-     * @param collectionId Collection ID.
-     * @param documentId Document ID.
-     * @param attribute Attribute key.
-     * @param value Value to decrement the attribute by. The value must be a number.
-     * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
-     * @return [io.appwrite.models.Document<T>]
-     */
-    @JvmOverloads
-    @Throws(AppwriteException::class)
-    suspend fun decrementDocumentAttribute(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        attribute: String,
-        value: Double? = null,
-        min: Double? = null,
-    ): io.appwrite.models.Document<Map<String, Any>> = decrementDocumentAttribute(
-        databaseId,
-        collectionId,
-        documentId,
-        attribute,
-        value,
-        min,
-        nestedType = classOf(),
-    )
-
-    /**
-     * Increment a specific attribute of a document by a given value.
-     *
-     * @param databaseId Database ID.
-     * @param collectionId Collection ID.
-     * @param documentId Document ID.
-     * @param attribute Attribute key.
-     * @param value Value to increment the attribute by. The value must be a number.
-     * @param max Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
-     * @return [io.appwrite.models.Document<T>]
-     */
-    @JvmOverloads
-    suspend fun <T> incrementDocumentAttribute(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        attribute: String,
-        value: Double? = null,
-        max: Double? = null,
-        nestedType: Class<T>,
-    ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
-            .replace("{databaseId}", databaseId)
-            .replace("{collectionId}", collectionId)
-            .replace("{documentId}", documentId)
-            .replace("{attribute}", attribute)
-
-        val apiParams = mutableMapOf<String, Any?>(
-            "value" to value,
-            "max" to max,
-        )
-        val apiHeaders = mutableMapOf<String, String>(
-            "content-type" to "application/json",
-        )
-        val converter: (Any) -> io.appwrite.models.Document<T> = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
-        }
-        return client.call(
-            "PATCH",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = classOf(),
-            converter,
-        )
-    }
-
-    /**
-     * Increment a specific attribute of a document by a given value.
-     *
-     * @param databaseId Database ID.
-     * @param collectionId Collection ID.
-     * @param documentId Document ID.
-     * @param attribute Attribute key.
-     * @param value Value to increment the attribute by. The value must be a number.
-     * @param max Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
-     * @return [io.appwrite.models.Document<T>]
-     */
-    @JvmOverloads
-    @Throws(AppwriteException::class)
-    suspend fun incrementDocumentAttribute(
-        databaseId: String,
-        collectionId: String,
-        documentId: String,
-        attribute: String,
-        value: Double? = null,
-        max: Double? = null,
-    ): io.appwrite.models.Document<Map<String, Any>> = incrementDocumentAttribute(
-        databaseId,
-        collectionId,
-        documentId,
-        attribute,
-        value,
-        max,
-        nestedType = classOf(),
-    )
 
 }
