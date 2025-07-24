@@ -1,17 +1,18 @@
 import io.appwrite.Client
 import io.appwrite.coroutines.CoroutineCallback
-import io.appwrite.services.Tables
+import io.appwrite.services.Databases
 
 val client = Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
 
-val tables = Tables(client)
+val databases = Databases(client)
 
-val result = tables.updateRow(
+val result = databases.decrementDocumentAttribute(
     databaseId = "<DATABASE_ID>", 
-    tableId = "<TABLE_ID>", 
-    rowId = "<ROW_ID>", 
-    data = mapOf( "a" to "b" ), // (optional)
-    permissions = listOf("read("any")"), // (optional)
+    collectionId = "<COLLECTION_ID>", 
+    documentId = "<DOCUMENT_ID>", 
+    attribute = "", 
+    value = 0, // (optional)
+    min = 0, // (optional)
 )

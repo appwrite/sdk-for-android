@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class PhoneList(
     /**
-     * Total number of phones rows that matched your query.
+     * Total number of phones documents that matched your query.
      */
     @SerializedName("total")
     val total: Long,
