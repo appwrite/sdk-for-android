@@ -14,6 +14,12 @@ data class Document<T>(
     val id: String,
 
     /**
+     * Document automatically incrementing ID.
+     */
+    @SerializedName("\$sequence")
+    val sequence: Long,
+
+    /**
      * Collection ID.
      */
     @SerializedName("\$collectionId")
@@ -51,6 +57,7 @@ data class Document<T>(
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
+        "\$sequence" to sequence as Any,
         "\$collectionId" to collectionId as Any,
         "\$databaseId" to databaseId as Any,
         "\$createdAt" to createdAt as Any,
@@ -62,6 +69,7 @@ data class Document<T>(
     companion object {
         operator fun invoke(
             id: String,
+            sequence: Long,
             collectionId: String,
             databaseId: String,
             createdAt: String,
@@ -70,6 +78,7 @@ data class Document<T>(
             data: Map<String, Any>
         ) = Document<Map<String, Any>>(
             id,
+            sequence,
             collectionId,
             databaseId,
             createdAt,
@@ -84,6 +93,7 @@ data class Document<T>(
             nestedType: Class<T>
         ) = Document<T>(
             id = map["\$id"] as String,
+            sequence = (map["\$sequence"] as Number).toLong(),
             collectionId = map["\$collectionId"] as String,
             databaseId = map["\$databaseId"] as String,
             createdAt = map["\$createdAt"] as String,

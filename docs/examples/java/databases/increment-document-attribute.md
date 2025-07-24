@@ -8,12 +8,13 @@ Client client = new Client(context)
 
 Databases databases = new Databases(client);
 
-databases.createDocument(
+databases.incrementDocumentAttribute(
     "<DATABASE_ID>", // databaseId 
     "<COLLECTION_ID>", // collectionId 
     "<DOCUMENT_ID>", // documentId 
-    mapOf( "a" to "b" ), // data 
-    listOf("read("any")"), // permissions (optional)
+    "", // attribute 
+    0, // value (optional)
+    0, // max (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

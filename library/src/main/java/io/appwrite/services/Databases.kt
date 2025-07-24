@@ -212,7 +212,7 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * **WARNING: Experimental Feature** - This endpoint is experimental and not yet officially supported. It may be subject to breaking changes or removal in future versions.Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
@@ -257,7 +257,7 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * **WARNING: Experimental Feature** - This endpoint is experimental and not yet officially supported. It may be subject to breaking changes or removal in future versions.Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
@@ -387,5 +387,161 @@ class Databases(client: Client) : Service(client) {
         )
     }
 
+
+    /**
+     * Decrement a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to decrement the attribute by. The value must be a number.
+     * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @JvmOverloads
+    suspend fun <T> decrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        min: Double? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.Document<T> {
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
+            .replace("{databaseId}", databaseId)
+            .replace("{collectionId}", collectionId)
+            .replace("{documentId}", documentId)
+            .replace("{attribute}", attribute)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "value" to value,
+            "min" to min,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Decrement a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to decrement the attribute by. The value must be a number.
+     * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun decrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        min: Double? = null,
+    ): io.appwrite.models.Document<Map<String, Any>> = decrementDocumentAttribute(
+        databaseId,
+        collectionId,
+        documentId,
+        attribute,
+        value,
+        min,
+        nestedType = classOf(),
+    )
+
+    /**
+     * Increment a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to increment the attribute by. The value must be a number.
+     * @param max Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @JvmOverloads
+    suspend fun <T> incrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        max: Double? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.Document<T> {
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
+            .replace("{databaseId}", databaseId)
+            .replace("{collectionId}", collectionId)
+            .replace("{documentId}", documentId)
+            .replace("{attribute}", attribute)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "value" to value,
+            "max" to max,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Increment a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to increment the attribute by. The value must be a number.
+     * @param max Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun incrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        max: Double? = null,
+    ): io.appwrite.models.Document<Map<String, Any>> = incrementDocumentAttribute(
+        databaseId,
+        collectionId,
+        documentId,
+        attribute,
+        value,
+        max,
+        nestedType = classOf(),
+    )
 
 }

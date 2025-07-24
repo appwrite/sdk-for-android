@@ -8,10 +8,11 @@ val client = Client(context)
 
 val databases = Databases(client)
 
-val result = databases.createDocument(
+val result = databases.incrementDocumentAttribute(
     databaseId = "<DATABASE_ID>", 
     collectionId = "<COLLECTION_ID>", 
     documentId = "<DOCUMENT_ID>", 
-    data = mapOf( "a" to "b" ), 
-    permissions = listOf("read("any")"), // (optional)
+    attribute = "", 
+    value = 0, // (optional)
+    max = 0, // (optional)
 )
