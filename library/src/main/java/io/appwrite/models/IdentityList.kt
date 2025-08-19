@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class IdentityList(
     /**
-     * Total number of identities documents that matched your query.
+     * Total number of identities rows that matched your query.
      */
     @SerializedName("total")
     val total: Long,

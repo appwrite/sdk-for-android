@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class ExecutionList(
     /**
-     * Total number of executions documents that matched your query.
+     * Total number of executions rows that matched your query.
      */
     @SerializedName("total")
     val total: Long,

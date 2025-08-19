@@ -87,8 +87,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "8.2.2",
-            "x-appwrite-response-format" to "1.7.0"
+            "x-sdk-version" to "9.0.0",
+            "x-appwrite-response-format" to "1.8.0"
         )
         config = mutableMapOf()
 

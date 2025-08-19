@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class SessionList(
     /**
-     * Total number of sessions documents that matched your query.
+     * Total number of sessions rows that matched your query.
      */
     @SerializedName("total")
     val total: Long,
