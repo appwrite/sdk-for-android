@@ -388,4 +388,160 @@ class TablesDb(client: Client) : Service(client) {
     }
 
 
+    /**
+     * Decrement a specific column of a row by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param tableId Table ID.
+     * @param rowId Row ID.
+     * @param column Column key.
+     * @param value Value to increment the column by. The value must be a number.
+     * @param min Minimum value for the column. If the current value is lesser than this value, an exception will be thrown.
+     * @return [io.appwrite.models.Row<T>]
+     */
+    @JvmOverloads
+    suspend fun <T> decrementRowColumn(
+        databaseId: String,
+        tableId: String,
+        rowId: String,
+        column: String,
+        value: Double? = null,
+        min: Double? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.Row<T> {
+        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/decrement"
+            .replace("{databaseId}", databaseId)
+            .replace("{tableId}", tableId)
+            .replace("{rowId}", rowId)
+            .replace("{column}", column)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "value" to value,
+            "min" to min,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Row<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Row.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Decrement a specific column of a row by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param tableId Table ID.
+     * @param rowId Row ID.
+     * @param column Column key.
+     * @param value Value to increment the column by. The value must be a number.
+     * @param min Minimum value for the column. If the current value is lesser than this value, an exception will be thrown.
+     * @return [io.appwrite.models.Row<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun decrementRowColumn(
+        databaseId: String,
+        tableId: String,
+        rowId: String,
+        column: String,
+        value: Double? = null,
+        min: Double? = null,
+    ): io.appwrite.models.Row<Map<String, Any>> = decrementRowColumn(
+        databaseId,
+        tableId,
+        rowId,
+        column,
+        value,
+        min,
+        nestedType = classOf(),
+    )
+
+    /**
+     * Increment a specific column of a row by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param tableId Table ID.
+     * @param rowId Row ID.
+     * @param column Column key.
+     * @param value Value to increment the column by. The value must be a number.
+     * @param max Maximum value for the column. If the current value is greater than this value, an error will be thrown.
+     * @return [io.appwrite.models.Row<T>]
+     */
+    @JvmOverloads
+    suspend fun <T> incrementRowColumn(
+        databaseId: String,
+        tableId: String,
+        rowId: String,
+        column: String,
+        value: Double? = null,
+        max: Double? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.Row<T> {
+        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/increment"
+            .replace("{databaseId}", databaseId)
+            .replace("{tableId}", tableId)
+            .replace("{rowId}", rowId)
+            .replace("{column}", column)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "value" to value,
+            "max" to max,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Row<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Row.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Increment a specific column of a row by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param tableId Table ID.
+     * @param rowId Row ID.
+     * @param column Column key.
+     * @param value Value to increment the column by. The value must be a number.
+     * @param max Maximum value for the column. If the current value is greater than this value, an error will be thrown.
+     * @return [io.appwrite.models.Row<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun incrementRowColumn(
+        databaseId: String,
+        tableId: String,
+        rowId: String,
+        column: String,
+        value: Double? = null,
+        max: Double? = null,
+    ): io.appwrite.models.Row<Map<String, Any>> = incrementRowColumn(
+        databaseId,
+        tableId,
+        rowId,
+        column,
+        value,
+        max,
+        nestedType = classOf(),
+    )
+
 }

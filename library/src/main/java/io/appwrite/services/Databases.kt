@@ -443,4 +443,180 @@ class Databases(client: Client) : Service(client) {
     }
 
 
+    /**
+     * Decrement a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to increment the attribute by. The value must be a number.
+     * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDb.decrementRowColumn` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDb.decrementRowColumn"),
+        since = "1.8.0"
+    )
+    @JvmOverloads
+    suspend fun <T> decrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        min: Double? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.Document<T> {
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
+            .replace("{databaseId}", databaseId)
+            .replace("{collectionId}", collectionId)
+            .replace("{documentId}", documentId)
+            .replace("{attribute}", attribute)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "value" to value,
+            "min" to min,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Decrement a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to increment the attribute by. The value must be a number.
+     * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDb.decrementRowColumn` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDb.decrementRowColumn"),
+        since = "1.8.0"
+    )
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun decrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        min: Double? = null,
+    ): io.appwrite.models.Document<Map<String, Any>> = decrementDocumentAttribute(
+        databaseId,
+        collectionId,
+        documentId,
+        attribute,
+        value,
+        min,
+        nestedType = classOf(),
+    )
+
+    /**
+     * Increment a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to increment the attribute by. The value must be a number.
+     * @param max Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDb.incrementRowColumn` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDb.incrementRowColumn"),
+        since = "1.8.0"
+    )
+    @JvmOverloads
+    suspend fun <T> incrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        max: Double? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.Document<T> {
+        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
+            .replace("{databaseId}", databaseId)
+            .replace("{collectionId}", collectionId)
+            .replace("{documentId}", documentId)
+            .replace("{attribute}", attribute)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "value" to value,
+            "max" to max,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Document<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Document.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Increment a specific attribute of a document by a given value.
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID.
+     * @param documentId Document ID.
+     * @param attribute Attribute key.
+     * @param value Value to increment the attribute by. The value must be a number.
+     * @param max Maximum value for the attribute. If the current value is greater than this value, an error will be thrown.
+     * @return [io.appwrite.models.Document<T>]
+     */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDb.incrementRowColumn` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDb.incrementRowColumn"),
+        since = "1.8.0"
+    )
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun incrementDocumentAttribute(
+        databaseId: String,
+        collectionId: String,
+        documentId: String,
+        attribute: String,
+        value: Double? = null,
+        max: Double? = null,
+    ): io.appwrite.models.Document<Map<String, Any>> = incrementDocumentAttribute(
+        databaseId,
+        collectionId,
+        documentId,
+        attribute,
+        value,
+        max,
+        nestedType = classOf(),
+    )
+
 }
