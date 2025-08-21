@@ -11,12 +11,14 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Locale service allows you to customize your app based on your users&#039; location.
+ * The Locale service allows you to customize your app based on your users' location.
 **/
 class Locale(client: Client) : Service(client) {
 
     /**
-     * Get the current user location based on IP. Returns an object with user country code, country name, continent name, continent code, ip address and suggested currency. You can use the locale header to get the data in a supported language.([IP Geolocation by DB-IP](https://db-ip.com))
+     * Get the current user location based on IP. Returns an object with user country code, country name, continent name, continent code, ip address and suggested currency. You can use the locale header to get the data in a supported language.
+    * 
+    * ([IP Geolocation by DB-IP](https://db-ip.com))
      *
      * @return [io.appwrite.models.Locale]
      */

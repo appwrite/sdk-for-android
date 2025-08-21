@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class LanguageList(
     /**
-     * Total number of languages rows that matched your query.
+     * Total number of languages that matched your query.
      */
     @SerializedName("total")
     val total: Long,

@@ -1,14 +1,14 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
-import io.appwrite.services.TablesDb;
+import io.appwrite.services.TablesDB;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>"); // Your project ID
 
-TablesDb tablesDb = new TablesDb(client);
+TablesDB tablesDB = new TablesDB(client);
 
-tablesDb.upsertRow(
+tablesDB.upsertRow(
     "<DATABASE_ID>", // databaseId 
     "<TABLE_ID>", // tableId 
     "<ROW_ID>", // rowId 

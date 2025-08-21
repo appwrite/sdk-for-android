@@ -1,15 +1,14 @@
 import io.appwrite.Client
 import io.appwrite.coroutines.CoroutineCallback
-import io.appwrite.services.TablesDB
+import io.appwrite.services.Account
 
 val client = Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
 
-val tablesDB = TablesDB(client)
+val account = Account(client)
 
-val result = tablesDB.listRows(
-    databaseId = "<DATABASE_ID>", 
-    tableId = "<TABLE_ID>", 
-    queries = listOf(), // (optional)
+val result = account.updateMFAChallenge(
+    challengeId = "<CHALLENGE_ID>", 
+    otp = "<OTP>", 
 )

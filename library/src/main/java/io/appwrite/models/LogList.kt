@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class LogList(
     /**
-     * Total number of logs rows that matched your query.
+     * Total number of logs that matched your query.
      */
     @SerializedName("total")
     val total: Long,

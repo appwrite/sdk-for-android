@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class RowList<T>(
     /**
-     * Total number of rows rows that matched your query.
+     * Total number of rows that matched your query.
      */
     @SerializedName("total")
     val total: Long,

@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class CurrencyList(
     /**
-     * Total number of currencies rows that matched your query.
+     * Total number of currencies that matched your query.
      */
     @SerializedName("total")
     val total: Long,

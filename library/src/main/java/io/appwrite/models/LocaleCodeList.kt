@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class LocaleCodeList(
     /**
-     * Total number of localeCodes rows that matched your query.
+     * Total number of localeCodes that matched your query.
      */
     @SerializedName("total")
     val total: Long,

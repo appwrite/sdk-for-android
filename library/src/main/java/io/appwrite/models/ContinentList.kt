@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class ContinentList(
     /**
-     * Total number of continents rows that matched your query.
+     * Total number of continents that matched your query.
      */
     @SerializedName("total")
     val total: Long,

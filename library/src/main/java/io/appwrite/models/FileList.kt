@@ -8,7 +8,7 @@ import io.appwrite.extensions.jsonCast
  */
 data class FileList(
     /**
-     * Total number of files rows that matched your query.
+     * Total number of files that matched your query.
      */
     @SerializedName("total")
     val total: Long,
