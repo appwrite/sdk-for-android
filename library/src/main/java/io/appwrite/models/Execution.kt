@@ -38,6 +38,12 @@ data class Execution(
     val functionId: String,
 
     /**
+     * Function&#039;s deployment ID used to create the execution.
+     */
+    @SerializedName("deploymentId")
+    val deploymentId: String,
+
+    /**
      * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
      */
     @SerializedName("trigger")
@@ -116,6 +122,7 @@ data class Execution(
         "\$updatedAt" to updatedAt as Any,
         "\$permissions" to permissions as Any,
         "functionId" to functionId as Any,
+        "deploymentId" to deploymentId as Any,
         "trigger" to trigger as Any,
         "status" to status as Any,
         "requestMethod" to requestMethod as Any,
@@ -141,6 +148,7 @@ data class Execution(
             updatedAt = map["\$updatedAt"] as String,
             permissions = map["\$permissions"] as List<String>,
             functionId = map["functionId"] as String,
+            deploymentId = map["deploymentId"] as String,
             trigger = map["trigger"] as String,
             status = map["status"] as String,
             requestMethod = map["requestMethod"] as String,
