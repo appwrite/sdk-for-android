@@ -12,7 +12,7 @@ import java.io.File
 
 /**
  * 
-**/
+ */
 class TablesDB(client: Client) : Service(client) {
 
     /**
@@ -54,7 +54,7 @@ class TablesDB(client: Client) : Service(client) {
     }
 
     /**
-     * Get a list of all the user&#039;s rows in a given table. You can use the query params to filter your results.
+     * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
      * @param databaseId Database ID.
      * @param tableId Table ID. You can create a new table using the TableDB service [server integration](https://appwrite.io/docs/server/tablesdbdb#tablesdbCreate).

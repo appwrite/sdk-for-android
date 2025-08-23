@@ -12,7 +12,7 @@ import java.io.File
 
 /**
  * The Functions Service allows you view, create and manage your Cloud Functions.
-**/
+ */
 class Functions(client: Client) : Service(client) {
 
     /**

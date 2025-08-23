@@ -12,7 +12,7 @@ import java.io.File
 
 /**
  * The Databases service allows you to create structured collections of documents, query and filter lists of documents
-**/
+ */
 class Databases(client: Client) : Service(client) {
 
     /**
@@ -59,7 +59,7 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Get a list of all the user&#039;s documents in a given collection. You can use the query params to filter your results.
+     * Get a list of all the user's documents in a given collection. You can use the query params to filter your results.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).

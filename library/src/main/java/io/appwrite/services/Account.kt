@@ -16,7 +16,7 @@ import java.io.File
 
 /**
  * The Account service allows you to authenticate and manage a user account.
-**/
+ */
 class Account(client: Client) : Service(client) {
 
     /**
@@ -126,8 +126,8 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Update currently logged in user account email address. After changing user address, the user confirmation status will get reset. A new confirmation email is not sent automatically however you can use the send confirmation email endpoint again to send the confirmation email. For security measures, user password is required to complete this request.
-    * This endpoint can also be used to convert an anonymous account to a normal one, by passing an email address and a new password.
-    * 
+     * This endpoint can also be used to convert an anonymous account to a normal one, by passing an email address and a new password.
+     * 
      *
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
@@ -162,7 +162,9 @@ class Account(client: Client) : Service(client) {
     }
 
     /**
-     * Update currently logged in user account email address. After changing user address, the user confirmation status will get reset. A new confirmation email is not sent automatically however you can use the send confirmation email endpoint again to send the confirmation email. For security measures, user password is required to complete this request.This endpoint can also be used to convert an anonymous account to a normal one, by passing an email address and a new password.
+     * Update currently logged in user account email address. After changing user address, the user confirmation status will get reset. A new confirmation email is not sent automatically however you can use the send confirmation email endpoint again to send the confirmation email. For security measures, user password is required to complete this request.
+     * This endpoint can also be used to convert an anonymous account to a normal one, by passing an email address and a new password.
+     * 
      *
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
@@ -351,8 +353,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaType]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `CreateMFAAuthenticator` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.CreateMFAAuthenticator"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.createMFAAuthenticator` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.createMFAAuthenticator"),
         since = "1.8.0"
     )
     suspend fun createMfaAuthenticator(
@@ -421,8 +423,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `UpdateMFAAuthenticator` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.UpdateMFAAuthenticator"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.updateMFAAuthenticator` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.updateMFAAuthenticator"),
         since = "1.8.0"
     )
     suspend fun <T> updateMfaAuthenticator(
@@ -461,8 +463,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.User<T>]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `UpdateMFAAuthenticator` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.UpdateMFAAuthenticator"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.updateMFAAuthenticator` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.updateMFAAuthenticator"),
         since = "1.8.0"
     )
     @Throws(AppwriteException::class)
@@ -534,8 +536,8 @@ class Account(client: Client) : Service(client) {
      * @return [Any]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `DeleteMFAAuthenticator` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.DeleteMFAAuthenticator"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.deleteMFAAuthenticator` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.deleteMFAAuthenticator"),
         since = "1.8.0"
     )
     suspend fun deleteMfaAuthenticator(
@@ -593,8 +595,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaChallenge]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `CreateMFAChallenge` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.CreateMFAChallenge"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.createMFAChallenge` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.createMFAChallenge"),
         since = "1.8.0"
     )
     suspend fun createMfaChallenge(
@@ -663,8 +665,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.Session]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `UpdateMFAChallenge` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.UpdateMFAChallenge"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.updateMFAChallenge` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.updateMFAChallenge"),
         since = "1.8.0"
     )
     suspend fun updateMfaChallenge(
@@ -736,8 +738,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaFactors]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `ListMFAFactors` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.ListMFAFactors"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.listMFAFactors` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.listMFAFactors"),
         since = "1.8.0"
     )
     suspend fun listMfaFactors(
@@ -797,8 +799,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaRecoveryCodes]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `GetMFARecoveryCodes` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.GetMFARecoveryCodes"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.getMFARecoveryCodes` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.getMFARecoveryCodes"),
         since = "1.8.0"
     )
     suspend fun getMfaRecoveryCodes(
@@ -858,8 +860,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaRecoveryCodes]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `CreateMFARecoveryCodes` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.CreateMFARecoveryCodes"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.createMFARecoveryCodes` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.createMFARecoveryCodes"),
         since = "1.8.0"
     )
     suspend fun createMfaRecoveryCodes(
@@ -921,8 +923,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.MfaRecoveryCodes]
      */
     @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `UpdateMFARecoveryCodes` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.UpdateMFARecoveryCodes"),
+        message = "This API has been deprecated since 1.8.0. Please use `Account.updateMFARecoveryCodes` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.updateMFARecoveryCodes"),
         since = "1.8.0"
     )
     suspend fun updateMfaRecoveryCodes(
@@ -1114,7 +1116,7 @@ class Account(client: Client) : Service(client) {
     }
 
     /**
-     * Update the currently logged in user&#039;s phone number. After updating the phone number, the phone verification status will be reset. A confirmation SMS is not sent automatically, however you can use the [POST /account/verification/phone](https://appwrite.io/docs/references/cloud/client-web/account#createPhoneVerification) endpoint to send a confirmation SMS.
+     * Update the currently logged in user's phone number. After updating the phone number, the phone verification status will be reset. A confirmation SMS is not sent automatically, however you can use the [POST /account/verification/phone](https://appwrite.io/docs/references/cloud/client-web/account#createPhoneVerification) endpoint to send a confirmation SMS.
      *
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param password User password. Must be at least 8 chars.
@@ -1252,8 +1254,8 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Use this endpoint to complete the user account password reset. Both the **userId** and **secret** arguments will be passed as query parameters to the redirect URL you have provided when sending your request to the [POST /account/recovery](https://appwrite.io/docs/references/cloud/client-web/account#createRecovery) endpoint.
-    * 
-    * Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) the only valid redirect URLs are the ones from domains you have set when adding your platforms in the console interface.
+     * 
+     * Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) the only valid redirect URLs are the ones from domains you have set when adding your platforms in the console interface.
      *
      * @param userId User ID.
      * @param secret Valid reset token.
@@ -1373,8 +1375,8 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Allow the user to login into their account by providing a valid email and password combination. This route will create a new session for the user.
-    * 
-    * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
      * @param email User email.
      * @param password User password. Must be at least 8 chars.
@@ -1448,11 +1450,11 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Allow the user to login to their account using the OAuth2 provider of their choice. Each OAuth2 provider should be enabled from the Appwrite console first. Use the success and failure arguments to provide a redirect URL's back to your app when login is completed.
-    * 
-    * If there is already an active session, the new session will be attached to the logged-in account. If there are no active sessions, the server will attempt to look for a user with the same email address as the email received from the OAuth2 provider and attach the new session to the existing user. If no matching user is found - the server will create a new user.
-    * 
-    * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
-    * 
+     * 
+     * If there is already an active session, the new session will be attached to the logged-in account. If there are no active sessions, the server will attempt to look for a user with the same email address as the email received from the OAuth2 provider and attach the new session to the existing user. If no matching user is found - the server will create a new user.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
      *
      * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
@@ -1829,9 +1831,9 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Sends the user an email with a secret key for creating a session. If the email address has never been used, a **new account is created** using the provided `userId`. Otherwise, if the email address is already attached to an account, the **user ID is ignored**. Then, the user will receive an email with the one-time password. Use the returned user ID and secret and submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The secret sent to the user's email is valid for 15 minutes.
-    * 
-    * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
-    * 
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
      *
      * @param userId User ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars. If the email address has never been used, a new account is created using the provided userId. Otherwise, if the email address is already attached to an account, the user ID is ignored.
      * @param email User email.
@@ -1871,9 +1873,9 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Sends the user an email with a secret key for creating a session. If the provided user ID has not been registered, a new user will be created. When the user clicks the link in the email, the user is redirected back to the URL you provided with the secret key and userId values attached to the URL query string. Use the query string parameters to submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The link sent to the user's email address is valid for 1 hour.
-    * 
-    * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
-    * 
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
      *
      * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars. If the email address has never been used, a new account is created using the provided userId. Otherwise, if the email address is already attached to an account, the user ID is ignored.
      * @param email User email.
@@ -1916,10 +1918,10 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Allow the user to login to their account using the OAuth2 provider of their choice. Each OAuth2 provider should be enabled from the Appwrite console first. Use the success and failure arguments to provide a redirect URL's back to your app when login is completed. 
-    * 
-    * If authentication succeeds, `userId` and `secret` of a token will be appended to the success URL as query parameters. These can be used to create a new session using the [Create session](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint.
-    * 
-    * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
+     * If authentication succeeds, `userId` and `secret` of a token will be appended to the success URL as query parameters. These can be used to create a new session using the [Create session](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint.
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
      * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
@@ -1992,8 +1994,8 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Sends the user an SMS with a secret key for creating a session. If the provided user ID has not be registered, a new user will be created. Use the returned user ID and secret and submit a request to the [POST /v1/account/sessions/token](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint to complete the login process. The secret sent to the user's phone is valid for 15 minutes.
-    * 
-    * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     * 
+     * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
      * @param userId Unique Id. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars. If the phone number has never been used, a new account is created using the provided userId. Otherwise, if the phone number is already attached to an account, the user ID is ignored.
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
@@ -2029,9 +2031,9 @@ class Account(client: Client) : Service(client) {
 
     /**
      * Use this endpoint to send a verification message to your user email address to confirm they are the valid owners of that address. Both the **userId** and **secret** arguments will be passed as query parameters to the URL you have provided to be attached to the verification email. The provided URL should redirect the user back to your app and allow you to complete the verification process by verifying both the **userId** and **secret** parameters. Learn more about how to [complete the verification process](https://appwrite.io/docs/references/cloud/client-web/account#updateVerification). The verification link sent to the user's email address is valid for 7 days.
-    * 
-    * Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md), the only valid redirect URLs are the ones from domains you have set when adding your platforms in the console interface.
-    * 
+     * 
+     * Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md), the only valid redirect URLs are the ones from domains you have set when adding your platforms in the console interface.
+     * 
      *
      * @param url URL to redirect the user back to your app from the verification email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @return [io.appwrite.models.Token]

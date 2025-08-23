@@ -20,7 +20,7 @@ data class Execution(
     val createdAt: String,
 
     /**
-     * Execution upate date in ISO 8601 format.
+     * Execution update date in ISO 8601 format.
      */
     @SerializedName("\$updatedAt")
     val updatedAt: String,
@@ -38,7 +38,7 @@ data class Execution(
     val functionId: String,
 
     /**
-     * Function&#039;s deployment ID used to create the execution.
+     * Function's deployment ID used to create the execution.
      */
     @SerializedName("deploymentId")
     val deploymentId: String,

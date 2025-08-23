@@ -12,7 +12,7 @@ import java.io.File
 
 /**
  * The Teams service allows you to group users of your project and to enable them to share read and write access to your project resources
-**/
+ */
 class Teams(client: Client) : Service(client) {
 
     /**
@@ -209,7 +209,7 @@ class Teams(client: Client) : Service(client) {
     }
 
     /**
-     * Update the team&#039;s name by its unique ID.
+     * Update the team's name by its unique ID.
      *
      * @param teamId Team ID.
      * @param name New team name. Max length: 128 chars.
@@ -292,13 +292,13 @@ class Teams(client: Client) : Service(client) {
 
     /**
      * Invite a new member to join your team. Provide an ID for existing users, or invite unregistered users using an email or phone number. If initiated from a Client SDK, Appwrite will send an email or sms with a link to join the team to the invited user, and an account will be created for them if one doesn't exist. If initiated from a Server SDK, the new member will be added automatically to the team.
-    * 
-    * You only need to provide one of a user ID, email, or phone number. Appwrite will prioritize accepting the user ID > email > phone number if you provide more than one of these parameters.
-    * 
-    * Use the `url` parameter to redirect the user from the invitation email to your app. After the user is redirected, use the [Update Team Membership Status](https://appwrite.io/docs/references/cloud/client-web/teams#updateMembershipStatus) endpoint to allow the user to accept the invitation to the team. 
-    * 
-    * Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) Appwrite will accept the only redirect URLs under the domains you have added as a platform on the Appwrite Console.
-    * 
+     * 
+     * You only need to provide one of a user ID, email, or phone number. Appwrite will prioritize accepting the user ID > email > phone number if you provide more than one of these parameters.
+     * 
+     * Use the `url` parameter to redirect the user from the invitation email to your app. After the user is redirected, use the [Update Team Membership Status](https://appwrite.io/docs/references/cloud/client-web/teams#updateMembershipStatus) endpoint to allow the user to accept the invitation to the team. 
+     * 
+     * Please note that to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md) Appwrite will accept the only redirect URLs under the domains you have added as a platform on the Appwrite Console.
+     * 
      *
      * @param teamId Team ID.
      * @param roles Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
@@ -384,7 +384,7 @@ class Teams(client: Client) : Service(client) {
 
     /**
      * Modify the roles of a team member. Only team members with the owner role have access to this endpoint. Learn more about [roles and permissions](https://appwrite.io/docs/permissions).
-    * 
+     * 
      *
      * @param teamId Team ID.
      * @param membershipId Membership ID.
@@ -453,9 +453,9 @@ class Teams(client: Client) : Service(client) {
 
     /**
      * Use this endpoint to allow a user to accept an invitation to join a team after being redirected back to your app from the invitation email received by the user.
-    * 
-    * If the request is successful, a session for the user is automatically created.
-    * 
+     * 
+     * If the request is successful, a session for the user is automatically created.
+     * 
      *
      * @param teamId Team ID.
      * @param membershipId Membership ID.
@@ -527,7 +527,7 @@ class Teams(client: Client) : Service(client) {
     }
 
     /**
-     * Get the team&#039;s shared preferences by its unique ID. If a preference doesn&#039;t need to be shared by all team members, prefer storing them in [user preferences](https://appwrite.io/docs/references/cloud/client-web/account#getPrefs).
+     * Get the team's shared preferences by its unique ID. If a preference doesn't need to be shared by all team members, prefer storing them in [user preferences](https://appwrite.io/docs/references/cloud/client-web/account#getPrefs).
      *
      * @param teamId Team ID.
      * @return [io.appwrite.models.Preferences<T>]
@@ -576,7 +576,7 @@ class Teams(client: Client) : Service(client) {
     }
 
     /**
-     * Update the team&#039;s preferences by its unique ID. The object you pass is stored as is and replaces any previous value. The maximum allowed prefs size is 64kB and throws an error if exceeded.
+     * Update the team's preferences by its unique ID. The object you pass is stored as is and replaces any previous value. The maximum allowed prefs size is 64kB and throws an error if exceeded.
      *
      * @param teamId Team ID.
      * @param prefs Prefs key-value JSON object.
