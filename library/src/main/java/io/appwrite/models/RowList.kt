@@ -4,43 +4,43 @@ import com.google.gson.annotations.SerializedName
 import io.appwrite.extensions.jsonCast
 
 /**
- * Documents List
+ * Rows List
  */
-data class DocumentList<T>(
+data class RowList<T>(
     /**
-     * Total number of documents that matched your query.
+     * Total number of rows that matched your query.
      */
     @SerializedName("total")
     val total: Long,
 
     /**
-     * List of documents.
+     * List of rows.
      */
-    @SerializedName("documents")
-    val documents: List<Document<T>>,
+    @SerializedName("rows")
+    val rows: List<Row<T>>,
 
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "total" to total as Any,
-        "documents" to documents.map { it.toMap() } as Any,
+        "rows" to rows.map { it.toMap() } as Any,
     )
 
     companion object {
         operator fun invoke(
             total: Long,
-            documents: List<Document<Map<String, Any>>>,
-        ) = DocumentList<Map<String, Any>>(
+            rows: List<Row<Map<String, Any>>>,
+        ) = RowList<Map<String, Any>>(
             total,
-            documents,
+            rows,
         )
 
         @Suppress("UNCHECKED_CAST")
         fun <T> from(
             map: Map<String, Any>,
             nestedType: Class<T>
-        ) = DocumentList<T>(
+        ) = RowList<T>(
             total = (map["total"] as Number).toLong(),
-            documents = (map["documents"] as List<Map<String, Any>>).map { Document.from(map = it, nestedType) },
+            rows = (map["rows"] as List<Map<String, Any>>).map { Row.from(map = it, nestedType) },
         )
     }
 }

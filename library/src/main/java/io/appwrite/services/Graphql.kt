@@ -12,7 +12,7 @@ import java.io.File
 
 /**
  * The GraphQL API allows you to query and mutate your Appwrite server using GraphQL.
-**/
+ */
 class Graphql(client: Client) : Service(client) {
 
     /**
