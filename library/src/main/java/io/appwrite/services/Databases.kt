@@ -25,8 +25,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.listRows` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.listRows"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.listRows")
     )
     @JvmOverloads
     suspend fun <T> listDocuments(
@@ -68,8 +67,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.listRows` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.listRows"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.listRows")
     )
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -96,8 +94,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.createRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createRow")
     )
     @JvmOverloads
     suspend fun <T> createDocument(
@@ -146,8 +143,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.createRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createRow")
     )
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -177,8 +173,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.getRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.getRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.getRow")
     )
     @JvmOverloads
     suspend fun <T> getDocument(
@@ -223,8 +218,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.getRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.getRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.getRow")
     )
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -253,8 +247,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRow")
     )
     @JvmOverloads
     suspend fun <T> upsertDocument(
@@ -303,8 +296,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRow")
     )
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -335,8 +327,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.updateRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.updateRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.updateRow")
     )
     @JvmOverloads
     suspend fun <T> updateDocument(
@@ -385,8 +376,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.updateRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.updateRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.updateRow")
     )
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -415,8 +405,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.deleteRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.deleteRow"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.deleteRow")
     )
     suspend fun deleteDocument(
         databaseId: String,
@@ -456,8 +445,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.decrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.decrementRowColumn"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.decrementRowColumn")
     )
     @JvmOverloads
     suspend fun <T> decrementDocumentAttribute(
@@ -509,8 +497,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.decrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.decrementRowColumn"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.decrementRowColumn")
     )
     @JvmOverloads
     @Throws(AppwriteException::class)
@@ -544,8 +531,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.incrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.incrementRowColumn"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.incrementRowColumn")
     )
     @JvmOverloads
     suspend fun <T> incrementDocumentAttribute(
@@ -597,8 +583,7 @@ class Databases(client: Client) : Service(client) {
      */
     @Deprecated(
         message = "This API has been deprecated since 1.8.0. Please use `TablesDB.incrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.incrementRowColumn"),
-        since = "1.8.0"
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.incrementRowColumn")
     )
     @JvmOverloads
     @Throws(AppwriteException::class)
