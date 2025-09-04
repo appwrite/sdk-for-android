@@ -1408,7 +1408,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.Session]
      */
     @Deprecated(
-        message = "This API has been deprecated."
+        message = "This API has been deprecated since 1.6.0. Please use `Account.createSession` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.createSession")
     )
     suspend fun updateMagicURLSession(
         userId: String,
@@ -1523,7 +1524,8 @@ class Account(client: Client) : Service(client) {
      * @return [io.appwrite.models.Session]
      */
     @Deprecated(
-        message = "This API has been deprecated."
+        message = "This API has been deprecated since 1.6.0. Please use `Account.createSession` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.createSession")
     )
     suspend fun updatePhoneSession(
         userId: String,

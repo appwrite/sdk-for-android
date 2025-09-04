@@ -14,7 +14,9 @@ enum class ExecutionMethod(val value: String) {
     @SerializedName("DELETE")
     DELETE("DELETE"),
     @SerializedName("OPTIONS")
-    OPTIONS("OPTIONS");
+    OPTIONS("OPTIONS"),
+    @SerializedName("HEAD")
+    HEAD("HEAD");
 
     override fun toString() = value
 }

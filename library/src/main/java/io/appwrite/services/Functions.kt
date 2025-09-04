@@ -57,7 +57,7 @@ class Functions(client: Client) : Service(client) {
      * @param body HTTP body of execution. Default value is empty string.
      * @param async Execute code in the background. Default value is false.
      * @param path HTTP path of execution. Path can include query params. Default value is /
-     * @param method HTTP method of execution. Default value is GET.
+     * @param method HTTP method of execution. Default value is POST.
      * @param headers HTTP headers of execution. Defaults to empty.
      * @param scheduledAt Scheduled execution time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. DateTime value must be in future with precision in minutes.
      * @return [io.appwrite.models.Execution]
