@@ -27,8 +27,8 @@ enum class CreditCard(val value: String) {
     NARANJA("naranja"),
     @SerializedName("targeta-shopping")
     TARJETA_SHOPPING("targeta-shopping"),
-    @SerializedName("union-china-pay")
-    UNION_CHINA_PAY("union-china-pay"),
+    @SerializedName("unionpay")
+    UNION_PAY("unionpay"),
     @SerializedName("visa")
     VISA("visa"),
     @SerializedName("mir")
