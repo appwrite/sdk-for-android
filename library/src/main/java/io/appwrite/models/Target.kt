@@ -85,7 +85,7 @@ data class Target(
             updatedAt = map["\$updatedAt"] as String,
             name = map["name"] as String,
             userId = map["userId"] as String,
-            providerId = map["providerId"] as? String?,
+            providerId = map["providerId"] as? String,
             providerType = map["providerType"] as String,
             identifier = map["identifier"] as String,
             expired = map["expired"] as Boolean,
