@@ -29,7 +29,7 @@ data class Preferences<T>(
             map: Map<String, Any>,
             nestedType: Class<T>
         ) = Preferences<T>(
-            data = map.jsonCast(to = nestedType)
+            data = map["data"]?.jsonCast(to = nestedType) ?: map.jsonCast(to = nestedType)
         )
     }
 }

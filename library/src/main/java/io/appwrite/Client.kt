@@ -557,7 +557,7 @@ class Client @JvmOverloads constructor(
                 val warnings = response.headers["x-appwrite-warning"]
                 if (warnings != null) {
                     warnings.split(";").forEach { warning ->
-                        println("Warning: $warning")
+                        System.err.println("Warning: $warning")
                     }
                 }
 
