@@ -2,6 +2,8 @@ package io.appwrite.models
 
 import com.google.gson.annotations.SerializedName
 import io.appwrite.extensions.jsonCast
+import io.appwrite.enums.ExecutionTrigger
+import io.appwrite.enums.ExecutionStatus
 
 /**
  * Execution
@@ -47,13 +49,13 @@ data class Execution(
      * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
      */
     @SerializedName("trigger")
-    val trigger: String,
+    val trigger: ExecutionTrigger,
 
     /**
      * The status of the function execution. Possible values can be: `waiting`, `processing`, `completed`, or `failed`.
      */
     @SerializedName("status")
-    val status: String,
+    val status: ExecutionStatus,
 
     /**
      * HTTP request method type.
@@ -123,8 +125,8 @@ data class Execution(
         "\$permissions" to permissions as Any,
         "functionId" to functionId as Any,
         "deploymentId" to deploymentId as Any,
-        "trigger" to trigger as Any,
-        "status" to status as Any,
+        "trigger" to trigger.value as Any,
+        "status" to status.value as Any,
         "requestMethod" to requestMethod as Any,
         "requestPath" to requestPath as Any,
         "requestHeaders" to requestHeaders.map { it.toMap() } as Any,
@@ -149,8 +151,8 @@ data class Execution(
             permissions = map["\$permissions"] as List<String>,
             functionId = map["functionId"] as String,
             deploymentId = map["deploymentId"] as String,
-            trigger = map["trigger"] as String,
-            status = map["status"] as String,
+            trigger = ExecutionTrigger.values().find { it.value == map["trigger"] as String }!!,
+            status = ExecutionStatus.values().find { it.value == map["status"] as String }!!,
             requestMethod = map["requestMethod"] as String,
             requestPath = map["requestPath"] as String,
             requestHeaders = (map["requestHeaders"] as List<Map<String, Any>>).map { Headers.from(map = it) },
@@ -160,7 +162,7 @@ data class Execution(
             logs = map["logs"] as String,
             errors = map["errors"] as String,
             duration = (map["duration"] as Number).toDouble(),
-            scheduledAt = map["scheduledAt"] as? String?,
+            scheduledAt = map["scheduledAt"] as? String,
         )
     }
 }

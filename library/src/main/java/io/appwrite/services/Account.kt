@@ -4,7 +4,6 @@ import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.Service
 import io.appwrite.models.*
-import io.appwrite.enums.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
 import io.appwrite.WebAuthComponent

@@ -99,7 +99,7 @@ data class Document<T>(
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
             permissions = map["\$permissions"] as List<String>,
-            data = map.jsonCast(to = nestedType)
+            data = map["data"]?.jsonCast(to = nestedType) ?: map.jsonCast(to = nestedType)
         )
     }
 }

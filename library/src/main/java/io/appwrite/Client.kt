@@ -87,7 +87,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "10.1.0",
+            "x-sdk-version" to "11.0.0",
             "x-appwrite-response-format" to "1.8.0"
         )
         config = mutableMapOf()
@@ -557,7 +557,7 @@ class Client @JvmOverloads constructor(
                 val warnings = response.headers["x-appwrite-warning"]
                 if (warnings != null) {
                     warnings.split(";").forEach { warning ->
-                        println("Warning: $warning")
+                        System.err.println("Warning: $warning")
                     }
                 }
 
