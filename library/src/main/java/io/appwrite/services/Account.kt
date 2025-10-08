@@ -2029,10 +2029,49 @@ class Account(client: Client) : Service(client) {
      * @param url URL to redirect the user back to your app from the verification email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @return [io.appwrite.models.Token]
      */
+    suspend fun createEmailVerification(
+        url: String,
+    ): io.appwrite.models.Token {
+        val apiPath = "/account/verifications/email"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "url" to url,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Token = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Use this endpoint to send a verification message to your user email address to confirm they are the valid owners of that address. Both the **userId** and **secret** arguments will be passed as query parameters to the URL you have provided to be attached to the verification email. The provided URL should redirect the user back to your app and allow you to complete the verification process by verifying both the **userId** and **secret** parameters. Learn more about how to [complete the verification process](https://appwrite.io/docs/references/cloud/client-web/account#updateVerification). The verification link sent to the user's email address is valid for 7 days.
+     * 
+     * Please note that in order to avoid a [Redirect Attack](https://github.com/OWASP/CheatSheetSeries/blob/master/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.md), the only valid redirect URLs are the ones from domains you have set when adding your platforms in the console interface.
+     * 
+     *
+     * @param url URL to redirect the user back to your app from the verification email. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
+     * @return [io.appwrite.models.Token]
+     */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Account.createEmailVerification` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.createEmailVerification")
+    )
     suspend fun createVerification(
         url: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verification"
+        val apiPath = "/account/verifications/email"
 
         val apiParams = mutableMapOf<String, Any?>(
             "url" to url,
@@ -2062,11 +2101,50 @@ class Account(client: Client) : Service(client) {
      * @param secret Valid verification token.
      * @return [io.appwrite.models.Token]
      */
+    suspend fun updateEmailVerification(
+        userId: String,
+        secret: String,
+    ): io.appwrite.models.Token {
+        val apiPath = "/account/verifications/email"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "userId" to userId,
+            "secret" to secret,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Token = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Use this endpoint to complete the user email verification process. Use both the **userId** and **secret** parameters that were attached to your app URL to verify the user email ownership. If confirmed this route will return a 200 status code.
+     *
+     * @param userId User ID.
+     * @param secret Valid verification token.
+     * @return [io.appwrite.models.Token]
+     */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `Account.updateEmailVerification` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.Account.updateEmailVerification")
+    )
     suspend fun updateVerification(
         userId: String,
         secret: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verification"
+        val apiPath = "/account/verifications/email"
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -2097,7 +2175,7 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createPhoneVerification(
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verification/phone"
+        val apiPath = "/account/verifications/phone"
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -2130,7 +2208,7 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verification/phone"
+        val apiPath = "/account/verifications/phone"
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,

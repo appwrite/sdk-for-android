@@ -18,7 +18,7 @@ class TablesDB(client: Client) : Service(client) {
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
      * @param databaseId Database ID.
-     * @param tableId Table ID. You can create a new table using the TableDB service [server integration](https://appwrite.io/docs/server/tablesdbdb#tablesdbCreate).
+     * @param tableId Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.RowList<T>]
      */
@@ -56,7 +56,7 @@ class TablesDB(client: Client) : Service(client) {
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
      * @param databaseId Database ID.
-     * @param tableId Table ID. You can create a new table using the TableDB service [server integration](https://appwrite.io/docs/server/tablesdbdb#tablesdbCreate).
+     * @param tableId Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.RowList<T>]
      */
@@ -74,10 +74,10 @@ class TablesDB(client: Client) : Service(client) {
     )
 
     /**
-     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param databaseId Database ID.
-     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
+     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable). Make sure to define columns before creating rows.
      * @param rowId Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Row data as JSON object.
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
@@ -119,10 +119,10 @@ class TablesDB(client: Client) : Service(client) {
     }
 
     /**
-     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create a new Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param databaseId Database ID.
-     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate). Make sure to define columns before creating rows.
+     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable). Make sure to define columns before creating rows.
      * @param rowId Row ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Row data as JSON object.
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
@@ -149,7 +149,7 @@ class TablesDB(client: Client) : Service(client) {
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
      * @param databaseId Database ID.
-     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param rowId Row ID.
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.Row<T>]
@@ -190,7 +190,7 @@ class TablesDB(client: Client) : Service(client) {
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
      * @param databaseId Database ID.
-     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param rowId Row ID.
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @return [io.appwrite.models.Row<T>]
@@ -211,7 +211,7 @@ class TablesDB(client: Client) : Service(client) {
     )
 
     /**
-     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param tableId Table ID.
@@ -256,7 +256,7 @@ class TablesDB(client: Client) : Service(client) {
     }
 
     /**
-     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreateTable) API or directly from your database console.
+     * Create or update a Row. Before using this route, you should create a new table resource using either a [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param tableId Table ID.
@@ -358,7 +358,7 @@ class TablesDB(client: Client) : Service(client) {
      * Delete a row by its unique ID.
      *
      * @param databaseId Database ID.
-     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/server/tablesdb#tablesDBCreate).
+     * @param tableId Table ID. You can create a new table using the Database service [server integration](https://appwrite.io/docs/references/cloud/server-dart/tablesDB#createTable).
      * @param rowId Row ID.
      * @return [Any]
      */
