@@ -8,9 +8,8 @@ val client = Client(context)
 
 val databases = Databases(client)
 
-val result = databases.deleteDocument(
-    databaseId = "<DATABASE_ID>", 
-    collectionId = "<COLLECTION_ID>", 
-    documentId = "<DOCUMENT_ID>", 
-    transactionId = "<TRANSACTION_ID>", // (optional)
+val result = databases.updateTransaction(
+    transactionId = "<TRANSACTION_ID>", 
+    commit = false, // (optional)
+    rollback = false, // (optional)
 )

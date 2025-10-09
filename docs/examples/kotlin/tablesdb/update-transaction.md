@@ -8,11 +8,8 @@ val client = Client(context)
 
 val tablesDB = TablesDB(client)
 
-val result = tablesDB.upsertRow(
-    databaseId = "<DATABASE_ID>", 
-    tableId = "<TABLE_ID>", 
-    rowId = "<ROW_ID>", 
-    data = mapOf( "a" to "b" ), // (optional)
-    permissions = listOf("read("any")"), // (optional)
-    transactionId = "<TRANSACTION_ID>", // (optional)
+val result = tablesDB.updateTransaction(
+    transactionId = "<TRANSACTION_ID>", 
+    commit = false, // (optional)
+    rollback = false, // (optional)
 )

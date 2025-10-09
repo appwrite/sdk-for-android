@@ -8,11 +8,19 @@ Client client = new Client(context)
 
 TablesDB tablesDB = new TablesDB(client);
 
-tablesDB.listRows(
-    "<DATABASE_ID>", // databaseId 
-    "<TABLE_ID>", // tableId 
-    listOf(), // queries (optional)
-    "<TRANSACTION_ID>", // transactionId (optional)
+tablesDB.createOperations(
+    "<TRANSACTION_ID>", // transactionId 
+    listOf(
+	    {
+	        "action": "create",
+	        "databaseId": "<DATABASE_ID>",
+	        "tableId": "<TABLE_ID>",
+	        "rowId": "<ROW_ID>",
+	        "data": {
+	            "name": "Walter O'Brien"
+	        }
+	    }
+	), // operations (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
