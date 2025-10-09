@@ -8,11 +8,8 @@ Client client = new Client(context)
 
 TablesDB tablesDB = new TablesDB(client);
 
-tablesDB.listRows(
-    "<DATABASE_ID>", // databaseId 
-    "<TABLE_ID>", // tableId 
-    listOf(), // queries (optional)
-    "<TRANSACTION_ID>", // transactionId (optional)
+tablesDB.createTransaction(
+    60, // ttl (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

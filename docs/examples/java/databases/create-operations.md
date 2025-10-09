@@ -1,18 +1,26 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
-import io.appwrite.services.TablesDB;
+import io.appwrite.services.Databases;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>"); // Your project ID
 
-TablesDB tablesDB = new TablesDB(client);
+Databases databases = new Databases(client);
 
-tablesDB.listRows(
-    "<DATABASE_ID>", // databaseId 
-    "<TABLE_ID>", // tableId 
-    listOf(), // queries (optional)
-    "<TRANSACTION_ID>", // transactionId (optional)
+databases.createOperations(
+    "<TRANSACTION_ID>", // transactionId 
+    listOf(
+	    {
+	        "action": "create",
+	        "databaseId": "<DATABASE_ID>",
+	        "collectionId": "<COLLECTION_ID>",
+	        "documentId": "<DOCUMENT_ID>",
+	        "data": {
+	            "name": "Walter O'Brien"
+	        }
+	    }
+	), // operations (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
