@@ -19,12 +19,14 @@ class Teams(client: Client) : Service(client) {
      *
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total, billingPlan
      * @param search Search term to filter your list results. Max length: 256 chars.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.TeamList<T>]
      */
     @JvmOverloads
     suspend fun <T> list(
         queries: List<String>? = null,
         search: String? = null,
+        total: Boolean? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.TeamList<T> {
         val apiPath = "/teams"
@@ -32,6 +34,7 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "search" to search,
+            "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
         )
@@ -54,6 +57,7 @@ class Teams(client: Client) : Service(client) {
      *
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, total, billingPlan
      * @param search Search term to filter your list results. Max length: 256 chars.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.TeamList<T>]
      */
     @JvmOverloads
@@ -61,9 +65,11 @@ class Teams(client: Client) : Service(client) {
     suspend fun list(
         queries: List<String>? = null,
         search: String? = null,
+        total: Boolean? = null,
     ): io.appwrite.models.TeamList<Map<String, Any>> = list(
         queries,
         search,
+        total,
         nestedType = classOf(),
     )
 
@@ -257,6 +263,7 @@ class Teams(client: Client) : Service(client) {
      * @param teamId Team ID.
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, teamId, invited, joined, confirm, roles
      * @param search Search term to filter your list results. Max length: 256 chars.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.MembershipList]
      */
     @JvmOverloads
@@ -264,6 +271,7 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         queries: List<String>? = null,
         search: String? = null,
+        total: Boolean? = null,
     ): io.appwrite.models.MembershipList {
         val apiPath = "/teams/{teamId}/memberships"
             .replace("{teamId}", teamId)
@@ -271,6 +279,7 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "search" to search,
+            "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
         )

@@ -219,6 +219,7 @@ class Databases(client: Client) : Service(client) {
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @Deprecated(
@@ -231,6 +232,7 @@ class Databases(client: Client) : Service(client) {
         collectionId: String,
         queries: List<String>? = null,
         transactionId: String? = null,
+        total: Boolean? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.DocumentList<T> {
         val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
@@ -240,6 +242,7 @@ class Databases(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "transactionId" to transactionId,
+            "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
         )
@@ -264,6 +267,7 @@ class Databases(client: Client) : Service(client) {
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @Deprecated(
@@ -277,11 +281,13 @@ class Databases(client: Client) : Service(client) {
         collectionId: String,
         queries: List<String>? = null,
         transactionId: String? = null,
+        total: Boolean? = null,
     ): io.appwrite.models.DocumentList<Map<String, Any>> = listDocuments(
         databaseId,
         collectionId,
         queries,
         transactionId,
+        total,
         nestedType = classOf(),
     )
 
