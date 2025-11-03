@@ -10,7 +10,9 @@ enum class ExecutionStatus(val value: String) {
     @SerializedName("completed")
     COMPLETED("completed"),
     @SerializedName("failed")
-    FAILED("failed");
+    FAILED("failed"),
+    @SerializedName("scheduled")
+    SCHEDULED("scheduled");
 
     override fun toString() = value
 }

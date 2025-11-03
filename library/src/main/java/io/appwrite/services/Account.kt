@@ -183,16 +183,19 @@ class Account(client: Client) : Service(client) {
      * Get the list of identities for the currently logged in user.
      *
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, provider, providerUid, providerEmail, providerAccessTokenExpiry
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.IdentityList]
      */
     @JvmOverloads
     suspend fun listIdentities(
         queries: List<String>? = null,
+        total: Boolean? = null,
     ): io.appwrite.models.IdentityList {
         val apiPath = "/account/identities"
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
+            "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
         )
@@ -271,16 +274,19 @@ class Account(client: Client) : Service(client) {
      * Get the list of latest security activity logs for the currently logged in user. Each log returns user IP address, location and date and time of log.
      *
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.LogList]
      */
     @JvmOverloads
     suspend fun listLogs(
         queries: List<String>? = null,
+        total: Boolean? = null,
     ): io.appwrite.models.LogList {
         val apiPath = "/account/logs"
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
+            "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
         )
