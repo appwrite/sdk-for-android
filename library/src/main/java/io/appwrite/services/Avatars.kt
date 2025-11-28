@@ -261,4 +261,90 @@ class Avatars(client: Client) : Service(client) {
     }
 
 
+    /**
+     * Use this endpoint to capture a screenshot of any website URL. This endpoint uses a headless browser to render the webpage and capture it as an image.
+     * 
+     * You can configure the browser viewport size, theme, user agent, geolocation, permissions, and more. Capture either just the viewport or the full page scroll.
+     * 
+     * When width and height are specified, the image is resized accordingly. If both dimensions are 0, the API provides an image at original size. If dimensions are not specified, the default viewport size is 1280x720px.
+     *
+     * @param url Website URL which you want to capture.
+     * @param headers HTTP headers to send with the browser request. Defaults to empty.
+     * @param viewportWidth Browser viewport width. Pass an integer between 1 to 1920. Defaults to 1280.
+     * @param viewportHeight Browser viewport height. Pass an integer between 1 to 1080. Defaults to 720.
+     * @param scale Browser scale factor. Pass a number between 0.1 to 3. Defaults to 1.
+     * @param theme Browser theme. Pass "light" or "dark". Defaults to "light".
+     * @param userAgent Custom user agent string. Defaults to browser default.
+     * @param fullpage Capture full page scroll. Pass 0 for viewport only, or 1 for full page. Defaults to 0.
+     * @param locale Browser locale (e.g., "en-US", "fr-FR"). Defaults to browser default.
+     * @param timezone IANA timezone identifier (e.g., "America/New_York", "Europe/London"). Defaults to browser default.
+     * @param latitude Geolocation latitude. Pass a number between -90 to 90. Defaults to 0.
+     * @param longitude Geolocation longitude. Pass a number between -180 to 180. Defaults to 0.
+     * @param accuracy Geolocation accuracy in meters. Pass a number between 0 to 100000. Defaults to 0.
+     * @param touch Enable touch support. Pass 0 for no touch, or 1 for touch enabled. Defaults to 0.
+     * @param permissions Browser permissions to grant. Pass an array of permission names like ["geolocation", "camera", "microphone"]. Defaults to empty.
+     * @param sleep Wait time in seconds before taking the screenshot. Pass an integer between 0 to 10. Defaults to 0.
+     * @param width Output image width. Pass 0 to use original width, or an integer between 1 to 2000. Defaults to 0 (original width).
+     * @param height Output image height. Pass 0 to use original height, or an integer between 1 to 2000. Defaults to 0 (original height).
+     * @param quality Screenshot quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
+     * @param output Output format type (jpeg, jpg, png, gif and webp).
+     * @return [ByteArray]
+     */
+    @JvmOverloads
+    suspend fun getScreenshot(
+        url: String,
+        headers: Any? = null,
+        viewportWidth: Long? = null,
+        viewportHeight: Long? = null,
+        scale: Double? = null,
+        theme: io.appwrite.enums.Theme? = null,
+        userAgent: String? = null,
+        fullpage: Boolean? = null,
+        locale: String? = null,
+        timezone: io.appwrite.enums.Timezone? = null,
+        latitude: Double? = null,
+        longitude: Double? = null,
+        accuracy: Double? = null,
+        touch: Boolean? = null,
+        permissions: List<String>? = null,
+        sleep: Long? = null,
+        width: Long? = null,
+        height: Long? = null,
+        quality: Long? = null,
+        output: io.appwrite.enums.Output? = null,
+    ): ByteArray {
+        val apiPath = "/avatars/screenshots"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "url" to url,
+            "headers" to headers,
+            "viewportWidth" to viewportWidth,
+            "viewportHeight" to viewportHeight,
+            "scale" to scale,
+            "theme" to theme,
+            "userAgent" to userAgent,
+            "fullpage" to fullpage,
+            "locale" to locale,
+            "timezone" to timezone,
+            "latitude" to latitude,
+            "longitude" to longitude,
+            "accuracy" to accuracy,
+            "touch" to touch,
+            "permissions" to permissions,
+            "sleep" to sleep,
+            "width" to width,
+            "height" to height,
+            "quality" to quality,
+            "output" to output,
+            "project" to client.config["project"],
+        )
+        return client.call(
+            "GET",
+            apiPath,
+            params = apiParams,
+            responseType = ByteArray::class.java
+        )
+    }
+
+
 }
