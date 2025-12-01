@@ -602,7 +602,7 @@ class Account(client: Client) : Service(client) {
     suspend fun createMfaChallenge(
         factor: io.appwrite.enums.AuthenticationFactor,
     ): io.appwrite.models.MfaChallenge {
-        val apiPath = "/account/mfa/challenge"
+        val apiPath = "/account/mfa/challenges"
 
         val apiParams = mutableMapOf<String, Any?>(
             "factor" to factor,
@@ -634,7 +634,7 @@ class Account(client: Client) : Service(client) {
     suspend fun createMFAChallenge(
         factor: io.appwrite.enums.AuthenticationFactor,
     ): io.appwrite.models.MfaChallenge {
-        val apiPath = "/account/mfa/challenge"
+        val apiPath = "/account/mfa/challenges"
 
         val apiParams = mutableMapOf<String, Any?>(
             "factor" to factor,
@@ -672,7 +672,7 @@ class Account(client: Client) : Service(client) {
         challengeId: String,
         otp: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/mfa/challenge"
+        val apiPath = "/account/mfa/challenges"
 
         val apiParams = mutableMapOf<String, Any?>(
             "challengeId" to challengeId,
@@ -707,7 +707,7 @@ class Account(client: Client) : Service(client) {
         challengeId: String,
         otp: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/mfa/challenge"
+        val apiPath = "/account/mfa/challenges"
 
         val apiParams = mutableMapOf<String, Any?>(
             "challengeId" to challengeId,
