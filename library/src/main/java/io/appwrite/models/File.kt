@@ -73,6 +73,18 @@ data class File(
     @SerializedName("chunksUploaded")
     val chunksUploaded: Long,
 
+    /**
+     * Whether file contents are encrypted at rest.
+     */
+    @SerializedName("encryption")
+    val encryption: Boolean,
+
+    /**
+     * Compression algorithm used for the file. Will be one of none, [gzip](https://en.wikipedia.org/wiki/Gzip), or [zstd](https://en.wikipedia.org/wiki/Zstd).
+     */
+    @SerializedName("compression")
+    val compression: String,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -86,6 +98,8 @@ data class File(
         "sizeOriginal" to sizeOriginal as Any,
         "chunksTotal" to chunksTotal as Any,
         "chunksUploaded" to chunksUploaded as Any,
+        "encryption" to encryption as Any,
+        "compression" to compression as Any,
     )
 
     companion object {
@@ -105,6 +119,8 @@ data class File(
             sizeOriginal = (map["sizeOriginal"] as Number).toLong(),
             chunksTotal = (map["chunksTotal"] as Number).toLong(),
             chunksUploaded = (map["chunksUploaded"] as Number).toLong(),
+            encryption = map["encryption"] as Boolean,
+            compression = map["compression"] as String,
         )
     }
 }

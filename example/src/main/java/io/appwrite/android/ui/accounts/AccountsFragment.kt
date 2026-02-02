@@ -13,7 +13,6 @@ import androidx.fragment.app.viewModels
 import io.appwrite.android.R
 import io.appwrite.android.databinding.FragmentAccountBinding
 
-
 class AccountsFragment : Fragment() {
 
     private lateinit var binding: FragmentAccountBinding

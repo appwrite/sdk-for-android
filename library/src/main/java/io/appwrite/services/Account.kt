@@ -244,13 +244,17 @@ class Account(client: Client) : Service(client) {
     /**
      * Use this endpoint to create a JSON Web Token. You can use the resulting JWT to authenticate on behalf of the current user when working with the Appwrite server-side API and SDKs. The JWT secret is valid for 15 minutes from its creation and will be invalid if the user will logout in that time frame.
      *
+     * @param duration Time in seconds before JWT expires. Default duration is 900 seconds, and maximum is 3600 seconds.
      * @return [io.appwrite.models.Jwt]
      */
+    @JvmOverloads
     suspend fun createJWT(
+        duration: Long? = null,
     ): io.appwrite.models.Jwt {
         val apiPath = "/account/jwts"
 
         val apiParams = mutableMapOf<String, Any?>(
+            "duration" to duration,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
