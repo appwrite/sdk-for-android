@@ -476,7 +476,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Any? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
         nestedType: Class<T>,
@@ -529,7 +529,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Any? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
     ): io.appwrite.models.Document<Map<String, Any>> = upsertDocument(

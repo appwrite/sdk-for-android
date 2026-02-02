@@ -2,6 +2,7 @@ package io.appwrite.services
 
 import io.appwrite.Service
 import io.appwrite.Client
+import io.appwrite.Channel
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.forEachAsync
 import io.appwrite.extensions.fromJson
@@ -109,6 +110,27 @@ class Realtime(client: Client) : Service(client), CoroutineScope {
         else -> 60000L
     }
 
+    /**
+     * Convert channel value to string
+     * All Channel instances have toString() method
+     */
+    private fun channelToString(channel: Any): String {
+        return when {
+            channel is String -> channel
+            channel is Channel<*> -> channel.toString()
+            else -> channel.toString()
+        }
+    }
+
+    fun subscribe(
+        vararg channels: Channel<*>,
+        callback: (RealtimeResponseEvent<Any>) -> Unit,
+    ) = subscribe(
+        channels = channels.map { channelToString(it) }.toTypedArray(),
+        Any::class.java,
+        callback
+    )
+
     fun subscribe(
         vararg channels: String,
         callback: (RealtimeResponseEvent<Any>) -> Unit,
@@ -117,6 +139,18 @@ class Realtime(client: Client) : Service(client), CoroutineScope {
         Any::class.java,
         callback
     )
+
+    fun <T> subscribe(
+        vararg channels: Channel<*>,
+        payloadType: Class<T>,
+        callback: (RealtimeResponseEvent<T>) -> Unit,
+    ): RealtimeSubscription {
+        return subscribe(
+            channels = channels.map { channelToString(it) }.toTypedArray(),
+            payloadType = payloadType,
+            callback = callback
+        )
+    }
 
     fun <T> subscribe(
         vararg channels: String,

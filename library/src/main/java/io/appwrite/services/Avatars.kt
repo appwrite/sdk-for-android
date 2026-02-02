@@ -306,12 +306,12 @@ class Avatars(client: Client) : Service(client) {
         longitude: Double? = null,
         accuracy: Double? = null,
         touch: Boolean? = null,
-        permissions: List<String>? = null,
+        permissions: List<io.appwrite.enums.BrowserPermission>? = null,
         sleep: Long? = null,
         width: Long? = null,
         height: Long? = null,
         quality: Long? = null,
-        output: io.appwrite.enums.Output? = null,
+        output: io.appwrite.enums.ImageFormat? = null,
     ): ByteArray {
         val apiPath = "/avatars/screenshots"
 

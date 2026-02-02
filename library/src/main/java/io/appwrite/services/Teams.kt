@@ -320,7 +320,7 @@ class Teams(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun createMembership(
         teamId: String,
-        roles: List<String>,
+        roles: List<io.appwrite.enums.Roles>,
         email: String? = null,
         userId: String? = null,
         phone: String? = null,
@@ -402,7 +402,7 @@ class Teams(client: Client) : Service(client) {
     suspend fun updateMembership(
         teamId: String,
         membershipId: String,
-        roles: List<String>,
+        roles: List<io.appwrite.enums.Roles>,
     ): io.appwrite.models.Membership {
         val apiPath = "/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)

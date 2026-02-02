@@ -148,10 +148,10 @@ class Storage(client: Client) : Service(client) {
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
      *
-     * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param fileId File unique ID.
-     * @param name Name of the file
-     * @param permissions An array of permission string. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param bucketId Bucket unique ID.
+     * @param fileId File ID.
+     * @param name File name.
+     * @param permissions An array of permission strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @return [io.appwrite.models.File]
      */
     @JvmOverloads
