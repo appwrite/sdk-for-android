@@ -14,5 +14,4 @@ val result = storage.listFiles(
     queries = listOf(), // (optional)
     search = "<SEARCH>", // (optional)
     total = false, // (optional)
-)
-```
+)```

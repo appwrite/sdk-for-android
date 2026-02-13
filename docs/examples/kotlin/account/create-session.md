@@ -12,5 +12,4 @@ val account = Account(client)
 val result = account.createSession(
     userId = "<USER_ID>", 
     secret = "<SECRET>", 
-)
-```
+)```

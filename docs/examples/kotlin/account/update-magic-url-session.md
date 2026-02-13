@@ -12,5 +12,4 @@ val account = Account(client)
 val result = account.updateMagicURLSession(
     userId = "<USER_ID>", 
     secret = "<SECRET>", 
-)
-```
+)```

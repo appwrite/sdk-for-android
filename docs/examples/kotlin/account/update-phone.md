@@ -12,5 +12,4 @@ val account = Account(client)
 val result = account.updatePhone(
     phone = "+12065550100", 
     password = "password", 
-)
-```
+)```

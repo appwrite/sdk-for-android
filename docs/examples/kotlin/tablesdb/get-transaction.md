@@ -11,5 +11,4 @@ val tablesDB = TablesDB(client)
 
 val result = tablesDB.getTransaction(
     transactionId = "<TRANSACTION_ID>", 
-)
-```
+)```

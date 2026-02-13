@@ -12,5 +12,4 @@ val teams = Teams(client)
 val result = teams.updatePrefs(
     teamId = "<TEAM_ID>", 
     prefs = mapOf( "a" to "b" ), 
-)
-```
+)```

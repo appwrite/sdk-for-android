@@ -11,5 +11,4 @@ val account = Account(client)
 
 val result = account.deletePushTarget(
     targetId = "<TARGET_ID>", 
-)
-```
+)```

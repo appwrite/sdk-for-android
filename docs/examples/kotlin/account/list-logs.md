@@ -12,5 +12,4 @@ val account = Account(client)
 val result = account.listLogs(
     queries = listOf(), // (optional)
     total = false, // (optional)
-)
-```
+)```

@@ -15,5 +15,4 @@ val result = databases.getDocument(
     documentId = "<DOCUMENT_ID>", 
     queries = listOf(), // (optional)
     transactionId = "<TRANSACTION_ID>", // (optional)
-)
-```
+)```
