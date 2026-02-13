@@ -15,4 +15,5 @@ account.createOAuth2Session(
     success = "https://example.com", // (optional)
     failure = "https://example.com", // (optional)
     scopes = listOf(), // (optional)
-)```
+)
+```

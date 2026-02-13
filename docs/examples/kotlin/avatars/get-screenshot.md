@@ -37,4 +37,5 @@ val result = avatars.getScreenshot(
     height = 600, // (optional)
     quality = 85, // (optional)
     output = ImageFormat.JPG, // (optional)
-)```
+)
+```

@@ -13,4 +13,5 @@ val result = functions.listExecutions(
     functionId = "<FUNCTION_ID>", 
     queries = listOf(), // (optional)
     total = false, // (optional)
-)```
+)
+```

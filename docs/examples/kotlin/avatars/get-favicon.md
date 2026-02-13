@@ -11,4 +11,5 @@ val avatars = Avatars(client)
 
 val result = avatars.getFavicon(
     url = "https://example.com", 
-)```
+)
+```

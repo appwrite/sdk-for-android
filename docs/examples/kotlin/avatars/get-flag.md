@@ -15,4 +15,5 @@ val result = avatars.getFlag(
     width = 0, // (optional)
     height = 0, // (optional)
     quality = -1, // (optional)
-)```
+)
+```

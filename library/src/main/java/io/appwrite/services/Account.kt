@@ -124,6 +124,195 @@ class Account(client: Client) : Service(client) {
     )
 
     /**
+     * List all billing addresses for a user.
+     *
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, expired, failed
+     * @return [io.appwrite.models.BillingAddressList]
+     */
+    @JvmOverloads
+    suspend fun listBillingAddresses(
+        queries: List<String>? = null,
+    ): io.appwrite.models.BillingAddressList {
+        val apiPath = "/account/billing-addresses"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "queries" to queries,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+        )
+        val converter: (Any) -> io.appwrite.models.BillingAddressList = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.BillingAddressList.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.BillingAddressList::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Add a new billing address to a user's account.
+     *
+     * @param country Country
+     * @param city City
+     * @param streetAddress Street address
+     * @param addressLine2 Address line 2
+     * @param state State or province
+     * @param postalCode Postal code
+     * @return [io.appwrite.models.BillingAddress]
+     */
+    @JvmOverloads
+    suspend fun createBillingAddress(
+        country: String,
+        city: String,
+        streetAddress: String,
+        addressLine2: String? = null,
+        state: String? = null,
+        postalCode: String? = null,
+    ): io.appwrite.models.BillingAddress {
+        val apiPath = "/account/billing-addresses"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "country" to country,
+            "city" to city,
+            "streetAddress" to streetAddress,
+            "addressLine2" to addressLine2,
+            "state" to state,
+            "postalCode" to postalCode,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.BillingAddress = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.BillingAddress.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.BillingAddress::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Get a specific billing address for a user using it's ID.
+     *
+     * @param billingAddressId Unique ID of billing address
+     * @return [io.appwrite.models.BillingAddress]
+     */
+    suspend fun getBillingAddress(
+        billingAddressId: String,
+    ): io.appwrite.models.BillingAddress {
+        val apiPath = "/account/billing-addresses/{billingAddressId}"
+            .replace("{billingAddressId}", billingAddressId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+        )
+        val converter: (Any) -> io.appwrite.models.BillingAddress = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.BillingAddress.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.BillingAddress::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Update a specific billing address using it's ID.
+     *
+     * @param billingAddressId Unique ID of billing address
+     * @param country Country
+     * @param city City
+     * @param streetAddress Street address
+     * @param addressLine2 Address line 2
+     * @param state State or province
+     * @param postalCode Postal code
+     * @return [io.appwrite.models.BillingAddress]
+     */
+    @JvmOverloads
+    suspend fun updateBillingAddress(
+        billingAddressId: String,
+        country: String,
+        city: String,
+        streetAddress: String,
+        addressLine2: String? = null,
+        state: String? = null,
+        postalCode: String? = null,
+    ): io.appwrite.models.BillingAddress {
+        val apiPath = "/account/billing-addresses/{billingAddressId}"
+            .replace("{billingAddressId}", billingAddressId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "country" to country,
+            "city" to city,
+            "streetAddress" to streetAddress,
+            "addressLine2" to addressLine2,
+            "state" to state,
+            "postalCode" to postalCode,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.BillingAddress = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.BillingAddress.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.BillingAddress::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Delete a specific billing address using it's ID.
+     *
+     * @param billingAddressId Billing address unique ID
+     * @return [Any]
+     */
+    suspend fun deleteBillingAddress(
+        billingAddressId: String,
+    ): Any {
+        val apiPath = "/account/billing-addresses/{billingAddressId}"
+            .replace("{billingAddressId}", billingAddressId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        return client.call(
+            "DELETE",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = Any::class.java,
+        )
+    }
+
+
+    /**
      * Update currently logged in user account email address. After changing user address, the user confirmation status will get reset. A new confirmation email is not sent automatically however you can use the send confirmation email endpoint again to send the confirmation email. For security measures, user password is required to complete this request.
      * This endpoint can also be used to convert an anonymous account to a normal one, by passing an email address and a new password.
      * 
@@ -270,6 +459,177 @@ class Account(client: Client) : Service(client) {
             apiParams,
             responseType = io.appwrite.models.Jwt::class.java,
             converter,
+        )
+    }
+
+
+    /**
+     * Get a list of all API keys from the current account. 
+     *
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
+     * @return [io.appwrite.models.KeyList]
+     */
+    @JvmOverloads
+    suspend fun listKeys(
+        total: Boolean? = null,
+    ): io.appwrite.models.KeyList {
+        val apiPath = "/account/keys"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "total" to total,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+        )
+        val converter: (Any) -> io.appwrite.models.KeyList = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.KeyList.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.KeyList::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Create a new account API key.
+     *
+     * @param name Key name. Max length: 128 chars.
+     * @param scopes Key scopes list. Maximum of 100 scopes are allowed.
+     * @param expire Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @return [io.appwrite.models.Key]
+     */
+    @JvmOverloads
+    suspend fun createKey(
+        name: String,
+        scopes: List<io.appwrite.enums.Scopes>,
+        expire: String? = null,
+    ): io.appwrite.models.Key {
+        val apiPath = "/account/keys"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "name" to name,
+            "scopes" to scopes,
+            "expire" to expire,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Key = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Key.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Key::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Get a key by its unique ID. This endpoint returns details about a specific API key in your account including it's scopes.
+     *
+     * @param keyId Key unique ID.
+     * @return [io.appwrite.models.Key]
+     */
+    suspend fun getKey(
+        keyId: String,
+    ): io.appwrite.models.Key {
+        val apiPath = "/account/keys/{keyId}"
+            .replace("{keyId}", keyId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+        )
+        val converter: (Any) -> io.appwrite.models.Key = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Key.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Key::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Update a key by its unique ID. Use this endpoint to update the name, scopes, or expiration time of an API key.
+     *
+     * @param keyId Key unique ID.
+     * @param name Key name. Max length: 128 chars.
+     * @param scopes Key scopes list. Maximum of 100 scopes are allowed.
+     * @param expire Expiration time in [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format. Use null for unlimited expiration.
+     * @return [io.appwrite.models.Key]
+     */
+    @JvmOverloads
+    suspend fun updateKey(
+        keyId: String,
+        name: String,
+        scopes: List<io.appwrite.enums.Scopes>,
+        expire: String? = null,
+    ): io.appwrite.models.Key {
+        val apiPath = "/account/keys/{keyId}"
+            .replace("{keyId}", keyId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "name" to name,
+            "scopes" to scopes,
+            "expire" to expire,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Key = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Key.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Key::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Delete a key by its unique ID. Once deleted, the key can no longer be used to authenticate API calls.
+     *
+     * @param keyId Key unique ID.
+     * @return [Any]
+     */
+    suspend fun deleteKey(
+        keyId: String,
+    ): Any {
+        val apiPath = "/account/keys/{keyId}"
+            .replace("{keyId}", keyId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        return client.call(
+            "DELETE",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = Any::class.java,
         )
     }
 
@@ -1080,6 +1440,241 @@ class Account(client: Client) : Service(client) {
     )
 
     /**
+     * List payment methods for this account.
+     *
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/databases#querying-documents). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: userId, expired, failed
+     * @return [io.appwrite.models.PaymentMethodList]
+     */
+    @JvmOverloads
+    suspend fun listPaymentMethods(
+        queries: List<String>? = null,
+    ): io.appwrite.models.PaymentMethodList {
+        val apiPath = "/account/payment-methods"
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "queries" to queries,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+        )
+        val converter: (Any) -> io.appwrite.models.PaymentMethodList = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PaymentMethodList.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PaymentMethodList::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Create a new payment method for the current user account.
+     *
+     * @return [io.appwrite.models.PaymentMethod]
+     */
+    suspend fun createPaymentMethod(
+    ): io.appwrite.models.PaymentMethod {
+        val apiPath = "/account/payment-methods"
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.PaymentMethod = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PaymentMethod.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PaymentMethod::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Get a specific payment method for the user.
+     *
+     * @param paymentMethodId Unique ID of payment method
+     * @return [io.appwrite.models.PaymentMethod]
+     */
+    suspend fun getPaymentMethod(
+        paymentMethodId: String,
+    ): io.appwrite.models.PaymentMethod {
+        val apiPath = "/account/payment-methods/{paymentMethodId}"
+            .replace("{paymentMethodId}", paymentMethodId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+        )
+        val converter: (Any) -> io.appwrite.models.PaymentMethod = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PaymentMethod.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PaymentMethod::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Update a new payment method for the current user account.
+     *
+     * @param paymentMethodId Unique ID of payment method
+     * @param expiryMonth Payment expiry month
+     * @param expiryYear Expiry year
+     * @param state State of the payment method country
+     * @return [io.appwrite.models.PaymentMethod]
+     */
+    @JvmOverloads
+    suspend fun updatePaymentMethod(
+        paymentMethodId: String,
+        expiryMonth: Long,
+        expiryYear: Long,
+        state: String? = null,
+    ): io.appwrite.models.PaymentMethod {
+        val apiPath = "/account/payment-methods/{paymentMethodId}"
+            .replace("{paymentMethodId}", paymentMethodId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "expiryMonth" to expiryMonth,
+            "expiryYear" to expiryYear,
+            "state" to state,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.PaymentMethod = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PaymentMethod.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PaymentMethod::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Delete a specific payment method from a user's account.
+     *
+     * @param paymentMethodId Unique ID of payment method
+     * @return [Any]
+     */
+    suspend fun deletePaymentMethod(
+        paymentMethodId: String,
+    ): Any {
+        val apiPath = "/account/payment-methods/{paymentMethodId}"
+            .replace("{paymentMethodId}", paymentMethodId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        return client.call(
+            "DELETE",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = Any::class.java,
+        )
+    }
+
+
+    /**
+     * Update payment method provider.
+     *
+     * @param paymentMethodId Unique ID of payment method
+     * @param providerMethodId Payment method ID from the payment provider
+     * @param name Name in the payment method
+     * @param state State of the payment method country
+     * @return [io.appwrite.models.PaymentMethod]
+     */
+    @JvmOverloads
+    suspend fun updatePaymentMethodProvider(
+        paymentMethodId: String,
+        providerMethodId: String,
+        name: String,
+        state: String? = null,
+    ): io.appwrite.models.PaymentMethod {
+        val apiPath = "/account/payment-methods/{paymentMethodId}/provider"
+            .replace("{paymentMethodId}", paymentMethodId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+            "providerMethodId" to providerMethodId,
+            "name" to name,
+            "state" to state,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.PaymentMethod = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PaymentMethod.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PaymentMethod::class.java,
+            converter,
+        )
+    }
+
+
+    /**
+     * Update payment method mandate options.
+     *
+     * @param paymentMethodId Unique ID of payment method
+     * @return [io.appwrite.models.PaymentMethod]
+     */
+    suspend fun updatePaymentMethodMandateOptions(
+        paymentMethodId: String,
+    ): io.appwrite.models.PaymentMethod {
+        val apiPath = "/account/payment-methods/{paymentMethodId}/setup"
+            .replace("{paymentMethodId}", paymentMethodId)
+
+        val apiParams = mutableMapOf<String, Any?>(
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "content-type" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.PaymentMethod = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PaymentMethod.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PaymentMethod::class.java,
+            converter,
+        )
+    }
+
+
+    /**
      * Update the currently logged in user's phone number. After updating the phone number, the phone verification status will be reset. A confirmation SMS is not sent automatically, however you can use the [POST /account/verification/phone](https://appwrite.io/docs/references/cloud/client-web/account#createPhoneVerification) endpoint to send a confirmation SMS.
      *
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
@@ -1456,7 +2051,7 @@ class Account(client: Client) : Service(client) {
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      * 
      *
-     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom.
+     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom, githubImagine, googleImagine.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
@@ -1924,7 +2519,7 @@ class Account(client: Client) : Service(client) {
      * 
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
-     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom.
+     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, auth0, authentik, autodesk, bitbucket, bitly, box, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, github, gitlab, google, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, yahoo, yammer, yandex, zoho, zoom, githubImagine, googleImagine.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.

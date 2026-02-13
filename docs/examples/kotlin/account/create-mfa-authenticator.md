@@ -12,4 +12,5 @@ val account = Account(client)
 
 val result = account.createMFAAuthenticator(
     type = AuthenticatorType.TOTP,
-)```
+)
+```
