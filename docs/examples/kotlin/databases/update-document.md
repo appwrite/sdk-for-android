@@ -24,4 +24,5 @@ val result = databases.updateDocument(
     ), // (optional)
     permissions = listOf(Permission.read(Role.any())), // (optional)
     transactionId = "<TRANSACTION_ID>", // (optional)
-)```
+)
+```

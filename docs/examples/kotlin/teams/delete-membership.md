@@ -12,4 +12,5 @@ val teams = Teams(client)
 val result = teams.deleteMembership(
     teamId = "<TEAM_ID>", 
     membershipId = "<MEMBERSHIP_ID>", 
-)```
+)
+```

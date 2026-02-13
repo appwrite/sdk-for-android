@@ -14,4 +14,5 @@ val result = account.create(
     email = "email@example.com", 
     password = "", 
     name = "<NAME>", // (optional)
-)```
+)
+```

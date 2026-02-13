@@ -11,4 +11,5 @@ val graphql = Graphql(client)
 
 val result = graphql.mutation(
     query = mapOf( "a" to "b" ), 
-)```
+)
+```

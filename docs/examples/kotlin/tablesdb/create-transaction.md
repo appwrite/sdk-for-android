@@ -11,4 +11,5 @@ val tablesDB = TablesDB(client)
 
 val result = tablesDB.createTransaction(
     ttl = 60, // (optional)
-)```
+)
+```

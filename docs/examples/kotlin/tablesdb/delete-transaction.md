@@ -11,4 +11,5 @@ val tablesDB = TablesDB(client)
 
 val result = tablesDB.deleteTransaction(
     transactionId = "<TRANSACTION_ID>", 
-)```
+)
+```

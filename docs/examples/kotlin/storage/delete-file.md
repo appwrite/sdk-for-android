@@ -12,4 +12,5 @@ val storage = Storage(client)
 val result = storage.deleteFile(
     bucketId = "<BUCKET_ID>", 
     fileId = "<FILE_ID>", 
-)```
+)
+```

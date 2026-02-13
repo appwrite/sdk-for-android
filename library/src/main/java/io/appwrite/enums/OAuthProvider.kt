@@ -80,7 +80,11 @@ enum class OAuthProvider(val value: String) {
     @SerializedName("zoho")
     ZOHO("zoho"),
     @SerializedName("zoom")
-    ZOOM("zoom");
+    ZOOM("zoom"),
+    @SerializedName("githubImagine")
+    GITHUBIMAGINE("githubImagine"),
+    @SerializedName("googleImagine")
+    GOOGLEIMAGINE("googleImagine");
 
     override fun toString() = value
 }

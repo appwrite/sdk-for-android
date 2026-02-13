@@ -11,4 +11,5 @@ val databases = Databases(client)
 
 val result = databases.listTransactions(
     queries = listOf(), // (optional)
-)```
+)
+```
