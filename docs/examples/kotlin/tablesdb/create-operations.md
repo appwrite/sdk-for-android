@@ -20,4 +20,5 @@ val result = tablesDB.createOperations(
             "name" to "Walter O'Brien"
         )
     )), // (optional)
-)```
+)
+```

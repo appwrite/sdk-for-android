@@ -11,4 +11,5 @@ val teams = Teams(client)
 
 val result = teams.delete(
     teamId = "<TEAM_ID>", 
-)```
+)
+```

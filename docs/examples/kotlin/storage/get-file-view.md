@@ -13,4 +13,5 @@ val result = storage.getFileView(
     bucketId = "<BUCKET_ID>", 
     fileId = "<FILE_ID>", 
     token = "<TOKEN>", // (optional)
-)```
+)
+```
