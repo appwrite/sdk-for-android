@@ -13,5 +13,4 @@ val account = Account(client)
 val result = account.updateMFAAuthenticator(
     type = AuthenticatorType.TOTP,
     otp = "<OTP>", 
-)
-```
+)```

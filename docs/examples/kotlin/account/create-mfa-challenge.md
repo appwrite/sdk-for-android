@@ -12,5 +12,4 @@ val account = Account(client)
 
 val result = account.createMFAChallenge(
     factor = AuthenticationFactor.EMAIL,
-)
-```
+)```

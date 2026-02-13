@@ -17,5 +17,4 @@ val result = storage.createFile(
     fileId = "<FILE_ID>", 
     file = InputFile.fromPath("file.png"), 
     permissions = listOf(Permission.read(Role.any())), // (optional)
-)
-```
+)```

@@ -24,5 +24,4 @@ val result = databases.createDocument(
     ), 
     permissions = listOf(Permission.read(Role.any())), // (optional)
     transactionId = "<TRANSACTION_ID>", // (optional)
-)
-```
+)```

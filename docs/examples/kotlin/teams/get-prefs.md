@@ -11,5 +11,4 @@ val teams = Teams(client)
 
 val result = teams.getPrefs(
     teamId = "<TEAM_ID>", 
-)
-```
+)```

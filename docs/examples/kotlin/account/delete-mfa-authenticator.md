@@ -12,5 +12,4 @@ val account = Account(client)
 
 val result = account.deleteMFAAuthenticator(
     type = AuthenticatorType.TOTP,
-)
-```
+)```

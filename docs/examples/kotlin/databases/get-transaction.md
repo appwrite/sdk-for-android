@@ -11,5 +11,4 @@ val databases = Databases(client)
 
 val result = databases.getTransaction(
     transactionId = "<TRANSACTION_ID>", 
-)
-```
+)```

@@ -13,5 +13,4 @@ val result = tablesDB.updateTransaction(
     transactionId = "<TRANSACTION_ID>", 
     commit = false, // (optional)
     rollback = false, // (optional)
-)
-```
+)```

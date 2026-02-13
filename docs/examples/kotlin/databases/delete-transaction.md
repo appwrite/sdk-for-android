@@ -11,5 +11,4 @@ val databases = Databases(client)
 
 val result = databases.deleteTransaction(
     transactionId = "<TRANSACTION_ID>", 
-)
-```
+)```

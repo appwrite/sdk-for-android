@@ -15,5 +15,4 @@ val result = account.updatePrefs(
         "timezone" to "UTC",
         "darkTheme" to true
     ), 
-)
-```
+)```

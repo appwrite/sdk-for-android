@@ -11,5 +11,4 @@ val account = Account(client)
 
 val result = account.updateMFA(
     mfa = false, 
-)
-```
+)```

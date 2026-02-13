@@ -12,5 +12,4 @@ val account = Account(client)
 val result = account.createRecovery(
     email = "email@example.com", 
     url = "https://example.com", 
-)
-```
+)```

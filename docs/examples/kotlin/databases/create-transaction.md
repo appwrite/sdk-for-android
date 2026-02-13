@@ -11,5 +11,4 @@ val databases = Databases(client)
 
 val result = databases.createTransaction(
     ttl = 60, // (optional)
-)
-```
+)```

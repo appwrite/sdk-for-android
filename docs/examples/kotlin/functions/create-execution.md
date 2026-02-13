@@ -18,5 +18,4 @@ val result = functions.createExecution(
     method = ExecutionMethod.GET, // (optional)
     headers = mapOf( "a" to "b" ), // (optional)
     scheduledAt = "<SCHEDULED_AT>", // (optional)
-)
-```
+)```

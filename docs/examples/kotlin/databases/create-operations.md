@@ -20,5 +20,4 @@ val result = databases.createOperations(
             "name" to "Walter O'Brien"
         )
     )), // (optional)
-)
-```
+)```

@@ -12,5 +12,4 @@ val account = Account(client)
 val result = account.updateVerification(
     userId = "<USER_ID>", 
     secret = "<SECRET>", 
-)
-```
+)```

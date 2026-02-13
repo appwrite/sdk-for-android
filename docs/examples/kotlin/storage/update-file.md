@@ -16,5 +16,4 @@ val result = storage.updateFile(
     fileId = "<FILE_ID>", 
     name = "<NAME>", // (optional)
     permissions = listOf(Permission.read(Role.any())), // (optional)
-)
-```
+)```

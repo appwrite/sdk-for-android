@@ -24,5 +24,4 @@ val result = tablesDB.updateRow(
     ), // (optional)
     permissions = listOf(Permission.read(Role.any())), // (optional)
     transactionId = "<TRANSACTION_ID>", // (optional)
-)
-```
+)```

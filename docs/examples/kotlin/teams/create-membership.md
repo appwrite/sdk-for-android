@@ -17,5 +17,4 @@ val result = teams.createMembership(
     phone = "+12065550100", // (optional)
     url = "https://example.com", // (optional)
     name = "<NAME>", // (optional)
-)
-```
+)```
