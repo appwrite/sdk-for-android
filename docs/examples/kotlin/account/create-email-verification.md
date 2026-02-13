@@ -11,4 +11,5 @@ val account = Account(client)
 
 val result = account.createEmailVerification(
     url = "https://example.com", 
-)```
+)
+```

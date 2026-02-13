@@ -12,4 +12,5 @@ val teams = Teams(client)
 val result = teams.updateName(
     teamId = "<TEAM_ID>", 
     name = "<NAME>", 
-)```
+)
+```
