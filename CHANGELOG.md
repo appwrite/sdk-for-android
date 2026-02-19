@@ -1,11 +1,10 @@
 # Change Log
 
-## 13.0.0
+## 12.2.0
 
 * Added Channel<_Document>.upsert() and Channel<_Row>.upsert() API methods to upsert documents and rows in channels.
 * Added new query filters: containsAny(attribute, List<Any>) and containsAll(attribute, List<Any>) for advanced matching on array/relationship attributes.
 * Realtime improvements: improved WebSocket lifecycle and connection handling. Introduced generation-based checks to avoid processing messages from stale sockets and ensure sequential socket recreation on reconnects.
-* OAuth providers removed: githubImagine and googleImagine are no longer supported. This is a breaking change; update your auth provider configuration accordingly.
 
 ## 12.1.0
 
