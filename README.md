@@ -41,6 +41,24 @@ Next, add the dependency to your project's `build.gradle(.kts)` file:
 implementation("io.appwrite:sdk-for-android:12.2.0")
 ```
 
+### Gradle Version Catalog
+
+If you are using [Gradle Version Catalogs](https://docs.gradle.org/current/userguide/version_catalogs.html), note that the artifact name `sdk-for-android` cannot be used directly as an alias because `for` is a reserved keyword in Kotlin. Instead, define a custom alias in your `gradle/libs.versions.toml` file:
+
+```toml
+[versions]
+appwrite = "12.2.0"
+
+[libraries]
+appwrite = { group = "io.appwrite", name = "sdk-for-android", version.ref = "appwrite" }
+```
+
+Then reference it in your module's `build.gradle.kts` file:
+
+```kotlin
+implementation(libs.appwrite)
+```
+
 ### Maven
 Add this to your project's `pom.xml` file:
 
