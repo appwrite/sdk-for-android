@@ -14,7 +14,7 @@ data class Row<T>(
     val id: String,
 
     /**
-     * Row automatically incrementing ID.
+     * Row sequence ID.
      */
     @SerializedName("\$sequence")
     val sequence: Long,

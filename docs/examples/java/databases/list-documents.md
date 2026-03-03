@@ -15,6 +15,7 @@ databases.listDocuments(
     List.of(), // queries (optional)
     "<TRANSACTION_ID>", // transactionId (optional)
     false, // total (optional)
+    0, // ttl (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -14,7 +14,7 @@ data class Document<T>(
     val id: String,
 
     /**
-     * Document automatically incrementing ID.
+     * Document sequence ID.
      */
     @SerializedName("\$sequence")
     val sequence: Long,

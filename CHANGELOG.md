@@ -1,10 +1,12 @@
 # Change Log
 
-## 12.2.0
+## 13.0.0
 
-* Added Channel<_Document>.upsert() and Channel<_Row>.upsert() API methods to upsert documents and rows in channels.
-* Added new query filters: containsAny(attribute, List<Any>) and containsAll(attribute, List<Any>) for advanced matching on array/relationship attributes.
-* Realtime improvements: improved WebSocket lifecycle and connection handling. Introduced generation-based checks to avoid processing messages from stale sockets and ensure sequential socket recreation on reconnects.
+* Breaking: Channel factory methods require explicit IDs (no wildcard defaults)
+* Added ttl parameter to listDocuments and listRows for caching
+* Updated x-sdk-version header to 12.2.1 in Client
+* Updated docs and examples to show TTL usage and latest compatibility note
+* Updated Document and Row sequence descriptions in models
 
 ## 12.1.0
 
