@@ -1,5 +1,13 @@
 # Change Log
 
+## 13.0.0
+
+* Breaking: Channel factory methods require explicit IDs (no wildcard defaults)
+* Added ttl parameter to listDocuments and listRows for caching
+* Updated x-sdk-version header to 12.2.1 in Client
+* Updated docs and examples to show TTL usage and latest compatibility note
+* Updated Document and Row sequence descriptions in models
+
 ## 12.1.0
 
 * Add `queries` parameter to Realtime subscriptions for filtering events
