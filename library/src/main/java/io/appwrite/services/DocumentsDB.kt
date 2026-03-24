@@ -10,12 +10,12 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Databases service allows you to create structured collections of documents, query and filter lists of documents
+ * 
  */
-class Databases(client: Client) : Service(client) {
+class DocumentsDB(client: Client) : Service(client) {
 
     /**
-     * List transactions across all databases.
+     * 
      *
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries).
      * @return [io.appwrite.models.TransactionList]
@@ -24,7 +24,7 @@ class Databases(client: Client) : Service(client) {
     suspend fun listTransactions(
         queries: List<String>? = null,
     ): io.appwrite.models.TransactionList {
-        val apiPath = "/databases/transactions"
+        val apiPath = "/documentsdb/transactions"
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -47,7 +47,7 @@ class Databases(client: Client) : Service(client) {
 
 
     /**
-     * Create a new transaction.
+     * 
      *
      * @param ttl Seconds before the transaction expires.
      * @return [io.appwrite.models.Transaction]
@@ -56,7 +56,7 @@ class Databases(client: Client) : Service(client) {
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions"
+        val apiPath = "/documentsdb/transactions"
 
         val apiParams = mutableMapOf<String, Any?>(
             "ttl" to ttl,
@@ -80,7 +80,7 @@ class Databases(client: Client) : Service(client) {
 
 
     /**
-     * Get a transaction by its unique ID.
+     * 
      *
      * @param transactionId Transaction ID.
      * @return [io.appwrite.models.Transaction]
@@ -88,7 +88,7 @@ class Databases(client: Client) : Service(client) {
     suspend fun getTransaction(
         transactionId: String,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions/{transactionId}"
+        val apiPath = "/documentsdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -111,7 +111,7 @@ class Databases(client: Client) : Service(client) {
 
 
     /**
-     * Update a transaction, to either commit or roll back its operations.
+     * 
      *
      * @param transactionId Transaction ID.
      * @param commit Commit transaction?
@@ -124,7 +124,7 @@ class Databases(client: Client) : Service(client) {
         commit: Boolean? = null,
         rollback: Boolean? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions/{transactionId}"
+        val apiPath = "/documentsdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -150,7 +150,7 @@ class Databases(client: Client) : Service(client) {
 
 
     /**
-     * Delete a transaction by its unique ID.
+     * 
      *
      * @param transactionId Transaction ID.
      * @return [Any]
@@ -158,7 +158,7 @@ class Databases(client: Client) : Service(client) {
     suspend fun deleteTransaction(
         transactionId: String,
     ): Any {
-        val apiPath = "/databases/transactions/{transactionId}"
+        val apiPath = "/documentsdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -177,7 +177,7 @@ class Databases(client: Client) : Service(client) {
 
 
     /**
-     * Create multiple operations in a single transaction.
+     * 
      *
      * @param transactionId Transaction ID.
      * @param operations Array of staged operations.
@@ -188,7 +188,7 @@ class Databases(client: Client) : Service(client) {
         transactionId: String,
         operations: List<Any>? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions/{transactionId}/operations"
+        val apiPath = "/documentsdb/transactions/{transactionId}/operations"
             .replace("{transactionId}", transactionId)
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -223,10 +223,6 @@ class Databases(client: Client) : Service(client) {
      * @param ttl TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
      * @return [io.appwrite.models.DocumentList<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.listRows` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.listRows")
-    )
     @JvmOverloads
     suspend fun <T> listDocuments(
         databaseId: String,
@@ -237,7 +233,7 @@ class Databases(client: Client) : Service(client) {
         ttl: Long? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.DocumentList<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
@@ -274,10 +270,6 @@ class Databases(client: Client) : Service(client) {
      * @param ttl TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
      * @return [io.appwrite.models.DocumentList<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.listRows` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.listRows")
-    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun listDocuments(
@@ -298,20 +290,15 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
      * @param documentId Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-     * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.createRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createRow")
-    )
     @JvmOverloads
     suspend fun <T> createDocument(
         databaseId: String,
@@ -319,10 +306,9 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         data: Any,
         permissions: List<String>? = null,
-        transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
@@ -330,7 +316,6 @@ class Databases(client: Client) : Service(client) {
             "documentId" to documentId,
             "data" to data,
             "permissions" to permissions,
-            "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
@@ -350,20 +335,15 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * Create a new Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
      * @param documentId Document ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param data Document data as JSON object.
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-     * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.createRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createRow")
-    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun createDocument(
@@ -372,46 +352,35 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         data: Any,
         permissions: List<String>? = null,
-        transactionId: String? = null,
     ): io.appwrite.models.Document<Map<String, Any>> = createDocument(
         databaseId,
         collectionId,
         documentId,
         data,
         permissions,
-        transactionId,
         nestedType = classOf(),
     )
 
     /**
-     * Create or update Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
-     * 
+     * Create new Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
-     * @param collectionId Collection ID.
-     * @param documents Array of document data as JSON objects. May contain partial documents.
-     * @param transactionId Transaction ID for staging the operation.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
+     * @param documents Array of documents data as JSON objects.
      * @return [io.appwrite.models.DocumentList<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRows` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRows")
-    )
-    @JvmOverloads
-    suspend fun <T> upsertDocuments(
+    suspend fun <T> createDocuments(
         databaseId: String,
         collectionId: String,
         documents: List<Any>,
-        transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.DocumentList<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
 
         val apiParams = mutableMapOf<String, Any?>(
             "documents" to documents,
-            "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
@@ -421,7 +390,7 @@ class Databases(client: Client) : Service(client) {
             io.appwrite.models.DocumentList.from(map = it as Map<String, Any>, nestedType)
         }
         return client.call(
-            "PUT",
+            "POST",
             apiPath,
             apiHeaders,
             apiParams,
@@ -431,31 +400,22 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Create or update Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
-     * 
+     * Create new Documents. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
-     * @param collectionId Collection ID.
-     * @param documents Array of document data as JSON objects. May contain partial documents.
-     * @param transactionId Transaction ID for staging the operation.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection). Make sure to define attributes before creating documents.
+     * @param documents Array of documents data as JSON objects.
      * @return [io.appwrite.models.DocumentList<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRows` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRows")
-    )
-    @JvmOverloads
     @Throws(AppwriteException::class)
-    suspend fun upsertDocuments(
+    suspend fun createDocuments(
         databaseId: String,
         collectionId: String,
         documents: List<Any>,
-        transactionId: String? = null,
-    ): io.appwrite.models.DocumentList<Map<String, Any>> = upsertDocuments(
+    ): io.appwrite.models.DocumentList<Map<String, Any>> = createDocuments(
         databaseId,
         collectionId,
         documents,
-        transactionId,
         nestedType = classOf(),
     )
 
@@ -469,10 +429,6 @@ class Databases(client: Client) : Service(client) {
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.getRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.getRow")
-    )
     @JvmOverloads
     suspend fun <T> getDocument(
         databaseId: String,
@@ -482,7 +438,7 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -517,10 +473,6 @@ class Databases(client: Client) : Service(client) {
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.getRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.getRow")
-    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun getDocument(
@@ -539,20 +491,16 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
-     * @param data Document data as JSON object. Include all required attributes of the document to be created or updated.
+     * @param data Document data as JSON object. Include all required fields of the document to be created or updated.
      * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRow")
-    )
     @JvmOverloads
     suspend fun <T> upsertDocument(
         databaseId: String,
@@ -563,7 +511,7 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -591,20 +539,16 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection) API or directly from your database console.
+     * Create or update a Document. Before using this route, you should create a new collection resource using either a [server integration](https://appwrite.io/docs/server/databases#documentsDBCreateCollection) API or directly from your database console.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
-     * @param data Document data as JSON object. Include all required attributes of the document to be created or updated.
+     * @param data Document data as JSON object. Include all required fields of the document to be created or updated.
      * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.upsertRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.upsertRow")
-    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun upsertDocument(
@@ -630,15 +574,11 @@ class Databases(client: Client) : Service(client) {
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
-     * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
+     * @param data Document data as JSON object. Include only fields and value pairs to be updated.
      * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.updateRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.updateRow")
-    )
     @JvmOverloads
     suspend fun <T> updateDocument(
         databaseId: String,
@@ -649,7 +589,7 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -682,15 +622,11 @@ class Databases(client: Client) : Service(client) {
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
-     * @param data Document data as JSON object. Include only attribute and value pairs to be updated.
+     * @param data Document data as JSON object. Include only fields and value pairs to be updated.
      * @param permissions An array of permissions strings. By default, the current permissions are inherited. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.updateRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.updateRow")
-    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updateDocument(
@@ -719,10 +655,6 @@ class Databases(client: Client) : Service(client) {
      * @param transactionId Transaction ID for staging the operation.
      * @return [Any]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.deleteRow` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.deleteRow")
-    )
     @JvmOverloads
     suspend fun deleteDocument(
         databaseId: String,
@@ -730,7 +662,7 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         transactionId: String? = null,
     ): Any {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -752,21 +684,17 @@ class Databases(client: Client) : Service(client) {
 
 
     /**
-     * Decrement a specific attribute of a document by a given value.
+     * Decrement a specific column of a row by a given value.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param attribute Attribute key.
-     * @param value Value to increment the attribute by. The value must be a number.
+     * @param value Value to decrement the attribute by. The value must be a number.
      * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.decrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.decrementRowColumn")
-    )
     @JvmOverloads
     suspend fun <T> decrementDocumentAttribute(
         databaseId: String,
@@ -778,7 +706,7 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -807,21 +735,17 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Decrement a specific attribute of a document by a given value.
+     * Decrement a specific column of a row by a given value.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
      * @param documentId Document ID.
      * @param attribute Attribute key.
-     * @param value Value to increment the attribute by. The value must be a number.
+     * @param value Value to decrement the attribute by. The value must be a number.
      * @param min Minimum value for the attribute. If the current value is lesser than this value, an exception will be thrown.
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.decrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.decrementRowColumn")
-    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun decrementDocumentAttribute(
@@ -844,7 +768,7 @@ class Databases(client: Client) : Service(client) {
     )
 
     /**
-     * Increment a specific attribute of a document by a given value.
+     * Increment a specific column of a row by a given value.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
@@ -855,10 +779,6 @@ class Databases(client: Client) : Service(client) {
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.incrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.incrementRowColumn")
-    )
     @JvmOverloads
     suspend fun <T> incrementDocumentAttribute(
         databaseId: String,
@@ -870,7 +790,7 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
+        val apiPath = "/documentsdb/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
@@ -899,7 +819,7 @@ class Databases(client: Client) : Service(client) {
     }
 
     /**
-     * Increment a specific attribute of a document by a given value.
+     * Increment a specific column of a row by a given value.
      *
      * @param databaseId Database ID.
      * @param collectionId Collection ID.
@@ -910,10 +830,6 @@ class Databases(client: Client) : Service(client) {
      * @param transactionId Transaction ID for staging the operation.
      * @return [io.appwrite.models.Document<T>]
      */
-    @Deprecated(
-        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.incrementRowColumn` instead.",
-        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.incrementRowColumn")
-    )
     @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun incrementDocumentAttribute(

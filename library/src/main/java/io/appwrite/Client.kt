@@ -87,8 +87,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "13.0.0",
-            "x-appwrite-response-format" to "1.8.0"
+            "x-sdk-version" to "12.1.1",
+            "x-appwrite-response-format" to "1.9.0"
         )
         config = mutableMapOf()
 
@@ -165,6 +165,51 @@ class Client @JvmOverloads constructor(
     fun setDevKey(value: String): Client {
         config["devKey"] = value
         addHeader("x-appwrite-dev-key", value)
+        return this
+    }
+
+    /**
+     * Set ImpersonateUserId
+     *
+     * Impersonate a user by ID on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+     *
+     * @param {string} impersonateuserid
+     *
+     * @return this
+     */
+    fun setImpersonateUserId(value: String): Client {
+        config["impersonateUserId"] = value
+        addHeader("x-appwrite-impersonate-user-id", value)
+        return this
+    }
+
+    /**
+     * Set ImpersonateUserEmail
+     *
+     * Impersonate a user by email on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+     *
+     * @param {string} impersonateuseremail
+     *
+     * @return this
+     */
+    fun setImpersonateUserEmail(value: String): Client {
+        config["impersonateUserEmail"] = value
+        addHeader("x-appwrite-impersonate-user-email", value)
+        return this
+    }
+
+    /**
+     * Set ImpersonateUserPhone
+     *
+     * Impersonate a user by phone on an already user-authenticated request. Requires the current request to be authenticated as a user with impersonator capability; X-Appwrite-Key alone is not sufficient. Impersonator users are intentionally granted users.read so they can discover a target before impersonation begins. Internal audit logs still attribute actions to the original impersonator and record the impersonated target only in internal audit payload data.
+     *
+     * @param {string} impersonateuserphone
+     *
+     * @return this
+     */
+    fun setImpersonateUserPhone(value: String): Client {
+        config["impersonateUserPhone"] = value
+        addHeader("x-appwrite-impersonate-user-phone", value)
         return this
     }
 

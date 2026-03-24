@@ -1,12 +1,11 @@
 # Change Log
 
-## 13.0.0
+## 12.1.1
 
-* Breaking: Channel factory methods require explicit IDs (no wildcard defaults)
-* Added ttl parameter to listDocuments and listRows for caching
-* Updated x-sdk-version header to 12.2.1 in Client
-* Updated docs and examples to show TTL usage and latest compatibility note
-* Updated Document and Row sequence descriptions in models
+* Added Java `DocumentsDB` CRUD operation examples in docs
+* Updated server compatibility note to Appwrite server version 1.8.x
+* Updated Gradle/Maven dependencies to `12.1.0`
+* Updated API version badge to `1.9.0` in README
 
 ## 12.1.0
 

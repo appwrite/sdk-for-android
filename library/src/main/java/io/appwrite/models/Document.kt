@@ -17,7 +17,7 @@ data class Document<T>(
      * Document sequence ID.
      */
     @SerializedName("\$sequence")
-    val sequence: Long,
+    val sequence: String,
 
     /**
      * Collection ID.
@@ -69,7 +69,7 @@ data class Document<T>(
     companion object {
         operator fun invoke(
             id: String,
-            sequence: Long,
+            sequence: String,
             collectionId: String,
             databaseId: String,
             createdAt: String,
@@ -93,7 +93,7 @@ data class Document<T>(
             nestedType: Class<T>
         ) = Document<T>(
             id = map["\$id"] as String,
-            sequence = (map["\$sequence"] as Number).toLong(),
+            sequence = map["\$sequence"] as String,
             collectionId = map["\$collectionId"] as String,
             databaseId = map["\$databaseId"] as String,
             createdAt = map["\$createdAt"] as String,

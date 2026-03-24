@@ -14,19 +14,19 @@ data class Log(
     val event: String,
 
     /**
-     * User ID.
+     * User ID of the actor recorded for this log. During impersonation, this is the original impersonator, not the impersonated target user.
      */
     @SerializedName("userId")
     val userId: String,
 
     /**
-     * User Email.
+     * User email of the actor recorded for this log. During impersonation, this is the original impersonator.
      */
     @SerializedName("userEmail")
     val userEmail: String,
 
     /**
-     * User Name.
+     * User name of the actor recorded for this log. During impersonation, this is the original impersonator.
      */
     @SerializedName("userName")
     val userName: String,
