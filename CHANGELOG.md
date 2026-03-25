@@ -1,8 +1,8 @@
 # Change Log
 
-## 12.1.1
+## 13.0.0
 
-* Added Java `DocumentsDB` CRUD operation examples in docs
+* [BREAKING] Changed `$sequence` type from `int` to `string` for rows and documents
 * Updated server compatibility note to Appwrite server version 1.8.x
 * Updated Gradle/Maven dependencies to `12.1.0`
 * Updated API version badge to `1.9.0` in README
