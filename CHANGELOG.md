@@ -1,6 +1,6 @@
 # Change Log
 
-## 13.0.0
+## 14.0.0
 
 * [BREAKING] Changed `$sequence` type from `Long` to `String` for `Row` and `Document` models
 * Added impersonation support: `setImpersonateUserId()`, `setImpersonateUserEmail()`, `setImpersonateUserPhone()` on `Client`
@@ -8,6 +8,14 @@
 * Updated `Log` model field descriptions to clarify impersonation behavior for `userId`, `userEmail`, `userName`
 * Updated `X-Appwrite-Response-Format` header to `1.9.0`
 * Updated API version badge to `1.9.0` and compatibility note to server version `1.9.x` in README
+
+## 13.0.0
+
+* Breaking: Channel factory methods require explicit IDs (no wildcard defaults)
+* Added ttl parameter to listDocuments and listRows for caching
+* Updated x-sdk-version header to 12.2.1 in Client
+* Updated docs and examples to show TTL usage and latest compatibility note
+* Updated Document and Row sequence descriptions in models
 
 ## 12.1.0
 
