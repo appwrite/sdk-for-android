@@ -121,6 +121,18 @@ data class User<T>(
     @SerializedName("accessedAt")
     val accessedAt: String,
 
+    /**
+     * Whether the user can impersonate other users.
+     */
+    @SerializedName("impersonator")
+    var impersonator: Boolean?,
+
+    /**
+     * ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
+     */
+    @SerializedName("impersonatorUserId")
+    var impersonatorUserId: String?,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -142,6 +154,8 @@ data class User<T>(
         "prefs" to prefs.toMap() as Any,
         "targets" to targets.map { it.toMap() } as Any,
         "accessedAt" to accessedAt as Any,
+        "impersonator" to impersonator as Any,
+        "impersonatorUserId" to impersonatorUserId as Any,
     )
 
     companion object {
@@ -165,6 +179,8 @@ data class User<T>(
             prefs: Preferences<Map<String, Any>>,
             targets: List<Target>,
             accessedAt: String,
+            impersonator: Boolean?,
+            impersonatorUserId: String?,
         ) = User<Map<String, Any>>(
             id,
             createdAt,
@@ -185,6 +201,8 @@ data class User<T>(
             prefs,
             targets,
             accessedAt,
+            impersonator,
+            impersonatorUserId,
         )
 
         @Suppress("UNCHECKED_CAST")
@@ -211,6 +229,8 @@ data class User<T>(
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),
             targets = (map["targets"] as List<Map<String, Any>>).map { Target.from(map = it) },
             accessedAt = map["accessedAt"] as String,
+            impersonator = map["impersonator"] as? Boolean,
+            impersonatorUserId = map["impersonatorUserId"] as? String,
         )
     }
 }

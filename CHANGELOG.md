@@ -1,5 +1,14 @@
 # Change Log
 
+## 14.0.0
+
+* [BREAKING] Changed `$sequence` type from `Long` to `String` for `Row` and `Document` models
+* Added impersonation support: `setImpersonateUserId()`, `setImpersonateUserEmail()`, `setImpersonateUserPhone()` on `Client`
+* Added `impersonator` and `impersonatorUserId` optional fields to `User` model
+* Updated `Log` model field descriptions to clarify impersonation behavior for `userId`, `userEmail`, `userName`
+* Updated `X-Appwrite-Response-Format` header to `1.9.0`
+* Updated API version badge to `1.9.0` and compatibility note to server version `1.9.x` in README
+
 ## 13.0.0
 
 * Breaking: Channel factory methods require explicit IDs (no wildcard defaults)

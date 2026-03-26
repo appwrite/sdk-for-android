@@ -17,7 +17,7 @@ data class Row<T>(
      * Row sequence ID.
      */
     @SerializedName("\$sequence")
-    val sequence: Long,
+    val sequence: String,
 
     /**
      * Table ID.
@@ -69,7 +69,7 @@ data class Row<T>(
     companion object {
         operator fun invoke(
             id: String,
-            sequence: Long,
+            sequence: String,
             tableId: String,
             databaseId: String,
             createdAt: String,
@@ -93,7 +93,7 @@ data class Row<T>(
             nestedType: Class<T>
         ) = Row<T>(
             id = map["\$id"] as String,
-            sequence = (map["\$sequence"] as Number).toLong(),
+            sequence = map["\$sequence"] as String,
             tableId = map["\$tableId"] as String,
             databaseId = map["\$databaseId"] as String,
             createdAt = map["\$createdAt"] as String,
