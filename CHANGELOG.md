@@ -2,10 +2,12 @@
 
 ## 13.0.0
 
-* [BREAKING] Changed `$sequence` type from `int` to `string` for rows and documents
-* Updated server compatibility note to Appwrite server version 1.8.x
-* Updated Gradle/Maven dependencies to `12.1.0`
-* Updated API version badge to `1.9.0` in README
+* [BREAKING] Changed `$sequence` type from `Long` to `String` for `Row` and `Document` models
+* Added impersonation support: `setImpersonateUserId()`, `setImpersonateUserEmail()`, `setImpersonateUserPhone()` on `Client`
+* Added `impersonator` and `impersonatorUserId` optional fields to `User` model
+* Updated `Log` model field descriptions to clarify impersonation behavior for `userId`, `userEmail`, `userName`
+* Updated `X-Appwrite-Response-Format` header to `1.9.0`
+* Updated API version badge to `1.9.0` and compatibility note to server version `1.9.x` in README
 
 ## 12.1.0
 
