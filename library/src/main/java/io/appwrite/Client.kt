@@ -315,6 +315,39 @@ class Client @JvmOverloads constructor(
     }
 
     /**
+     * Get the current request headers used for Appwrite API calls.
+     *
+     * This can be used to authenticate requests with external networking
+     * libraries such as Coil or Glide when loading protected Appwrite Storage files.
+     *
+     * @return an unmodifiable map of the current request headers
+     */
+    fun getHeaders(): Map<String, String> = headers.toMap()
+
+    /**
+     * Get the cookies for a given URL from the SDK's cookie store.
+     *
+     * This can be used to authenticate requests with external networking
+     * libraries such as Coil or Glide when loading protected Appwrite Storage files.
+     *
+     * @param url the URL to retrieve cookies for
+     * @return a list of cookies for the given URL
+     */
+    fun getCookies(url: String): List<Cookie> = cookieJar.loadForRequest(url.toHttpUrl())
+
+    /**
+     * Get the OkHttpClient instance used by this SDK.
+     *
+     * The returned client is pre-configured with the SDK's cookie jar so it
+     * automatically includes session cookies on every request. Pass it directly
+     * to external networking libraries (e.g. Coil, Glide, or a custom OkHttp
+     * client) to reuse the current authenticated session.
+     *
+     * @return the OkHttpClient instance used by this client
+     */
+    fun getHttpClient(): OkHttpClient = http.newBuilder().build()
+
+    /**
      * Sends a "ping" request to Appwrite to verify connectivity.
      *
      * @return String
