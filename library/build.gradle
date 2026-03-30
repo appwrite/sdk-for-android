@@ -15,7 +15,7 @@ ext {
     POM_LICENSE_NAME = "GPL-3.0"
     POM_DEVELOPER_ID = 'appwrite'
     POM_DEVELOPER_NAME = 'Appwrite Team'
-    POM_DEVELOPER_EMAIL = 'team@appwrite.io'
+    POM_DEVELOPER_EMAIL = 'team@localhost.test'
     GITHUB_SCM_CONNECTION = 'scm:git:git://github.com/appwrite/sdk-for-android.git'
 }
 

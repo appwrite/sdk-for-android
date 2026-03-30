@@ -1,5 +1,9 @@
 # Change Log
 
+## 14.0.1
+
+* Updated developer email in build configuration
+
 ## 14.0.0
 
 * [BREAKING] Changed `$sequence` type from `Long` to `String` for `Row` and `Document` models
