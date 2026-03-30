@@ -4,7 +4,7 @@
 
 * **Note:** Version 22.2.0 was accidentally released in a previous cycle. This release (23.0.0) supersedes it as the correct next major version.
 
-### Summary of changes since 12.3.0
+### Summary of changes since 14.1.0
 
 * [BREAKING] Changed `$sequence` type from `Long` to `String` for `Row` and `Document` models
 * Added impersonation support: `setImpersonateUserId()`, `setImpersonateUserEmail()`, `setImpersonateUserPhone()` on `Client`
@@ -17,7 +17,7 @@
 * Breaking: `Output` enum removed; use `ImageFormat` instead
 * Added `Channel` helpers for Realtime
 * Added `getScreenshot` method to `Avatars` service
-* Added `Theme`, `Timezone`, and `Output` enums
+* Added `Theme` and `Timezone` enums
 * Added `total` parameter to list queries for skipping row counting
 * Added `Operator` class for atomic modification of rows
 * Added transaction support for Databases and TablesDB
