@@ -1,5 +1,33 @@
 # Change Log
 
+## 23.0.0
+
+* **Note:** Version 22.2.0 was accidentally released in a previous cycle. This release (23.0.0) supersedes it as the correct next major version.
+
+### Summary of changes since 14.1.0
+
+* [BREAKING] Changed `$sequence` type from `Long` to `String` for `Row` and `Document` models
+* Added impersonation support: `setImpersonateUserId()`, `setImpersonateUserEmail()`, `setImpersonateUserPhone()` on `Client`
+* Added `impersonator` and `impersonatorUserId` optional fields to `User` model
+* Added `getHeaders()`, `getCookies(url)`, and `getHttpClient()` methods to `Client`
+* Breaking: Channel factory methods require explicit IDs (no wildcard defaults)
+* Added `ttl` parameter to `listDocuments` and `listRows` for caching
+* Added `queries` parameter to Realtime subscriptions for filtering events
+* Added array-based enum parameters (e.g., `permissions: List<BrowserPermission>`)
+* Breaking: `Output` enum removed; use `ImageFormat` instead
+* Added `Channel` helpers for Realtime
+* Added `getScreenshot` method to `Avatars` service
+* Added `Theme` and `Timezone` enums
+* Added `total` parameter to list queries for skipping row counting
+* Added `Operator` class for atomic modification of rows
+* Added transaction support for Databases and TablesDB
+* Deprecated `createVerification`; added `createEmailVerification` in `Account` service
+* Added `incrementDocumentAttribute` and `decrementDocumentAttribute` to `Databases` service
+* Added `gif` support to `ImageFormat` enum and `sequence` support to `Document` model
+* Added `devKeys` support to `Client` and `upsertDocument` to `Databases` service
+* Added `token` param to `getFilePreview` and `getFileView` for File tokens
+* Fixed requests failing by removing `Content-Type` header from `GET` and `HEAD` requests
+
 ## 14.1.0
 
 * Added `getHeaders()` method to `Client` for accessing current request headers
