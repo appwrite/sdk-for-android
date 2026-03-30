@@ -1,8 +1,10 @@
 # Change Log
 
-## 14.0.1
+## 14.1.0
 
-* Updated developer email in build configuration
+* Added `getHeaders()` method to `Client` for accessing current request headers
+* Added `getCookies(url)` method to `Client` for retrieving cookies from the cookie store
+* Added `getHttpClient()` method to `Client` for accessing the underlying OkHttpClient instance
 
 ## 14.0.0
 

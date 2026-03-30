@@ -87,7 +87,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "14.0.1",
+            "x-sdk-version" to "14.1.0",
             "x-appwrite-response-format" to "1.9.0"
         )
         config = mutableMapOf()
@@ -313,6 +313,28 @@ class Client @JvmOverloads constructor(
         headers[key] = value
         return this
     }
+
+    /**
+     * Get the current request headers used for Appwrite API calls.
+     *
+     * @return a copy of the current request headers
+     */
+    fun getHeaders(): Map<String, String> = headers.toMap()
+
+    /**
+     * Get the cookies for a given URL from the SDK's cookie store.
+     *
+     * @param url the URL to retrieve cookies for
+     * @return a list of cookies for the given URL
+     */
+    fun getCookies(url: String): List<Cookie> = cookieJar.loadForRequest(url.toHttpUrl())
+
+    /**
+     * Get the OkHttpClient instance used by this SDK.
+     *
+     * @return the OkHttpClient instance used by this client
+     */
+    fun getHttpClient(): OkHttpClient = http
 
     /**
      * Sends a "ping" request to Appwrite to verify connectivity.
