@@ -220,7 +220,7 @@ class TablesDB(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
      * @param total When set to false, the total count returned will be 0 and will not be calculated.
-     * @param ttl TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
+     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
      * @return [io.appwrite.models.RowList<T>]
      */
     @JvmOverloads
@@ -267,7 +267,7 @@ class TablesDB(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
      * @param total When set to false, the total count returned will be 0 and will not be calculated.
-     * @param ttl TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
+     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
      * @return [io.appwrite.models.RowList<T>]
      */
     @JvmOverloads
