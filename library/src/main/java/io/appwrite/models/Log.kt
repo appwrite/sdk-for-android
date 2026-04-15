@@ -38,6 +38,12 @@ data class Log(
     val mode: String,
 
     /**
+     * User type who triggered the audit log. Possible values: user, admin, guest, keyProject, keyAccount, keyOrganization.
+     */
+    @SerializedName("userType")
+    val userType: String,
+
+    /**
      * IP session in use when the session was created.
      */
     @SerializedName("ip")
@@ -140,6 +146,7 @@ data class Log(
         "userEmail" to userEmail as Any,
         "userName" to userName as Any,
         "mode" to mode as Any,
+        "userType" to userType as Any,
         "ip" to ip as Any,
         "time" to time as Any,
         "osCode" to osCode as Any,
@@ -169,6 +176,7 @@ data class Log(
             userEmail = map["userEmail"] as String,
             userName = map["userName"] as String,
             mode = map["mode"] as String,
+            userType = map["userType"] as String,
             ip = map["ip"] as String,
             time = map["time"] as String,
             osCode = map["osCode"] as String,

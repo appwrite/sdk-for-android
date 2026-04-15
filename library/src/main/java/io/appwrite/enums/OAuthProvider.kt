@@ -71,6 +71,8 @@ enum class OAuthProvider(val value: String) {
     TWITCH("twitch"),
     @SerializedName("wordpress")
     WORDPRESS("wordpress"),
+    @SerializedName("x")
+    X("x"),
     @SerializedName("yahoo")
     YAHOO("yahoo"),
     @SerializedName("yammer")

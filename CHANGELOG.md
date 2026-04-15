@@ -1,5 +1,12 @@
 # Change Log
 
+## 23.1.0
+
+* Added `x` OAuth provider to `OAuthProvider` enum
+* Added `userType` field to `Log` model
+* Updated `X-Appwrite-Response-Format` header to `1.9.1`
+* Updated TTL description for list caching in Databases and TablesDB
+
 ## 23.0.0
 
 * **Note:** Version 22.2.0 was accidentally released in a previous cycle. This release (23.0.0) supersedes it as the correct next major version.
