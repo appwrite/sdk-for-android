@@ -1,5 +1,11 @@
 # Change Log
 
+## 23.2.0
+
+* Added: `Realtime` used explicit `subscribe` messages for channel and query updates
+* Fixed: `Realtime` reconnect logic preserved subscription ID mapping
+* Updated: README compatibility note now targets `latest` server version
+
 ## 23.1.0
 
 * Added `x` OAuth provider to `OAuthProvider` enum
