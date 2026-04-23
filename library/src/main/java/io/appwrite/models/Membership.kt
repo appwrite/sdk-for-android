@@ -44,6 +44,12 @@ data class Membership(
     val userEmail: String,
 
     /**
+     * User phone number. Hide this attribute by toggling membership privacy in the Console.
+     */
+    @SerializedName("userPhone")
+    val userPhone: String,
+
+    /**
      * Team ID.
      */
     @SerializedName("teamId")
@@ -93,6 +99,7 @@ data class Membership(
         "userId" to userId as Any,
         "userName" to userName as Any,
         "userEmail" to userEmail as Any,
+        "userPhone" to userPhone as Any,
         "teamId" to teamId as Any,
         "teamName" to teamName as Any,
         "invited" to invited as Any,
@@ -114,6 +121,7 @@ data class Membership(
             userId = map["userId"] as String,
             userName = map["userName"] as String,
             userEmail = map["userEmail"] as String,
+            userPhone = map["userPhone"] as String,
             teamId = map["teamId"] as String,
             teamName = map["teamName"] as String,
             invited = map["invited"] as String,
