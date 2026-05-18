@@ -109,7 +109,7 @@ data class Presence<T>(
             status = map["status"] as? String,
             source = map["source"] as String,
             expiresAt = map["expiresAt"] as? String,
-            metadata = map["metadata"]?.jsonCast(to = nestedType) ?: map.jsonCast(to = nestedType)
+            metadata = map["metadata"]?.jsonCast(to = nestedType) ?: emptyMap<String, Any>().jsonCast(to = nestedType)
         )
     }
 }
