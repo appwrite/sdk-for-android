@@ -62,6 +62,12 @@ data class File(
     val sizeOriginal: Long,
 
     /**
+     * File actual stored size in bytes after compression and/or encryption.
+     */
+    @SerializedName("sizeActual")
+    val sizeActual: Long,
+
+    /**
      * Total number of chunks available
      */
     @SerializedName("chunksTotal")
@@ -96,6 +102,7 @@ data class File(
         "signature" to signature as Any,
         "mimeType" to mimeType as Any,
         "sizeOriginal" to sizeOriginal as Any,
+        "sizeActual" to sizeActual as Any,
         "chunksTotal" to chunksTotal as Any,
         "chunksUploaded" to chunksUploaded as Any,
         "encryption" to encryption as Any,
@@ -117,6 +124,7 @@ data class File(
             signature = map["signature"] as String,
             mimeType = map["mimeType"] as String,
             sizeOriginal = (map["sizeOriginal"] as Number).toLong(),
+            sizeActual = (map["sizeActual"] as Number).toLong(),
             chunksTotal = (map["chunksTotal"] as Number).toLong(),
             chunksUploaded = (map["chunksUploaded"] as Number).toLong(),
             encryption = map["encryption"] as Boolean,
