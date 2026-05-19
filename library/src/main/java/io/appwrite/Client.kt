@@ -87,8 +87,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "24.0.0",
-            "x-appwrite-response-format" to "1.9.2"
+            "x-sdk-version" to "24.1.0",
+            "x-appwrite-response-format" to "1.9.5"
         )
         config = mutableMapOf()
 
@@ -165,6 +165,21 @@ class Client @JvmOverloads constructor(
     fun setDevKey(value: String): Client {
         config["devKey"] = value
         addHeader("x-appwrite-dev-key", value)
+        return this
+    }
+
+    /**
+     * Set Cookie
+     *
+     * The user cookie to authenticate with. Used by SDKs that forward an incoming Cookie header in server-side runtimes.
+     *
+     * @param {string} cookie
+     *
+     * @return this
+     */
+    fun setCookie(value: String): Client {
+        config["cookie"] = value
+        addHeader("cookie", value)
         return this
     }
 

@@ -33,12 +33,18 @@ enum class OAuthProvider(val value: String) {
     FACEBOOK("facebook"),
     @SerializedName("figma")
     FIGMA("figma"),
+    @SerializedName("fusionauth")
+    FUSIONAUTH("fusionauth"),
     @SerializedName("github")
     GITHUB("github"),
     @SerializedName("gitlab")
     GITLAB("gitlab"),
     @SerializedName("google")
     GOOGLE("google"),
+    @SerializedName("keycloak")
+    KEYCLOAK("keycloak"),
+    @SerializedName("kick")
+    KICK("kick"),
     @SerializedName("linkedin")
     LINKEDIN("linkedin"),
     @SerializedName("microsoft")
