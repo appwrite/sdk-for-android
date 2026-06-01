@@ -2,7 +2,7 @@
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
 import io.appwrite.services.Avatars;
-import io.appwrite.enums.Theme;
+import io.appwrite.enums.BrowserTheme;
 import io.appwrite.enums.Timezone;
 import io.appwrite.enums.BrowserPermission;
 import io.appwrite.enums.ImageFormat;
@@ -22,7 +22,7 @@ avatars.getScreenshot(
     1920, // viewportWidth (optional)
     1080, // viewportHeight (optional)
     2, // scale (optional)
-    Theme.LIGHT, // theme (optional)
+    BrowserTheme.LIGHT, // theme (optional)
     "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15", // userAgent (optional)
     true, // fullpage (optional)
     "en-US", // locale (optional)

@@ -21,15 +21,14 @@ class Presences(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK.
      * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
-     * @return [io.appwrite.models.PresenceList<T>]
+     * @return [io.appwrite.models.PresenceList]
      */
     @JvmOverloads
-    suspend fun <T> list(
+    suspend fun list(
         queries: List<String>? = null,
         total: Boolean? = null,
         ttl: Long? = null,
-        nestedType: Class<T>,
-    ): io.appwrite.models.PresenceList<T> {
+    ): io.appwrite.models.PresenceList {
         val apiPath = "/presences"
 
         val apiParams = mutableMapOf<String, Any?>(
@@ -39,53 +38,31 @@ class Presences(client: Client) : Service(client) {
         )
         val apiHeaders = mutableMapOf<String, String>(
         )
-        val converter: (Any) -> io.appwrite.models.PresenceList<T> = {
+        val converter: (Any) -> io.appwrite.models.PresenceList = {
             @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.PresenceList.from(map = it as Map<String, Any>, nestedType)
+            io.appwrite.models.PresenceList.from(map = it as Map<String, Any>)
         }
         return client.call(
             "GET",
             apiPath,
             apiHeaders,
             apiParams,
-            responseType = classOf(),
+            responseType = io.appwrite.models.PresenceList::class.java,
             converter,
         )
     }
 
-    /**
-     * List presence logs. Expired entries are filtered out automatically.
-     * 
-     *
-     * @param queries Array of query strings generated using the Query class provided by the SDK.
-     * @param total When set to false, the total count returned will be 0 and will not be calculated.
-     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, collection, schema version (attributes and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; document writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
-     * @return [io.appwrite.models.PresenceList<T>]
-     */
-    @JvmOverloads
-    @Throws(AppwriteException::class)
-    suspend fun list(
-        queries: List<String>? = null,
-        total: Boolean? = null,
-        ttl: Long? = null,
-    ): io.appwrite.models.PresenceList<Map<String, Any>> = list(
-        queries,
-        total,
-        ttl,
-        nestedType = classOf(),
-    )
 
     /**
      * Get a presence log by its unique ID. Entries whose `expiresAt` is in the past are treated as not found.
      * 
      *
      * @param presenceId Presence unique ID.
-     * @return [io.appwrite.models.Presence<T>]
+     * @return [io.appwrite.models.Presence]
      */
-    suspend fun <T> get(
+    suspend fun get(
         presenceId: String,
-        nestedType: Class<T>,
-    ): io.appwrite.models.Presence<T> {
+    ): io.appwrite.models.Presence {
         val apiPath = "/presences/{presenceId}"
             .replace("{presenceId}", presenceId)
 
@@ -93,34 +70,20 @@ class Presences(client: Client) : Service(client) {
         )
         val apiHeaders = mutableMapOf<String, String>(
         )
-        val converter: (Any) -> io.appwrite.models.Presence<T> = {
+        val converter: (Any) -> io.appwrite.models.Presence = {
             @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.Presence.from(map = it as Map<String, Any>, nestedType)
+            io.appwrite.models.Presence.from(map = it as Map<String, Any>)
         }
         return client.call(
             "GET",
             apiPath,
             apiHeaders,
             apiParams,
-            responseType = classOf(),
+            responseType = io.appwrite.models.Presence::class.java,
             converter,
         )
     }
 
-    /**
-     * Get a presence log by its unique ID. Entries whose `expiresAt` is in the past are treated as not found.
-     * 
-     *
-     * @param presenceId Presence unique ID.
-     * @return [io.appwrite.models.Presence<T>]
-     */
-    @Throws(AppwriteException::class)
-    suspend fun get(
-        presenceId: String,
-    ): io.appwrite.models.Presence<Map<String, Any>> = get(
-        presenceId,
-        nestedType = classOf(),
-    )
 
     /**
      * Create or update a presence log by its user ID.
@@ -131,17 +94,16 @@ class Presences(client: Client) : Service(client) {
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param expiresAt Presence expiry datetime.
      * @param metadata Presence metadata object.
-     * @return [io.appwrite.models.Presence<T>]
+     * @return [io.appwrite.models.Presence]
      */
     @JvmOverloads
-    suspend fun <T> upsert(
+    suspend fun upsert(
         presenceId: String,
         status: String,
         permissions: List<String>? = null,
         expiresAt: String? = null,
         metadata: Any? = null,
-        nestedType: Class<T>,
-    ): io.appwrite.models.Presence<T> {
+    ): io.appwrite.models.Presence {
         val apiPath = "/presences/{presenceId}"
             .replace("{presenceId}", presenceId)
 
@@ -154,47 +116,20 @@ class Presences(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Presence<T> = {
+        val converter: (Any) -> io.appwrite.models.Presence = {
             @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.Presence.from(map = it as Map<String, Any>, nestedType)
+            io.appwrite.models.Presence.from(map = it as Map<String, Any>)
         }
         return client.call(
             "PUT",
             apiPath,
             apiHeaders,
             apiParams,
-            responseType = classOf(),
+            responseType = io.appwrite.models.Presence::class.java,
             converter,
         )
     }
 
-    /**
-     * Create or update a presence log by its user ID.
-     * 
-     *
-     * @param presenceId Presence unique ID.
-     * @param status Presence status.
-     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-     * @param expiresAt Presence expiry datetime.
-     * @param metadata Presence metadata object.
-     * @return [io.appwrite.models.Presence<T>]
-     */
-    @JvmOverloads
-    @Throws(AppwriteException::class)
-    suspend fun upsert(
-        presenceId: String,
-        status: String,
-        permissions: List<String>? = null,
-        expiresAt: String? = null,
-        metadata: Any? = null,
-    ): io.appwrite.models.Presence<Map<String, Any>> = upsert(
-        presenceId,
-        status,
-        permissions,
-        expiresAt,
-        metadata,
-        nestedType = classOf(),
-    )
 
     /**
      * Update a presence log by its unique ID. Using the patch method you can pass only specific fields that will get updated.
@@ -206,18 +141,17 @@ class Presences(client: Client) : Service(client) {
      * @param metadata Presence metadata object.
      * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
      * @param purge When true, purge cached responses used by list presences endpoint.
-     * @return [io.appwrite.models.Presence<T>]
+     * @return [io.appwrite.models.Presence]
      */
     @JvmOverloads
-    suspend fun <T> update(
+    suspend fun update(
         presenceId: String,
         status: String? = null,
         expiresAt: String? = null,
         metadata: Any? = null,
         permissions: List<String>? = null,
         purge: Boolean? = null,
-        nestedType: Class<T>,
-    ): io.appwrite.models.Presence<T> {
+    ): io.appwrite.models.Presence {
         val apiPath = "/presences/{presenceId}"
             .replace("{presenceId}", presenceId)
 
@@ -231,50 +165,20 @@ class Presences(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "content-type" to "application/json",
         )
-        val converter: (Any) -> io.appwrite.models.Presence<T> = {
+        val converter: (Any) -> io.appwrite.models.Presence = {
             @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.Presence.from(map = it as Map<String, Any>, nestedType)
+            io.appwrite.models.Presence.from(map = it as Map<String, Any>)
         }
         return client.call(
             "PATCH",
             apiPath,
             apiHeaders,
             apiParams,
-            responseType = classOf(),
+            responseType = io.appwrite.models.Presence::class.java,
             converter,
         )
     }
 
-    /**
-     * Update a presence log by its unique ID. Using the patch method you can pass only specific fields that will get updated.
-     * 
-     *
-     * @param presenceId Presence unique ID.
-     * @param status Presence status.
-     * @param expiresAt Presence expiry datetime.
-     * @param metadata Presence metadata object.
-     * @param permissions An array of permissions strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
-     * @param purge When true, purge cached responses used by list presences endpoint.
-     * @return [io.appwrite.models.Presence<T>]
-     */
-    @JvmOverloads
-    @Throws(AppwriteException::class)
-    suspend fun update(
-        presenceId: String,
-        status: String? = null,
-        expiresAt: String? = null,
-        metadata: Any? = null,
-        permissions: List<String>? = null,
-        purge: Boolean? = null,
-    ): io.appwrite.models.Presence<Map<String, Any>> = update(
-        presenceId,
-        status,
-        expiresAt,
-        metadata,
-        permissions,
-        purge,
-        nestedType = classOf(),
-    )
 
     /**
      * Delete a presence log by its unique ID.

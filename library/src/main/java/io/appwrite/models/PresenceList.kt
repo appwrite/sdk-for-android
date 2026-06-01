@@ -6,7 +6,7 @@ import io.appwrite.extensions.jsonCast
 /**
  * Presences List
  */
-data class PresenceList<T>(
+data class PresenceList(
     /**
      * Total number of presences that matched your query.
      */
@@ -17,7 +17,7 @@ data class PresenceList<T>(
      * List of presences.
      */
     @SerializedName("presences")
-    val presences: List<Presence<T>>,
+    val presences: List<Presence>,
 
 ) {
     fun toMap(): Map<String, Any> = mapOf(
@@ -26,21 +26,13 @@ data class PresenceList<T>(
     )
 
     companion object {
-        operator fun invoke(
-            total: Long,
-            presences: List<Presence<Map<String, Any>>>,
-        ) = PresenceList<Map<String, Any>>(
-            total,
-            presences,
-        )
 
         @Suppress("UNCHECKED_CAST")
-        fun <T> from(
+        fun from(
             map: Map<String, Any>,
-            nestedType: Class<T>
-        ) = PresenceList<T>(
+        ) = PresenceList(
             total = (map["total"] as Number).toLong(),
-            presences = (map["presences"] as List<Map<String, Any>>).map { Presence.from(map = it, nestedType) },
+            presences = (map["presences"] as List<Map<String, Any>>).map { Presence.from(map = it) },
         )
     }
 }

@@ -297,7 +297,7 @@ class Avatars(client: Client) : Service(client) {
         viewportWidth: Long? = null,
         viewportHeight: Long? = null,
         scale: Double? = null,
-        theme: io.appwrite.enums.Theme? = null,
+        theme: io.appwrite.enums.BrowserTheme? = null,
         userAgent: String? = null,
         fullpage: Boolean? = null,
         locale: String? = null,

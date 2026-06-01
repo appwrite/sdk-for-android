@@ -6,7 +6,7 @@ import io.appwrite.extensions.jsonCast
 /**
  * Presence
  */
-data class Presence<T>(
+data class Presence(
     /**
      * Presence ID.
      */
@@ -56,10 +56,11 @@ data class Presence<T>(
     var expiresAt: String?,
 
     /**
-     * Additional properties
+     * Presence metadata.
      */
     @SerializedName("metadata")
-    val metadata: T
+    var metadata: Any?,
+
 ) {
     fun toMap(): Map<String, Any> = mapOf(
         "\$id" to id as Any,
@@ -70,37 +71,15 @@ data class Presence<T>(
         "status" to status as Any,
         "source" to source as Any,
         "expiresAt" to expiresAt as Any,
-        "metadata" to metadata!!.jsonCast(to = Map::class.java)
+        "metadata" to metadata as Any,
     )
 
     companion object {
-        operator fun invoke(
-            id: String,
-            createdAt: String,
-            updatedAt: String,
-            permissions: List<String>,
-            userId: String,
-            status: String?,
-            source: String,
-            expiresAt: String?,
-            metadata: Map<String, Any>
-        ) = Presence<Map<String, Any>>(
-            id,
-            createdAt,
-            updatedAt,
-            permissions,
-            userId,
-            status,
-            source,
-            expiresAt,
-            metadata
-        )
 
         @Suppress("UNCHECKED_CAST")
-        fun <T> from(
+        fun from(
             map: Map<String, Any>,
-            nestedType: Class<T>
-        ) = Presence<T>(
+        ) = Presence(
             id = map["\$id"] as String,
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
@@ -109,7 +88,7 @@ data class Presence<T>(
             status = map["status"] as? String,
             source = map["source"] as String,
             expiresAt = map["expiresAt"] as? String,
-            metadata = map["metadata"]?.jsonCast(to = nestedType) ?: emptyMap<String, Any>().jsonCast(to = nestedType)
+            metadata = map["metadata"] as? Any,
         )
     }
 }
