@@ -37,6 +37,8 @@ class Presences(client: Client) : Service(client) {
             "ttl" to ttl,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.PresenceList = {
             @Suppress("UNCHECKED_CAST")
@@ -69,6 +71,8 @@ class Presences(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Presence = {
             @Suppress("UNCHECKED_CAST")
@@ -114,7 +118,9 @@ class Presences(client: Client) : Service(client) {
             "metadata" to metadata,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Presence = {
             @Suppress("UNCHECKED_CAST")
@@ -163,7 +169,9 @@ class Presences(client: Client) : Service(client) {
             "purge" to purge,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Presence = {
             @Suppress("UNCHECKED_CAST")
@@ -196,6 +204,7 @@ class Presences(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
         )
         return client.call(

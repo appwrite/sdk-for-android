@@ -29,8 +29,10 @@ class Graphql(client: Client) : Service(client) {
             "query" to query,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "x-sdk-graphql" to "true",
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> Any = {
             it
@@ -61,8 +63,10 @@ class Graphql(client: Client) : Service(client) {
             "query" to query,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "x-sdk-graphql" to "true",
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> Any = {
             it

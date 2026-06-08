@@ -92,6 +92,36 @@ data class User<T>(
     val emailVerification: Boolean,
 
     /**
+     * Canonical form of the user email address.
+     */
+    @SerializedName("emailCanonical")
+    var emailCanonical: String?,
+
+    /**
+     * Whether the user email is from a free email provider.
+     */
+    @SerializedName("emailIsFree")
+    var emailIsFree: Boolean?,
+
+    /**
+     * Whether the user email is from a disposable email provider.
+     */
+    @SerializedName("emailIsDisposable")
+    var emailIsDisposable: Boolean?,
+
+    /**
+     * Whether the user email is from a corporate domain.
+     */
+    @SerializedName("emailIsCorporate")
+    var emailIsCorporate: Boolean?,
+
+    /**
+     * Whether the user email is in its canonical form.
+     */
+    @SerializedName("emailIsCanonical")
+    var emailIsCanonical: Boolean?,
+
+    /**
      * Phone verification status.
      */
     @SerializedName("phoneVerification")
@@ -149,6 +179,11 @@ data class User<T>(
         "email" to email as Any,
         "phone" to phone as Any,
         "emailVerification" to emailVerification as Any,
+        "emailCanonical" to emailCanonical as Any,
+        "emailIsFree" to emailIsFree as Any,
+        "emailIsDisposable" to emailIsDisposable as Any,
+        "emailIsCorporate" to emailIsCorporate as Any,
+        "emailIsCanonical" to emailIsCanonical as Any,
         "phoneVerification" to phoneVerification as Any,
         "mfa" to mfa as Any,
         "prefs" to prefs.toMap() as Any,
@@ -174,6 +209,11 @@ data class User<T>(
             email: String,
             phone: String,
             emailVerification: Boolean,
+            emailCanonical: String?,
+            emailIsFree: Boolean?,
+            emailIsDisposable: Boolean?,
+            emailIsCorporate: Boolean?,
+            emailIsCanonical: Boolean?,
             phoneVerification: Boolean,
             mfa: Boolean,
             prefs: Preferences<Map<String, Any>>,
@@ -196,6 +236,11 @@ data class User<T>(
             email,
             phone,
             emailVerification,
+            emailCanonical,
+            emailIsFree,
+            emailIsDisposable,
+            emailIsCorporate,
+            emailIsCanonical,
             phoneVerification,
             mfa,
             prefs,
@@ -224,6 +269,11 @@ data class User<T>(
             email = map["email"] as String,
             phone = map["phone"] as String,
             emailVerification = map["emailVerification"] as Boolean,
+            emailCanonical = map["emailCanonical"] as? String,
+            emailIsFree = map["emailIsFree"] as? Boolean,
+            emailIsDisposable = map["emailIsDisposable"] as? Boolean,
+            emailIsCorporate = map["emailIsCorporate"] as? Boolean,
+            emailIsCanonical = map["emailIsCanonical"] as? Boolean,
             phoneVerification = map["phoneVerification"] as Boolean,
             mfa = map["mfa"] as Boolean,
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),

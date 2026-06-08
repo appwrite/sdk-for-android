@@ -1,16 +1,16 @@
 ```kotlin
 import io.appwrite.Client
 import io.appwrite.coroutines.CoroutineCallback
-import io.appwrite.services.Account
+import io.appwrite.services.Oauth2
 
 val client = Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>") // Your project ID
 
-val account = Account(client)
+val oauth2 = Oauth2(client)
 
-val result = account.updatePassword(
-    password = "", 
-    oldPassword = "<OLD_PASSWORD>", // (optional)
+val result = oauth2.getGrant(
+    project_id = "<PROJECT_ID>", 
+    grant_id = "<GRANT_ID>", 
 )
 ```

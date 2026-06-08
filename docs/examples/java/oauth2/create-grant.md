@@ -1,17 +1,17 @@
 ```java
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
-import io.appwrite.services.Account;
+import io.appwrite.services.Oauth2;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
     .setProject("<YOUR_PROJECT_ID>"); // Your project ID
 
-Account account = new Account(client);
+Oauth2 oauth2 = new Oauth2(client);
 
-account.updatePassword(
-    "", // password 
-    "<OLD_PASSWORD>", // oldPassword (optional)
+oauth2.createGrant(
+    "<PROJECT_ID>", // project_id 
+    "<USER_CODE>", // user_code 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
