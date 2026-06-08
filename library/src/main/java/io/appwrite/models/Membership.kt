@@ -86,6 +86,12 @@ data class Membership(
     val mfa: Boolean,
 
     /**
+     * Most recent access date in ISO 8601 format. Show this attribute by toggling membership privacy in the Console.
+     */
+    @SerializedName("userAccessedAt")
+    val userAccessedAt: String,
+
+    /**
      * User list of roles
      */
     @SerializedName("roles")
@@ -106,6 +112,7 @@ data class Membership(
         "joined" to joined as Any,
         "confirm" to confirm as Any,
         "mfa" to mfa as Any,
+        "userAccessedAt" to userAccessedAt as Any,
         "roles" to roles as Any,
     )
 
@@ -128,6 +135,7 @@ data class Membership(
             joined = map["joined"] as String,
             confirm = map["confirm"] as Boolean,
             mfa = map["mfa"] as Boolean,
+            userAccessedAt = map["userAccessedAt"] as String,
             roles = map["roles"] as List<String>,
         )
     }

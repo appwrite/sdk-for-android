@@ -11,7 +11,7 @@ Account account = new Account(client);
 
 account.updatePassword(
     "", // password 
-    "password", // oldPassword (optional)
+    "<OLD_PASSWORD>", // oldPassword (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

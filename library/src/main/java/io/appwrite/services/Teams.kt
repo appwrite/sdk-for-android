@@ -37,6 +37,8 @@ class Teams(client: Client) : Service(client) {
             "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.TeamList<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -96,7 +98,9 @@ class Teams(client: Client) : Service(client) {
             "roles" to roles,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -149,6 +153,8 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -197,7 +203,9 @@ class Teams(client: Client) : Service(client) {
             "name" to name,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Team<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -245,6 +253,7 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
         )
         return client.call(
@@ -282,6 +291,8 @@ class Teams(client: Client) : Service(client) {
             "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.MembershipList = {
             @Suppress("UNCHECKED_CAST")
@@ -339,7 +350,9 @@ class Teams(client: Client) : Service(client) {
             "name" to name,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
@@ -374,6 +387,8 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
@@ -412,7 +427,9 @@ class Teams(client: Client) : Service(client) {
             "roles" to roles,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
@@ -447,6 +464,7 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
         )
         return client.call(
@@ -486,7 +504,9 @@ class Teams(client: Client) : Service(client) {
             "secret" to secret,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Membership = {
             @Suppress("UNCHECKED_CAST")
@@ -519,6 +539,8 @@ class Teams(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -567,7 +589,9 @@ class Teams(client: Client) : Service(client) {
             "prefs" to prefs,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Preferences<T> = {
             @Suppress("UNCHECKED_CAST")

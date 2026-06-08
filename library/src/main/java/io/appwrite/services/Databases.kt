@@ -30,6 +30,8 @@ class Databases(client: Client) : Service(client) {
             "queries" to queries,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.TransactionList = {
             @Suppress("UNCHECKED_CAST")
@@ -62,7 +64,9 @@ class Databases(client: Client) : Service(client) {
             "ttl" to ttl,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Transaction = {
             @Suppress("UNCHECKED_CAST")
@@ -94,6 +98,8 @@ class Databases(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Transaction = {
             @Suppress("UNCHECKED_CAST")
@@ -132,7 +138,9 @@ class Databases(client: Client) : Service(client) {
             "rollback" to rollback,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Transaction = {
             @Suppress("UNCHECKED_CAST")
@@ -164,6 +172,7 @@ class Databases(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
         )
         return client.call(
@@ -195,7 +204,9 @@ class Databases(client: Client) : Service(client) {
             "operations" to operations,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Transaction = {
             @Suppress("UNCHECKED_CAST")
@@ -248,6 +259,8 @@ class Databases(client: Client) : Service(client) {
             "ttl" to ttl,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -333,7 +346,9 @@ class Databases(client: Client) : Service(client) {
             "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -416,6 +431,8 @@ class Databases(client: Client) : Service(client) {
             "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -498,7 +515,9 @@ class Databases(client: Client) : Service(client) {
             "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -584,7 +603,9 @@ class Databases(client: Client) : Service(client) {
             "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -663,6 +684,7 @@ class Databases(client: Client) : Service(client) {
             "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
         )
         return client.call(
@@ -714,7 +736,9 @@ class Databases(client: Client) : Service(client) {
             "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")
@@ -806,7 +830,9 @@ class Databases(client: Client) : Service(client) {
             "transactionId" to transactionId,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.Document<T> = {
             @Suppress("UNCHECKED_CAST")

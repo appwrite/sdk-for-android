@@ -41,6 +41,8 @@ class Storage(client: Client) : Service(client) {
             "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.FileList = {
             @Suppress("UNCHECKED_CAST")
@@ -90,7 +92,9 @@ class Storage(client: Client) : Service(client) {
             "permissions" to permissions,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "multipart/form-data",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
             @Suppress("UNCHECKED_CAST")
@@ -129,6 +133,8 @@ class Storage(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
             @Suppress("UNCHECKED_CAST")
@@ -170,7 +176,9 @@ class Storage(client: Client) : Service(client) {
             "permissions" to permissions,
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         val converter: (Any) -> io.appwrite.models.File = {
             @Suppress("UNCHECKED_CAST")
@@ -205,6 +213,7 @@ class Storage(client: Client) : Service(client) {
         val apiParams = mutableMapOf<String, Any?>(
         )
         val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
         )
         return client.call(
