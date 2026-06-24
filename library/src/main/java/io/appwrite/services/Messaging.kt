@@ -27,8 +27,9 @@ class Messaging(client: Client) : Service(client) {
         subscriberId: String,
         targetId: String,
     ): io.appwrite.models.Subscriber {
-        val apiPath = "/messaging/topics/{topicId}/subscribers"
+        val apiPath = ("/messaging/topics/{topicId}/subscribers"
             .replace("{topicId}", topicId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "subscriberId" to subscriberId,
@@ -65,9 +66,10 @@ class Messaging(client: Client) : Service(client) {
         topicId: String,
         subscriberId: String,
     ): Any {
-        val apiPath = "/messaging/topics/{topicId}/subscribers/{subscriberId}"
+        val apiPath = ("/messaging/topics/{topicId}/subscribers/{subscriberId}"
             .replace("{topicId}", topicId)
             .replace("{subscriberId}", subscriberId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )

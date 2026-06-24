@@ -26,7 +26,8 @@ class Account(client: Client) : Service(client) {
     suspend fun <T> get(
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account"
+        val apiPath = ("/account"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -76,7 +77,8 @@ class Account(client: Client) : Service(client) {
         name: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account"
+        val apiPath = ("/account"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -141,7 +143,8 @@ class Account(client: Client) : Service(client) {
         password: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/email"
+        val apiPath = ("/account/email"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "email" to email,
@@ -197,7 +200,8 @@ class Account(client: Client) : Service(client) {
         queries: List<String>? = null,
         total: Boolean? = null,
     ): io.appwrite.models.IdentityList {
-        val apiPath = "/account/identities"
+        val apiPath = ("/account/identities"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -231,8 +235,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deleteIdentity(
         identityId: String,
     ): Any {
-        val apiPath = "/account/identities/{identityId}"
+        val apiPath = ("/account/identities/{identityId}"
             .replace("{identityId}", identityId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -260,7 +265,8 @@ class Account(client: Client) : Service(client) {
     suspend fun createJWT(
         duration: Long? = null,
     ): io.appwrite.models.Jwt {
-        val apiPath = "/account/jwts"
+        val apiPath = ("/account/jwts"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "duration" to duration,
@@ -297,7 +303,8 @@ class Account(client: Client) : Service(client) {
         queries: List<String>? = null,
         total: Boolean? = null,
     ): io.appwrite.models.LogList {
-        val apiPath = "/account/logs"
+        val apiPath = ("/account/logs"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -332,7 +339,8 @@ class Account(client: Client) : Service(client) {
         mfa: Boolean,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/mfa"
+        val apiPath = ("/account/mfa"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "mfa" to mfa,
@@ -383,8 +391,9 @@ class Account(client: Client) : Service(client) {
     suspend fun createMfaAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
     ): io.appwrite.models.MfaType {
-        val apiPath = "/account/mfa/authenticators/{type}"
+        val apiPath = ("/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -417,8 +426,9 @@ class Account(client: Client) : Service(client) {
     suspend fun createMFAAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
     ): io.appwrite.models.MfaType {
-        val apiPath = "/account/mfa/authenticators/{type}"
+        val apiPath = ("/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -458,8 +468,9 @@ class Account(client: Client) : Service(client) {
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/mfa/authenticators/{type}"
+        val apiPath = ("/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "otp" to otp,
@@ -516,8 +527,9 @@ class Account(client: Client) : Service(client) {
         otp: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/mfa/authenticators/{type}"
+        val apiPath = ("/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "otp" to otp,
@@ -571,8 +583,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deleteMfaAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
     ): Any {
-        val apiPath = "/account/mfa/authenticators/{type}"
+        val apiPath = ("/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -599,8 +612,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deleteMFAAuthenticator(
         type: io.appwrite.enums.AuthenticatorType,
     ): Any {
-        val apiPath = "/account/mfa/authenticators/{type}"
+        val apiPath = ("/account/mfa/authenticators/{type}"
             .replace("{type}", type.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -631,7 +645,8 @@ class Account(client: Client) : Service(client) {
     suspend fun createMfaChallenge(
         factor: io.appwrite.enums.AuthenticationFactor,
     ): io.appwrite.models.MfaChallenge {
-        val apiPath = "/account/mfa/challenges"
+        val apiPath = ("/account/mfa/challenges"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "factor" to factor,
@@ -665,7 +680,8 @@ class Account(client: Client) : Service(client) {
     suspend fun createMFAChallenge(
         factor: io.appwrite.enums.AuthenticationFactor,
     ): io.appwrite.models.MfaChallenge {
-        val apiPath = "/account/mfa/challenges"
+        val apiPath = ("/account/mfa/challenges"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "factor" to factor,
@@ -705,7 +721,8 @@ class Account(client: Client) : Service(client) {
         challengeId: String,
         otp: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/mfa/challenges"
+        val apiPath = ("/account/mfa/challenges"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "challengeId" to challengeId,
@@ -742,7 +759,8 @@ class Account(client: Client) : Service(client) {
         challengeId: String,
         otp: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/mfa/challenges"
+        val apiPath = ("/account/mfa/challenges"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "challengeId" to challengeId,
@@ -779,7 +797,8 @@ class Account(client: Client) : Service(client) {
     )
     suspend fun listMfaFactors(
     ): io.appwrite.models.MfaFactors {
-        val apiPath = "/account/mfa/factors"
+        val apiPath = ("/account/mfa/factors"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -809,7 +828,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun listMFAFactors(
     ): io.appwrite.models.MfaFactors {
-        val apiPath = "/account/mfa/factors"
+        val apiPath = ("/account/mfa/factors"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -843,7 +863,8 @@ class Account(client: Client) : Service(client) {
     )
     suspend fun getMfaRecoveryCodes(
     ): io.appwrite.models.MfaRecoveryCodes {
-        val apiPath = "/account/mfa/recovery-codes"
+        val apiPath = ("/account/mfa/recovery-codes"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -873,7 +894,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun getMFARecoveryCodes(
     ): io.appwrite.models.MfaRecoveryCodes {
-        val apiPath = "/account/mfa/recovery-codes"
+        val apiPath = ("/account/mfa/recovery-codes"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -907,7 +929,8 @@ class Account(client: Client) : Service(client) {
     )
     suspend fun createMfaRecoveryCodes(
     ): io.appwrite.models.MfaRecoveryCodes {
-        val apiPath = "/account/mfa/recovery-codes"
+        val apiPath = ("/account/mfa/recovery-codes"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -938,7 +961,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createMFARecoveryCodes(
     ): io.appwrite.models.MfaRecoveryCodes {
-        val apiPath = "/account/mfa/recovery-codes"
+        val apiPath = ("/account/mfa/recovery-codes"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -973,7 +997,8 @@ class Account(client: Client) : Service(client) {
     )
     suspend fun updateMfaRecoveryCodes(
     ): io.appwrite.models.MfaRecoveryCodes {
-        val apiPath = "/account/mfa/recovery-codes"
+        val apiPath = ("/account/mfa/recovery-codes"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1004,7 +1029,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun updateMFARecoveryCodes(
     ): io.appwrite.models.MfaRecoveryCodes {
-        val apiPath = "/account/mfa/recovery-codes"
+        val apiPath = ("/account/mfa/recovery-codes"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1038,7 +1064,8 @@ class Account(client: Client) : Service(client) {
         name: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/name"
+        val apiPath = ("/account/name"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "name" to name,
@@ -1089,7 +1116,8 @@ class Account(client: Client) : Service(client) {
         oldPassword: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/password"
+        val apiPath = ("/account/password"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "password" to password,
@@ -1144,7 +1172,8 @@ class Account(client: Client) : Service(client) {
         password: String,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/phone"
+        val apiPath = ("/account/phone"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "phone" to phone,
@@ -1194,7 +1223,8 @@ class Account(client: Client) : Service(client) {
     suspend fun <T> getPrefs(
         nestedType: Class<T>,
     ): io.appwrite.models.Preferences<T> {
-        val apiPath = "/account/prefs"
+        val apiPath = ("/account/prefs"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1237,7 +1267,8 @@ class Account(client: Client) : Service(client) {
         prefs: Any,
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/prefs"
+        val apiPath = ("/account/prefs"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "prefs" to prefs,
@@ -1286,7 +1317,8 @@ class Account(client: Client) : Service(client) {
         email: String,
         url: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/recovery"
+        val apiPath = ("/account/recovery"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "email" to email,
@@ -1327,7 +1359,8 @@ class Account(client: Client) : Service(client) {
         secret: String,
         password: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/recovery"
+        val apiPath = ("/account/recovery"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -1361,7 +1394,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun listSessions(
     ): io.appwrite.models.SessionList {
-        val apiPath = "/account/sessions"
+        val apiPath = ("/account/sessions"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1391,7 +1425,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun deleteSessions(
     ): Any {
-        val apiPath = "/account/sessions"
+        val apiPath = ("/account/sessions"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1416,7 +1451,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createAnonymousSession(
     ): io.appwrite.models.Session {
-        val apiPath = "/account/sessions/anonymous"
+        val apiPath = ("/account/sessions/anonymous"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1453,7 +1489,8 @@ class Account(client: Client) : Service(client) {
         email: String,
         password: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/sessions/email"
+        val apiPath = ("/account/sessions/email"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "email" to email,
@@ -1494,7 +1531,8 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/sessions/magic-url"
+        val apiPath = ("/account/sessions/magic-url"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -1541,8 +1579,9 @@ class Account(client: Client) : Service(client) {
         failure: String? = null,
         scopes: List<String>? = null,
     ) {
-        val apiPath = "/account/sessions/oauth2/{provider}"
+        val apiPath = ("/account/sessions/oauth2/{provider}"
             .replace("{provider}", provider.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "success" to success,
@@ -1612,7 +1651,8 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/sessions/phone"
+        val apiPath = ("/account/sessions/phone"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -1649,7 +1689,8 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/sessions/token"
+        val apiPath = ("/account/sessions/token"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -1684,8 +1725,9 @@ class Account(client: Client) : Service(client) {
     suspend fun getSession(
         sessionId: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/sessions/{sessionId}"
+        val apiPath = ("/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1717,8 +1759,9 @@ class Account(client: Client) : Service(client) {
     suspend fun updateSession(
         sessionId: String,
     ): io.appwrite.models.Session {
-        val apiPath = "/account/sessions/{sessionId}"
+        val apiPath = ("/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1751,8 +1794,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deleteSession(
         sessionId: String,
     ): Any {
-        val apiPath = "/account/sessions/{sessionId}"
+        val apiPath = ("/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1778,7 +1822,8 @@ class Account(client: Client) : Service(client) {
     suspend fun <T> updateStatus(
         nestedType: Class<T>,
     ): io.appwrite.models.User<T> {
-        val apiPath = "/account/status"
+        val apiPath = ("/account/status"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1826,7 +1871,8 @@ class Account(client: Client) : Service(client) {
         identifier: String,
         providerId: String? = null,
     ): io.appwrite.models.Target {
-        val apiPath = "/account/targets/push"
+        val apiPath = ("/account/targets/push"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "targetId" to targetId,
@@ -1864,8 +1910,9 @@ class Account(client: Client) : Service(client) {
         targetId: String,
         identifier: String,
     ): io.appwrite.models.Target {
-        val apiPath = "/account/targets/{targetId}/push"
+        val apiPath = ("/account/targets/{targetId}/push"
             .replace("{targetId}", targetId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "identifier" to identifier,
@@ -1899,8 +1946,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deletePushTarget(
         targetId: String,
     ): Any {
-        val apiPath = "/account/targets/{targetId}/push"
+        val apiPath = ("/account/targets/{targetId}/push"
             .replace("{targetId}", targetId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -1935,7 +1983,8 @@ class Account(client: Client) : Service(client) {
         email: String,
         phrase: Boolean? = null,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/tokens/email"
+        val apiPath = ("/account/tokens/email"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -1981,7 +2030,8 @@ class Account(client: Client) : Service(client) {
         url: String? = null,
         phrase: Boolean? = null,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/tokens/magic-url"
+        val apiPath = ("/account/tokens/magic-url"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -2029,8 +2079,9 @@ class Account(client: Client) : Service(client) {
         failure: String? = null,
         scopes: List<String>? = null,
     ) {
-        val apiPath = "/account/tokens/oauth2/{provider}"
+        val apiPath = ("/account/tokens/oauth2/{provider}"
             .replace("{provider}", provider.value)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "success" to success,
@@ -2098,7 +2149,8 @@ class Account(client: Client) : Service(client) {
         userId: String,
         phone: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/tokens/phone"
+        val apiPath = ("/account/tokens/phone"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -2136,7 +2188,8 @@ class Account(client: Client) : Service(client) {
     suspend fun createEmailVerification(
         url: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verifications/email"
+        val apiPath = ("/account/verifications/email"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "url" to url,
@@ -2177,7 +2230,8 @@ class Account(client: Client) : Service(client) {
     suspend fun createVerification(
         url: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verifications/email"
+        val apiPath = ("/account/verifications/email"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "url" to url,
@@ -2213,7 +2267,8 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verifications/email"
+        val apiPath = ("/account/verifications/email"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -2254,7 +2309,8 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verifications/email"
+        val apiPath = ("/account/verifications/email"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
@@ -2287,7 +2343,8 @@ class Account(client: Client) : Service(client) {
      */
     suspend fun createPhoneVerification(
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verifications/phone"
+        val apiPath = ("/account/verifications/phone"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -2322,7 +2379,8 @@ class Account(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Token {
-        val apiPath = "/account/verifications/phone"
+        val apiPath = ("/account/verifications/phone"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,

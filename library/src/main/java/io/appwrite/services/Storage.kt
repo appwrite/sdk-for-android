@@ -32,8 +32,9 @@ class Storage(client: Client) : Service(client) {
         search: String? = null,
         total: Boolean? = null,
     ): io.appwrite.models.FileList {
-        val apiPath = "/storage/buckets/{bucketId}/files"
+        val apiPath = ("/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -83,8 +84,9 @@ class Storage(client: Client) : Service(client) {
         permissions: List<String>? = null,
         onProgress: ((UploadProgress) -> Unit)? = null
     ): io.appwrite.models.File {
-        val apiPath = "/storage/buckets/{bucketId}/files"
+        val apiPath = ("/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "fileId" to fileId,
@@ -126,9 +128,10 @@ class Storage(client: Client) : Service(client) {
         bucketId: String,
         fileId: String,
     ): io.appwrite.models.File {
-        val apiPath = "/storage/buckets/{bucketId}/files/{fileId}"
+        val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -167,9 +170,10 @@ class Storage(client: Client) : Service(client) {
         name: String? = null,
         permissions: List<String>? = null,
     ): io.appwrite.models.File {
-        val apiPath = "/storage/buckets/{bucketId}/files/{fileId}"
+        val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "name" to name,
@@ -206,9 +210,10 @@ class Storage(client: Client) : Service(client) {
         bucketId: String,
         fileId: String,
     ): Any {
-        val apiPath = "/storage/buckets/{bucketId}/files/{fileId}"
+        val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -240,13 +245,15 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         token: String? = null,
     ): ByteArray {
-        val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/download"
+        val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/download"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "token" to token,
             "project" to client.config["project"],
+            "impersonateuserid" to client.config["impersonateuserid"],
         )
         return client.call(
             "GET",
@@ -293,9 +300,10 @@ class Storage(client: Client) : Service(client) {
         output: io.appwrite.enums.ImageFormat? = null,
         token: String? = null,
     ): ByteArray {
-        val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/preview"
+        val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
@@ -311,6 +319,7 @@ class Storage(client: Client) : Service(client) {
             "output" to output,
             "token" to token,
             "project" to client.config["project"],
+            "impersonateuserid" to client.config["impersonateuserid"],
         )
         return client.call(
             "GET",
@@ -335,13 +344,15 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         token: String? = null,
     ): ByteArray {
-        val apiPath = "/storage/buckets/{bucketId}/files/{fileId}/view"
+        val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/view"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "token" to token,
             "project" to client.config["project"],
+            "impersonateuserid" to client.config["impersonateuserid"],
         )
         return client.call(
             "GET",

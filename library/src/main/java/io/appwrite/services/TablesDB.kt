@@ -24,7 +24,8 @@ class TablesDB(client: Client) : Service(client) {
     suspend fun listTransactions(
         queries: List<String>? = null,
     ): io.appwrite.models.TransactionList {
-        val apiPath = "/tablesdb/transactions"
+        val apiPath = ("/tablesdb/transactions"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -58,7 +59,8 @@ class TablesDB(client: Client) : Service(client) {
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/tablesdb/transactions"
+        val apiPath = ("/tablesdb/transactions"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "ttl" to ttl,
@@ -92,8 +94,9 @@ class TablesDB(client: Client) : Service(client) {
     suspend fun getTransaction(
         transactionId: String,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/tablesdb/transactions/{transactionId}"
+        val apiPath = ("/tablesdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -130,8 +133,9 @@ class TablesDB(client: Client) : Service(client) {
         commit: Boolean? = null,
         rollback: Boolean? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/tablesdb/transactions/{transactionId}"
+        val apiPath = ("/tablesdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "commit" to commit,
@@ -166,8 +170,9 @@ class TablesDB(client: Client) : Service(client) {
     suspend fun deleteTransaction(
         transactionId: String,
     ): Any {
-        val apiPath = "/tablesdb/transactions/{transactionId}"
+        val apiPath = ("/tablesdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -197,8 +202,9 @@ class TablesDB(client: Client) : Service(client) {
         transactionId: String,
         operations: List<Any>? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/tablesdb/transactions/{transactionId}/operations"
+        val apiPath = ("/tablesdb/transactions/{transactionId}/operations"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "operations" to operations,
@@ -244,9 +250,10 @@ class TablesDB(client: Client) : Service(client) {
         ttl: Long? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.RowList<T> {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -323,9 +330,10 @@ class TablesDB(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Row<T> {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "rowId" to rowId,
@@ -401,10 +409,11 @@ class TablesDB(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Row<T> {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -476,10 +485,11 @@ class TablesDB(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Row<T> {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
@@ -556,10 +566,11 @@ class TablesDB(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Row<T> {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
@@ -631,10 +642,11 @@ class TablesDB(client: Client) : Service(client) {
         rowId: String,
         transactionId: String? = null,
     ): Any {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "transactionId" to transactionId,
@@ -676,11 +688,12 @@ class TablesDB(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Row<T> {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/decrement"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/decrement"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
             .replace("{column}", column)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,
@@ -762,11 +775,12 @@ class TablesDB(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Row<T> {
-        val apiPath = "/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/increment"
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows/{rowId}/{column}/increment"
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
             .replace("{column}", column)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,
