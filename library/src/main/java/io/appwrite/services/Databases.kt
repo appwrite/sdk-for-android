@@ -20,11 +20,16 @@ class Databases(client: Client) : Service(client) {
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries).
      * @return [io.appwrite.models.TransactionList]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.listTransactions` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.listTransactions")
+    )
     @JvmOverloads
     suspend fun listTransactions(
         queries: List<String>? = null,
     ): io.appwrite.models.TransactionList {
-        val apiPath = "/databases/transactions"
+        val apiPath = ("/databases/transactions"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -54,11 +59,16 @@ class Databases(client: Client) : Service(client) {
      * @param ttl Seconds before the transaction expires.
      * @return [io.appwrite.models.Transaction]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.createTransaction` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createTransaction")
+    )
     @JvmOverloads
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions"
+        val apiPath = ("/databases/transactions"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "ttl" to ttl,
@@ -89,11 +99,16 @@ class Databases(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [io.appwrite.models.Transaction]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.getTransaction` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.getTransaction")
+    )
     suspend fun getTransaction(
         transactionId: String,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions/{transactionId}"
+        val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -124,14 +139,19 @@ class Databases(client: Client) : Service(client) {
      * @param rollback Rollback transaction?
      * @return [io.appwrite.models.Transaction]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.updateTransaction` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.updateTransaction")
+    )
     @JvmOverloads
     suspend fun updateTransaction(
         transactionId: String,
         commit: Boolean? = null,
         rollback: Boolean? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions/{transactionId}"
+        val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "commit" to commit,
@@ -163,11 +183,16 @@ class Databases(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [Any]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.deleteTransaction` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.deleteTransaction")
+    )
     suspend fun deleteTransaction(
         transactionId: String,
     ): Any {
-        val apiPath = "/databases/transactions/{transactionId}"
+        val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -192,13 +217,18 @@ class Databases(client: Client) : Service(client) {
      * @param operations Array of staged operations.
      * @return [io.appwrite.models.Transaction]
      */
+    @Deprecated(
+        message = "This API has been deprecated since 1.8.0. Please use `TablesDB.createOperations` instead.",
+        replaceWith = ReplaceWith("io.appwrite.services.TablesDB.createOperations")
+    )
     @JvmOverloads
     suspend fun createOperations(
         transactionId: String,
         operations: List<Any>? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = "/databases/transactions/{transactionId}/operations"
+        val apiPath = ("/databases/transactions/{transactionId}/operations"
             .replace("{transactionId}", transactionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "operations" to operations,
@@ -248,9 +278,10 @@ class Databases(client: Client) : Service(client) {
         ttl: Long? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.DocumentList<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -335,9 +366,10 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "documentId" to documentId,
@@ -421,10 +453,11 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -504,10 +537,11 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
@@ -592,10 +626,11 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
@@ -675,10 +710,11 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         transactionId: String? = null,
     ): Any {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "transactionId" to transactionId,
@@ -724,11 +760,12 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
             .replace("{attribute}", attribute)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,
@@ -818,11 +855,12 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
-        val apiPath = "/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
+        val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
             .replace("{attribute}", attribute)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,

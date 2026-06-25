@@ -29,7 +29,8 @@ class Presences(client: Client) : Service(client) {
         total: Boolean? = null,
         ttl: Long? = null,
     ): io.appwrite.models.PresenceList {
-        val apiPath = "/presences"
+        val apiPath = ("/presences"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -65,8 +66,9 @@ class Presences(client: Client) : Service(client) {
     suspend fun get(
         presenceId: String,
     ): io.appwrite.models.Presence {
-        val apiPath = "/presences/{presenceId}"
+        val apiPath = ("/presences/{presenceId}"
             .replace("{presenceId}", presenceId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )
@@ -108,8 +110,9 @@ class Presences(client: Client) : Service(client) {
         expiresAt: String? = null,
         metadata: Any? = null,
     ): io.appwrite.models.Presence {
-        val apiPath = "/presences/{presenceId}"
+        val apiPath = ("/presences/{presenceId}"
             .replace("{presenceId}", presenceId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "status" to status,
@@ -158,8 +161,9 @@ class Presences(client: Client) : Service(client) {
         permissions: List<String>? = null,
         purge: Boolean? = null,
     ): io.appwrite.models.Presence {
-        val apiPath = "/presences/{presenceId}"
+        val apiPath = ("/presences/{presenceId}"
             .replace("{presenceId}", presenceId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "status" to status,
@@ -198,8 +202,9 @@ class Presences(client: Client) : Service(client) {
     suspend fun delete(
         presenceId: String,
     ): Any {
-        val apiPath = "/presences/{presenceId}"
+        val apiPath = ("/presences/{presenceId}"
             .replace("{presenceId}", presenceId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )

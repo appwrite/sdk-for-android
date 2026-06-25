@@ -28,8 +28,9 @@ class Functions(client: Client) : Service(client) {
         queries: List<String>? = null,
         total: Boolean? = null,
     ): io.appwrite.models.ExecutionList {
-        val apiPath = "/functions/{functionId}/executions"
+        val apiPath = ("/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -76,8 +77,9 @@ class Functions(client: Client) : Service(client) {
         headers: Any? = null,
         scheduledAt: String? = null,
     ): io.appwrite.models.Execution {
-        val apiPath = "/functions/{functionId}/executions"
+        val apiPath = ("/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "body" to body,
@@ -118,9 +120,10 @@ class Functions(client: Client) : Service(client) {
         functionId: String,
         executionId: String,
     ): io.appwrite.models.Execution {
-        val apiPath = "/functions/{functionId}/executions/{executionId}"
+        val apiPath = ("/functions/{functionId}/executions/{executionId}"
             .replace("{functionId}", functionId)
             .replace("{executionId}", executionId)
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
         )

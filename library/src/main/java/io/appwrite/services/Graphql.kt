@@ -23,7 +23,8 @@ class Graphql(client: Client) : Service(client) {
     suspend fun query(
         query: Any,
     ): Any {
-        val apiPath = "/graphql"
+        val apiPath = ("/graphql"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "query" to query,
@@ -57,7 +58,8 @@ class Graphql(client: Client) : Service(client) {
     suspend fun mutation(
         query: Any,
     ): Any {
-        val apiPath = "/graphql/mutation"
+        val apiPath = ("/graphql/mutation"
+        )
 
         val apiParams = mutableMapOf<String, Any?>(
             "query" to query,

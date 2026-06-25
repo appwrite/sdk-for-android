@@ -12,7 +12,7 @@ val account = Account(client)
 val result = account.create(
     userId = "<USER_ID>", 
     email = "email@example.com", 
-    password = "", 
+    password = "password", 
     name = "<NAME>", // (optional)
 )
 ```
