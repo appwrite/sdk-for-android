@@ -3,8 +3,8 @@
 ## 25.2.0
 
 * Added: Realtime connections now send an `x-appwrite-jwt` header for authentication.
-* Added: Forwarded `impersonateUserId` on file requests.
-* Fixed: URL-encode path parameters across all services.
+* Added: Forwarded `impersonateUserId` on `avatars` and `storage` file requests.
+* Deprecated: `databases` transaction methods in favor of `TablesDB`.
 
 ## 25.1.0
 
