@@ -38,7 +38,7 @@ data class Log(
     val mode: String,
 
     /**
-     * User type who triggered the audit log. Possible values: user, admin, guest, keyProject, keyAccount, keyOrganization.
+     * User type who triggered the audit log. Possible values: user, admin, guest, hidden, keyProject, keyAccount, keyOrganization.
      */
     @SerializedName("userType")
     val userType: String,
