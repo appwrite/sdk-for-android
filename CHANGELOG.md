@@ -1,12 +1,13 @@
 # Change Log
 
-## 25.3.0
+## 26.0.0
 
+* Breaking: raised `minSdk` from 21 to 23, dropping support for Android 5.0/5.1 (API 21-22)
 * Added: `Client.setBearer()` for OAuth access token authentication
 * Added: `Query.vectorDot()`, `Query.vectorCosine()`, `Query.vectorEuclidean()` vector similarity queries
 * Added: `appwrite` value to `OAuthProvider` enum
 * Added: geolocation and network fields (`city`, `timeZone`, `latitude`, `isp`, etc.) to `Locale` model
-* Updated: raised `minSdk` from 21 to 23 and `compileSdk` to 37
+* Updated: raised `compileSdk` to 37
 * Updated: upgraded dependencies (OkHttp 5.4.0, Gson 2.14.0, coroutines 1.11.0, AndroidX)
 
 ## 25.2.0
