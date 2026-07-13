@@ -20,7 +20,7 @@ data class IdentityList(
     val identities: List<Identity>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "identities" to identities.map { it.toMap() } as Any,
     )

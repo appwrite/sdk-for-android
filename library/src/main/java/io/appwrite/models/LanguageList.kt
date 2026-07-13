@@ -20,7 +20,7 @@ data class LanguageList(
     val languages: List<Language>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "languages" to languages.map { it.toMap() } as Any,
     )

@@ -32,7 +32,7 @@ data class AlgoScryptModified(
     val signerKey: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "type" to type as Any,
         "salt" to salt as Any,
         "saltSeparator" to saltSeparator as Any,

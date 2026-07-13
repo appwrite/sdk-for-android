@@ -20,7 +20,7 @@ data class TeamList<T>(
     val teams: List<Team<T>>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "teams" to teams.map { it.toMap() } as Any,
     )

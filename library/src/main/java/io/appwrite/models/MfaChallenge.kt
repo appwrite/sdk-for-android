@@ -32,7 +32,7 @@ data class MfaChallenge(
     val expire: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
         "userId" to userId as Any,

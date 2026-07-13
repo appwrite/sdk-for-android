@@ -20,7 +20,7 @@ data class ExecutionList(
     val executions: List<Execution>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "executions" to executions.map { it.toMap() } as Any,
     )

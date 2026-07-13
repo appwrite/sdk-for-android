@@ -20,7 +20,7 @@ data class PhoneList(
     val phones: List<Phone>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "phones" to phones.map { it.toMap() } as Any,
     )

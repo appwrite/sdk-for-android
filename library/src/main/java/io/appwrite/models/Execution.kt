@@ -118,7 +118,7 @@ data class Execution(
     var scheduledAt: String?,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
@@ -136,7 +136,7 @@ data class Execution(
         "logs" to logs as Any,
         "errors" to errors as Any,
         "duration" to duration as Any,
-        "scheduledAt" to scheduledAt as Any,
+        "scheduledAt" to scheduledAt as Any?,
     )
 
     companion object {

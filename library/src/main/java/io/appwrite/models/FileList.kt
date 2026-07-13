@@ -20,7 +20,7 @@ data class FileList(
     val files: List<File>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "files" to files.map { it.toMap() } as Any,
     )

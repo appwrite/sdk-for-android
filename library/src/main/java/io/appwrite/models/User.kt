@@ -164,14 +164,14 @@ data class User<T>(
     var impersonatorUserId: String?,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
         "name" to name as Any,
-        "password" to password as Any,
-        "hash" to hash as Any,
-        "hashOptions" to hashOptions as Any,
+        "password" to password as Any?,
+        "hash" to hash as Any?,
+        "hashOptions" to hashOptions as Any?,
         "registration" to registration as Any,
         "status" to status as Any,
         "labels" to labels as Any,
@@ -179,18 +179,18 @@ data class User<T>(
         "email" to email as Any,
         "phone" to phone as Any,
         "emailVerification" to emailVerification as Any,
-        "emailCanonical" to emailCanonical as Any,
-        "emailIsFree" to emailIsFree as Any,
-        "emailIsDisposable" to emailIsDisposable as Any,
-        "emailIsCorporate" to emailIsCorporate as Any,
-        "emailIsCanonical" to emailIsCanonical as Any,
+        "emailCanonical" to emailCanonical as Any?,
+        "emailIsFree" to emailIsFree as Any?,
+        "emailIsDisposable" to emailIsDisposable as Any?,
+        "emailIsCorporate" to emailIsCorporate as Any?,
+        "emailIsCanonical" to emailIsCanonical as Any?,
         "phoneVerification" to phoneVerification as Any,
         "mfa" to mfa as Any,
         "prefs" to prefs.toMap() as Any,
         "targets" to targets.map { it.toMap() } as Any,
         "accessedAt" to accessedAt as Any,
-        "impersonator" to impersonator as Any,
-        "impersonatorUserId" to impersonatorUserId as Any,
+        "impersonator" to impersonator as Any?,
+        "impersonatorUserId" to impersonatorUserId as Any?,
     )
 
     companion object {

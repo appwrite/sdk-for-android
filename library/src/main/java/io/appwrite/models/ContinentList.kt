@@ -20,7 +20,7 @@ data class ContinentList(
     val continents: List<Continent>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "continents" to continents.map { it.toMap() } as Any,
     )

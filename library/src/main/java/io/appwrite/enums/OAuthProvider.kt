@@ -7,6 +7,8 @@ enum class OAuthProvider(val value: String) {
     AMAZON("amazon"),
     @SerializedName("apple")
     APPLE("apple"),
+    @SerializedName("appwrite")
+    APPWRITE("appwrite"),
     @SerializedName("auth0")
     AUTH0("auth0"),
     @SerializedName("authentik")

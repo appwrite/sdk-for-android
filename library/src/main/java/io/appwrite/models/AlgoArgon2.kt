@@ -32,7 +32,7 @@ data class AlgoArgon2(
     val threads: Long,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "type" to type as Any,
         "memoryCost" to memoryCost as Any,
         "timeCost" to timeCost as Any,

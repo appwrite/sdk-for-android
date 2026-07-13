@@ -94,7 +94,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "25.2.0",
+            "x-sdk-version" to "26.0.0",
             "x-appwrite-response-format" to "1.9.5"
         )
         config = mutableMapOf()
@@ -128,6 +128,21 @@ class Client @JvmOverloads constructor(
     fun setJWT(value: String): Client {
         config["jWT"] = value
         addHeader("x-appwrite-jwt", value)
+        return this
+    }
+
+    /**
+     * Set Bearer
+     *
+     * The OAuth access token to authenticate with
+     *
+     * @param {string} bearer
+     *
+     * @return this
+     */
+    fun setBearer(value: String): Client {
+        config["bearer"] = value
+        addHeader("authorization", "Bearer $value")
         return this
     }
 

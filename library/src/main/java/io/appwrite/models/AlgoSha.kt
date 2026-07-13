@@ -14,7 +14,7 @@ data class AlgoSha(
     val type: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "type" to type as Any,
     )
 

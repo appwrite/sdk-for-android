@@ -20,7 +20,7 @@ data class Headers(
     val value: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "name" to name as Any,
         "value" to value as Any,
     )
