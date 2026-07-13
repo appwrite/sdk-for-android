@@ -26,7 +26,7 @@ data class Language(
     val nativeName: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "name" to name as Any,
         "code" to code as Any,
         "nativeName" to nativeName as Any,

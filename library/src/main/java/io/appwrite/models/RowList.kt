@@ -20,7 +20,7 @@ data class RowList<T>(
     val rows: List<Row<T>>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "rows" to rows.map { it.toMap() } as Any,
     )

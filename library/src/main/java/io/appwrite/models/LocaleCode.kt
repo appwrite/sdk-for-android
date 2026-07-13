@@ -20,7 +20,7 @@ data class LocaleCode(
     val name: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "code" to code as Any,
         "name" to name as Any,
     )

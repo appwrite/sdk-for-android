@@ -20,7 +20,7 @@ data class PresenceList(
     val presences: List<Presence>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "presences" to presences.map { it.toMap() } as Any,
     )

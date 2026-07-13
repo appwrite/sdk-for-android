@@ -20,7 +20,7 @@ data class SessionList(
     val sessions: List<Session>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "sessions" to sessions.map { it.toMap() } as Any,
     )

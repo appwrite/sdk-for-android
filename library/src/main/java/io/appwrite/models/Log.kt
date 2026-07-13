@@ -140,7 +140,7 @@ data class Log(
     val countryName: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "event" to event as Any,
         "userId" to userId as Any,
         "userEmail" to userEmail as Any,

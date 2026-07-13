@@ -20,7 +20,7 @@ data class DocumentList<T>(
     val documents: List<Document<T>>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "documents" to documents.map { it.toMap() } as Any,
     )

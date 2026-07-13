@@ -14,7 +14,7 @@ data class Jwt(
     val jwt: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "jwt" to jwt as Any,
     )
 

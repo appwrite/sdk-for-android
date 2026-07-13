@@ -13,7 +13,7 @@ data class Preferences<T>(
     @SerializedName("data")
     val data: T
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "data" to data!!.jsonCast(to = Map::class.java)
     )
 

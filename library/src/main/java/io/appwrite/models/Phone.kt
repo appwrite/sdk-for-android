@@ -26,7 +26,7 @@ data class Phone(
     val countryName: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "code" to code as Any,
         "countryCode" to countryCode as Any,
         "countryName" to countryName as Any,

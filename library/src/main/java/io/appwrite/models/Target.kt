@@ -62,13 +62,13 @@ data class Target(
     val expired: Boolean,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
         "name" to name as Any,
         "userId" to userId as Any,
-        "providerId" to providerId as Any,
+        "providerId" to providerId as Any?,
         "providerType" to providerType as Any,
         "identifier" to identifier as Any,
         "expired" to expired as Any,

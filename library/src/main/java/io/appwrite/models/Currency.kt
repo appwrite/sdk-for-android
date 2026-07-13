@@ -50,7 +50,7 @@ data class Currency(
     val namePlural: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "symbol" to symbol as Any,
         "name" to name as Any,
         "symbolNative" to symbolNative as Any,

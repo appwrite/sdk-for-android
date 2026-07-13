@@ -20,7 +20,7 @@ data class CurrencyList(
     val currencies: List<Currency>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "currencies" to currencies.map { it.toMap() } as Any,
     )

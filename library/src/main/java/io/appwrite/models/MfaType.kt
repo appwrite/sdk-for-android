@@ -20,7 +20,7 @@ data class MfaType(
     val uri: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "secret" to secret as Any,
         "uri" to uri as Any,
     )

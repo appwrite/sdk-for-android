@@ -55,7 +55,7 @@ data class Row<T>(
     @SerializedName("data")
     val data: T
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
         "\$sequence" to sequence as Any,
         "\$tableId" to tableId as Any,

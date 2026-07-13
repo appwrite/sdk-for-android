@@ -32,7 +32,7 @@ data class MfaFactors(
     val recoveryCode: Boolean,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "totp" to totp as Any,
         "phone" to phone as Any,
         "email" to email as Any,

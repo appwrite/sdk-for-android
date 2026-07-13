@@ -92,7 +92,7 @@ data class File(
     val compression: String,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
         "bucketId" to bucketId as Any,
         "\$createdAt" to createdAt as Any,

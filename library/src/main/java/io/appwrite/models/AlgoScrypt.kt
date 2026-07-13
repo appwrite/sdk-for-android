@@ -38,7 +38,7 @@ data class AlgoScrypt(
     val length: Long,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "type" to type as Any,
         "costCpu" to costCpu as Any,
         "costMemory" to costMemory as Any,

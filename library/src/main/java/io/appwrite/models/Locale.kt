@@ -116,7 +116,7 @@ data class Locale(
     var connectionOrganization: String?,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "ip" to ip as Any,
         "countryCode" to countryCode as Any,
         "country" to country as Any,
@@ -124,17 +124,17 @@ data class Locale(
         "continent" to continent as Any,
         "eu" to eu as Any,
         "currency" to currency as Any,
-        "city" to city as Any,
-        "timeZone" to timeZone as Any,
-        "postalCode" to postalCode as Any,
-        "latitude" to latitude as Any,
-        "longitude" to longitude as Any,
-        "autonomousSystemNumber" to autonomousSystemNumber as Any,
-        "autonomousSystemOrganization" to autonomousSystemOrganization as Any,
-        "isp" to isp as Any,
-        "connectionType" to connectionType as Any,
-        "connectionUsageType" to connectionUsageType as Any,
-        "connectionOrganization" to connectionOrganization as Any,
+        "city" to city as Any?,
+        "timeZone" to timeZone as Any?,
+        "postalCode" to postalCode as Any?,
+        "latitude" to latitude as Any?,
+        "longitude" to longitude as Any?,
+        "autonomousSystemNumber" to autonomousSystemNumber as Any?,
+        "autonomousSystemOrganization" to autonomousSystemOrganization as Any?,
+        "isp" to isp as Any?,
+        "connectionType" to connectionType as Any?,
+        "connectionUsageType" to connectionUsageType as Any?,
+        "connectionOrganization" to connectionOrganization as Any?,
     )
 
     companion object {

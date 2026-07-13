@@ -62,16 +62,16 @@ data class Presence(
     var metadata: Any?,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
         "\$permissions" to permissions as Any,
         "userId" to userId as Any,
-        "status" to status as Any,
+        "status" to status as Any?,
         "source" to source as Any,
-        "expiresAt" to expiresAt as Any,
-        "metadata" to metadata as Any,
+        "expiresAt" to expiresAt as Any?,
+        "metadata" to metadata as Any?,
     )
 
     companion object {

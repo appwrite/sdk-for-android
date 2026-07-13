@@ -20,7 +20,7 @@ data class LocaleCodeList(
     val localeCodes: List<LocaleCode>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "total" to total as Any,
         "localeCodes" to localeCodes.map { it.toMap() } as Any,
     )

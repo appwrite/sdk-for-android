@@ -14,7 +14,7 @@ data class MfaRecoveryCodes(
     val recoveryCodes: List<String>,
 
 ) {
-    fun toMap(): Map<String, Any> = mapOf(
+    fun toMap(): Map<String, Any?> = mapOf(
         "recoveryCodes" to recoveryCodes as Any,
     )
 
