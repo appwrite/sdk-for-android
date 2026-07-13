@@ -142,7 +142,7 @@ class Client @JvmOverloads constructor(
      */
     fun setBearer(value: String): Client {
         config["bearer"] = value
-        addHeader("authorization", value)
+        addHeader("authorization", "Bearer $value")
         return this
     }
 
