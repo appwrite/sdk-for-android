@@ -3,17 +3,15 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.Service
-import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
+import io.appwrite.models.*
 import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Messaging service allows you to send messages to any provider type (SMTP, push notification, SMS, etc.).
- */
+ * The Messaging service allows you to send messages to any provider type (SMTP, push notification, SMS, etc.). */
 class Messaging(client: Client) : Service(client) {
-
     /**
      * Create a new subscriber.
      *
@@ -30,7 +28,6 @@ class Messaging(client: Client) : Service(client) {
         val apiPath = ("/messaging/topics/{topicId}/subscribers"
             .replace("{topicId}", topicId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "subscriberId" to subscriberId,
             "targetId" to targetId,
@@ -54,7 +51,6 @@ class Messaging(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Delete a subscriber by its unique ID.
      *
@@ -70,9 +66,7 @@ class Messaging(client: Client) : Service(client) {
             .replace("{topicId}", topicId)
             .replace("{subscriberId}", subscriberId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
@@ -85,6 +79,4 @@ class Messaging(client: Client) : Service(client) {
             responseType = Any::class.java,
         )
     }
-
-
 }

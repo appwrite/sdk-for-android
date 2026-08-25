@@ -1,5 +1,17 @@
 # Change Log
 
+## 27.0.0
+
+* Breaking: object parameters and model fields are now typed `Map<String, Any?>` instead of `Any`
+* Fixed: passing `null` in `data` now clears the attribute instead of being dropped from the request
+* Added: `account.listConsents`, `getConsent`, `deleteConsent` for OAuth2 consent management
+* Added: `account.listConsentTokens`, `getConsentToken`, `deleteConsentToken`, plus the `Oauth2ConsentToken` model
+* Added: `organization` service
+* Added: `teams.listInstallations`, `getInstallation`, `createInstallation`, `updateInstallation`, `deleteInstallation`, plus the `AppInstallation` model
+* Added: `avatars.getPhoto`
+* Added: `ExecutionResourceType` enum
+* Added: `Client.prepareRequest()` for inspecting an encoded request
+
 ## 26.0.0
 
 * Breaking: raised `minSdk` from 21 to 23, dropping support for Android 5.0/5.1 (API 21-22)

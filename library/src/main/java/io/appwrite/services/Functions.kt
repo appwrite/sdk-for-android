@@ -3,17 +3,15 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.Service
-import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
+import io.appwrite.models.*
 import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Functions Service allows you view, create and manage your Cloud Functions.
- */
+ * The Functions Service allows you view, create and manage your Cloud Functions. */
 class Functions(client: Client) : Service(client) {
-
     /**
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.
      *
@@ -31,7 +29,6 @@ class Functions(client: Client) : Service(client) {
         val apiPath = ("/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "total" to total,
@@ -54,7 +51,6 @@ class Functions(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Trigger a function execution. The returned object will return you the current execution status. You can ping the `Get Execution` endpoint to get updates on the current execution status. Once this endpoint is called, your function execution process will start asynchronously.
      *
@@ -74,13 +70,12 @@ class Functions(client: Client) : Service(client) {
         async: Boolean? = null,
         path: String? = null,
         method: io.appwrite.enums.ExecutionMethod? = null,
-        headers: Any? = null,
+        headers: Map<String, Any?>? = null,
         scheduledAt: String? = null,
     ): io.appwrite.models.Execution {
         val apiPath = ("/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "body" to body,
             "async" to async,
@@ -108,7 +103,6 @@ class Functions(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Get a function execution log by its unique ID.
      *
@@ -124,9 +118,7 @@ class Functions(client: Client) : Service(client) {
             .replace("{functionId}", functionId)
             .replace("{executionId}", executionId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "accept" to "application/json",
@@ -144,6 +136,4 @@ class Functions(client: Client) : Service(client) {
             converter,
         )
     }
-
-
 }

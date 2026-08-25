@@ -7,7 +7,7 @@ import io.appwrite.cookies.ListenableCookieJar
 import io.appwrite.cookies.stores.SharedPreferencesCookieStore
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.fromJson
-import io.appwrite.extensions.toJson
+import io.appwrite.extensions.toJsonRequestBody
 import io.appwrite.models.InputFile
 import io.appwrite.models.UploadProgress
 import kotlinx.coroutines.CoroutineScope
@@ -26,8 +26,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.BufferedInputStream
 import java.io.BufferedReader
 import java.io.File
-import java.io.RandomAccessFile
 import java.io.IOException
+import java.io.RandomAccessFile
 import java.lang.IllegalArgumentException
 import java.net.CookieManager
 import java.net.CookiePolicy
@@ -54,7 +54,7 @@ class Client @JvmOverloads constructor(
         /**
          * The size for chunked uploads in bytes.
          */
-        internal const val CHUNK_SIZE = 5*1024*1024; // 5MB
+        internal const val CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
         internal const val MAX_CONCURRENT_UPLOADS = 8
         internal const val GLOBAL_PREFS = "io.appwrite"
         internal const val COOKIE_PREFS = "myCookie"
@@ -94,8 +94,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "26.0.0",
-            "x-appwrite-response-format" to "1.9.5"
+            "x-sdk-version" to "27.0.0",
+            "x-appwrite-response-format" to "1.9.6"
         )
         config = mutableMapOf()
 
@@ -395,24 +395,22 @@ class Client @JvmOverloads constructor(
     }
 
     /**
-     * Send the HTTP request
+     * Prepare the HTTP request
      *
      * @param method
      * @param path
      * @param headers
      * @param params
      *
-     * @return [T]
+     * @return [Request]
      */
     @Throws(AppwriteException::class)
-    suspend fun <T> call(
+    suspend fun prepareRequest(
         method: String,
         path: String,
-        headers:  Map<String, String> = mapOf(),
+        headers: Map<String, String> = mapOf(),
         params: Map<String, Any?> = mapOf(),
-        responseType: Class<T>,
-        converter: ((Any) -> T)? = null
-    ): T {
+    ): Request {
         val filteredParams = params.filterValues { it != null }
 
         val requestHeaders = this.headers.toHeaders().newBuilder()
@@ -441,13 +439,12 @@ class Client @JvmOverloads constructor(
                     }
                 }
             }
-            val request = Request.Builder()
+
+            return Request.Builder()
                 .url(httpBuilder.build())
                 .headers(requestHeaders)
                 .get()
                 .build()
-
-            return awaitResponse(request, responseType, converter)
         }
 
         val body = if (MultipartBody.FORM.toString() == headers["content-type"]) {
@@ -474,17 +471,38 @@ class Client @JvmOverloads constructor(
             }
             builder.build()
         } else {
-            filteredParams
-                .toJson()
+            params
+                .toJsonRequestBody()
                 .toRequestBody("application/json".toMediaType())
         }
 
-        val request = Request.Builder()
+        return Request.Builder()
             .url(httpBuilder.build())
             .headers(requestHeaders)
             .method(method, body)
             .build()
+    }
 
+    /**
+     * Send the HTTP request
+     *
+     * @param method
+     * @param path
+     * @param headers
+     * @param params
+     *
+     * @return [T]
+     */
+    @Throws(AppwriteException::class)
+    suspend fun <T> call(
+        method: String,
+        path: String,
+        headers: Map<String, String> = mapOf(),
+        params: Map<String, Any?> = mapOf(),
+        responseType: Class<T>,
+        converter: ((Any) -> T)? = null
+    ): T {
+        val request = prepareRequest(method, path, headers, params)
         return awaitResponse(request, responseType, converter)
     }
 
@@ -500,7 +518,7 @@ class Client @JvmOverloads constructor(
     @Throws(AppwriteException::class)
     suspend fun <T> chunkedUpload(
         path: String,
-        headers:  MutableMap<String, String>,
+        headers: MutableMap<String, String>,
         params: MutableMap<String, Any?>,
         responseType: Class<T>,
         converter: ((Any) -> T),
@@ -509,7 +527,7 @@ class Client @JvmOverloads constructor(
         onProgress: ((UploadProgress) -> Unit)? = null,
     ): T {
         val input = params[paramName] as InputFile
-        val size: Long = when(input.sourceType) {
+        val size: Long = when (input.sourceType) {
             "path", "file" -> {
                 File(input.path).length()
             }
@@ -520,7 +538,7 @@ class Client @JvmOverloads constructor(
         }
 
         if (size < CHUNK_SIZE) {
-            val data = when(input.sourceType) {
+            val data = when (input.sourceType) {
                 "file", "path" -> File(input.path).asRequestBody()
                 "bytes" -> (input.data as ByteArray).toRequestBody(input.mimeType.toMediaType())
                 else -> throw UnsupportedOperationException()
@@ -544,24 +562,25 @@ class Client @JvmOverloads constructor(
         var result: Map<*, *>? = null
         var uploadId: String? = null
 
-        if (idParamName?.isNotEmpty() == true) {
+        val providedUploadId = idParamName?.let { params[it]?.toString() }
+        if (!providedUploadId.isNullOrEmpty()) {
             // Make a request to check if a file already exists
             val current = call(
                 method = "GET",
-                path = "$path/${params[idParamName]}",
+                path = "$path/$providedUploadId",
                 headers = headers,
                 params = emptyMap(),
                 responseType = Map::class.java,
             )
             val chunksUploaded = current["chunksUploaded"] as Long
             offset = chunksUploaded * CHUNK_SIZE
-            uploadId = params[idParamName]?.toString()
+            uploadId = providedUploadId
             result = current
         }
 
         fun readChunk(start: Long, end: Long): ByteArray {
             val length = (end - start).toInt()
-            return when(input.sourceType) {
+            return when (input.sourceType) {
                 "file", "path" -> {
                     RandomAccessFile(input.path, "r").use { chunkFile ->
                         val chunk = ByteArray(length)

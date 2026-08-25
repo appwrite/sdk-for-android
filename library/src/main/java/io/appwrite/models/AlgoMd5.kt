@@ -19,7 +19,6 @@ data class AlgoMd5(
     )
 
     companion object {
-
         @Suppress("UNCHECKED_CAST")
         fun from(
             map: Map<String, Any>,

@@ -47,7 +47,7 @@ data class User<T>(
      * Password hashing algorithm configuration.
      */
     @SerializedName("hashOptions")
-    var hashOptions: Any?,
+    var hashOptions: Map<String, Any?>?,
 
     /**
      * User registration date in ISO 8601 format.
@@ -201,7 +201,7 @@ data class User<T>(
             name: String,
             password: String?,
             hash: String?,
-            hashOptions: Any?,
+            hashOptions: Map<String, Any?>?,
             registration: String,
             status: Boolean,
             labels: List<String>,
@@ -261,7 +261,7 @@ data class User<T>(
             name = map["name"] as String,
             password = map["password"] as? String,
             hash = map["hash"] as? String,
-            hashOptions = map["hashOptions"] as? Any,
+            hashOptions = map["hashOptions"] as? Map<String, Any?>,
             registration = map["registration"] as String,
             status = map["status"] as Boolean,
             labels = map["labels"] as List<String>,

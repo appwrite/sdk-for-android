@@ -3,24 +3,22 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.Service
-import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
+import io.appwrite.models.*
 import okhttp3.Cookie
 import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
 /**
- * The Storage service allows you to manage your project files.
- */
+ * The Storage service allows you to manage your project files. */
 class Storage(client: Client) : Service(client) {
-
     /**
      * Get a list of all the user files. You can use the query params to filter your results.
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter on the following attributes: name, folder, signature, mimeType, sizeOriginal, chunksTotal, chunksUploaded
      * @param search Search term to filter your list results. Max length: 256 chars.
      * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.FileList]
@@ -35,7 +33,6 @@ class Storage(client: Client) : Service(client) {
         val apiPath = ("/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "search" to search,
@@ -59,21 +56,21 @@ class Storage(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Create a new file. Before using this route, you should create a new bucket resource using either a [server integration](https://appwrite.io/docs/server/storage#storageCreateBucket) API or directly from your Appwrite console.
-     * 
+     *
      * Larger files should be uploaded using multiple requests with the [content-range](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Range) header to send a partial request with a maximum supported chunk of `5MB`. The `content-range` header values should always be in bytes.
-     * 
+     *
      * When the first request is sent, the server will return the **File** object, and the subsequent part request must include the file's **id** in `x-appwrite-id` header to allow the server to know that the partial upload is for the existing file and not for a new one.
-     * 
+     *
      * If you're creating a new file using one of the Appwrite SDKs, all the chunking logic will be managed by the SDK internally.
-     * 
+     *
      *
      * @param bucketId Storage bucket unique ID. You can create a new storage bucket using the Storage service [server integration](https://appwrite.io/docs/server/storage#createBucket).
      * @param fileId File ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param file Binary file. Appwrite SDKs provide helpers to handle file input. [Learn about file input](https://appwrite.io/docs/products/storage/upload-download#input-file).
      * @param permissions An array of permission strings. By default, only the current user is granted all permissions. [Learn more about permissions](https://appwrite.io/docs/permissions).
+     * @param folder Virtual folder to place the file in, for example "photos/2026". Nest folders with `/`. Defaults to the bucket root.
      * @return [io.appwrite.models.File]
      */
     @JvmOverloads
@@ -82,16 +79,17 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         file: InputFile,
         permissions: List<String>? = null,
+        folder: String? = null,
         onProgress: ((UploadProgress) -> Unit)? = null
     ): io.appwrite.models.File {
         val apiPath = ("/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "fileId" to fileId,
             "file" to file,
             "permissions" to permissions,
+            "folder" to folder,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
@@ -102,7 +100,7 @@ class Storage(client: Client) : Service(client) {
             @Suppress("UNCHECKED_CAST")
             io.appwrite.models.File.from(map = it as Map<String, Any>)
         }
-        val idParamName: String? = "fileId"    
+        val idParamName: String? = "fileId"
         val paramName = "file"
         return client.chunkedUpload(
             apiPath,
@@ -115,7 +113,6 @@ class Storage(client: Client) : Service(client) {
             onProgress,
         )
     }
-
 
     /**
      * Get a file by its unique ID. This endpoint response returns a JSON object with the file metadata.
@@ -132,9 +129,7 @@ class Storage(client: Client) : Service(client) {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "accept" to "application/json",
@@ -152,7 +147,6 @@ class Storage(client: Client) : Service(client) {
             converter,
         )
     }
-
 
     /**
      * Update a file by its unique ID. Only users with write permissions have access to update this resource.
@@ -174,7 +168,6 @@ class Storage(client: Client) : Service(client) {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "name" to name,
             "permissions" to permissions,
@@ -198,7 +191,6 @@ class Storage(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Delete a file by its unique ID. Only users with write permissions have access to delete this resource.
      *
@@ -214,9 +206,7 @@ class Storage(client: Client) : Service(client) {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
@@ -229,7 +219,6 @@ class Storage(client: Client) : Service(client) {
             responseType = Any::class.java,
         )
     }
-
 
     /**
      * Get a file content by its unique ID. The endpoint response return with a 'Content-Disposition: attachment' header that tells the browser to start downloading the file to user downloads directory.
@@ -249,20 +238,21 @@ class Storage(client: Client) : Service(client) {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "token" to token,
-            "project" to client.config["project"],
-            "impersonateuserid" to client.config["impersonateuserid"],
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "*/*",
         )
         return client.call(
             "GET",
             apiPath,
+            headers = apiHeaders,
             params = apiParams,
             responseType = ByteArray::class.java
         )
     }
-
 
     /**
      * Get a file preview image. Currently, this method supports preview for image files (jpg, png, and gif), other supported formats, like pdf, docs, slides, and spreadsheets, will return the file icon image. You can also pass query string arguments for cutting and resizing your preview image. Preview is supported only for image files smaller than 10MB.
@@ -304,7 +294,6 @@ class Storage(client: Client) : Service(client) {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
             "height" to height,
@@ -318,17 +307,19 @@ class Storage(client: Client) : Service(client) {
             "background" to background,
             "output" to output,
             "token" to token,
-            "project" to client.config["project"],
-            "impersonateuserid" to client.config["impersonateuserid"],
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "image/*",
         )
         return client.call(
             "GET",
             apiPath,
+            headers = apiHeaders,
             params = apiParams,
             responseType = ByteArray::class.java
         )
     }
-
 
     /**
      * Get a file content by its unique ID. This endpoint is similar to the download method but returns with no  'Content-Disposition: attachment' header.
@@ -348,19 +339,19 @@ class Storage(client: Client) : Service(client) {
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "token" to token,
-            "project" to client.config["project"],
-            "impersonateuserid" to client.config["impersonateuserid"],
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "*/*",
         )
         return client.call(
             "GET",
             apiPath,
+            headers = apiHeaders,
             params = apiParams,
             responseType = ByteArray::class.java
         )
     }
-
-
 }

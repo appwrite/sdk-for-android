@@ -1,10 +1,11 @@
 package io.appwrite.services
 
-import io.appwrite.Service
-import io.appwrite.Client
+import android.util.Log
 import io.appwrite.Channel
+import io.appwrite.Client
 import io.appwrite.ID
 import io.appwrite.Query
+import io.appwrite.Service
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.forEachAsync
 import io.appwrite.extensions.fromJson
@@ -19,7 +20,6 @@ import okhttp3.WebSocket
 import okhttp3.WebSocketListener
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.atomic.AtomicInteger
-import android.util.Log
 import kotlin.coroutines.CoroutineContext
 
 class Realtime(client: Client) : Service(client), CoroutineScope {
@@ -407,7 +407,7 @@ class Realtime(client: Client) : Service(client), CoroutineScope {
                 }
             }
         }
-        
+
         private fun handleResponseConnected(message: RealtimeResponse) {
             if (message.data == null) return
 
@@ -427,7 +427,7 @@ class Realtime(client: Client) : Service(client), CoroutineScope {
         private suspend fun handleResponseEvent(message: RealtimeResponse) {
             val messageData = message.data?.jsonCast<Map<String, Any>>() ?: return
             val event = messageData.jsonCast<RealtimeResponseEvent<Any>>()
-            
+
             if (event.channels.isEmpty()) {
                 return
             }

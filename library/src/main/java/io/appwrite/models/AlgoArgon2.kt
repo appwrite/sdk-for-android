@@ -40,7 +40,6 @@ data class AlgoArgon2(
     )
 
     companion object {
-
         @Suppress("UNCHECKED_CAST")
         fun from(
             map: Map<String, Any>,
