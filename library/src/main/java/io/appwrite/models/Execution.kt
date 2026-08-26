@@ -1,9 +1,10 @@
 package io.appwrite.models
 
 import com.google.gson.annotations.SerializedName
-import io.appwrite.extensions.jsonCast
+import io.appwrite.enums.ExecutionResourceType
 import io.appwrite.enums.ExecutionTrigger
 import io.appwrite.enums.ExecutionStatus
+import io.appwrite.extensions.jsonCast
 
 /**
  * Execution
@@ -34,25 +35,31 @@ data class Execution(
     val permissions: List<String>,
 
     /**
-     * Function ID.
+     * Function or site ID.
      */
-    @SerializedName("functionId")
-    val functionId: String,
+    @SerializedName("resourceId")
+    val resourceId: String,
 
     /**
-     * Function's deployment ID used to create the execution.
+     * Execution resource type.
+     */
+    @SerializedName("resourceType")
+    val resourceType: ExecutionResourceType,
+
+    /**
+     * Deployment ID used to create the execution.
      */
     @SerializedName("deploymentId")
     val deploymentId: String,
 
     /**
-     * The trigger that caused the function to execute. Possible values can be: `http`, `schedule`, or `event`.
+     * The trigger that caused the resource to execute. Possible values can be: `http`, `schedule`, or `event`.
      */
     @SerializedName("trigger")
     val trigger: ExecutionTrigger,
 
     /**
-     * The status of the function execution. Possible values can be: `waiting`, `processing`, `completed`, `failed`, or `scheduled`.
+     * The status of the resource execution. Possible values can be: `waiting`, `processing`, `completed`, `failed`, or `scheduled`.
      */
     @SerializedName("status")
     val status: ExecutionStatus,
@@ -94,13 +101,13 @@ data class Execution(
     val responseHeaders: List<Headers>,
 
     /**
-     * Function logs. Includes the last 4,000 characters. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+     * Resource logs. Includes the last 4,000 characters. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
      */
     @SerializedName("logs")
     val logs: String,
 
     /**
-     * Function errors. Includes the last 4,000 characters. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
+     * Resource errors. Includes the last 4,000 characters. This will return an empty string unless the response is returned using an API key or as part of a webhook payload.
      */
     @SerializedName("errors")
     val errors: String,
@@ -123,7 +130,8 @@ data class Execution(
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
         "\$permissions" to permissions as Any,
-        "functionId" to functionId as Any,
+        "resourceId" to resourceId as Any,
+        "resourceType" to resourceType.value as Any,
         "deploymentId" to deploymentId as Any,
         "trigger" to trigger.value as Any,
         "status" to status.value as Any,
@@ -140,7 +148,6 @@ data class Execution(
     )
 
     companion object {
-
         @Suppress("UNCHECKED_CAST")
         fun from(
             map: Map<String, Any>,
@@ -149,7 +156,8 @@ data class Execution(
             createdAt = map["\$createdAt"] as String,
             updatedAt = map["\$updatedAt"] as String,
             permissions = map["\$permissions"] as List<String>,
-            functionId = map["functionId"] as String,
+            resourceId = map["resourceId"] as String,
+            resourceType = ExecutionResourceType.values().find { it.value == map["resourceType"] as String }!!,
             deploymentId = map["deploymentId"] as String,
             trigger = ExecutionTrigger.values().find { it.value == map["trigger"] as String }!!,
             status = ExecutionStatus.values().find { it.value == map["status"] as String }!!,

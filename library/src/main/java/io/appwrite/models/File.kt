@@ -44,6 +44,18 @@ data class File(
     val name: String,
 
     /**
+     * Virtual folder containing the file, with a trailing slash. Empty for the bucket root.
+     */
+    @SerializedName("folder")
+    val folder: String,
+
+    /**
+     * Full virtual path of the file: the folder followed by the file name.
+     */
+    @SerializedName("key")
+    val key: String,
+
+    /**
      * File MD5 signature.
      */
     @SerializedName("signature")
@@ -99,6 +111,8 @@ data class File(
         "\$updatedAt" to updatedAt as Any,
         "\$permissions" to permissions as Any,
         "name" to name as Any,
+        "folder" to folder as Any,
+        "key" to key as Any,
         "signature" to signature as Any,
         "mimeType" to mimeType as Any,
         "sizeOriginal" to sizeOriginal as Any,
@@ -110,7 +124,6 @@ data class File(
     )
 
     companion object {
-
         @Suppress("UNCHECKED_CAST")
         fun from(
             map: Map<String, Any>,
@@ -121,6 +134,8 @@ data class File(
             updatedAt = map["\$updatedAt"] as String,
             permissions = map["\$permissions"] as List<String>,
             name = map["name"] as String,
+            folder = map["folder"] as String,
+            key = map["key"] as String,
             signature = map["signature"] as String,
             mimeType = map["mimeType"] as String,
             sizeOriginal = (map["sizeOriginal"] as Number).toLong(),

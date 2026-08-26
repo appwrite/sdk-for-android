@@ -10,7 +10,9 @@ enum class AuthenticationFactor(val value: String) {
     @SerializedName("totp")
     TOTP("totp"),
     @SerializedName("recoverycode")
-    RECOVERYCODE("recoverycode");
+    RECOVERYCODE("recoverycode"),
+    @SerializedName("custom")
+    CUSTOM("custom");
 
     override fun toString() = value
 }

@@ -3,17 +3,15 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.Service
-import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
+import io.appwrite.models.*
 import okhttp3.Cookie
 import java.io.File
 
 /**
- * 
- */
+ * The TablesDB service allows you to create structured tables of columns, query and filter lists of rows */
 class TablesDB(client: Client) : Service(client) {
-
     /**
      * List transactions across all databases.
      *
@@ -24,9 +22,7 @@ class TablesDB(client: Client) : Service(client) {
     suspend fun listTransactions(
         queries: List<String>? = null,
     ): io.appwrite.models.TransactionList {
-        val apiPath = ("/tablesdb/transactions"
-        )
-
+        val apiPath = "/tablesdb/transactions"
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
         )
@@ -48,7 +44,6 @@ class TablesDB(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Create a new transaction.
      *
@@ -59,9 +54,7 @@ class TablesDB(client: Client) : Service(client) {
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = ("/tablesdb/transactions"
-        )
-
+        val apiPath = "/tablesdb/transactions"
         val apiParams = mutableMapOf<String, Any?>(
             "ttl" to ttl,
         )
@@ -84,7 +77,6 @@ class TablesDB(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Get a transaction by its unique ID.
      *
@@ -97,9 +89,7 @@ class TablesDB(client: Client) : Service(client) {
         val apiPath = ("/tablesdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "accept" to "application/json",
@@ -118,7 +108,6 @@ class TablesDB(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Update a transaction, to either commit or roll back its operations.
      *
@@ -136,7 +125,6 @@ class TablesDB(client: Client) : Service(client) {
         val apiPath = ("/tablesdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "commit" to commit,
             "rollback" to rollback,
@@ -160,7 +148,6 @@ class TablesDB(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Delete a transaction by its unique ID.
      *
@@ -173,9 +160,7 @@ class TablesDB(client: Client) : Service(client) {
         val apiPath = ("/tablesdb/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
@@ -189,7 +174,6 @@ class TablesDB(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Create multiple operations in a single transaction.
      *
@@ -200,12 +184,11 @@ class TablesDB(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun createOperations(
         transactionId: String,
-        operations: List<Any>? = null,
+        operations: List<Map<String, Any?>>? = null,
     ): io.appwrite.models.Transaction {
         val apiPath = ("/tablesdb/transactions/{transactionId}/operations"
             .replace("{transactionId}", transactionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "operations" to operations,
         )
@@ -227,7 +210,6 @@ class TablesDB(client: Client) : Service(client) {
             converter,
         )
     }
-
 
     /**
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
@@ -254,7 +236,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "transactionId" to transactionId,
@@ -325,7 +306,7 @@ class TablesDB(client: Client) : Service(client) {
         databaseId: String,
         tableId: String,
         rowId: String,
-        data: Any,
+        data: Map<String, Any?>,
         permissions: List<String>? = null,
         transactionId: String? = null,
         nestedType: Class<T>,
@@ -334,7 +315,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{databaseId}", databaseId)
             .replace("{tableId}", tableId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "rowId" to rowId,
             "data" to data,
@@ -377,7 +357,7 @@ class TablesDB(client: Client) : Service(client) {
         databaseId: String,
         tableId: String,
         rowId: String,
-        data: Any,
+        data: Map<String, Any?>,
         permissions: List<String>? = null,
         transactionId: String? = null,
     ): io.appwrite.models.Row<Map<String, Any>> = createRow(
@@ -414,7 +394,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "transactionId" to transactionId,
@@ -480,7 +459,7 @@ class TablesDB(client: Client) : Service(client) {
         databaseId: String,
         tableId: String,
         rowId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
         nestedType: Class<T>,
@@ -490,7 +469,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
             "permissions" to permissions,
@@ -532,7 +510,7 @@ class TablesDB(client: Client) : Service(client) {
         databaseId: String,
         tableId: String,
         rowId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
     ): io.appwrite.models.Row<Map<String, Any>> = upsertRow(
@@ -561,7 +539,7 @@ class TablesDB(client: Client) : Service(client) {
         databaseId: String,
         tableId: String,
         rowId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
         nestedType: Class<T>,
@@ -571,7 +549,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
             "permissions" to permissions,
@@ -613,7 +590,7 @@ class TablesDB(client: Client) : Service(client) {
         databaseId: String,
         tableId: String,
         rowId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
     ): io.appwrite.models.Row<Map<String, Any>> = updateRow(
@@ -647,7 +624,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{tableId}", tableId)
             .replace("{rowId}", rowId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "transactionId" to transactionId,
         )
@@ -663,7 +639,6 @@ class TablesDB(client: Client) : Service(client) {
             responseType = Any::class.java,
         )
     }
-
 
     /**
      * Decrement a specific column of a row by a given value.
@@ -694,7 +669,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{rowId}", rowId)
             .replace("{column}", column)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,
             "min" to min,
@@ -781,7 +755,6 @@ class TablesDB(client: Client) : Service(client) {
             .replace("{rowId}", rowId)
             .replace("{column}", column)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,
             "max" to max,
@@ -838,5 +811,4 @@ class TablesDB(client: Client) : Service(client) {
         transactionId,
         nestedType = classOf(),
     )
-
 }

@@ -1,7 +1,7 @@
 package io.appwrite
 
-import io.appwrite.extensions.toJson
 import io.appwrite.extensions.fromJson
+import io.appwrite.extensions.toJson
 
 /**
  * Helper class to generate query strings.
@@ -198,7 +198,7 @@ class Query(
          * @returns The query string.
          */
         fun cursorAfter(documentId: String) = Query("cursorAfter", null, listOf(documentId)).toJson()
-        
+
         /**
          * Return only limit results.
          *

@@ -1,4 +1,6 @@
 ```java
+import android.util.Log;
+
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
 import io.appwrite.services.Account;

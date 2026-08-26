@@ -1,11 +1,11 @@
 package io.appwrite.cookies.stores
 
-import io.appwrite.cookies.InternalCookie
 import android.content.SharedPreferences
 import android.os.Build
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.appwrite.cookies.InternalCookie
 import java.net.HttpCookie
 import java.net.URI
 

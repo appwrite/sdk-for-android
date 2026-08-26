@@ -3,17 +3,15 @@ package io.appwrite.services
 import android.net.Uri
 import io.appwrite.Client
 import io.appwrite.Service
-import io.appwrite.models.*
 import io.appwrite.exceptions.AppwriteException
 import io.appwrite.extensions.classOf
+import io.appwrite.models.*
 import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Databases service allows you to create structured collections of documents, query and filter lists of documents
- */
+ * The Databases service allows you to create structured collections of documents, query and filter lists of documents */
 class Databases(client: Client) : Service(client) {
-
     /**
      * List transactions across all databases.
      *
@@ -28,9 +26,7 @@ class Databases(client: Client) : Service(client) {
     suspend fun listTransactions(
         queries: List<String>? = null,
     ): io.appwrite.models.TransactionList {
-        val apiPath = ("/databases/transactions"
-        )
-
+        val apiPath = "/databases/transactions"
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
         )
@@ -52,7 +48,6 @@ class Databases(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Create a new transaction.
      *
@@ -67,9 +62,7 @@ class Databases(client: Client) : Service(client) {
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
-        val apiPath = ("/databases/transactions"
-        )
-
+        val apiPath = "/databases/transactions"
         val apiParams = mutableMapOf<String, Any?>(
             "ttl" to ttl,
         )
@@ -92,7 +85,6 @@ class Databases(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Get a transaction by its unique ID.
      *
@@ -109,9 +101,7 @@ class Databases(client: Client) : Service(client) {
         val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "accept" to "application/json",
@@ -129,7 +119,6 @@ class Databases(client: Client) : Service(client) {
             converter,
         )
     }
-
 
     /**
      * Update a transaction, to either commit or roll back its operations.
@@ -152,7 +141,6 @@ class Databases(client: Client) : Service(client) {
         val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "commit" to commit,
             "rollback" to rollback,
@@ -176,7 +164,6 @@ class Databases(client: Client) : Service(client) {
         )
     }
 
-
     /**
      * Delete a transaction by its unique ID.
      *
@@ -193,9 +180,7 @@ class Databases(client: Client) : Service(client) {
         val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
-
-        val apiParams = mutableMapOf<String, Any?>(
-        )
+        val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
@@ -208,7 +193,6 @@ class Databases(client: Client) : Service(client) {
             responseType = Any::class.java,
         )
     }
-
 
     /**
      * Create multiple operations in a single transaction.
@@ -224,12 +208,11 @@ class Databases(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun createOperations(
         transactionId: String,
-        operations: List<Any>? = null,
+        operations: List<Map<String, Any?>>? = null,
     ): io.appwrite.models.Transaction {
         val apiPath = ("/databases/transactions/{transactionId}/operations"
             .replace("{transactionId}", transactionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "operations" to operations,
         )
@@ -251,7 +234,6 @@ class Databases(client: Client) : Service(client) {
             converter,
         )
     }
-
 
     /**
      * Get a list of all the user's documents in a given collection. You can use the query params to filter your results.
@@ -282,7 +264,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "transactionId" to transactionId,
@@ -361,7 +342,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Map<String, Any?>,
         permissions: List<String>? = null,
         transactionId: String? = null,
         nestedType: Class<T>,
@@ -370,7 +351,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "documentId" to documentId,
             "data" to data,
@@ -417,7 +397,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any,
+        data: Map<String, Any?>,
         permissions: List<String>? = null,
         transactionId: String? = null,
     ): io.appwrite.models.Document<Map<String, Any>> = createDocument(
@@ -458,7 +438,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
             "transactionId" to transactionId,
@@ -532,7 +511,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
         nestedType: Class<T>,
@@ -542,7 +521,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
             "permissions" to permissions,
@@ -588,7 +566,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
     ): io.appwrite.models.Document<Map<String, Any>> = upsertDocument(
@@ -621,7 +599,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
         nestedType: Class<T>,
@@ -631,7 +609,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "data" to data,
             "permissions" to permissions,
@@ -677,7 +654,7 @@ class Databases(client: Client) : Service(client) {
         databaseId: String,
         collectionId: String,
         documentId: String,
-        data: Any? = null,
+        data: Map<String, Any?>? = null,
         permissions: List<String>? = null,
         transactionId: String? = null,
     ): io.appwrite.models.Document<Map<String, Any>> = updateDocument(
@@ -715,7 +692,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{collectionId}", collectionId)
             .replace("{documentId}", documentId)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "transactionId" to transactionId,
         )
@@ -731,7 +707,6 @@ class Databases(client: Client) : Service(client) {
             responseType = Any::class.java,
         )
     }
-
 
     /**
      * Decrement a specific attribute of a document by a given value.
@@ -766,7 +741,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{documentId}", documentId)
             .replace("{attribute}", attribute)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,
             "min" to min,
@@ -861,7 +835,6 @@ class Databases(client: Client) : Service(client) {
             .replace("{documentId}", documentId)
             .replace("{attribute}", attribute)
         )
-
         val apiParams = mutableMapOf<String, Any?>(
             "value" to value,
             "max" to max,
@@ -922,5 +895,4 @@ class Databases(client: Client) : Service(client) {
         transactionId,
         nestedType = classOf(),
     )
-
 }

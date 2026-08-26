@@ -54,7 +54,6 @@ data class Transaction(
     )
 
     companion object {
-
         @Suppress("UNCHECKED_CAST")
         fun from(
             map: Map<String, Any>,

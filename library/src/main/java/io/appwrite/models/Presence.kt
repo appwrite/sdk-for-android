@@ -59,7 +59,7 @@ data class Presence(
      * Presence metadata.
      */
     @SerializedName("metadata")
-    var metadata: Any?,
+    var metadata: Map<String, Any?>?,
 
 ) {
     fun toMap(): Map<String, Any?> = mapOf(
@@ -75,7 +75,6 @@ data class Presence(
     )
 
     companion object {
-
         @Suppress("UNCHECKED_CAST")
         fun from(
             map: Map<String, Any>,
@@ -88,7 +87,7 @@ data class Presence(
             status = map["status"] as? String,
             source = map["source"] as String,
             expiresAt = map["expiresAt"] as? String,
-            metadata = map["metadata"] as? Any,
+            metadata = map["metadata"] as? Map<String, Any?>,
         )
     }
 }
