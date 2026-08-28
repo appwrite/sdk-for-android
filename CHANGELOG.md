@@ -1,5 +1,11 @@
 # Change Log
 
+## 27.1.0
+
+* Added: `Realtime.onError`, `onOpen`, and `onClose` lifecycle callbacks
+* Fixed: message-handler exceptions are delivered via `onError` instead of crashing the coroutine
+* Fixed: lifecycle callbacks are isolated per connection and cleared on disconnect
+
 ## 27.0.0
 
 * Breaking: object parameters and model fields are now typed `Map<String, Any?>` instead of `Any`
