@@ -18,14 +18,14 @@ storage.getFilePreview(
     "<FILE_ID>", // fileId 
     0, // width (optional)
     0, // height (optional)
-    ImageGravity.CENTER, // gravity (optional)
+    ImageGravity.AUTO, // gravity (optional)
     -1, // quality (optional)
     0, // borderWidth (optional)
-    "", // borderColor (optional)
+    "FFFFFF", // borderColor (optional)
     0, // borderRadius (optional)
     0, // opacity (optional)
     -360, // rotation (optional)
-    "", // background (optional)
+    "FFFFFF", // background (optional)
     ImageFormat.JPG, // output (optional)
     "<TOKEN>", // token (optional)
     new CoroutineCallback<>((result, error) -> {

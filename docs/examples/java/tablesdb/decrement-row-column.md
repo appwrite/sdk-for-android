@@ -15,8 +15,8 @@ tablesDB.decrementRowColumn(
     "<DATABASE_ID>", // databaseId 
     "<TABLE_ID>", // tableId 
     "<ROW_ID>", // rowId 
-    "", // column 
-    0, // value (optional)
+    "<COLUMN>", // column 
+    1, // value (optional)
     0, // min (optional)
     "<TRANSACTION_ID>", // transactionId (optional)
     new CoroutineCallback<>((result, error) -> {

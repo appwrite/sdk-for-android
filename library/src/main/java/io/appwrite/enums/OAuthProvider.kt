@@ -21,6 +21,8 @@ enum class OAuthProvider(val value: String) {
     BITLY("bitly"),
     @SerializedName("box")
     BOX("box"),
+    @SerializedName("cloudflare")
+    CLOUDFLARE("cloudflare"),
     @SerializedName("dailymotion")
     DAILYMOTION("dailymotion"),
     @SerializedName("discord")
@@ -65,6 +67,8 @@ enum class OAuthProvider(val value: String) {
     PAYPALSANDBOX("paypalSandbox"),
     @SerializedName("podio")
     PODIO("podio"),
+    @SerializedName("resend")
+    RESEND("resend"),
     @SerializedName("salesforce")
     SALESFORCE("salesforce"),
     @SerializedName("slack")
