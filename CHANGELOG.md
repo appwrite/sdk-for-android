@@ -5,6 +5,7 @@
 * Added: `DocumentsDB` and `VectorsDB` services for document and vector database access
 * Added: `userId`, `emailHash` and `name` parameters to `Avatars.getPhoto()`
 * Added: `CLOUDFLARE` and `RESEND` values to `OAuthProvider` enum
+* Added: `AUTO` value to `ImageGravity` enum
 * Fixed: `Client.setEndpoint` and `setEndpointRealtime` are fluent when called from Java
 * Updated: `x-appwrite-response-format` header to `2.0.0`
 

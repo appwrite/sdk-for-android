@@ -261,7 +261,7 @@ class Storage(client: Client) : Service(client) {
      * @param fileId File ID
      * @param width Resize preview image width, Pass an integer between 0 to 4000.
      * @param height Resize preview image height, Pass an integer between 0 to 4000.
-     * @param gravity Image crop gravity. Can be one of center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
+     * @param gravity Image crop gravity. Can be one of auto,center,top-left,top,top-right,left,right,bottom-left,bottom,bottom-right
      * @param quality Preview image quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
      * @param borderWidth Preview image border in pixels. Pass an integer between 0 to 100. Defaults to 0.
      * @param borderColor Preview image border color. Use a valid HEX color, no # is needed for prefix.

@@ -3,6 +3,8 @@ package io.appwrite.enums
 import com.google.gson.annotations.SerializedName
 
 enum class ImageGravity(val value: String) {
+    @SerializedName("auto")
+    AUTO("auto"),
     @SerializedName("center")
     CENTER("center"),
     @SerializedName("top-left")

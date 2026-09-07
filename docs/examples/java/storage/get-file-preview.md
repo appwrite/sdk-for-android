@@ -18,7 +18,7 @@ storage.getFilePreview(
     "<FILE_ID>", // fileId 
     0, // width (optional)
     0, // height (optional)
-    ImageGravity.CENTER, // gravity (optional)
+    ImageGravity.AUTO, // gravity (optional)
     -1, // quality (optional)
     0, // borderWidth (optional)
     "FFFFFF", // borderColor (optional)
