@@ -13,9 +13,9 @@ val result = tablesDB.incrementRowColumn(
     databaseId = "<DATABASE_ID>", 
     tableId = "<TABLE_ID>", 
     rowId = "<ROW_ID>", 
-    column = "", 
-    value = 0, // (optional)
-    max = 0, // (optional)
+    column = "<COLUMN>", 
+    value = 1, // (optional)
+    max = 100, // (optional)
     transactionId = "<TRANSACTION_ID>", // (optional)
 )
 ```

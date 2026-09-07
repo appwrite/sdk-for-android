@@ -19,7 +19,7 @@ storage.createFile(
     "<FILE_ID>", // fileId 
     InputFile.fromPath("file.png"), // file 
     List.of(Permission.read(Role.any())), // permissions (optional)
-    "", // folder (optional)
+    "photos/2026", // folder (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -1,5 +1,19 @@
 # Change Log
 
+## 27.2.0
+
+* Added: `DocumentsDB` and `VectorsDB` services for document and vector database access
+* Added: `userId`, `emailHash` and `name` parameters to `Avatars.getPhoto()`
+* Added: `CLOUDFLARE` and `RESEND` values to `OAuthProvider` enum
+* Fixed: `Client.setEndpoint` and `setEndpointRealtime` are fluent when called from Java
+* Updated: `x-appwrite-response-format` header to `2.0.0`
+
+## 27.1.0
+
+* Added: `Realtime.onError`, `onOpen`, and `onClose` lifecycle callbacks
+* Fixed: message-handler exceptions are delivered via `onError` instead of crashing the coroutine
+* Fixed: lifecycle callbacks are isolated per connection and cleared on disconnect
+
 ## 27.0.0
 
 * Breaking: object parameters and model fields are now typed `Map<String, Any?>` instead of `Any`

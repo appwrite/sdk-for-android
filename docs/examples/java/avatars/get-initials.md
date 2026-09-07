@@ -15,7 +15,7 @@ avatars.getInitials(
     "<NAME>", // name (optional)
     0, // width (optional)
     0, // height (optional)
-    "", // background (optional)
+    "FFFFFF", // background (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

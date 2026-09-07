@@ -45,7 +45,9 @@ import kotlin.coroutines.resume
 
 class Client @JvmOverloads constructor(
     context: Context,
+    @set:JvmSynthetic
     var endpoint: String = "https://cloud.appwrite.io/v1",
+    @set:JvmSynthetic
     var endpointRealtime: String? = null,
     private var selfSigned: Boolean = false
 ) : CoroutineScope {
@@ -94,8 +96,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "27.0.0",
-            "x-appwrite-response-format" to "1.9.6"
+            "x-sdk-version" to "27.2.0",
+            "x-appwrite-response-format" to "2.0.0"
         )
         config = mutableMapOf()
 

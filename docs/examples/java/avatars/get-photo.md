@@ -17,6 +17,9 @@ avatars.getPhoto(
     0, // quality (optional)
     "png", // output (optional)
     "g", // rating (optional)
+    "current()", // userId (optional)
+    "<EMAIL_HASH>", // emailHash (optional)
+    "<NAME>", // name (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
