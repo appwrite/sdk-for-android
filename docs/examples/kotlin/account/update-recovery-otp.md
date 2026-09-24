@@ -9,8 +9,9 @@ val client = Client(context)
 
 val account = Account(client)
 
-val result = account.listLogs(
-    queries = listOf(), // (optional)
-    total = false, // (optional)
+val result = account.updateRecoveryOTP(
+    userId = "<USER_ID>", 
+    secret = "<SECRET>", 
+    password = "password", 
 )
 ```

@@ -165,6 +165,9 @@ class Account(client: Client) : Service(client) {
     suspend fun getConsent(
         consentId: String,
     ): io.appwrite.models.Oauth2Consent {
+        if (consentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"consentId\"")
+        }
         val apiPath = ("/account/consents/{consentId}"
             .replace("{consentId}", consentId)
         )
@@ -196,6 +199,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deleteConsent(
         consentId: String,
     ): Any {
+        if (consentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"consentId\"")
+        }
         val apiPath = ("/account/consents/{consentId}"
             .replace("{consentId}", consentId)
         )
@@ -228,6 +234,9 @@ class Account(client: Client) : Service(client) {
         queries: List<String>? = null,
         total: Boolean? = null,
     ): io.appwrite.models.Oauth2ConsentTokenList {
+        if (consentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"consentId\"")
+        }
         val apiPath = ("/account/consents/{consentId}/tokens"
             .replace("{consentId}", consentId)
         )
@@ -264,6 +273,12 @@ class Account(client: Client) : Service(client) {
         consentId: String,
         tokenId: String,
     ): io.appwrite.models.Oauth2ConsentToken {
+        if (consentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"consentId\"")
+        }
+        if (tokenId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"tokenId\"")
+        }
         val apiPath = ("/account/consents/{consentId}/tokens/{tokenId}"
             .replace("{consentId}", consentId)
             .replace("{tokenId}", tokenId)
@@ -298,6 +313,12 @@ class Account(client: Client) : Service(client) {
         consentId: String,
         tokenId: String,
     ): Any {
+        if (consentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"consentId\"")
+        }
+        if (tokenId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"tokenId\"")
+        }
         val apiPath = ("/account/consents/{consentId}/tokens/{tokenId}"
             .replace("{consentId}", consentId)
             .replace("{tokenId}", tokenId)
@@ -418,6 +439,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deleteIdentity(
         identityId: String,
     ): Any {
+        if (identityId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"identityId\"")
+        }
         val apiPath = ("/account/identities/{identityId}"
             .replace("{identityId}", identityId)
         )
@@ -425,6 +449,7 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -464,41 +489,6 @@ class Account(client: Client) : Service(client) {
             apiHeaders,
             apiParams,
             responseType = io.appwrite.models.Jwt::class.java,
-            converter,
-        )
-    }
-
-    /**
-     * Get the list of latest security activity logs for the currently logged in user. Each log returns user IP address, location and date and time of log.
-     *
-     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Only supported methods are limit and offset
-     * @param total When set to false, the total count returned will be 0 and will not be calculated.
-     * @return [io.appwrite.models.LogList]
-     */
-    @JvmOverloads
-    suspend fun listLogs(
-        queries: List<String>? = null,
-        total: Boolean? = null,
-    ): io.appwrite.models.LogList {
-        val apiPath = "/account/logs"
-        val apiParams = mutableMapOf<String, Any?>(
-            "queries" to queries,
-            "total" to total,
-        )
-        val apiHeaders = mutableMapOf<String, String>(
-            "X-Appwrite-Project" to client.config["project"].orEmpty(),
-            "accept" to "application/json",
-        )
-        val converter: (Any) -> io.appwrite.models.LogList = {
-            @Suppress("UNCHECKED_CAST")
-            io.appwrite.models.LogList.from(map = it as Map<String, Any>)
-        }
-        return client.call(
-            "GET",
-            apiPath,
-            apiHeaders,
-            apiParams,
-            responseType = io.appwrite.models.LogList::class.java,
             converter,
         )
     }
@@ -754,6 +744,7 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -780,6 +771,7 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -1476,6 +1468,84 @@ class Account(client: Client) : Service(client) {
     }
 
     /**
+     * Use this endpoint to send a 6-digit password recovery code to the user's email address. Unlike [createRecovery](https://appwrite.io/docs/references/cloud/client-web/account#createRecovery), this method requires no redirect URL, which makes it suitable for mobile and desktop apps that cannot host a recovery page. Learn more about how to [complete the recovery process](https://appwrite.io/docs/references/cloud/client-web/account#updateRecoveryOTP). The code sent to the user's email address is valid for 15 minutes.
+     *
+     * Enable the **phrase** parameter to include a randomly generated security phrase in both the email and the response. Showing that phrase in your app lets the user confirm the email genuinely came from your request, which helps protect against phishing.
+     *
+     *
+     * @param email User email.
+     * @param phrase Toggle for security phrase. If enabled, email will be sent with a randomly generated phrase and the phrase will also be included in the response. Confirming phrases match increases the security of your authentication flow.
+     * @return [io.appwrite.models.Token]
+     */
+    @JvmOverloads
+    suspend fun createRecoveryOTP(
+        email: String,
+        phrase: Boolean? = null,
+    ): io.appwrite.models.Token {
+        val apiPath = "/account/recovery/otp"
+        val apiParams = mutableMapOf<String, Any?>(
+            "email" to email,
+            "phrase" to phrase,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Token = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Use this endpoint to complete the user password recovery process using the 6-digit code that was emailed by [createRecoveryOTP](https://appwrite.io/docs/references/cloud/client-web/account#createRecoveryOTP). Pass the **userId** of the user along with the **secret** code from the email and the new **password** to set. If confirmed, this route will return a 200 status code, the code is consumed and the user's password is updated.
+     *
+     *
+     * @param userId User ID.
+     * @param secret Valid recovery OTP code.
+     * @param password New user password. Must be between 8 and 256 chars.
+     * @return [io.appwrite.models.Token]
+     */
+    suspend fun updateRecoveryOTP(
+        userId: String,
+        secret: String,
+        password: String,
+    ): io.appwrite.models.Token {
+        val apiPath = "/account/recovery/otp"
+        val apiParams = mutableMapOf<String, Any?>(
+            "userId" to userId,
+            "secret" to secret,
+            "password" to password,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Token = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+
+    /**
      * Get the list of active sessions across different devices for the currently logged in user.
      *
      * @return [io.appwrite.models.SessionList]
@@ -1512,6 +1582,7 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -1587,6 +1658,65 @@ class Account(client: Client) : Service(client) {
     }
 
     /**
+     * Allow the user to login to their account using an OpenID Connect ID token obtained natively from the OAuth2 provider, for example via Google Credential Manager on Android or Sign in with Apple on iOS. No browser or redirect is involved: the ID token is verified against the provider's published signing keys and a session is created in a single request.
+     *
+     * Native sign-in is switched on per provider with its nativeEnabled setting. It is independent of the browser-based flow's enabled setting, which has no effect on this endpoint. The token's audience must match the provider's configured client ID or one of its native client IDs; tokens issued for any other client ID are rejected. For Sign in with Apple, register your app's bundle ID as a native client ID. For Google, the web client ID used by Credential Manager is usually the configured client ID; add your Android and iOS client IDs as native client IDs if your app requests tokens for them.
+     *
+     * Pass the raw nonce used when requesting the ID token so it can be validated against the token's nonce claim. When signing in with Apple, the nonce is required: hash it with SHA-256 before passing it to the Apple SDK, and send the raw value here - Apple tokens requested without a nonce are rejected. For Google the nonce is optional: it is validated whenever the token carries one, and ignored when the provider issued the token without one. Apple only returns the user's name on the first authorization, and never inside the ID token - capture it on the client and pass it via the name parameter.
+     *
+     * If there is already an active session, the new session will be attached to the logged-in account. If there are no active sessions, the server will attempt to look for a user with the same email address as the verified email received from the provider and attach the new session to the existing user. If no matching user is found - the server will create a new user.
+     *
+     * This flow does not return provider refresh tokens. You may pass an access token the provider handed your client, along with its lifetime, to store it on the session - but Appwrite cannot renew it once it expires. If your app needs long-lived access to provider APIs, use the browser-based OAuth2 flow instead.
+     *
+     * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
+     *
+     *
+     * @param provider OAuth2 provider that issued the ID token. Currently, supported providers are: apple, google.
+     * @param idToken OpenID Connect ID token (JWT) obtained natively from the provider, for example via Google Credential Manager or Sign in with Apple.
+     * @param nonce Raw nonce used when requesting the ID token. Required for Apple, and whenever the token carries a nonce claim, which must match it. Ignored when the provider issued the token without a nonce.
+     * @param accessToken Provider access token to store alongside the session for calling provider APIs. Never used for authentication.
+     * @param accessTokenExpiry Seconds until the provider access token expires, as reported by the provider. Stored so clients can tell when the stored token goes stale.
+     * @param name User name. Only used when creating a new user and the ID token has no name claim, such as on the first Sign in with Apple authorization.
+     * @return [io.appwrite.models.Session]
+     */
+    @JvmOverloads
+    suspend fun createIdTokenSession(
+        provider: io.appwrite.enums.IdTokenProvider,
+        idToken: String,
+        nonce: String? = null,
+        accessToken: String? = null,
+        accessTokenExpiry: Long? = null,
+        name: String? = null,
+    ): io.appwrite.models.Session {
+        val apiPath = "/account/sessions/id-token"
+        val apiParams = mutableMapOf<String, Any?>(
+            "provider" to provider,
+            "idToken" to idToken,
+            "nonce" to nonce,
+            "accessToken" to accessToken,
+            "accessTokenExpiry" to accessTokenExpiry,
+            "name" to name,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Session = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Session.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Session::class.java,
+            converter,
+        )
+    }
+
+    /**
      * Use this endpoint to create a session from token. Provide the **userId** and **secret** parameters from the successful response of authentication flows initiated by token creation. For example, magic URL and phone login.
      *
      * @param userId User ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
@@ -1633,7 +1763,7 @@ class Account(client: Client) : Service(client) {
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
      *
-     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
+     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, kakao, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tiktok, tradeshift, tradeshiftBox, twitch, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
@@ -1784,6 +1914,9 @@ class Account(client: Client) : Service(client) {
     suspend fun getSession(
         sessionId: String,
     ): io.appwrite.models.Session {
+        if (sessionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"sessionId\"")
+        }
         val apiPath = ("/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
         )
@@ -1815,6 +1948,9 @@ class Account(client: Client) : Service(client) {
     suspend fun updateSession(
         sessionId: String,
     ): io.appwrite.models.Session {
+        if (sessionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"sessionId\"")
+        }
         val apiPath = ("/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
         )
@@ -1847,6 +1983,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deleteSession(
         sessionId: String,
     ): Any {
+        if (sessionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"sessionId\"")
+        }
         val apiPath = ("/account/sessions/{sessionId}"
             .replace("{sessionId}", sessionId)
         )
@@ -1854,6 +1993,7 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -1904,7 +2044,7 @@ class Account(client: Client) : Service(client) {
     )
 
     /**
-     * Use this endpoint to register a device for push notifications. Provide a target ID (custom or generated using ID.unique()), a device identifier (usually a device token), and optionally specify which provider should send notifications to this target. The target is automatically linked to the current session and includes device information like brand and model.
+     * Use this endpoint to register a device for push notifications. Provide a target ID (custom or generated using ID.unique()), a device identifier (usually a device token), and optionally specify which provider should send notifications to this target. The target is automatically linked to the current session and includes device information like brand and model. A session holds one push target per provider, so if one already exists this endpoint updates and returns that target instead of creating a second one, and a device that rotates its token is never notified twice.
      *
      * @param targetId Target ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param identifier The target identifier (token, email, phone etc.)
@@ -1953,6 +2093,9 @@ class Account(client: Client) : Service(client) {
         targetId: String,
         identifier: String,
     ): io.appwrite.models.Target {
+        if (targetId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"targetId\"")
+        }
         val apiPath = ("/account/targets/{targetId}/push"
             .replace("{targetId}", targetId)
         )
@@ -1987,6 +2130,9 @@ class Account(client: Client) : Service(client) {
     suspend fun deletePushTarget(
         targetId: String,
     ): Any {
+        if (targetId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"targetId\"")
+        }
         val apiPath = ("/account/targets/{targetId}/push"
             .replace("{targetId}", targetId)
         )
@@ -1994,6 +2140,7 @@ class Account(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -2096,9 +2243,11 @@ class Account(client: Client) : Service(client) {
      *
      * If authentication succeeds, `userId` and `secret` of a token will be appended to the success URL as query parameters. These can be used to create a new session using the [Create session](https://appwrite.io/docs/references/cloud/client-web/account#createSession) endpoint.
      *
+     * If there is already an active session, the OAuth2 identity is attached to the logged-in account and that session stays active until the token is exchanged for a new one.
+     *
      * A user is limited to 10 active sessions at a time by default. [Learn more about session limits](https://appwrite.io/docs/authentication-security#limits).
      *
-     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tradeshift, tradeshiftBox, twitch, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
+     * @param provider OAuth2 Provider. Currently, supported providers are: amazon, apple, appwrite, auth0, authentik, autodesk, bitbucket, bitly, box, cloudflare, dailymotion, discord, disqus, dropbox, etsy, facebook, figma, fusionauth, github, gitlab, google, huggingface, kakao, keycloak, kick, linkedin, microsoft, notion, oidc, okta, paypal, paypalSandbox, podio, resend, salesforce, slack, spotify, stripe, tiktok, tradeshift, tradeshiftBox, twitch, wordpress, x, yahoo, yammer, yandex, zoho, zoom.
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
@@ -2328,6 +2477,78 @@ class Account(client: Client) : Service(client) {
         secret: String,
     ): io.appwrite.models.Token {
         val apiPath = "/account/verifications/email"
+        val apiParams = mutableMapOf<String, Any?>(
+            "userId" to userId,
+            "secret" to secret,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Token = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Use this endpoint to send a 6-digit verification code to the currently logged in user's email address. Unlike [createEmailVerification](https://appwrite.io/docs/references/cloud/client-web/account#createEmailVerification), this method requires no redirect URL, which makes it suitable for mobile and desktop apps that cannot host a verification page. Learn more about how to [complete the verification process](https://appwrite.io/docs/references/cloud/client-web/account#updateEmailVerificationOTP). The code sent to the user's email address is valid for 15 minutes.
+     *
+     * Enable the **phrase** parameter to include a randomly generated security phrase in both the email and the response. Showing that phrase in your app lets the user confirm the email genuinely came from your request, which helps protect against phishing.
+     *
+     *
+     * @param phrase Toggle for security phrase. If enabled, email will be sent with a randomly generated phrase and the phrase will also be included in the response. Confirming phrases match increases the security of your authentication flow.
+     * @return [io.appwrite.models.Token]
+     */
+    @JvmOverloads
+    suspend fun createEmailVerificationOTP(
+        phrase: Boolean? = null,
+    ): io.appwrite.models.Token {
+        val apiPath = "/account/verifications/email/otp"
+        val apiParams = mutableMapOf<String, Any?>(
+            "phrase" to phrase,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Token = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Token.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Token::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Use this endpoint to complete the user email verification process using the 6-digit code that was emailed by [createEmailVerificationOTP](https://appwrite.io/docs/references/cloud/client-web/account#createEmailVerificationOTP). Pass the **userId** of the user being verified along with the **secret** code from the email. If confirmed, this route will return a 200 status code and the code is consumed.
+     *
+     *
+     * @param userId User ID.
+     * @param secret Valid verification OTP code.
+     * @return [io.appwrite.models.Token]
+     */
+    suspend fun updateEmailVerificationOTP(
+        userId: String,
+        secret: String,
+    ): io.appwrite.models.Token {
+        val apiPath = "/account/verifications/email/otp"
         val apiParams = mutableMapOf<String, Any?>(
             "userId" to userId,
             "secret" to secret,

@@ -67,6 +67,12 @@ data class Identity(
     @SerializedName("providerRefreshToken")
     val providerRefreshToken: String,
 
+    /**
+     * Identity Provider ID token (JWT) from the most recent native sign-in. Empty for identities created through the browser OAuth2 flow.
+     */
+    @SerializedName("providerIdToken")
+    val providerIdToken: String,
+
 ) {
     fun toMap(): Map<String, Any?> = mapOf(
         "\$id" to id as Any,
@@ -79,6 +85,7 @@ data class Identity(
         "providerAccessToken" to providerAccessToken as Any,
         "providerAccessTokenExpiry" to providerAccessTokenExpiry as Any,
         "providerRefreshToken" to providerRefreshToken as Any,
+        "providerIdToken" to providerIdToken as Any,
     )
 
     companion object {
@@ -96,6 +103,7 @@ data class Identity(
             providerAccessToken = map["providerAccessToken"] as String,
             providerAccessTokenExpiry = map["providerAccessTokenExpiry"] as String,
             providerRefreshToken = map["providerRefreshToken"] as String,
+            providerIdToken = map["providerIdToken"] as String,
         )
     }
 }

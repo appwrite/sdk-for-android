@@ -26,6 +26,9 @@ class Functions(client: Client) : Service(client) {
         queries: List<String>? = null,
         total: Boolean? = null,
     ): io.appwrite.models.ExecutionList {
+        if (functionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"functionId\"")
+        }
         val apiPath = ("/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
         )
@@ -73,6 +76,9 @@ class Functions(client: Client) : Service(client) {
         headers: Map<String, Any?>? = null,
         scheduledAt: String? = null,
     ): io.appwrite.models.Execution {
+        if (functionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"functionId\"")
+        }
         val apiPath = ("/functions/{functionId}/executions"
             .replace("{functionId}", functionId)
         )
@@ -114,6 +120,12 @@ class Functions(client: Client) : Service(client) {
         functionId: String,
         executionId: String,
     ): io.appwrite.models.Execution {
+        if (functionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"functionId\"")
+        }
+        if (executionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"executionId\"")
+        }
         val apiPath = ("/functions/{functionId}/executions/{executionId}"
             .replace("{functionId}", functionId)
             .replace("{executionId}", executionId)

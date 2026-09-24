@@ -25,6 +25,9 @@ class Messaging(client: Client) : Service(client) {
         subscriberId: String,
         targetId: String,
     ): io.appwrite.models.Subscriber {
+        if (topicId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"topicId\"")
+        }
         val apiPath = ("/messaging/topics/{topicId}/subscribers"
             .replace("{topicId}", topicId)
         )
@@ -62,6 +65,12 @@ class Messaging(client: Client) : Service(client) {
         topicId: String,
         subscriberId: String,
     ): Any {
+        if (topicId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"topicId\"")
+        }
+        if (subscriberId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"subscriberId\"")
+        }
         val apiPath = ("/messaging/topics/{topicId}/subscribers/{subscriberId}"
             .replace("{topicId}", topicId)
             .replace("{subscriberId}", subscriberId)
@@ -70,6 +79,7 @@ class Messaging(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",

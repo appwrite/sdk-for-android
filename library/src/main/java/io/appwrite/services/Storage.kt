@@ -30,6 +30,9 @@ class Storage(client: Client) : Service(client) {
         search: String? = null,
         total: Boolean? = null,
     ): io.appwrite.models.FileList {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
         )
@@ -82,6 +85,9 @@ class Storage(client: Client) : Service(client) {
         folder: String? = null,
         onProgress: ((UploadProgress) -> Unit)? = null
     ): io.appwrite.models.File {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files"
             .replace("{bucketId}", bucketId)
         )
@@ -125,6 +131,12 @@ class Storage(client: Client) : Service(client) {
         bucketId: String,
         fileId: String,
     ): io.appwrite.models.File {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
+        if (fileId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"fileId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
@@ -164,6 +176,12 @@ class Storage(client: Client) : Service(client) {
         name: String? = null,
         permissions: List<String>? = null,
     ): io.appwrite.models.File {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
+        if (fileId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"fileId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
@@ -202,6 +220,12 @@ class Storage(client: Client) : Service(client) {
         bucketId: String,
         fileId: String,
     ): Any {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
+        if (fileId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"fileId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
@@ -210,6 +234,7 @@ class Storage(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -234,6 +259,12 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         token: String? = null,
     ): ByteArray {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
+        if (fileId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"fileId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/download"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
@@ -290,6 +321,12 @@ class Storage(client: Client) : Service(client) {
         output: io.appwrite.enums.ImageFormat? = null,
         token: String? = null,
     ): ByteArray {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
+        if (fileId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"fileId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/preview"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)
@@ -335,6 +372,12 @@ class Storage(client: Client) : Service(client) {
         fileId: String,
         token: String? = null,
     ): ByteArray {
+        if (bucketId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"bucketId\"")
+        }
+        if (fileId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"fileId\"")
+        }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/view"
             .replace("{bucketId}", bucketId)
             .replace("{fileId}", fileId)

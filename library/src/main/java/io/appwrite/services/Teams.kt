@@ -143,6 +143,9 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         nestedType: Class<T>,
     ): io.appwrite.models.Team<T> {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}"
             .replace("{teamId}", teamId)
         )
@@ -191,6 +194,9 @@ class Teams(client: Client) : Service(client) {
         name: String,
         nestedType: Class<T>,
     ): io.appwrite.models.Team<T> {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}"
             .replace("{teamId}", teamId)
         )
@@ -242,6 +248,9 @@ class Teams(client: Client) : Service(client) {
     suspend fun delete(
         teamId: String,
     ): Any {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}"
             .replace("{teamId}", teamId)
         )
@@ -249,6 +258,7 @@ class Teams(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -273,6 +283,9 @@ class Teams(client: Client) : Service(client) {
         queries: List<String>? = null,
         total: Boolean? = null,
     ): io.appwrite.models.AppInstallationList {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}/installations"
             .replace("{teamId}", teamId)
         )
@@ -312,6 +325,9 @@ class Teams(client: Client) : Service(client) {
         appId: String,
         authorizationDetails: String? = null,
     ): io.appwrite.models.AppInstallation {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}/installations"
             .replace("{teamId}", teamId)
         )
@@ -349,6 +365,12 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         installationId: String,
     ): io.appwrite.models.AppInstallation {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
+        if (installationId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"installationId\"")
+        }
         val apiPath = ("/teams/{teamId}/installations/{installationId}"
             .replace("{teamId}", teamId)
             .replace("{installationId}", installationId)
@@ -386,6 +408,12 @@ class Teams(client: Client) : Service(client) {
         installationId: String,
         authorizationDetails: String? = null,
     ): io.appwrite.models.AppInstallation {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
+        if (installationId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"installationId\"")
+        }
         val apiPath = ("/teams/{teamId}/installations/{installationId}"
             .replace("{teamId}", teamId)
             .replace("{installationId}", installationId)
@@ -423,6 +451,12 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         installationId: String,
     ): Any {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
+        if (installationId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"installationId\"")
+        }
         val apiPath = ("/teams/{teamId}/installations/{installationId}"
             .replace("{teamId}", teamId)
             .replace("{installationId}", installationId)
@@ -458,6 +492,9 @@ class Teams(client: Client) : Service(client) {
         search: String? = null,
         total: Boolean? = null,
     ): io.appwrite.models.MembershipList {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}/memberships"
             .replace("{teamId}", teamId)
         )
@@ -513,6 +550,9 @@ class Teams(client: Client) : Service(client) {
         url: String? = null,
         name: String? = null,
     ): io.appwrite.models.Membership {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}/memberships"
             .replace("{teamId}", teamId)
         )
@@ -554,6 +594,12 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         membershipId: String,
     ): io.appwrite.models.Membership {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
+        if (membershipId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"membershipId\"")
+        }
         val apiPath = ("/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
@@ -591,6 +637,12 @@ class Teams(client: Client) : Service(client) {
         membershipId: String,
         roles: List<String>,
     ): io.appwrite.models.Membership {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
+        if (membershipId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"membershipId\"")
+        }
         val apiPath = ("/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
@@ -628,6 +680,12 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         membershipId: String,
     ): Any {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
+        if (membershipId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"membershipId\"")
+        }
         val apiPath = ("/teams/{teamId}/memberships/{membershipId}"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
@@ -636,6 +694,7 @@ class Teams(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -664,6 +723,12 @@ class Teams(client: Client) : Service(client) {
         userId: String,
         secret: String,
     ): io.appwrite.models.Membership {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
+        if (membershipId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"membershipId\"")
+        }
         val apiPath = ("/teams/{teamId}/memberships/{membershipId}/status"
             .replace("{teamId}", teamId)
             .replace("{membershipId}", membershipId)
@@ -701,6 +766,9 @@ class Teams(client: Client) : Service(client) {
         teamId: String,
         nestedType: Class<T>,
     ): io.appwrite.models.Preferences<T> {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}/prefs"
             .replace("{teamId}", teamId)
         )
@@ -749,6 +817,9 @@ class Teams(client: Client) : Service(client) {
         prefs: Map<String, Any?>,
         nestedType: Class<T>,
     ): io.appwrite.models.Preferences<T> {
+        if (teamId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"teamId\"")
+        }
         val apiPath = ("/teams/{teamId}/prefs"
             .replace("{teamId}", teamId)
         )
