@@ -4,6 +4,7 @@ import android.util.Log;
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
 import io.appwrite.services.Account;
+import io.appwrite.enums.IdTokenProvider;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -11,9 +12,13 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.listLogs(
-    List.of(), // queries (optional)
-    false, // total (optional)
+account.createIdTokenSession(
+    IdTokenProvider.APPLE, // provider 
+    "<ID_TOKEN>", // idToken 
+    "<NONCE>", // nonce (optional)
+    "<ACCESS_TOKEN>", // accessToken (optional)
+    0, // accessTokenExpiry (optional)
+    "<NAME>", // name (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

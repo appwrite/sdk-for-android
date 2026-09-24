@@ -47,6 +47,8 @@ enum class OAuthProvider(val value: String) {
     GOOGLE("google"),
     @SerializedName("huggingface")
     HUGGINGFACE("huggingface"),
+    @SerializedName("kakao")
+    KAKAO("kakao"),
     @SerializedName("keycloak")
     KEYCLOAK("keycloak"),
     @SerializedName("kick")
@@ -77,6 +79,8 @@ enum class OAuthProvider(val value: String) {
     SPOTIFY("spotify"),
     @SerializedName("stripe")
     STRIPE("stripe"),
+    @SerializedName("tiktok")
+    TIKTOK("tiktok"),
     @SerializedName("tradeshift")
     TRADESHIFT("tradeshift"),
     @SerializedName("tradeshiftBox")

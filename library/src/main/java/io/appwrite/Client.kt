@@ -96,8 +96,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "27.2.0",
-            "x-appwrite-response-format" to "2.0.0"
+            "x-sdk-version" to "28.0.0",
+            "x-appwrite-response-format" to "2.3.0"
         )
         config = mutableMapOf()
 
@@ -173,21 +173,6 @@ class Client @JvmOverloads constructor(
     fun setSession(value: String): Client {
         config["session"] = value
         addHeader("x-appwrite-session", value)
-        return this
-    }
-
-    /**
-     * Set DevKey
-     *
-     * Your secret dev API key
-     *
-     * @param {string} devkey
-     *
-     * @return this
-     */
-    fun setDevKey(value: String): Client {
-        config["devKey"] = value
-        addHeader("x-appwrite-dev-key", value)
         return this
     }
 

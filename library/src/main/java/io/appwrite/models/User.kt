@@ -122,6 +122,12 @@ data class User<T>(
     var emailIsCanonical: Boolean?,
 
     /**
+     * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
+     */
+    @SerializedName("passwordPwned")
+    var passwordPwned: Boolean?,
+
+    /**
      * Phone verification status.
      */
     @SerializedName("phoneVerification")
@@ -184,6 +190,7 @@ data class User<T>(
         "emailIsDisposable" to emailIsDisposable as Any?,
         "emailIsCorporate" to emailIsCorporate as Any?,
         "emailIsCanonical" to emailIsCanonical as Any?,
+        "passwordPwned" to passwordPwned as Any?,
         "phoneVerification" to phoneVerification as Any,
         "mfa" to mfa as Any,
         "prefs" to prefs.toMap() as Any,
@@ -214,6 +221,7 @@ data class User<T>(
             emailIsDisposable: Boolean?,
             emailIsCorporate: Boolean?,
             emailIsCanonical: Boolean?,
+            passwordPwned: Boolean?,
             phoneVerification: Boolean,
             mfa: Boolean,
             prefs: Preferences<Map<String, Any>>,
@@ -241,6 +249,7 @@ data class User<T>(
             emailIsDisposable,
             emailIsCorporate,
             emailIsCanonical,
+            passwordPwned,
             phoneVerification,
             mfa,
             prefs,
@@ -274,6 +283,7 @@ data class User<T>(
             emailIsDisposable = map["emailIsDisposable"] as? Boolean,
             emailIsCorporate = map["emailIsCorporate"] as? Boolean,
             emailIsCanonical = map["emailIsCanonical"] as? Boolean,
+            passwordPwned = map["passwordPwned"] as? Boolean,
             phoneVerification = map["phoneVerification"] as Boolean,
             mfa = map["mfa"] as Boolean,
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),

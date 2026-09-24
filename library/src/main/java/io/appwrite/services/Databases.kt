@@ -98,6 +98,9 @@ class Databases(client: Client) : Service(client) {
     suspend fun getTransaction(
         transactionId: String,
     ): io.appwrite.models.Transaction {
+        if (transactionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"transactionId\"")
+        }
         val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
@@ -138,6 +141,9 @@ class Databases(client: Client) : Service(client) {
         commit: Boolean? = null,
         rollback: Boolean? = null,
     ): io.appwrite.models.Transaction {
+        if (transactionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"transactionId\"")
+        }
         val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
@@ -177,6 +183,9 @@ class Databases(client: Client) : Service(client) {
     suspend fun deleteTransaction(
         transactionId: String,
     ): Any {
+        if (transactionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"transactionId\"")
+        }
         val apiPath = ("/databases/transactions/{transactionId}"
             .replace("{transactionId}", transactionId)
         )
@@ -184,6 +193,7 @@ class Databases(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -210,6 +220,9 @@ class Databases(client: Client) : Service(client) {
         transactionId: String,
         operations: List<Map<String, Any?>>? = null,
     ): io.appwrite.models.Transaction {
+        if (transactionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"transactionId\"")
+        }
         val apiPath = ("/databases/transactions/{transactionId}/operations"
             .replace("{transactionId}", transactionId)
         )
@@ -260,6 +273,12 @@ class Databases(client: Client) : Service(client) {
         ttl: Long? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.DocumentList<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -347,6 +366,12 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -433,6 +458,15 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
+        if (documentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"documentId\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -516,6 +550,15 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
+        if (documentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"documentId\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -604,6 +647,15 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
+        if (documentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"documentId\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -687,6 +739,15 @@ class Databases(client: Client) : Service(client) {
         documentId: String,
         transactionId: String? = null,
     ): Any {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
+        if (documentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"documentId\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -698,6 +759,7 @@ class Databases(client: Client) : Service(client) {
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
             "content-type" to "application/json",
+            "accept" to "application/json",
         )
         return client.call(
             "DELETE",
@@ -735,6 +797,18 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
+        if (documentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"documentId\"")
+        }
+        if (attribute.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"attribute\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/decrement"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)
@@ -829,6 +903,18 @@ class Databases(client: Client) : Service(client) {
         transactionId: String? = null,
         nestedType: Class<T>,
     ): io.appwrite.models.Document<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
+        if (documentId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"documentId\"")
+        }
+        if (attribute.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"attribute\"")
+        }
         val apiPath = ("/databases/{databaseId}/collections/{collectionId}/documents/{documentId}/{attribute}/increment"
             .replace("{databaseId}", databaseId)
             .replace("{collectionId}", collectionId)

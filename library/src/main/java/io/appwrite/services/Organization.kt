@@ -92,6 +92,9 @@ class Organization(client: Client) : Service(client) {
     suspend fun getInstallation(
         installationId: String,
     ): io.appwrite.models.AppInstallation {
+        if (installationId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"installationId\"")
+        }
         val apiPath = ("/organization/installations/{installationId}"
             .replace("{installationId}", installationId)
         )
@@ -126,6 +129,9 @@ class Organization(client: Client) : Service(client) {
         installationId: String,
         authorizationDetails: String? = null,
     ): io.appwrite.models.AppInstallation {
+        if (installationId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"installationId\"")
+        }
         val apiPath = ("/organization/installations/{installationId}"
             .replace("{installationId}", installationId)
         )
@@ -160,6 +166,9 @@ class Organization(client: Client) : Service(client) {
     suspend fun deleteInstallation(
         installationId: String,
     ): Any {
+        if (installationId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"installationId\"")
+        }
         val apiPath = ("/organization/installations/{installationId}"
             .replace("{installationId}", installationId)
         )
