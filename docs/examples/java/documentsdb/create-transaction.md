@@ -12,7 +12,7 @@ Client client = new Client(context)
 DocumentsDB documentsDB = new DocumentsDB(client);
 
 documentsDB.createTransaction(
-    60, // ttl (optional)
+    60L, // ttl (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

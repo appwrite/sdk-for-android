@@ -11,12 +11,16 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.deleteSessions(new CoroutineCallback<>((result, error) -> {
-    if (error != null) {
-        error.printStackTrace();
-        return;
-    }
+account.deleteSessions(
+    false, // current (optional)
+    new CoroutineCallback<>((result, error) -> {
+        if (error != null) {
+            error.printStackTrace();
+            return;
+        }
 
-    Log.d("Appwrite", result.toString());
-}));
+        Log.d("Appwrite", result.toString());
+    })
+);
+
 ```

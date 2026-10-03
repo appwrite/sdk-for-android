@@ -18,12 +18,11 @@ Avatars avatars = new Avatars(client);
 avatars.getScreenshot(
     "https://example.com", // url 
     Map.of(
-        "Authorization", "Bearer token123",
-        "X-Custom-Header", "value"
+        "Accept-Language", "en-US,en;q=0.9"
     ), // headers (optional)
-    1920, // viewportWidth (optional)
-    1080, // viewportHeight (optional)
-    2, // scale (optional)
+    1920L, // viewportWidth (optional)
+    1080L, // viewportHeight (optional)
+    2.0, // scale (optional)
     BrowserTheme.LIGHT, // theme (optional)
     "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15", // userAgent (optional)
     true, // fullpage (optional)
@@ -31,13 +30,13 @@ avatars.getScreenshot(
     Timezone.AFRICA_ABIDJAN, // timezone (optional)
     37.7749, // latitude (optional)
     -122.4194, // longitude (optional)
-    100, // accuracy (optional)
+    100.0, // accuracy (optional)
     true, // touch (optional)
     BrowserPermission.GEOLOCATION, // permissions (optional)
-    3, // sleep (optional)
-    800, // width (optional)
-    600, // height (optional)
-    85, // quality (optional)
+    3L, // sleep (optional)
+    800L, // width (optional)
+    600L, // height (optional)
+    85L, // quality (optional)
     ImageFormat.JPG, // output (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

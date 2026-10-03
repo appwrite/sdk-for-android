@@ -17,7 +17,10 @@ val result = vectorsDB.createOperations(
         "collectionId" to "<COLLECTION_ID>",
         "documentId" to "<DOCUMENT_ID>",
         "data" to mapOf(
-            "name" to "Walter O'Brien"
+            "embeddings" to listOf(0.12, -0.55, 0.88, 1.02),
+            "metadata" to mapOf(
+                "name" to "First document"
+            )
         )
     )), // (optional)
 )

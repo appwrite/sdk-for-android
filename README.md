@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:28.0.0")
+implementation("io.appwrite:sdk-for-android:29.0.0")
 ```
 
 ### Maven
@@ -49,9 +49,50 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>28.0.0</version>
+        <version>29.0.0</version>
     </dependency>
 </dependencies>
+```
+
+### Code shrinking (R8)
+
+The SDK ships the R8 rules it needs, so no extra configuration is required. Your own classes
+that the SDK fills from JSON (the `nestedType` of documents, rows and preferences, and the
+`payloadType` of Realtime subscriptions) are read by Gson through reflection. Annotate them
+with `@Keep` so R8 keeps their fields:
+
+```kotlin
+@Keep
+data class Note(val title: String, val body: String)
+```
+
+### Push notifications
+
+#### Background delivery
+
+A subscription with `background = true` keeps delivering after the app is backgrounded, its
+process is killed, or the device restarts, until it is unsubscribed or `push.close()` is
+called (do this on sign-out). No service is kept running: a scheduled job and alarm wake the
+app every 15 to 60 seconds to reconnect, and the broker replays what was sent in between
+(`retry = true`). It reconnects with the credential saved at subscribe time, so use a session
+(`client.setSession(...)`), not a short-lived JWT.
+
+When no in-app callback is listening, each message is posted as a notification that opens
+your launch activity with `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` in its extras. Set its
+icon with `<meta-data android:name="io.appwrite.push.notification_icon" android:resource="@drawable/..." />`
+in your `<application>`. To handle these messages in code, subclass `PushReceiver` and declare
+it with the `io.appwrite.push.MESSAGE` action (see its docs).
+
+Doze delays the scheduled runs. They are more punctual when your app may schedule exact
+alarms (`SCHEDULE_EXACT_ALARM`) or is exempt from battery optimisation; both are your app's
+choice and subject to Google Play policy, and the SDK uses them when granted. For immediate delivery even after a kill and
+during Doze, call `push.setForeground(true)` from the foreground: it adds a foreground service
+with a quiet ongoing notification. If you never enable it, you can remove the service from
+your merged manifest, so the Play Console does not ask you to declare it:
+
+```xml
+<service android:name="io.appwrite.services.PushService" tools:node="remove" />
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" tools:node="remove" />
 ```
 
 

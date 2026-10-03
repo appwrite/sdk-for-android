@@ -9,5 +9,7 @@ val client = Client(context)
 
 val account = Account(client)
 
-val result = account.deleteSessions()
+val result = account.deleteSessions(
+    current = false, // (optional)
+)
 ```

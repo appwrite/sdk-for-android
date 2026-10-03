@@ -16,12 +16,11 @@ val avatars = Avatars(client)
 val result = avatars.getScreenshot(
     url = "https://example.com", 
     headers = mapOf(
-        "Authorization" to "Bearer token123",
-        "X-Custom-Header" to "value"
+        "Accept-Language" to "en-US,en;q=0.9"
     ), // (optional)
     viewportWidth = 1920, // (optional)
     viewportHeight = 1080, // (optional)
-    scale = 2, // (optional)
+    scale = 2.0, // (optional)
     theme = BrowserTheme.LIGHT, // (optional)
     userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15", // (optional)
     fullpage = true, // (optional)
@@ -29,7 +28,7 @@ val result = avatars.getScreenshot(
     timezone = Timezone.AFRICA_ABIDJAN, // (optional)
     latitude = 37.7749, // (optional)
     longitude = -122.4194, // (optional)
-    accuracy = 100, // (optional)
+    accuracy = 100.0, // (optional)
     touch = true, // (optional)
     permissions = BrowserPermission.GEOLOCATION, // (optional)
     sleep = 3, // (optional)

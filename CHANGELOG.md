@@ -1,5 +1,29 @@
 # Change Log
 
+## 29.0.0
+
+* Breaking: minimum Android SDK raised from 23 to 24 (Android 7.0)
+* Added: `Push` service for MQTT push messages without FCM, plus `PushReceiver` for background handling
+* Added: `Topic` builder for push topics
+* Added: `endpointPush` and `pushClientId` on `Client`, with `setPushEndpoint` and `setPushClientId`
+* Added: `Apps` service for managing OAuth2 apps, keys, secrets and installations
+* Added: `Oauth2` service for using Appwrite as an OAuth2/OIDC provider
+* Added: `Avatars.updatePhoto` and `Avatars.deletePhoto`
+* Added: `duration` parameter to `Account.createEmailPasswordSession`
+* Added: `current` parameter to `Account.deleteSessions`
+* Added: `total` parameter to `Account.listSessions`, `Locale` list methods and `listTransactions`
+* Added: `WEBFLOW` value to `OAuthProvider`
+* Added: `toMap()` and `toJson()` on `Query` and `Operator`
+* Updated: SDK manifest merges Push permissions, a foreground service and a boot receiver into apps
+* Updated: narrower Netty keep rules, raising the R8 obfuscation and optimization scores Google Play reads
+* Updated: added the shaded `hivemq-mqtt-client` dependency for `Push`, with consumer R8 rules
+* Fixed: `Query` and `Operator` serialize correctly under R8 instead of producing `{}`
+* Fixed: Realtime delivers events and error messages under R8
+* Fixed: session cookies saved under R8 stay readable after an app update
+* Fixed: `ID.unique()` and `InputFile.fromFile` no longer crash on Android 7.x
+* Fixed: Kotlin and Java examples now compile
+* Fixed: unsubscribing one of several subscriptions on a topic stops its callback
+
 ## 28.0.0
 
 * Breaking: removed `Account.listLogs` and the `Log`, `LogList` models

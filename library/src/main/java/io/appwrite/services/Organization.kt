@@ -10,7 +10,8 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Organization service allows you to manage organization-level projects. */
+ * The Organization service allows you to manage organization-level projects.
+ */
 class Organization(client: Client) : Service(client) {
     /**
      * List app installations on the organization. Any organization member can read installations.

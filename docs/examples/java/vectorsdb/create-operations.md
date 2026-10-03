@@ -19,7 +19,10 @@ vectorsDB.createOperations(
         "collectionId", "<COLLECTION_ID>",
         "documentId", "<DOCUMENT_ID>",
         "data", Map.of(
-            "name", "Walter O'Brien"
+            "embeddings", List.of(0.12, -0.55, 0.88, 1.02),
+            "metadata", Map.of(
+                "name", "First document"
+            )
         )
     )), // operations (optional)
     new CoroutineCallback<>((result, error) -> {

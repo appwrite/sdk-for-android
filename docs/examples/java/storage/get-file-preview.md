@@ -16,15 +16,15 @@ Storage storage = new Storage(client);
 storage.getFilePreview(
     "<BUCKET_ID>", // bucketId 
     "<FILE_ID>", // fileId 
-    0, // width (optional)
-    0, // height (optional)
+    0L, // width (optional)
+    0L, // height (optional)
     ImageGravity.AUTO, // gravity (optional)
-    -1, // quality (optional)
-    0, // borderWidth (optional)
+    -1L, // quality (optional)
+    0L, // borderWidth (optional)
     "FFFFFF", // borderColor (optional)
-    0, // borderRadius (optional)
-    0, // opacity (optional)
-    -360, // rotation (optional)
+    0L, // borderRadius (optional)
+    0.0, // opacity (optional)
+    -360L, // rotation (optional)
     "FFFFFF", // background (optional)
     ImageFormat.JPG, // output (optional)
     "<TOKEN>", // token (optional)

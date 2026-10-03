@@ -9,5 +9,7 @@ val client = Client(context)
 
 val account = Account(client)
 
-val result = account.listSessions()
+val result = account.listSessions(
+    total = false, // (optional)
+)
 ```

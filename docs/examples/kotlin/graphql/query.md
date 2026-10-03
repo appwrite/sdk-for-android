@@ -10,6 +10,8 @@ val client = Client(context)
 val graphql = Graphql(client)
 
 val result = graphql.query(
-    query = mapOf( "a" to "b" ), 
+    query = mapOf(
+        "query" to "query { localeGet { ip } }"
+    ), 
 )
 ```

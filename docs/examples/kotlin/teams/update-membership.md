@@ -12,6 +12,6 @@ val teams = Teams(client)
 val result = teams.updateMembership(
     teamId = "<TEAM_ID>", 
     membershipId = "<MEMBERSHIP_ID>", 
-    roles = listOf(), 
+    roles = listOf("editor"), 
 )
 ```

@@ -9,5 +9,7 @@ val client = Client(context)
 
 val locale = Locale(client)
 
-val result = locale.listCountries()
+val result = locale.listCountries(
+    total = false, // (optional)
+)
 ```

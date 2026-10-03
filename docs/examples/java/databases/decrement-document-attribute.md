@@ -16,8 +16,8 @@ databases.decrementDocumentAttribute(
     "<COLLECTION_ID>", // collectionId 
     "<DOCUMENT_ID>", // documentId 
     "<ATTRIBUTE>", // attribute 
-    1, // value (optional)
-    0, // min (optional)
+    1.0, // value (optional)
+    0.0, // min (optional)
     "<TRANSACTION_ID>", // transactionId (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

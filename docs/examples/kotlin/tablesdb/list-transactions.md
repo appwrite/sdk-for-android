@@ -11,5 +11,6 @@ val tablesDB = TablesDB(client)
 
 val result = tablesDB.listTransactions(
     queries = listOf(), // (optional)
+    total = false, // (optional)
 )
 ```

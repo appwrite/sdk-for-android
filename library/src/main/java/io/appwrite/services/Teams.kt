@@ -10,7 +10,8 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Teams service allows you to group users of your project and to enable them to share read and write access to your project resources */
+ * The Teams service allows you to group users of your project and to enable them to share read and write access to your project resources
+ */
 class Teams(client: Client) : Service(client) {
     /**
      * Get a list of all the teams in which the current user is a member. You can use the parameters to filter your results.
@@ -77,7 +78,7 @@ class Teams(client: Client) : Service(client) {
      *
      * @param teamId Team ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param name Team name. Max length: 128 chars.
-     * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
+     * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
      * @return [io.appwrite.models.Team<T>]
      */
     @JvmOverloads
@@ -117,7 +118,7 @@ class Teams(client: Client) : Service(client) {
      *
      * @param teamId Team ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param name Team name. Max length: 128 chars.
-     * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 32 characters long.
+     * @param roles Array of strings. Use this param to set the roles in the team for the user who created it. The default role is **owner**. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
      * @return [io.appwrite.models.Team<T>]
      */
     @JvmOverloads
