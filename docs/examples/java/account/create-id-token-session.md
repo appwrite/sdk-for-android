@@ -17,7 +17,7 @@ account.createIdTokenSession(
     "<ID_TOKEN>", // idToken 
     "<NONCE>", // nonce (optional)
     "<ACCESS_TOKEN>", // accessToken (optional)
-    0, // accessTokenExpiry (optional)
+    0L, // accessTokenExpiry (optional)
     "<NAME>", // name (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

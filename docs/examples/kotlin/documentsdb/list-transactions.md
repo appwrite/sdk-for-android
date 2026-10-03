@@ -11,5 +11,6 @@ val documentsDB = DocumentsDB(client)
 
 val result = documentsDB.listTransactions(
     queries = listOf(), // (optional)
+    total = false, // (optional)
 )
 ```

@@ -10,7 +10,8 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Messaging service allows you to send messages to any provider type (SMTP, push notification, SMS, etc.). */
+ * The Messaging service allows you to send messages to any provider type (SMTP, push notification, SMS, etc.).
+ */
 class Messaging(client: Client) : Service(client) {
     /**
      * Create a new subscriber.

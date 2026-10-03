@@ -12,9 +12,9 @@ Client client = new Client(context)
 Avatars avatars = new Avatars(client);
 
 avatars.getPhoto(
-    0, // width (optional)
-    0, // height (optional)
-    0, // quality (optional)
+    0L, // width (optional)
+    0L, // height (optional)
+    0L, // quality (optional)
     "png", // output (optional)
     "g", // rating (optional)
     "current()", // userId (optional)

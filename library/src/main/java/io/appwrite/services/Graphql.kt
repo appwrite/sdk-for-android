@@ -10,7 +10,8 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The GraphQL API allows you to query and mutate your Appwrite server using GraphQL. */
+ * The GraphQL API allows you to query and mutate your Appwrite server using GraphQL.
+ */
 class Graphql(client: Client) : Service(client) {
     /**
      * Execute a GraphQL mutation.

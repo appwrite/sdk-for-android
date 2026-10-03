@@ -12,7 +12,9 @@ Client client = new Client(context)
 Graphql graphql = new Graphql(client);
 
 graphql.query(
-    Map.of("a", "b"), // query 
+    Map.of(
+        "query", "query { localeGet { ip } }"
+    ), // query 
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

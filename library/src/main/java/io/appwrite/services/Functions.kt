@@ -10,7 +10,8 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Functions Service allows you view, create and manage your Cloud Functions. */
+ * The Functions Service allows you view, create and manage your Cloud Functions.
+ */
 class Functions(client: Client) : Service(client) {
     /**
      * Get a list of all the current user function execution logs. You can use the query params to filter your results.

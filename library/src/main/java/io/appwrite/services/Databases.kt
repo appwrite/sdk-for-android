@@ -10,12 +10,14 @@ import okhttp3.Cookie
 import java.io.File
 
 /**
- * The Databases service allows you to create structured collections of documents, query and filter lists of documents */
+ * The Databases service allows you to create structured collections of documents, query and filter lists of documents
+ */
 class Databases(client: Client) : Service(client) {
     /**
      * List transactions across all databases.
      *
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries).
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
      * @return [io.appwrite.models.TransactionList]
      */
     @Deprecated(
@@ -25,10 +27,12 @@ class Databases(client: Client) : Service(client) {
     @JvmOverloads
     suspend fun listTransactions(
         queries: List<String>? = null,
+        total: Boolean? = null,
     ): io.appwrite.models.TransactionList {
         val apiPath = "/databases/transactions"
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
+            "total" to total,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),

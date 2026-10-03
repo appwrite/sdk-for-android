@@ -12,7 +12,8 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
 import java.io.File
 
 /**
- * The Storage service allows you to manage your project files. */
+ * The Storage service allows you to manage your project files.
+ */
 class Storage(client: Client) : Service(client) {
     /**
      * Get a list of all the user files. You can use the query params to filter your results.
@@ -114,9 +115,9 @@ class Storage(client: Client) : Service(client) {
             apiParams,
             responseType = io.appwrite.models.File::class.java,
             converter,
-            paramName,
-            idParamName,
-            onProgress,
+            paramName = paramName,
+            idParamName = idParamName,
+            onProgress = onProgress,
         )
     }
 

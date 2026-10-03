@@ -1,5 +1,24 @@
 # Change Log
 
+## 29.0.0
+
+* Breaking: minimum Android SDK raised from 23 to 24 (Android 7.0)
+* Added: `Push` service for MQTT push messages without FCM, plus `PushReceiver` for background handling
+* Added: `Topic` builder for push topics
+* Added: `endpointPush` and `pushClientId` on `Client`, with `setPushEndpoint` and `setPushClientId`
+* Added: `Apps` service for managing OAuth2 apps, keys, secrets and installations
+* Added: `Oauth2` service for using Appwrite as an OAuth2/OIDC provider
+* Added: `Avatars.updatePhoto` and `Avatars.deletePhoto`
+* Added: `duration` parameter to `Account.createEmailPasswordSession`
+* Added: `current` parameter to `Account.deleteSessions`
+* Added: `total` parameter to `Account.listSessions`, `Locale` list methods and `listTransactions`
+* Added: `WEBFLOW` value to `OAuthProvider`
+* Added: `toMap()` and `toJson()` on `Query` and `Operator`
+* Updated: SDK manifest merges Push permissions, a foreground service and a boot receiver into apps
+* Updated: cookie store, realtime and query parsing no longer rely on Gson reflection, so they work under R8
+* Updated: added `hivemq-mqtt-client` dependency and consumer ProGuard rules
+* Fixed: `ID.unique()` and `InputFile.fromFile` no longer crash on Android 7.x
+
 ## 28.0.0
 
 * Breaking: removed `Account.listLogs` and the `Log`, `LogList` models
