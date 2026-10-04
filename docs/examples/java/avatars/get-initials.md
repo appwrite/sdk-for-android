@@ -13,8 +13,8 @@ Avatars avatars = new Avatars(client);
 
 avatars.getInitials(
     "<NAME>", // name (optional)
-    0, // width (optional)
-    0, // height (optional)
+    0L, // width (optional)
+    0L, // height (optional)
     "FFFFFF", // background (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

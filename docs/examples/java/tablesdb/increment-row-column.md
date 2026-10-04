@@ -16,8 +16,8 @@ tablesDB.incrementRowColumn(
     "<TABLE_ID>", // tableId 
     "<ROW_ID>", // rowId 
     "<COLUMN>", // column 
-    1, // value (optional)
-    100, // max (optional)
+    1.0, // value (optional)
+    100.0, // max (optional)
     "<TRANSACTION_ID>", // transactionId (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

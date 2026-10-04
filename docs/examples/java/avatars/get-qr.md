@@ -13,8 +13,8 @@ Avatars avatars = new Avatars(client);
 
 avatars.getQR(
     "<TEXT>", // text 
-    1, // size (optional)
-    0, // margin (optional)
+    1L, // size (optional)
+    0L, // margin (optional)
     false, // download (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

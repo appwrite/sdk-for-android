@@ -1,0 +1,266 @@
+package io.appwrite.models
+
+import com.google.gson.annotations.SerializedName
+import io.appwrite.extensions.jsonCast
+
+/**
+ * Account
+ */
+data class Account<T>(
+    /**
+     * User ID.
+     */
+    @SerializedName("\$id")
+    val id: String,
+
+    /**
+     * User creation date in ISO 8601 format.
+     */
+    @SerializedName("\$createdAt")
+    val createdAt: String,
+
+    /**
+     * User update date in ISO 8601 format.
+     */
+    @SerializedName("\$updatedAt")
+    val updatedAt: String,
+
+    /**
+     * User name.
+     */
+    @SerializedName("name")
+    val name: String,
+
+    /**
+     * User registration date in ISO 8601 format.
+     */
+    @SerializedName("registration")
+    val registration: String,
+
+    /**
+     * User status. Pass `true` for enabled and `false` for disabled.
+     */
+    @SerializedName("status")
+    val status: Boolean,
+
+    /**
+     * Labels for the user.
+     */
+    @SerializedName("labels")
+    val labels: List<String>,
+
+    /**
+     * Password update time in ISO 8601 format.
+     */
+    @SerializedName("passwordUpdate")
+    val passwordUpdate: String,
+
+    /**
+     * User email address.
+     */
+    @SerializedName("email")
+    val email: String,
+
+    /**
+     * User phone number in E.164 format.
+     */
+    @SerializedName("phone")
+    val phone: String,
+
+    /**
+     * Email verification status.
+     */
+    @SerializedName("emailVerification")
+    val emailVerification: Boolean,
+
+    /**
+     * Canonical form of the user email address.
+     */
+    @SerializedName("emailCanonical")
+    var emailCanonical: String?,
+
+    /**
+     * Whether the user email is from a free email provider.
+     */
+    @SerializedName("emailIsFree")
+    var emailIsFree: Boolean?,
+
+    /**
+     * Whether the user email is from a disposable email provider.
+     */
+    @SerializedName("emailIsDisposable")
+    var emailIsDisposable: Boolean?,
+
+    /**
+     * Whether the user email is from a corporate domain.
+     */
+    @SerializedName("emailIsCorporate")
+    var emailIsCorporate: Boolean?,
+
+    /**
+     * Whether the user email is in its canonical form.
+     */
+    @SerializedName("emailIsCanonical")
+    var emailIsCanonical: Boolean?,
+
+    /**
+     * Whether the password was found in a known data breach the last time it was checked. Null when the password has never been checked.
+     */
+    @SerializedName("passwordPwned")
+    var passwordPwned: Boolean?,
+
+    /**
+     * Phone verification status.
+     */
+    @SerializedName("phoneVerification")
+    val phoneVerification: Boolean,
+
+    /**
+     * Multi factor authentication status.
+     */
+    @SerializedName("mfa")
+    val mfa: Boolean,
+
+    /**
+     * User preferences as a key-value object
+     */
+    @SerializedName("prefs")
+    val prefs: Preferences<T>,
+
+    /**
+     * A user-owned message receiver. A single user may have multiple e.g. emails, phones, and a browser. Each target is registered with a single provider.
+     */
+    @SerializedName("targets")
+    val targets: List<Target>,
+
+    /**
+     * Most recent access date in ISO 8601 format. This attribute is only updated again after 24 hours.
+     */
+    @SerializedName("accessedAt")
+    val accessedAt: String,
+
+    /**
+     * Whether the user can impersonate other users.
+     */
+    @SerializedName("impersonator")
+    var impersonator: Boolean?,
+
+    /**
+     * ID of the original actor performing the impersonation. Present only when the current request is impersonating another user. Internal audit logs attribute the action to this user, while the impersonated target is recorded only in internal audit payload data.
+     */
+    @SerializedName("impersonatorUserId")
+    var impersonatorUserId: String?,
+
+) {
+    fun toMap(): Map<String, Any?> = mapOf(
+        "\$id" to id as Any,
+        "\$createdAt" to createdAt as Any,
+        "\$updatedAt" to updatedAt as Any,
+        "name" to name as Any,
+        "registration" to registration as Any,
+        "status" to status as Any,
+        "labels" to labels as Any,
+        "passwordUpdate" to passwordUpdate as Any,
+        "email" to email as Any,
+        "phone" to phone as Any,
+        "emailVerification" to emailVerification as Any,
+        "emailCanonical" to emailCanonical as Any?,
+        "emailIsFree" to emailIsFree as Any?,
+        "emailIsDisposable" to emailIsDisposable as Any?,
+        "emailIsCorporate" to emailIsCorporate as Any?,
+        "emailIsCanonical" to emailIsCanonical as Any?,
+        "passwordPwned" to passwordPwned as Any?,
+        "phoneVerification" to phoneVerification as Any,
+        "mfa" to mfa as Any,
+        "prefs" to prefs.toMap() as Any,
+        "targets" to targets.map { it.toMap() } as Any,
+        "accessedAt" to accessedAt as Any,
+        "impersonator" to impersonator as Any?,
+        "impersonatorUserId" to impersonatorUserId as Any?,
+    )
+
+    companion object {
+        operator fun invoke(
+            id: String,
+            createdAt: String,
+            updatedAt: String,
+            name: String,
+            registration: String,
+            status: Boolean,
+            labels: List<String>,
+            passwordUpdate: String,
+            email: String,
+            phone: String,
+            emailVerification: Boolean,
+            emailCanonical: String?,
+            emailIsFree: Boolean?,
+            emailIsDisposable: Boolean?,
+            emailIsCorporate: Boolean?,
+            emailIsCanonical: Boolean?,
+            passwordPwned: Boolean?,
+            phoneVerification: Boolean,
+            mfa: Boolean,
+            prefs: Preferences<Map<String, Any>>,
+            targets: List<Target>,
+            accessedAt: String,
+            impersonator: Boolean?,
+            impersonatorUserId: String?,
+        ) = Account<Map<String, Any>>(
+            id,
+            createdAt,
+            updatedAt,
+            name,
+            registration,
+            status,
+            labels,
+            passwordUpdate,
+            email,
+            phone,
+            emailVerification,
+            emailCanonical,
+            emailIsFree,
+            emailIsDisposable,
+            emailIsCorporate,
+            emailIsCanonical,
+            passwordPwned,
+            phoneVerification,
+            mfa,
+            prefs,
+            targets,
+            accessedAt,
+            impersonator,
+            impersonatorUserId,
+        )
+
+        @Suppress("UNCHECKED_CAST")
+        fun <T> from(
+            map: Map<String, Any>,
+            nestedType: Class<T>
+        ) = Account<T>(
+            id = map["\$id"] as String,
+            createdAt = map["\$createdAt"] as String,
+            updatedAt = map["\$updatedAt"] as String,
+            name = map["name"] as String,
+            registration = map["registration"] as String,
+            status = map["status"] as Boolean,
+            labels = map["labels"] as List<String>,
+            passwordUpdate = map["passwordUpdate"] as String,
+            email = map["email"] as String,
+            phone = map["phone"] as String,
+            emailVerification = map["emailVerification"] as Boolean,
+            emailCanonical = map["emailCanonical"] as? String,
+            emailIsFree = map["emailIsFree"] as? Boolean,
+            emailIsDisposable = map["emailIsDisposable"] as? Boolean,
+            emailIsCorporate = map["emailIsCorporate"] as? Boolean,
+            emailIsCanonical = map["emailIsCanonical"] as? Boolean,
+            passwordPwned = map["passwordPwned"] as? Boolean,
+            phoneVerification = map["phoneVerification"] as Boolean,
+            mfa = map["mfa"] as Boolean,
+            prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),
+            targets = (map["targets"] as List<Map<String, Any>>).map { Target.from(map = it) },
+            accessedAt = map["accessedAt"] as String,
+            impersonator = map["impersonator"] as? Boolean,
+            impersonatorUserId = map["impersonatorUserId"] as? String,
+        )
+    }
+}

@@ -11,12 +11,16 @@ Client client = new Client(context)
 
 Locale locale = new Locale(client);
 
-locale.listCountries(new CoroutineCallback<>((result, error) -> {
-    if (error != null) {
-        error.printStackTrace();
-        return;
-    }
+locale.listCountries(
+    false, // total (optional)
+    new CoroutineCallback<>((result, error) -> {
+        if (error != null) {
+            error.printStackTrace();
+            return;
+        }
 
-    Log.d("Appwrite", result.toString());
-}));
+        Log.d("Appwrite", result.toString());
+    })
+);
+
 ```

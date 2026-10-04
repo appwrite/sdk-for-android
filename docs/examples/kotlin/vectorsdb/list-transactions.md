@@ -11,5 +11,6 @@ val vectorsDB = VectorsDB(client)
 
 val result = vectorsDB.listTransactions(
     queries = listOf(), // (optional)
+    total = false, // (optional)
 )
 ```

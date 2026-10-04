@@ -13,6 +13,7 @@ Databases databases = new Databases(client);
 
 databases.listTransactions(
     List.of(), // queries (optional)
+    false, // total (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

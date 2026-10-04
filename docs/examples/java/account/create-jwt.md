@@ -12,7 +12,7 @@ Client client = new Client(context)
 Account account = new Account(client);
 
 account.createJWT(
-    0, // duration (optional)
+    0L, // duration (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

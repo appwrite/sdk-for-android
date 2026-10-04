@@ -13,8 +13,8 @@ Avatars avatars = new Avatars(client);
 
 avatars.getImage(
     "https://example.com", // url 
-    0, // width (optional)
-    0, // height (optional)
+    0L, // width (optional)
+    0L, // height (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
