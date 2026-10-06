@@ -101,7 +101,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "29.0.0",
+            "x-sdk-version" to "29.1.0-rc.0",
             "x-appwrite-response-format" to "2.3.0"
         )
         config = mutableMapOf()
@@ -538,6 +538,7 @@ class Client @JvmOverloads constructor(
      * @param path
      * @param headers
      * @param params
+     * @param method HTTP method the upload endpoint is declared with; resuming by upload ID always uses GET
      *
      * @return [T]
      */
@@ -551,10 +552,11 @@ class Client @JvmOverloads constructor(
         paramName: String,
         idParamName: String? = null,
         onProgress: ((UploadProgress) -> Unit)? = null,
+        method: String = "POST",
     ): T {
         if (params[paramName] == null) {
             return call(
-                method = "POST",
+                method = method,
                 path,
                 headers,
                 params,
@@ -573,7 +575,7 @@ class Client @JvmOverloads constructor(
             else -> throw UnsupportedOperationException()
         }
 
-        if (size < CHUNK_SIZE || responseType == String::class.java) {
+        if (size <= CHUNK_SIZE || responseType == String::class.java) {
             val data = when (input.sourceType) {
                 "file", "path" -> File(input.path).asRequestBody()
                 "bytes" -> (input.data as ByteArray).toRequestBody(input.mimeType.toMediaType())
@@ -585,7 +587,7 @@ class Client @JvmOverloads constructor(
                 data
             )
             return call(
-                method = "POST",
+                method = method,
                 path,
                 headers,
                 params,
@@ -656,7 +658,7 @@ class Client @JvmOverloads constructor(
             )
 
             val chunkResult = call(
-                method = "POST",
+                method = method,
                 path,
                 chunkHeaders,
                 chunkParams,

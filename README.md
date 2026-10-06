@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:29.0.0")
+implementation("io.appwrite:sdk-for-android:29.1.0-rc.0")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>29.0.0</version>
+        <version>29.1.0-rc.0</version>
     </dependency>
 </dependencies>
 ```
@@ -78,7 +78,10 @@ app every 15 to 60 seconds to reconnect, and the broker replays what was sent in
 (`client.setSession(...)`), not a short-lived JWT.
 
 When no in-app callback is listening, each message is posted as a notification that opens
-your launch activity with `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` in its extras. Set its
+your launch activity with `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` in its extras. It shows the
+title, body and image sent with `createPush`, falling back to the subscription's `title` and the
+raw payload for other messages. On Android 13 and later it needs the `POST_NOTIFICATIONS`
+permission: call `Push.requestNotificationPermission(activity)` before subscribing. Set its
 icon with `<meta-data android:name="io.appwrite.push.notification_icon" android:resource="@drawable/..." />`
 in your `<application>`. To handle these messages in code, subclass `PushReceiver` and declare
 it with the `io.appwrite.push.MESSAGE` action (see its docs).

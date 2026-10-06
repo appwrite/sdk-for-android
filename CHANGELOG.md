@@ -1,5 +1,12 @@
 # Change Log
 
+## 29.1.0-rc.0
+
+* Added: optional `method` param on `Client.chunkedUpload()` to set the upload HTTP method
+* Added: background push notifications render the server `notification` title, body, and image
+* Updated: `Avatars.updatePhoto()` uploads via `PUT`
+* Fixed: an exactly-chunk-sized file uploads in a single request
+
 ## 29.0.0
 
 * Breaking: minimum Android SDK raised from 23 to 24 (Android 7.0)
