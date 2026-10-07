@@ -1,5 +1,23 @@
 # Change Log
 
+## 29.1.0-rc.3
+
+* Added: first background subscription auto-requests `POST_NOTIFICATIONS` (Android 13+) from the visible activity
+* Fixed: `onOpen`/`onClose` callbacks fire correctly when joining or leaving the background host
+* Fixed: notification taps are recorded after launching the app, so tap-opened screens land on top
+
+## 29.1.0-rc.2
+
+* Added: `getInitialNotification()`, `onNotificationOpened()`, and the `PushNotificationOpened` data class (topic + data)
+* Added: `onOpen`/`onClose` callbacks now fire for background push connections
+* Added: push auth falls back to the client's cookie-store session
+* Fixed: a foreground message with no live callback now still posts a notification
+* Updated: notification taps route through an internal `PushOpenActivity`
+
+## 29.1.0-rc.1
+
+* Updated: regenerated with sdk-generator 5.5.0; no SDK code changes
+
 ## 29.1.0-rc.0
 
 * Added: optional `method` param on `Client.chunkedUpload()` to set the upload HTTP method
