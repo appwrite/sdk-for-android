@@ -1,5 +1,9 @@
 # Change Log
 
+## 29.1.0-rc.1
+
+* Updated: regenerated with sdk-generator 5.5.0; no SDK code changes
+
 ## 29.1.0-rc.0
 
 * Added: optional `method` param on `Client.chunkedUpload()` to set the upload HTTP method
