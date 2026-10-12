@@ -51,11 +51,11 @@ data class MfaFactors(
         fun from(
             map: Map<String, Any>,
         ) = MfaFactors(
-            totp = map["totp"] as Boolean,
-            phone = map["phone"] as Boolean,
-            email = map["email"] as Boolean,
-            recoveryCode = map["recoveryCode"] as Boolean,
-            custom = map["custom"] as Boolean,
+            totp = (if (map.containsKey("totp")) map["totp"] else false) as Boolean,
+            phone = (if (map.containsKey("phone")) map["phone"] else false) as Boolean,
+            email = (if (map.containsKey("email")) map["email"] else false) as Boolean,
+            recoveryCode = (if (map.containsKey("recoveryCode")) map["recoveryCode"] else false) as Boolean,
+            custom = (if (map.containsKey("custom")) map["custom"] else false) as Boolean,
         )
     }
 }

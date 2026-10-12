@@ -30,7 +30,7 @@ data class IdentityList(
         fun from(
             map: Map<String, Any>,
         ) = IdentityList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             identities = (map["identities"] as List<Map<String, Any>>).map { Identity.from(map = it) },
         )
     }

@@ -39,7 +39,7 @@ data class TeamList<T>(
             map: Map<String, Any>,
             nestedType: Class<T>
         ) = TeamList<T>(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             teams = (map["teams"] as List<Map<String, Any>>).map { Team.from(map = it, nestedType) },
         )
     }

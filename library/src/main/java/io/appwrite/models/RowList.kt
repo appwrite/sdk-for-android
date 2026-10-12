@@ -39,7 +39,7 @@ data class RowList<T>(
             map: Map<String, Any>,
             nestedType: Class<T>
         ) = RowList<T>(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             rows = (map["rows"] as List<Map<String, Any>>).map { Row.from(map = it, nestedType) },
         )
     }

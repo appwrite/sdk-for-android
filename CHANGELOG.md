@@ -1,28 +1,25 @@
 # Change Log
 
-## 29.1.0-rc.3
+## 30.0.0
 
-* Added: first background subscription auto-requests `POST_NOTIFICATIONS` (Android 13+) from the visible activity
-* Fixed: `onOpen`/`onClose` callbacks fire correctly when joining or leaving the background host
-* Fixed: notification taps are recorded after launching the app, so tap-opened screens land on top
-
-## 29.1.0-rc.2
-
-* Added: `getInitialNotification()`, `onNotificationOpened()`, and the `PushNotificationOpened` data class (topic + data)
-* Added: `onOpen`/`onClose` callbacks now fire for background push connections
-* Added: push auth falls back to the client's cookie-store session
-* Fixed: a foreground message with no live callback now still posts a notification
-* Updated: notification taps route through an internal `PushOpenActivity`
-
-## 29.1.0-rc.1
-
-* Updated: regenerated with sdk-generator 5.5.0; no SDK code changes
-
-## 29.1.0-rc.0
-
-* Added: optional `method` param on `Client.chunkedUpload()` to set the upload HTTP method
+* Breaking: `Oauth2` `resource` parameter is now `List<String>` instead of `String`
+* Breaking: `Teams.createMembership` takes `membershipId` after `roles`; positional callers must update
+* Added: `Account.listPasskeys`, `createPasskey`, `getPasskey`, `updatePasskey` and `deletePasskey`
+* Added: `Account.updatePasskeyVerification` to finish registering a passkey
+* Added: `Account.createPasskeyToken` and `Account.updatePasskeyToken` for passkey sign-in
+* Added: `Passkey`, `PasskeyList`, `PasskeyChallenge` and `TokenSecret` models
+* Added: `Analytics` service with `createEvent`
+* Added: `state` parameter to `Account.createOAuth2Session` and `Account.createOAuth2Token`
 * Added: background push notifications render the server `notification` title, body, and image
+* Added: `getInitialNotification()`, `onNotificationOpened()` and the `PushNotificationOpened` data class
+* Added: `onOpen`/`onClose` callbacks now fire for background push connections
+* Added: first background subscription requests `POST_NOTIFICATIONS` (Android 13+) from the visible activity
+* Added: push auth falls back to the client's cookie-store session
+* Added: optional `method` param on `Client.chunkedUpload()` to set the upload HTTP method
+* Fixed: response models fill missing fields from spec defaults instead of throwing
 * Updated: `Avatars.updatePhoto()` uploads via `PUT`
+* Updated: SDK now targets Appwrite 2.4 (`x-appwrite-response-format: 2.4.0`)
+* Fixed: a foreground message with no live callback now still posts a notification
 * Fixed: an exactly-chunk-sized file uploads in a single request
 
 ## 29.0.0

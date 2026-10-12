@@ -30,7 +30,7 @@ data class ExecutionList(
         fun from(
             map: Map<String, Any>,
         ) = ExecutionList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             executions = (map["executions"] as List<Map<String, Any>>).map { Execution.from(map = it) },
         )
     }

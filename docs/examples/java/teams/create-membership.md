@@ -14,6 +14,7 @@ Teams teams = new Teams(client);
 teams.createMembership(
     "<TEAM_ID>", // teamId 
     List.of("editor"), // roles 
+    "<MEMBERSHIP_ID>", // membershipId (optional)
     "email@example.com", // email (optional)
     "<USER_ID>", // userId (optional)
     "+12065550100", // phone (optional)

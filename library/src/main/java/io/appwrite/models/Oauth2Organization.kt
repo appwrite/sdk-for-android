@@ -23,7 +23,7 @@ data class Oauth2Organization(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2Organization(
-            id = map["\$id"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
         )
     }
 }

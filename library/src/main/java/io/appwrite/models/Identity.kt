@@ -93,17 +93,17 @@ data class Identity(
         fun from(
             map: Map<String, Any>,
         ) = Identity(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            userId = map["userId"] as String,
-            provider = map["provider"] as String,
-            providerUid = map["providerUid"] as String,
-            providerEmail = map["providerEmail"] as String,
-            providerAccessToken = map["providerAccessToken"] as String,
-            providerAccessTokenExpiry = map["providerAccessTokenExpiry"] as String,
-            providerRefreshToken = map["providerRefreshToken"] as String,
-            providerIdToken = map["providerIdToken"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            userId = (if (map.containsKey("userId")) map["userId"] else "") as String,
+            provider = (if (map.containsKey("provider")) map["provider"] else "") as String,
+            providerUid = (if (map.containsKey("providerUid")) map["providerUid"] else "") as String,
+            providerEmail = (if (map.containsKey("providerEmail")) map["providerEmail"] else "") as String,
+            providerAccessToken = (if (map.containsKey("providerAccessToken")) map["providerAccessToken"] else "") as String,
+            providerAccessTokenExpiry = (if (map.containsKey("providerAccessTokenExpiry")) map["providerAccessTokenExpiry"] else "") as String,
+            providerRefreshToken = (if (map.containsKey("providerRefreshToken")) map["providerRefreshToken"] else "") as String,
+            providerIdToken = (if (map.containsKey("providerIdToken")) map["providerIdToken"] else "") as String,
         )
     }
 }

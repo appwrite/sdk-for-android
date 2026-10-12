@@ -30,7 +30,7 @@ data class LanguageList(
         fun from(
             map: Map<String, Any>,
         ) = LanguageList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             languages = (map["languages"] as List<Map<String, Any>>).map { Language.from(map = it) },
         )
     }

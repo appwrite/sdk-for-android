@@ -30,7 +30,7 @@ data class AppSecretList(
         fun from(
             map: Map<String, Any>,
         ) = AppSecretList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             secrets = (map["secrets"] as List<Map<String, Any>>).map { AppSecret.from(map = it) },
         )
     }

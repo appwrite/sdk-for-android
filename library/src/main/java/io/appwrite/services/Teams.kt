@@ -534,6 +534,7 @@ class Teams(client: Client) : Service(client) {
      *
      * @param teamId Team ID.
      * @param roles Array of strings. Use this param to set the user roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
+     * @param membershipId Membership ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @param email Email of the new team member.
      * @param userId ID of the user to be added to a team.
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
@@ -545,6 +546,7 @@ class Teams(client: Client) : Service(client) {
     suspend fun createMembership(
         teamId: String,
         roles: List<String>,
+        membershipId: String? = null,
         email: String? = null,
         userId: String? = null,
         phone: String? = null,
@@ -558,6 +560,7 @@ class Teams(client: Client) : Service(client) {
             .replace("{teamId}", teamId)
         )
         val apiParams = mutableMapOf<String, Any?>(
+            "membershipId" to membershipId,
             "email" to email,
             "userId" to userId,
             "phone" to phone,

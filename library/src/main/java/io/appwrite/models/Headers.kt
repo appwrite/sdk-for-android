@@ -30,8 +30,8 @@ data class Headers(
         fun from(
             map: Map<String, Any>,
         ) = Headers(
-            name = map["name"] as String,
-            value = map["value"] as String,
+            name = (if (map.containsKey("name")) map["name"] else "") as String,
+            value = (if (map.containsKey("value")) map["value"] else "") as String,
         )
     }
 }

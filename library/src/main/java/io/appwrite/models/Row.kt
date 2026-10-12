@@ -92,12 +92,12 @@ data class Row<T>(
             map: Map<String, Any>,
             nestedType: Class<T>
         ) = Row<T>(
-            id = map["\$id"] as String,
-            sequence = map["\$sequence"] as String,
-            tableId = map["\$tableId"] as String,
-            databaseId = map["\$databaseId"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            sequence = (if (map.containsKey("\$sequence")) map["\$sequence"] else "") as String,
+            tableId = (if (map.containsKey("\$tableId")) map["\$tableId"] else "") as String,
+            databaseId = (if (map.containsKey("\$databaseId")) map["\$databaseId"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
             permissions = map["\$permissions"] as List<String>,
             data = map["data"]?.jsonCast(to = nestedType) ?: map.jsonCast(to = nestedType)
         )

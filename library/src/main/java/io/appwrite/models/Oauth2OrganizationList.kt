@@ -30,7 +30,7 @@ data class Oauth2OrganizationList(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2OrganizationList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             organizations = (map["organizations"] as List<Map<String, Any>>).map { Oauth2Organization.from(map = it) },
         )
     }

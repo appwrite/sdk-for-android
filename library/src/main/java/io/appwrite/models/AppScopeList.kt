@@ -30,7 +30,7 @@ data class AppScopeList(
         fun from(
             map: Map<String, Any>,
         ) = AppScopeList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             scopes = (map["scopes"] as List<Map<String, Any>>).map { AppScope.from(map = it) },
         )
     }

@@ -30,7 +30,7 @@ data class FileList(
         fun from(
             map: Map<String, Any>,
         ) = FileList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             files = (map["files"] as List<Map<String, Any>>).map { File.from(map = it) },
         )
     }

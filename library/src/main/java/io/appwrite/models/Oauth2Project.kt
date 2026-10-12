@@ -37,9 +37,9 @@ data class Oauth2Project(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2Project(
-            id = map["\$id"] as String,
-            region = map["region"] as String,
-            endpoint = map["endpoint"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            region = (if (map.containsKey("region")) map["region"] else "") as String,
+            endpoint = (if (map.containsKey("endpoint")) map["endpoint"] else "") as String,
         )
     }
 }

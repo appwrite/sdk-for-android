@@ -30,8 +30,8 @@ data class MfaType(
         fun from(
             map: Map<String, Any>,
         ) = MfaType(
-            secret = map["secret"] as String,
-            uri = map["uri"] as String,
+            secret = (if (map.containsKey("secret")) map["secret"] else "") as String,
+            uri = (if (map.containsKey("uri")) map["uri"] else "") as String,
         )
     }
 }

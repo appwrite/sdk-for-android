@@ -30,7 +30,7 @@ data class LocaleCodeList(
         fun from(
             map: Map<String, Any>,
         ) = LocaleCodeList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             localeCodes = (map["localeCodes"] as List<Map<String, Any>>).map { LocaleCode.from(map = it) },
         )
     }

@@ -1201,6 +1201,219 @@ class Account(client: Client) : Service(client) {
     )
 
     /**
+     * Get the list of verified passkeys registered by the currently logged in user.
+     *
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long. You may filter and order on the following attributes: $id, $createdAt, $updatedAt, name, accessedAt
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
+     * @return [io.appwrite.models.PasskeyList]
+     */
+    @JvmOverloads
+    suspend fun listPasskeys(
+        queries: List<String>? = null,
+        total: Boolean? = null,
+    ): io.appwrite.models.PasskeyList {
+        val apiPath = "/account/passkeys"
+        val apiParams = mutableMapOf<String, Any?>(
+            "queries" to queries,
+            "total" to total,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.PasskeyList = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PasskeyList.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PasskeyList::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Start registering a passkey for the currently logged in user. The session must have signed in or completed an MFA challenge within the last 10 minutes. Pass the returned `publicKey` options to `navigator.credentials.create()`, then complete the registration with [Update passkey verification](/docs/references/cloud/client-web/account#updatePasskeyVerification). The passkey stays pending until verified, and the challenge expires after 5 minutes.
+     *
+     * @param passkeyId Passkey ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
+     * @param name Passkey name, shown when listing passkeys. Max length: 128 chars.
+     * @return [io.appwrite.models.PasskeyChallenge]
+     */
+    @JvmOverloads
+    suspend fun createPasskey(
+        passkeyId: String? = null,
+        name: String? = null,
+    ): io.appwrite.models.PasskeyChallenge {
+        val apiPath = "/account/passkeys"
+        val apiParams = mutableMapOf<String, Any?>(
+            "passkeyId" to passkeyId,
+            "name" to name,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.PasskeyChallenge = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PasskeyChallenge.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PasskeyChallenge::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Get a verified passkey of the currently logged in user by its unique ID.
+     *
+     * @param passkeyId Passkey ID.
+     * @return [io.appwrite.models.Passkey]
+     */
+    suspend fun getPasskey(
+        passkeyId: String,
+    ): io.appwrite.models.Passkey {
+        if (passkeyId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"passkeyId\"")
+        }
+        val apiPath = ("/account/passkeys/{passkeyId}"
+            .replace("{passkeyId}", passkeyId)
+        )
+        val apiParams = mutableMapOf<String, Any?>()
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Passkey = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Passkey.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "GET",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Passkey::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Rename a passkey of the currently logged in user.
+     *
+     * @param passkeyId Passkey ID.
+     * @param name Passkey name. Max length: 128 chars.
+     * @return [io.appwrite.models.Passkey]
+     */
+    suspend fun updatePasskey(
+        passkeyId: String,
+        name: String,
+    ): io.appwrite.models.Passkey {
+        if (passkeyId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"passkeyId\"")
+        }
+        val apiPath = ("/account/passkeys/{passkeyId}"
+            .replace("{passkeyId}", passkeyId)
+        )
+        val apiParams = mutableMapOf<String, Any?>(
+            "name" to name,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Passkey = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Passkey.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PATCH",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Passkey::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Delete a passkey from the currently logged in user. The passkey can no longer be used to sign in, although it may remain stored on the user's device. The session must have signed in or completed an MFA challenge within the last 10 minutes.
+     *
+     * @param passkeyId Passkey ID.
+     * @return [Any]
+     */
+    suspend fun deletePasskey(
+        passkeyId: String,
+    ): Any {
+        if (passkeyId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"passkeyId\"")
+        }
+        val apiPath = ("/account/passkeys/{passkeyId}"
+            .replace("{passkeyId}", passkeyId)
+        )
+        val apiParams = mutableMapOf<String, Any?>()
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        return client.call(
+            "DELETE",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = Any::class.java,
+        )
+    }
+
+    /**
+     * Complete a passkey registration started with [Create passkey](/docs/references/cloud/client-web/account#createPasskey). Pass the JSON form of the credential returned by `navigator.credentials.create()`, for example `credential.toJSON()`. Each registration can be verified once; a failed attempt requires starting it again.
+     *
+     * @param passkeyId Passkey ID.
+     * @param credential Registration credential returned by the authenticator, in the JSON form produced by `PublicKeyCredential.toJSON()`.
+     * @return [io.appwrite.models.Passkey]
+     */
+    suspend fun updatePasskeyVerification(
+        passkeyId: String,
+        credential: Map<String, Any?>,
+    ): io.appwrite.models.Passkey {
+        if (passkeyId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"passkeyId\"")
+        }
+        val apiPath = ("/account/passkeys/{passkeyId}/verification"
+            .replace("{passkeyId}", passkeyId)
+        )
+        val apiParams = mutableMapOf<String, Any?>(
+            "credential" to credential,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.Passkey = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.Passkey.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.Passkey::class.java,
+            converter,
+        )
+    }
+
+    /**
      * Update currently logged in user password. For validation, user is required to pass in the new password, and the old password. For users created with OAuth, Team Invites and Magic URL, oldPassword is optional.
      *
      * @param password New user password. Must be at least 8 chars.
@@ -1784,6 +1997,7 @@ class Account(client: Client) : Service(client) {
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
+     * @param state An opaque value your app generates and keeps, for example in a cookie. It is returned unchanged as the `state` query parameter on the success and failure URLs, so your app can check that the sign-in it receives is one it started. Printable ASCII only (RFC 6749 Appendix A.5). Max length: 256 chars.
      */
     @JvmOverloads
     suspend fun createOAuth2Session(
@@ -1792,6 +2006,7 @@ class Account(client: Client) : Service(client) {
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,
+        state: String? = null,
     ) {
         val apiPath = ("/account/sessions/oauth2/{provider}"
             .replace("{provider}", provider.value)
@@ -1800,6 +2015,7 @@ class Account(client: Client) : Service(client) {
             "success" to success,
             "failure" to failure,
             "scopes" to scopes,
+            "state" to state,
             "project" to client.config["project"],
         )
         val apiQuery = mutableListOf<String>()
@@ -2268,6 +2484,7 @@ class Account(client: Client) : Service(client) {
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
+     * @param state An opaque value your app generates and keeps, for example in a cookie. It is returned unchanged as the `state` query parameter on the success and failure URLs, so your app can check that the sign-in it receives is one it started. Printable ASCII only (RFC 6749 Appendix A.5). Max length: 256 chars.
      */
     @JvmOverloads
     suspend fun createOAuth2Token(
@@ -2276,6 +2493,7 @@ class Account(client: Client) : Service(client) {
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,
+        state: String? = null,
     ) {
         val apiPath = ("/account/tokens/oauth2/{provider}"
             .replace("{provider}", provider.value)
@@ -2284,6 +2502,7 @@ class Account(client: Client) : Service(client) {
             "success" to success,
             "failure" to failure,
             "scopes" to scopes,
+            "state" to state,
             "project" to client.config["project"],
         )
         val apiQuery = mutableListOf<String>()
@@ -2330,6 +2549,68 @@ class Account(client: Client) : Service(client) {
                 listOf(cookie)
             )
         }
+    }
+
+    /**
+     * Start signing in with a passkey. No email or user ID is needed: pass the returned `publicKey` options to `navigator.credentials.get()` and the user picks one of their passkeys. Then call [Update passkey token](/docs/references/cloud/client-web/account#updatePasskeyToken) with the credential to receive a token, and exchange it with [Create session](/docs/references/cloud/client-web/account#createSession). The challenge expires after 5 minutes.
+     *
+     * @return [io.appwrite.models.PasskeyChallenge]
+     */
+    suspend fun createPasskeyToken(): io.appwrite.models.PasskeyChallenge {
+        val apiPath = "/account/tokens/passkey"
+        val apiParams = mutableMapOf<String, Any?>()
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.PasskeyChallenge = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.PasskeyChallenge.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.PasskeyChallenge::class.java,
+            converter,
+        )
+    }
+
+    /**
+     * Complete a passkey sign-in started with [Create passkey token](/docs/references/cloud/client-web/account#createPasskeyToken). Pass the challenge ID and the JSON form of the credential returned by `navigator.credentials.get()`, for example `credential.toJSON()`. The returned token includes its secret and expires after 1 minute: exchange it for a session with [Create session](/docs/references/cloud/client-web/account#createSession). Passkeys require user verification, so the session also satisfies MFA. Each challenge can only be used once.
+     *
+     * @param challengeId Challenge ID returned by createPasskeyToken.
+     * @param credential Authentication credential returned by the authenticator, in the JSON form produced by `PublicKeyCredential.toJSON()`.
+     * @return [io.appwrite.models.TokenSecret]
+     */
+    suspend fun updatePasskeyToken(
+        challengeId: String,
+        credential: Map<String, Any?>,
+    ): io.appwrite.models.TokenSecret {
+        val apiPath = "/account/tokens/passkey"
+        val apiParams = mutableMapOf<String, Any?>(
+            "challengeId" to challengeId,
+            "credential" to credential,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.TokenSecret = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.TokenSecret.from(map = it as Map<String, Any>)
+        }
+        return client.call(
+            "PUT",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = io.appwrite.models.TokenSecret::class.java,
+            converter,
+        )
     }
 
     /**

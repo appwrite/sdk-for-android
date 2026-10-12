@@ -30,7 +30,7 @@ data class AppInstallationList(
         fun from(
             map: Map<String, Any>,
         ) = AppInstallationList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             installations = (map["installations"] as List<Map<String, Any>>).map { AppInstallation.from(map = it) },
         )
     }

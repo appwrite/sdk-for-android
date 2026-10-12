@@ -15,7 +15,7 @@ oauth2.createDeviceAuthorization(
     "<CLIENT_ID>", // client_id (optional)
     "<SCOPE>", // scope (optional)
     "<AUTHORIZATION_DETAILS>", // authorization_details (optional)
-    "", // resource (optional)
+    List.of(), // resource (optional)
     "<AUDIENCE>", // audience (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {

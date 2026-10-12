@@ -30,7 +30,7 @@ data class MembershipList(
         fun from(
             map: Map<String, Any>,
         ) = MembershipList(
-            total = (map["total"] as Number).toLong(),
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             memberships = (map["memberships"] as List<Map<String, Any>>).map { Membership.from(map = it) },
         )
     }

@@ -51,11 +51,11 @@ data class AppScope(
         fun from(
             map: Map<String, Any>,
         ) = AppScope(
-            value = map["value"] as String,
-            description = map["description"] as String,
-            type = map["type"] as String,
-            category = map["category"] as String,
-            deprecated = map["deprecated"] as Boolean,
+            value = (if (map.containsKey("value")) map["value"] else "") as String,
+            description = (if (map.containsKey("description")) map["description"] else "") as String,
+            type = (if (map.containsKey("type")) map["type"] else "") as String,
+            category = (if (map.containsKey("category")) map["category"] else "") as String,
+            deprecated = (if (map.containsKey("deprecated")) map["deprecated"] else false) as Boolean,
         )
     }
 }
