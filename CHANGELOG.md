@@ -1,5 +1,11 @@
 # Change Log
 
+## 29.1.0
+
+* Added: `account` passkey methods `listPasskeys`, `createPasskey`, `getPasskey`, `updatePasskey`, `deletePasskey` and `updatePasskeyVerification`
+* Added: `account.createPasskeyToken` and `account.updatePasskeyToken` for passkey sign-in
+* Added: `Passkey`, `PasskeyList`, `PasskeyChallenge` and `TokenSecret` models
+
 ## 29.0.0
 
 * Breaking: minimum Android SDK raised from 23 to 24 (Android 7.0)
