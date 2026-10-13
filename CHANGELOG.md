@@ -6,6 +6,7 @@
 * Added: optional `state` on `account.createOAuth2Session` and `account.createOAuth2Token`, returned unchanged on the success and failure URLs
 * Added: optional `membershipId` on `teams.createMembership`
 * Fixed: `avatars.updatePhoto` sends `PUT`, so uploading a profile photo no longer returns 404
+* Fixed: OAuth2 query parameters (`success`, `failure`, `scopes`, `state`) are URL-encoded, so values containing `&`, `+` or `#` survive the redirect
 
 ## 29.1.0
 
