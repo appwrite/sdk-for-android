@@ -325,6 +325,7 @@ class Avatars(client: Client) : Service(client) {
             paramName = paramName,
             idParamName = idParamName,
             onProgress = onProgress,
+            method = "PUT",
         )
     }
 

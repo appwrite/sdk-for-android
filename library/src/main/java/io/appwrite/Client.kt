@@ -101,7 +101,7 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "29.1.0",
+            "x-sdk-version" to "29.2.0",
             "x-appwrite-response-format" to "2.3.0"
         )
         config = mutableMapOf()
@@ -551,10 +551,11 @@ class Client @JvmOverloads constructor(
         paramName: String,
         idParamName: String? = null,
         onProgress: ((UploadProgress) -> Unit)? = null,
+        method: String = "POST",
     ): T {
         if (params[paramName] == null) {
             return call(
-                method = "POST",
+                method = method,
                 path,
                 headers,
                 params,
@@ -585,7 +586,7 @@ class Client @JvmOverloads constructor(
                 data
             )
             return call(
-                method = "POST",
+                method = method,
                 path,
                 headers,
                 params,
@@ -656,7 +657,7 @@ class Client @JvmOverloads constructor(
             )
 
             val chunkResult = call(
-                method = "POST",
+                method = method,
                 path,
                 chunkHeaders,
                 chunkParams,
