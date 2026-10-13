@@ -1,5 +1,13 @@
 # Change Log
 
+## 29.2.0
+
+* Added: `analytics.createEvent` in a new `Analytics` service to send tracking events
+* Added: optional `state` on `account.createOAuth2Session` and `account.createOAuth2Token`, returned unchanged on the success and failure URLs
+* Added: optional `membershipId` on `teams.createMembership`
+* Fixed: `avatars.updatePhoto` sends `PUT`, so uploading a profile photo no longer returns 404
+* Fixed: OAuth2 query parameters (`success`, `failure`, `scopes`, `state`) are URL-encoded, so values containing `&`, `+` or `#` survive the redirect
+
 ## 29.1.0
 
 * Added: `account` passkey methods `listPasskeys`, `createPasskey`, `getPasskey`, `updatePasskey`, `deletePasskey` and `updatePasskeyVerification`

@@ -1997,6 +1997,7 @@ class Account(client: Client) : Service(client) {
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
+     * @param state An opaque value your app generates and keeps, for example in a cookie. It is returned unchanged as the `state` query parameter on the success and failure URLs, so your app can check that the sign-in it receives is one it started. Printable ASCII only (RFC 6749 Appendix A.5). Max length: 256 chars.
      */
     @JvmOverloads
     suspend fun createOAuth2Session(
@@ -2005,6 +2006,7 @@ class Account(client: Client) : Service(client) {
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,
+        state: String? = null,
     ) {
         val apiPath = ("/account/sessions/oauth2/{provider}"
             .replace("{provider}", provider.value)
@@ -2013,6 +2015,7 @@ class Account(client: Client) : Service(client) {
             "success" to success,
             "failure" to failure,
             "scopes" to scopes,
+            "state" to state,
             "project" to client.config["project"],
         )
         val apiQuery = mutableListOf<String>()
@@ -2023,11 +2026,11 @@ class Account(client: Client) : Service(client) {
                 }
                 is List<*> -> {
                     (it.value as List<*>).forEach { v ->
-                        apiQuery.add("${it.key}[]=${v.toString()}")
+                        apiQuery.add("${Uri.encode(it.key)}[]=${Uri.encode(v.toString())}")
                     }
                 }
                 else -> {
-                    apiQuery.add("${it.key}=${it.value.toString()}")
+                    apiQuery.add("${Uri.encode(it.key)}=${Uri.encode(it.value.toString())}")
                 }
             }
         }
@@ -2481,6 +2484,7 @@ class Account(client: Client) : Service(client) {
      * @param success URL to redirect back to your app after a successful login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param failure URL to redirect back to your app after a failed login attempt.  Only URLs from hostnames in your project's platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param scopes A list of custom OAuth2 scopes. Check each provider internal docs for a list of supported scopes. Maximum of 100 scopes are allowed, each 4096 characters long.
+     * @param state An opaque value your app generates and keeps, for example in a cookie. It is returned unchanged as the `state` query parameter on the success and failure URLs, so your app can check that the sign-in it receives is one it started. Printable ASCII only (RFC 6749 Appendix A.5). Max length: 256 chars.
      */
     @JvmOverloads
     suspend fun createOAuth2Token(
@@ -2489,6 +2493,7 @@ class Account(client: Client) : Service(client) {
         success: String? = null,
         failure: String? = null,
         scopes: List<String>? = null,
+        state: String? = null,
     ) {
         val apiPath = ("/account/tokens/oauth2/{provider}"
             .replace("{provider}", provider.value)
@@ -2497,6 +2502,7 @@ class Account(client: Client) : Service(client) {
             "success" to success,
             "failure" to failure,
             "scopes" to scopes,
+            "state" to state,
             "project" to client.config["project"],
         )
         val apiQuery = mutableListOf<String>()
@@ -2507,11 +2513,11 @@ class Account(client: Client) : Service(client) {
                 }
                 is List<*> -> {
                     (it.value as List<*>).forEach { v ->
-                        apiQuery.add("${it.key}[]=${v.toString()}")
+                        apiQuery.add("${Uri.encode(it.key)}[]=${Uri.encode(v.toString())}")
                     }
                 }
                 else -> {
-                    apiQuery.add("${it.key}=${it.value.toString()}")
+                    apiQuery.add("${Uri.encode(it.key)}=${Uri.encode(it.value.toString())}")
                 }
             }
         }
