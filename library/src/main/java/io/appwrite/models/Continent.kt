@@ -30,8 +30,8 @@ data class Continent(
         fun from(
             map: Map<String, Any>,
         ) = Continent(
-            name = map["name"] as String,
-            code = map["code"] as String,
+            name = (if (map.containsKey("name")) map["name"] else "") as String,
+            code = (if (map.containsKey("code")) map["code"] else "") as String,
         )
     }
 }

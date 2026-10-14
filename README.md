@@ -2,12 +2,12 @@
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.appwrite/sdk-for-android.svg?color=green&style=flat-square)
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-android.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-2.3.0-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-2.5.0-blue.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-**This SDK targets Appwrite server version 2.3.x as shipped on Appwrite Cloud.** Self-hosted releases can lag behind Cloud — if you run an older self-hosted build, use a matching older SDK from [previous releases](https://github.com/appwrite/sdk-for-android/releases) when APIs differ.
+**This SDK targets Appwrite server version 2.5.x as shipped on Appwrite Cloud.** Self-hosted releases can lag behind Cloud — if you run an older self-hosted build, use a matching older SDK from [previous releases](https://github.com/appwrite/sdk-for-android/releases) when APIs differ.
 
 Appwrite is an open-source backend as a service server that abstracts and simplifies complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Android SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)
 
@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:29.1.0-rc.3")
+implementation("io.appwrite:sdk-for-android:30.0.0")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>29.1.0-rc.3</version>
+        <version>30.0.0</version>
     </dependency>
 </dependencies>
 ```
@@ -79,8 +79,10 @@ app every 15 to 60 seconds to reconnect, and the broker replays what was sent in
 
 While the app is not on screen, each message is also posted as a notification that opens
 your launch activity with `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` in its extras. It shows the
-title, body and image sent with `createPush`, falling back to the subscription's `title` and the
-raw payload for other messages. On Android 13 and later it needs the `POST_NOTIFICATIONS`
+title, body and image sent with `createPush`, falling back to the subscription's `title`, and to
+the raw payload as the body for messages that are not a JSON object. A push with neither a title
+nor a body, such as a data-only push, posts no notification; it still reaches your callback or
+`PushReceiver`. On Android 13 and later it needs the `POST_NOTIFICATIONS`
 permission: the first background subscription asks for it from the visible activity (the one
 `Push` is created with, else the next one to resume), or call
 `Push.requestNotificationPermission(activity)` to ask yourself. Set its
@@ -118,6 +120,13 @@ The SDK uses exact alarms on its own whenever the app may schedule them. To allo
    ask for the battery-optimisation exemption with `Push.requestIgnoreBatteryOptimizations(context)`. Both return false when there is
    nothing to ask, including when the permission is not declared. The SDK never opens these
    screens on its own.
+
+If `backgroundRestricted` is true, the user restricted the app's background usage and messages can
+wait until the app is opened. Exact alarms don't lift it, and neither does foreground mode: Android
+stops a restricted app's foreground service once it leaves the screen. Ask the user to choose
+Unrestricted in the app's battery settings (Settings > Apps > your app > Battery); granting the
+battery optimisation exemption also lets the SDK's alarms and jobs run, and `bestEffort` then
+reflects only the exact-alarm state.
 
 If the user force-stops the app (Settings > Force stop, and on some devices swiping it away from
 recents), Android cancels its alarms and jobs: nothing is delivered until the app is opened

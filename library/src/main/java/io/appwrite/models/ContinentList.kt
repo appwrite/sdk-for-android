@@ -30,8 +30,8 @@ data class ContinentList(
         fun from(
             map: Map<String, Any>,
         ) = ContinentList(
-            total = (map["total"] as Number).toLong(),
-            continents = (map["continents"] as List<Map<String, Any>>).map { Continent.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            continents = ((if (map.containsKey("continents")) map["continents"] else listOf<Any?>()) as List<Map<String, Any>>).map { Continent.from(map = it) },
         )
     }
 }

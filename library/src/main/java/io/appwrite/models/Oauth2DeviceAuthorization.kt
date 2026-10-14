@@ -58,12 +58,12 @@ data class Oauth2DeviceAuthorization(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2DeviceAuthorization(
-            device_code = map["device_code"] as String,
-            user_code = map["user_code"] as String,
-            verification_uri = map["verification_uri"] as String,
-            verification_uri_complete = map["verification_uri_complete"] as String,
-            expires_in = (map["expires_in"] as Number).toLong(),
-            interval = (map["interval"] as Number).toLong(),
+            device_code = (if (map.containsKey("device_code")) map["device_code"] else "") as String,
+            user_code = (if (map.containsKey("user_code")) map["user_code"] else "") as String,
+            verification_uri = (if (map.containsKey("verification_uri")) map["verification_uri"] else "") as String,
+            verification_uri_complete = (if (map.containsKey("verification_uri_complete")) map["verification_uri_complete"] else "") as String,
+            expires_in = ((if (map.containsKey("expires_in")) map["expires_in"] else 0) as Number).toLong(),
+            interval = ((if (map.containsKey("interval")) map["interval"] else 0) as Number).toLong(),
         )
     }
 }

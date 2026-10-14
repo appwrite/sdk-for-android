@@ -30,8 +30,8 @@ data class CurrencyList(
         fun from(
             map: Map<String, Any>,
         ) = CurrencyList(
-            total = (map["total"] as Number).toLong(),
-            currencies = (map["currencies"] as List<Map<String, Any>>).map { Currency.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            currencies = ((if (map.containsKey("currencies")) map["currencies"] else listOf<Any?>()) as List<Map<String, Any>>).map { Currency.from(map = it) },
         )
     }
 }

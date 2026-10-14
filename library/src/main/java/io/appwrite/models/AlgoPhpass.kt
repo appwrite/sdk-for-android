@@ -23,7 +23,7 @@ data class AlgoPhpass(
         fun from(
             map: Map<String, Any>,
         ) = AlgoPhpass(
-            type = map["type"] as String,
+            type = (if (map.containsKey("type")) map["type"] else "phpass") as String,
         )
     }
 }

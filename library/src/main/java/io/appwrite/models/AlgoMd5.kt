@@ -23,7 +23,7 @@ data class AlgoMd5(
         fun from(
             map: Map<String, Any>,
         ) = AlgoMd5(
-            type = map["type"] as String,
+            type = (if (map.containsKey("type")) map["type"] else "md5") as String,
         )
     }
 }

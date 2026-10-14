@@ -30,8 +30,8 @@ data class TransactionList(
         fun from(
             map: Map<String, Any>,
         ) = TransactionList(
-            total = (map["total"] as Number).toLong(),
-            transactions = (map["transactions"] as List<Map<String, Any>>).map { Transaction.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            transactions = ((if (map.containsKey("transactions")) map["transactions"] else listOf<Any?>()) as List<Map<String, Any>>).map { Transaction.from(map = it) },
         )
     }
 }

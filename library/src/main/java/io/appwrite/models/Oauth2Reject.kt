@@ -23,7 +23,7 @@ data class Oauth2Reject(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2Reject(
-            redirectUrl = map["redirectUrl"] as String,
+            redirectUrl = (if (map.containsKey("redirectUrl")) map["redirectUrl"] else "") as String,
         )
     }
 }

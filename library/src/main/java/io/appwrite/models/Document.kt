@@ -92,13 +92,13 @@ data class Document<T>(
             map: Map<String, Any>,
             nestedType: Class<T>
         ) = Document<T>(
-            id = map["\$id"] as String,
-            sequence = map["\$sequence"] as String,
-            collectionId = map["\$collectionId"] as String,
-            databaseId = map["\$databaseId"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            permissions = map["\$permissions"] as List<String>,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            sequence = (if (map.containsKey("\$sequence")) map["\$sequence"] else "") as String,
+            collectionId = (if (map.containsKey("\$collectionId")) map["\$collectionId"] else "") as String,
+            databaseId = (if (map.containsKey("\$databaseId")) map["\$databaseId"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            permissions = (if (map.containsKey("\$permissions")) map["\$permissions"] else listOf<Any?>()) as List<String>,
             data = map["data"]?.jsonCast(to = nestedType) ?: map.jsonCast(to = nestedType)
         )
     }

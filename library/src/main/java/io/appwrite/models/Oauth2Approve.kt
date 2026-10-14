@@ -23,7 +23,7 @@ data class Oauth2Approve(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2Approve(
-            redirectUrl = map["redirectUrl"] as String,
+            redirectUrl = (if (map.containsKey("redirectUrl")) map["redirectUrl"] else "") as String,
         )
     }
 }

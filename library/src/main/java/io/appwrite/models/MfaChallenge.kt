@@ -44,10 +44,10 @@ data class MfaChallenge(
         fun from(
             map: Map<String, Any>,
         ) = MfaChallenge(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            userId = map["userId"] as String,
-            expire = map["expire"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            userId = (if (map.containsKey("userId")) map["userId"] else "") as String,
+            expire = (if (map.containsKey("expire")) map["expire"] else "") as String,
         )
     }
 }

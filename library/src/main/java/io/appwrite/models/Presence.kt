@@ -79,13 +79,13 @@ data class Presence(
         fun from(
             map: Map<String, Any>,
         ) = Presence(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            permissions = map["\$permissions"] as List<String>,
-            userId = map["userId"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            permissions = (if (map.containsKey("\$permissions")) map["\$permissions"] else listOf<Any?>()) as List<String>,
+            userId = (if (map.containsKey("userId")) map["userId"] else "") as String,
             status = map["status"] as? String,
-            source = map["source"] as String,
+            source = (if (map.containsKey("source")) map["source"] else "") as String,
             expiresAt = map["expiresAt"] as? String,
             metadata = map["metadata"] as? Map<String, Any?>,
         )
