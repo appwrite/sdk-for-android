@@ -30,8 +30,8 @@ data class Oauth2ProjectList(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2ProjectList(
-            total = (map["total"] as Number).toLong(),
-            projects = (map["projects"] as List<Map<String, Any>>).map { Oauth2Project.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            projects = ((if (map.containsKey("projects")) map["projects"] else listOf<Any?>()) as List<Map<String, Any>>).map { Oauth2Project.from(map = it) },
         )
     }
 }

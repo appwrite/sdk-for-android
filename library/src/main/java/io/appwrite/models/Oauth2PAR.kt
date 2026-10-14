@@ -30,8 +30,8 @@ data class Oauth2PAR(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2PAR(
-            request_uri = map["request_uri"] as String,
-            expires_in = (map["expires_in"] as Number).toLong(),
+            request_uri = (if (map.containsKey("request_uri")) map["request_uri"] else "") as String,
+            expires_in = ((if (map.containsKey("expires_in")) map["expires_in"] else 0) as Number).toLong(),
         )
     }
 }

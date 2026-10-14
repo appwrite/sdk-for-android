@@ -46,11 +46,9 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 23
         buildConfigField("String", "SDK_VERSION", "\"$publishVersion\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        // Push: R8 rules for the bundled MQTT client, applied to consuming apps.
-        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -84,7 +82,6 @@ dependencies {
 
     api("com.squareup.okhttp3:okhttp:5.5.0")
     implementation("com.google.code.gson:gson:2.14.0")
-    implementation("com.hivemq:hivemq-mqtt-client-shaded:1.3.6")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.11.0")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.11.0")

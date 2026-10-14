@@ -1,29 +1,27 @@
 # Change Log
 
-## 29.1.0-rc.3
+## 30.0.0
 
-* Added: first background subscription auto-requests `POST_NOTIFICATIONS` (Android 13+) from the visible activity
-* Fixed: `onOpen`/`onClose` callbacks fire correctly when joining or leaving the background host
-* Fixed: notification taps are recorded after launching the app, so tap-opened screens land on top
+* Breaking: requests send `x-appwrite-response-format: 2.5.0`; responses follow the 2.5 shapes
+* Breaking: missing response fields map to their documented defaults
+* Breaking: `oauth2` `resource` params now take `List<String>` on the authorize, PAR, device and token methods
+* Breaking: removed the `Push` service, `PushReceiver`, `Topic`, `Client.setPushEndpoint` and `setPushClientId`
+* Updated: `minSdk` lowered to 23, and the push permissions and services left the manifest
+* Fixed: a file exactly `CHUNK_SIZE` bytes long uploads in a single request
 
-## 29.1.0-rc.2
+## 29.2.0
 
-* Added: `getInitialNotification()`, `onNotificationOpened()`, and the `PushNotificationOpened` data class (topic + data)
-* Added: `onOpen`/`onClose` callbacks now fire for background push connections
-* Added: push auth falls back to the client's cookie-store session
-* Fixed: a foreground message with no live callback now still posts a notification
-* Updated: notification taps route through an internal `PushOpenActivity`
+* Added: `analytics.createEvent` in a new `Analytics` service to send tracking events
+* Added: optional `state` on `account.createOAuth2Session` and `account.createOAuth2Token`, returned unchanged on the success and failure URLs
+* Added: optional `membershipId` on `teams.createMembership`
+* Fixed: `avatars.updatePhoto` sends `PUT`, so uploading a profile photo no longer returns 404
+* Fixed: OAuth2 query parameters (`success`, `failure`, `scopes`, `state`) are URL-encoded, so values containing `&`, `+` or `#` survive the redirect
 
-## 29.1.0-rc.1
+## 29.1.0
 
-* Updated: regenerated with sdk-generator 5.5.0; no SDK code changes
-
-## 29.1.0-rc.0
-
-* Added: optional `method` param on `Client.chunkedUpload()` to set the upload HTTP method
-* Added: background push notifications render the server `notification` title, body, and image
-* Updated: `Avatars.updatePhoto()` uploads via `PUT`
-* Fixed: an exactly-chunk-sized file uploads in a single request
+* Added: `account` passkey methods `listPasskeys`, `createPasskey`, `getPasskey`, `updatePasskey`, `deletePasskey` and `updatePasskeyVerification`
+* Added: `account.createPasskeyToken` and `account.updatePasskeyToken` for passkey sign-in
+* Added: `Passkey`, `PasskeyList`, `PasskeyChallenge` and `TokenSecret` models
 
 ## 29.0.0
 

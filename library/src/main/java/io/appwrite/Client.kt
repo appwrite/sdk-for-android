@@ -50,11 +50,7 @@ class Client @JvmOverloads constructor(
     var endpoint: String = "https://cloud.appwrite.io/v1",
     @set:JvmSynthetic
     var endpointRealtime: String? = null,
-    private var selfSigned: Boolean = false,
-    @set:JvmSynthetic
-    var endpointPush: String? = null,
-    @set:JvmSynthetic
-    var pushClientId: String? = null
+    private var selfSigned: Boolean = false
 ) : CoroutineScope {
 
     companion object {
@@ -101,8 +97,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "29.1.0-rc.3",
-            "x-appwrite-response-format" to "2.3.0"
+            "x-sdk-version" to "30.0.0",
+            "x-appwrite-response-format" to "2.5.0"
         )
         config = mutableMapOf()
 
@@ -326,37 +322,6 @@ class Client @JvmOverloads constructor(
         }
 
         this.endpointRealtime = endpoint
-        return this
-    }
-
-    /**
-     * Set push endpoint
-     *
-     * The MQTT broker URL the [io.appwrite.services.Push] service connects to, e.g.
-     * `mqtt://host:1883` or `mqtts://host:8883`.
-     *
-     * @param endpoint
-     *
-     * @return this
-     */
-    fun setPushEndpoint(endpoint: String): Client {
-        this.endpointPush = endpoint
-        return this
-    }
-
-    /**
-     * Set push client id
-     *
-     * A stable client id for the [io.appwrite.services.Push] service. The broker keys its
-     * offline-replay cursor on this id, so pass a stable value to resume replay across
-     * restarts. Defaults to the userId decoded from the JWT (else the credential) when unset.
-     *
-     * @param pushClientId
-     *
-     * @return this
-     */
-    fun setPushClientId(pushClientId: String): Client {
-        this.pushClientId = pushClientId
         return this
     }
 

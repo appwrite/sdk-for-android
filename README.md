@@ -2,12 +2,12 @@
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.appwrite/sdk-for-android.svg?color=green&style=flat-square)
 ![License](https://img.shields.io/github/license/appwrite/sdk-for-android.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-2.3.0-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-2.5.0-blue.svg?style=flat-square)
 [![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
 [![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
-**This SDK targets Appwrite server version 2.3.x as shipped on Appwrite Cloud.** Self-hosted releases can lag behind Cloud — if you run an older self-hosted build, use a matching older SDK from [previous releases](https://github.com/appwrite/sdk-for-android/releases) when APIs differ.
+**This SDK targets Appwrite server version 2.5.x as shipped on Appwrite Cloud.** Self-hosted releases can lag behind Cloud — if you run an older self-hosted build, use a matching older SDK from [previous releases](https://github.com/appwrite/sdk-for-android/releases) when APIs differ.
 
 Appwrite is an open-source backend as a service server that abstracts and simplifies complex and repetitive development tasks behind a very simple to use REST API. Appwrite aims to help you develop your apps faster and in a more secure way. Use the Android SDK to integrate your app with the Appwrite server to easily start interacting with all of Appwrite backend APIs and tools. For full API documentation and tutorials go to [https://appwrite.io/docs](https://appwrite.io/docs)
 
@@ -38,7 +38,7 @@ repositories {
 Next, add the dependency to your project's `build.gradle(.kts)` file:
 
 ```groovy
-implementation("io.appwrite:sdk-for-android:29.1.0-rc.3")
+implementation("io.appwrite:sdk-for-android:30.0.0")
 ```
 
 ### Maven
@@ -49,7 +49,7 @@ Add this to your project's `pom.xml` file:
     <dependency>
         <groupId>io.appwrite</groupId>
         <artifactId>sdk-for-android</artifactId>
-        <version>29.1.0-rc.3</version>
+        <version>30.0.0</version>
     </dependency>
 </dependencies>
 ```
@@ -65,88 +65,6 @@ with `@Keep` so R8 keeps their fields:
 @Keep
 data class Note(val title: String, val body: String)
 ```
-
-### Push notifications
-
-#### Background delivery
-
-A subscription with `background = true` keeps delivering after the app is backgrounded, its
-process is killed, or the device restarts, until it is unsubscribed or `push.close()` is
-called (do this on sign-out). No service is kept running: a scheduled job and alarm wake the
-app every 15 to 60 seconds to reconnect, and the broker replays what was sent in between
-(`retry = true`). It reconnects with the credential saved at subscribe time, so use a session
-(`client.setSession(...)`), not a short-lived JWT.
-
-While the app is not on screen, each message is also posted as a notification that opens
-your launch activity with `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` in its extras. It shows the
-title, body and image sent with `createPush`, falling back to the subscription's `title` and the
-raw payload for other messages. On Android 13 and later it needs the `POST_NOTIFICATIONS`
-permission: the first background subscription asks for it from the visible activity (the one
-`Push` is created with, else the next one to resume), or call
-`Push.requestNotificationPermission(activity)` to ask yourself. Set its
-icon with `<meta-data android:name="io.appwrite.push.notification_icon" android:resource="@drawable/..." />`
-in your `<application>`. While the app is on screen your callback shows the message, so no
-notification is posted unless the subscription passes `notifyInForeground = true`. To handle
-messages that arrive while no callback is listening in code, subclass `PushReceiver` and declare
-it with the `io.appwrite.push.MESSAGE` action (see its docs).
-
-#### Delivery while the app is closed
-
-Messages sent while the app is closed arrive at the next scheduled wake-up. While the device is
-awake that is about every 15 seconds, or about every 60 seconds once exact alarms are allowed;
-without exact alarms the wake-ups are inexact, so battery saver can defer them further. In Doze
-(screen off and idle for a while) Android limits background alarms, exact ones included, to about
-one every nine minutes, so a closed app can take several minutes to receive a message: allowing
-exact alarms makes wake-ups punctual, it does not lift Doze. For immediate delivery, also in
-Doze, use `push.setForeground(true)` (see below).
-
-The SDK uses exact alarms on its own whenever the app may schedule them. To allow it:
-
-1. Declare the permissions in your app's `AndroidManifest.xml`. Both are optional and subject to
-   Google Play policy: `SCHEDULE_EXACT_ALARM` needs a declaration in the Play Console, and
-   `USE_EXACT_ALARM` is reserved for alarm, clock and calendar apps (the SDK does not use it).
-
-   ```xml
-   <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-   <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-   ```
-
-2. On Android 13 and later the user has to allow exact alarms, under Settings > Apps > Special app
-   access > Alarms & reminders. Android 12 grants a declared `SCHEDULE_EXACT_ALARM`
-   automatically, and older versions need nothing. Check with `Push.backgroundStatus(context)`: when `bestEffort` is
-   true, explain why to the user, then from a user action open that screen with `Push.requestExactAlarms(context)`, or
-   ask for the battery-optimisation exemption with `Push.requestIgnoreBatteryOptimizations(context)`. Both return false when there is
-   nothing to ask, including when the permission is not declared. The SDK never opens these
-   screens on its own.
-
-If the user force-stops the app (Settings > Force stop, and on some devices swiping it away from
-recents), Android cancels its alarms and jobs: nothing is delivered until the app is opened
-again, and the broker then replays what was sent meanwhile.
-
-For immediate delivery even after a kill and during Doze, call `push.setForeground(true)` from
-the foreground: it adds a foreground service
-with a quiet ongoing notification. If you never enable it, you can remove the service from
-your merged manifest, so the Play Console does not ask you to declare it:
-
-```xml
-<service android:name="io.appwrite.services.PushService" tools:node="remove" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" tools:node="remove" />
-```
-
-#### Opening a tapped notification
-
-Read the `data` sent with `createPush` when the user taps a background notification:
-
-```kotlin
-// The tap that launched the app (reported once, so call it at startup).
-push.getInitialNotification()?.let { openSale(it.data["saleId"]) }
-
-// Taps while the app is running, including in the background.
-val stop = push.onNotificationOpened { opened -> openSale(opened.data["saleId"]) }
-```
-
-A tap made while nothing listens is kept for `getInitialNotification()`. The tap intent still
-carries `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` for apps that read their activity's intent.
 
 
 ## Getting Started

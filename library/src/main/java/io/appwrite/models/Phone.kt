@@ -37,9 +37,9 @@ data class Phone(
         fun from(
             map: Map<String, Any>,
         ) = Phone(
-            code = map["code"] as String,
-            countryCode = map["countryCode"] as String,
-            countryName = map["countryName"] as String,
+            code = (if (map.containsKey("code")) map["code"] else "") as String,
+            countryCode = (if (map.containsKey("countryCode")) map["countryCode"] else "") as String,
+            countryName = (if (map.containsKey("countryName")) map["countryName"] else "") as String,
         )
     }
 }

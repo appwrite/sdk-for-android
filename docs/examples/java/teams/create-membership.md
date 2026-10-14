@@ -19,6 +19,7 @@ teams.createMembership(
     "+12065550100", // phone (optional)
     "https://example.com", // url (optional)
     "<NAME>", // name (optional)
+    "<MEMBERSHIP_ID>", // membershipId (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();
