@@ -30,8 +30,8 @@ data class Oauth2Authorize(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2Authorize(
-            grantId = map["grantId"] as String,
-            redirectUrl = map["redirectUrl"] as String,
+            grantId = (if (map.containsKey("grantId")) map["grantId"] else "") as String,
+            redirectUrl = (if (map.containsKey("redirectUrl")) map["redirectUrl"] else "") as String,
         )
     }
 }

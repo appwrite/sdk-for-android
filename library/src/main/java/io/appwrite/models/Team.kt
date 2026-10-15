@@ -75,11 +75,11 @@ data class Team<T>(
             map: Map<String, Any>,
             nestedType: Class<T>
         ) = Team<T>(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            name = map["name"] as String,
-            total = (map["total"] as Number).toLong(),
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            name = (if (map.containsKey("name")) map["name"] else "") as String,
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
             prefs = Preferences.from(map = map["prefs"] as Map<String, Any>, nestedType),
         )
     }

@@ -58,12 +58,12 @@ data class Transaction(
         fun from(
             map: Map<String, Any>,
         ) = Transaction(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            status = map["status"] as String,
-            operations = (map["operations"] as Number).toLong(),
-            expiresAt = map["expiresAt"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            status = (if (map.containsKey("status")) map["status"] else "pending") as String,
+            operations = ((if (map.containsKey("operations")) map["operations"] else 0) as Number).toLong(),
+            expiresAt = (if (map.containsKey("expiresAt")) map["expiresAt"] else "") as String,
         )
     }
 }

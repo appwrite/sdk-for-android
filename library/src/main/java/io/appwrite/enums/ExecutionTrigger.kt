@@ -8,7 +8,9 @@ enum class ExecutionTrigger(val value: String) {
     @SerializedName("schedule")
     SCHEDULE("schedule"),
     @SerializedName("event")
-    EVENT("event");
+    EVENT("event"),
+    @SerializedName("email")
+    EMAIL("email");
 
     override fun toString() = value
 }

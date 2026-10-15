@@ -23,7 +23,7 @@ data class AlgoBcrypt(
         fun from(
             map: Map<String, Any>,
         ) = AlgoBcrypt(
-            type = map["type"] as String,
+            type = (if (map.containsKey("type")) map["type"] else "bcrypt") as String,
         )
     }
 }

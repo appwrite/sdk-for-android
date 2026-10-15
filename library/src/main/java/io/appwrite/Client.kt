@@ -101,8 +101,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "29.1.0-rc.3",
-            "x-appwrite-response-format" to "2.3.0"
+            "x-sdk-version" to "30.0.0",
+            "x-appwrite-response-format" to "2.5.0"
         )
         config = mutableMapOf()
 
@@ -434,7 +434,10 @@ class Client @JvmOverloads constructor(
         headers: Map<String, String> = mapOf(),
         params: Map<String, Any?> = mapOf(),
     ): Request {
-        val filteredParams = params.filterValues { it != null }
+        // flatten() resolves Query/Query.Builder values before the null filter,
+        // so a builder that renders to null is dropped like any other null.
+        val flattenedParams = params.mapValues { flatten(it.value) }
+        val filteredParams = flattenedParams.filterValues { it != null }
 
         val requestHeaders = this.headers.toHeaders().newBuilder()
             .addAll(headers.toHeaders())
@@ -497,7 +500,7 @@ class Client @JvmOverloads constructor(
             }
             builder.build()
         } else {
-            params
+            flattenedParams
                 .toJsonRequestBody()
                 .toRequestBody("application/json".toMediaType())
         }
@@ -840,5 +843,45 @@ class Client @JvmOverloads constructor(
                 )
             }
         })
+    }
+
+    fun flatten(value: Any?): Any? {
+        if (value is Query.Builder) {
+            return value.build()
+        }
+        if (value is Query) {
+            return value.toString()
+        }
+
+        val items = when (value) {
+            is Array<*> -> value.asList()
+            is Collection<*> -> value
+            else -> return value
+        }
+
+        val out = ArrayList<Any?>(items.size)
+        var changed = false
+        for (item in items) {
+            val flat = flatten(item)
+            if (item is Query.Builder || item is Query) {
+                if (flat is Collection<*>) {
+                    out.addAll(flat)
+                } else {
+                    out.add(flat)
+                }
+                changed = true
+                continue
+            }
+            if ((item is Array<*> || item is Collection<*>) && flat is Collection<*> && flat.all { it is String }) {
+                out.addAll(flat)
+                changed = true
+                continue
+            }
+            if (flat !== item) {
+                changed = true
+            }
+            out.add(flat)
+        }
+        return if (changed) out else value
     }
 }

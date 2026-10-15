@@ -79,14 +79,14 @@ data class AppSecretPlaintext(
         fun from(
             map: Map<String, Any>,
         ) = AppSecretPlaintext(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            appId = map["appId"] as String,
-            secret = map["secret"] as String,
-            hint = map["hint"] as String,
-            createdById = map["createdById"] as String,
-            createdByName = map["createdByName"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            appId = (if (map.containsKey("appId")) map["appId"] else "") as String,
+            secret = (if (map.containsKey("secret")) map["secret"] else "") as String,
+            hint = (if (map.containsKey("hint")) map["hint"] else "") as String,
+            createdById = (if (map.containsKey("createdById")) map["createdById"] else "") as String,
+            createdByName = (if (map.containsKey("createdByName")) map["createdByName"] else "") as String,
             lastAccessedAt = map["lastAccessedAt"] as? String,
         )
     }

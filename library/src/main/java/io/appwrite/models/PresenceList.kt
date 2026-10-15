@@ -30,8 +30,8 @@ data class PresenceList(
         fun from(
             map: Map<String, Any>,
         ) = PresenceList(
-            total = (map["total"] as Number).toLong(),
-            presences = (map["presences"] as List<Map<String, Any>>).map { Presence.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            presences = ((if (map.containsKey("presences")) map["presences"] else listOf<Any?>()) as List<Map<String, Any>>).map { Presence.from(map = it) },
         )
     }
 }

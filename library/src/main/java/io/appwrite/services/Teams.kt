@@ -539,6 +539,7 @@ class Teams(client: Client) : Service(client) {
      * @param phone Phone number. Format this number with a leading '+' and a country code, e.g., +16175551212.
      * @param url URL to redirect the user back to your app from the invitation email. This parameter is not required when an API key is supplied. Only URLs from hostnames in your project platform list are allowed. This requirement helps to prevent an [open redirect](https://cheatsheetseries.owasp.org/cheatsheets/Unvalidated_Redirects_and_Forwards_Cheat_Sheet.html) attack against your project API.
      * @param name Name of the new team member. Max length: 128 chars.
+     * @param membershipId Membership ID. Choose a custom ID or generate a random ID with `ID.unique()`. Valid chars are a-z, A-Z, 0-9, period, hyphen, and underscore. Can't start with a special char. Max length is 36 chars.
      * @return [io.appwrite.models.Membership]
      */
     @JvmOverloads
@@ -550,6 +551,7 @@ class Teams(client: Client) : Service(client) {
         phone: String? = null,
         url: String? = null,
         name: String? = null,
+        membershipId: String? = null,
     ): io.appwrite.models.Membership {
         if (teamId.isEmpty()) {
             throw AppwriteException("Missing required parameter: \"teamId\"")
@@ -564,6 +566,7 @@ class Teams(client: Client) : Service(client) {
             "roles" to roles,
             "url" to url,
             "name" to name,
+            "membershipId" to membershipId,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),

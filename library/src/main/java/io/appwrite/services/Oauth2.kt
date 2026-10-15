@@ -85,7 +85,7 @@ class Oauth2(client: Client) : Service(client) {
         prompt: String? = null,
         maxAge: Long? = null,
         authorizationDetails: String? = null,
-        resource: String? = null,
+        resource: List<String>? = null,
         audience: String? = null,
         requestUri: String? = null,
     ): io.appwrite.models.Oauth2Authorize {
@@ -157,7 +157,7 @@ class Oauth2(client: Client) : Service(client) {
         prompt: String? = null,
         maxAge: Long? = null,
         authorizationDetails: String? = null,
-        resource: String? = null,
+        resource: List<String>? = null,
         audience: String? = null,
         requestUri: String? = null,
     ): io.appwrite.models.Oauth2Authorize {
@@ -213,7 +213,7 @@ class Oauth2(client: Client) : Service(client) {
         clientId: String? = null,
         scope: String? = null,
         authorizationDetails: String? = null,
-        resource: String? = null,
+        resource: List<String>? = null,
         audience: String? = null,
     ): io.appwrite.models.Oauth2DeviceAuthorization {
         val apiPath = ("/oauth2/{project_id}/device_authorization"
@@ -468,7 +468,7 @@ class Oauth2(client: Client) : Service(client) {
         prompt: String? = null,
         maxAge: Long? = null,
         authorizationDetails: String? = null,
-        resource: String? = null,
+        resource: List<String>? = null,
         audience: String? = null,
     ): io.appwrite.models.Oauth2PAR {
         val apiPath = ("/oauth2/{project_id}/par"
@@ -642,7 +642,7 @@ class Oauth2(client: Client) : Service(client) {
         clientSecret: String? = null,
         codeVerifier: String? = null,
         redirectUri: String? = null,
-        resource: String? = null,
+        resource: List<String>? = null,
         audience: String? = null,
     ): io.appwrite.models.Oauth2Token {
         val apiPath = ("/oauth2/{project_id}/token"

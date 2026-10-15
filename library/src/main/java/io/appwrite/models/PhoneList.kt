@@ -30,8 +30,8 @@ data class PhoneList(
         fun from(
             map: Map<String, Any>,
         ) = PhoneList(
-            total = (map["total"] as Number).toLong(),
-            phones = (map["phones"] as List<Map<String, Any>>).map { Phone.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            phones = ((if (map.containsKey("phones")) map["phones"] else listOf<Any?>()) as List<Map<String, Any>>).map { Phone.from(map = it) },
         )
     }
 }
