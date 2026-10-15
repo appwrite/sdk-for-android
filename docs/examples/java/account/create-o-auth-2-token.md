@@ -17,6 +17,7 @@ account.createOAuth2Token(
     "https://example.com", // success (optional)
     "https://example.com", // failure (optional)
     List.of(), // scopes (optional)
+    "<STATE>", // state (optional)
     new CoroutineCallback<>((result, error) -> {
         if (error != null) {
             error.printStackTrace();

@@ -23,7 +23,7 @@ data class AlgoSha(
         fun from(
             map: Map<String, Any>,
         ) = AlgoSha(
-            type = map["type"] as String,
+            type = (if (map.containsKey("type")) map["type"] else "sha") as String,
         )
     }
 }

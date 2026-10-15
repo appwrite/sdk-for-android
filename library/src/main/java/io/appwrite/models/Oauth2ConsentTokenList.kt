@@ -30,8 +30,8 @@ data class Oauth2ConsentTokenList(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2ConsentTokenList(
-            total = (map["total"] as Number).toLong(),
-            tokens = (map["tokens"] as List<Map<String, Any>>).map { Oauth2ConsentToken.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            tokens = ((if (map.containsKey("tokens")) map["tokens"] else listOf<Any?>()) as List<Map<String, Any>>).map { Oauth2ConsentToken.from(map = it) },
         )
     }
 }

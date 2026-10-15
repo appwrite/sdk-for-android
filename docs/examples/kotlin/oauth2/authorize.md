@@ -21,7 +21,7 @@ val result = oauth2.authorize(
     prompt = "<PROMPT>", // (optional)
     maxAge = 0, // (optional)
     authorizationDetails = "<AUTHORIZATION_DETAILS>", // (optional)
-    resource = "", // (optional)
+    resource = listOf(), // (optional)
     audience = "<AUDIENCE>", // (optional)
     requestUri = "<REQUEST_URI>", // (optional)
 )

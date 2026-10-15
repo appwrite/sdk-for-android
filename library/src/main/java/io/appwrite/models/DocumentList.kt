@@ -39,8 +39,8 @@ data class DocumentList<T>(
             map: Map<String, Any>,
             nestedType: Class<T>
         ) = DocumentList<T>(
-            total = (map["total"] as Number).toLong(),
-            documents = (map["documents"] as List<Map<String, Any>>).map { Document.from(map = it, nestedType) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            documents = ((if (map.containsKey("documents")) map["documents"] else listOf<Any?>()) as List<Map<String, Any>>).map { Document.from(map = it, nestedType) },
         )
     }
 }
