@@ -30,8 +30,8 @@ data class CountryList(
         fun from(
             map: Map<String, Any>,
         ) = CountryList(
-            total = (map["total"] as Number).toLong(),
-            countries = (map["countries"] as List<Map<String, Any>>).map { Country.from(map = it) },
+            total = ((if (map.containsKey("total")) map["total"] else 0) as Number).toLong(),
+            countries = ((if (map.containsKey("countries")) map["countries"] else listOf<Any?>()) as List<Map<String, Any>>).map { Country.from(map = it) },
         )
     }
 }

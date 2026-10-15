@@ -37,9 +37,9 @@ data class Language(
         fun from(
             map: Map<String, Any>,
         ) = Language(
-            name = map["name"] as String,
-            code = map["code"] as String,
-            nativeName = map["nativeName"] as String,
+            name = (if (map.containsKey("name")) map["name"] else "") as String,
+            code = (if (map.containsKey("code")) map["code"] else "") as String,
+            nativeName = (if (map.containsKey("nativeName")) map["nativeName"] else "") as String,
         )
     }
 }

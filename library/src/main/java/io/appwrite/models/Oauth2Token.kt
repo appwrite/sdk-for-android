@@ -65,11 +65,11 @@ data class Oauth2Token(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2Token(
-            access_token = map["access_token"] as String,
-            token_type = map["token_type"] as String,
-            expires_in = (map["expires_in"] as Number).toLong(),
-            refresh_token = map["refresh_token"] as String,
-            scope = map["scope"] as String,
+            access_token = (if (map.containsKey("access_token")) map["access_token"] else "") as String,
+            token_type = (if (map.containsKey("token_type")) map["token_type"] else "Bearer") as String,
+            expires_in = ((if (map.containsKey("expires_in")) map["expires_in"] else 0) as Number).toLong(),
+            refresh_token = (if (map.containsKey("refresh_token")) map["refresh_token"] else "") as String,
+            scope = (if (map.containsKey("scope")) map["scope"] else "") as String,
             authorization_details = map["authorization_details"] as? String,
             id_token = map["id_token"] as? String,
         )

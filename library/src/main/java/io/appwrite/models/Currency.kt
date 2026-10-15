@@ -65,13 +65,13 @@ data class Currency(
         fun from(
             map: Map<String, Any>,
         ) = Currency(
-            symbol = map["symbol"] as String,
-            name = map["name"] as String,
-            symbolNative = map["symbolNative"] as String,
-            decimalDigits = (map["decimalDigits"] as Number).toLong(),
-            rounding = (map["rounding"] as Number).toDouble(),
-            code = map["code"] as String,
-            namePlural = map["namePlural"] as String,
+            symbol = (if (map.containsKey("symbol")) map["symbol"] else "") as String,
+            name = (if (map.containsKey("name")) map["name"] else "") as String,
+            symbolNative = (if (map.containsKey("symbolNative")) map["symbolNative"] else "") as String,
+            decimalDigits = ((if (map.containsKey("decimalDigits")) map["decimalDigits"] else 0) as Number).toLong(),
+            rounding = ((if (map.containsKey("rounding")) map["rounding"] else 0.0) as Number).toDouble(),
+            code = (if (map.containsKey("code")) map["code"] else "") as String,
+            namePlural = (if (map.containsKey("namePlural")) map["namePlural"] else "") as String,
         )
     }
 }

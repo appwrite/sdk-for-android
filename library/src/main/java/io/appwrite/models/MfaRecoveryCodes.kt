@@ -23,7 +23,7 @@ data class MfaRecoveryCodes(
         fun from(
             map: Map<String, Any>,
         ) = MfaRecoveryCodes(
-            recoveryCodes = map["recoveryCodes"] as List<String>,
+            recoveryCodes = (if (map.containsKey("recoveryCodes")) map["recoveryCodes"] else listOf<Any?>()) as List<String>,
         )
     }
 }

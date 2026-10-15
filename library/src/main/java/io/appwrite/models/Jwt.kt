@@ -23,7 +23,7 @@ data class Jwt(
         fun from(
             map: Map<String, Any>,
         ) = Jwt(
-            jwt = map["jwt"] as String,
+            jwt = (if (map.containsKey("jwt")) map["jwt"] else "") as String,
         )
     }
 }

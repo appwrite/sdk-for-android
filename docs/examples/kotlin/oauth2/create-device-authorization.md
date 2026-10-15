@@ -13,7 +13,7 @@ val result = oauth2.createDeviceAuthorization(
     clientId = "<CLIENT_ID>", // (optional)
     scope = "<SCOPE>", // (optional)
     authorizationDetails = "<AUTHORIZATION_DETAILS>", // (optional)
-    resource = "", // (optional)
+    resource = listOf(), // (optional)
     audience = "<AUDIENCE>", // (optional)
 )
 ```

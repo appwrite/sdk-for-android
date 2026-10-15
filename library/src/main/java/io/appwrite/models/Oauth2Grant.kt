@@ -100,18 +100,18 @@ data class Oauth2Grant(
         fun from(
             map: Map<String, Any>,
         ) = Oauth2Grant(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            userId = map["userId"] as String,
-            appId = map["appId"] as String,
-            scopes = map["scopes"] as List<String>,
-            resources = map["resources"] as List<String>,
-            authorizationDetails = map["authorizationDetails"] as String,
-            prompt = map["prompt"] as String,
-            redirectUri = map["redirectUri"] as String,
-            authTime = (map["authTime"] as Number).toLong(),
-            expire = map["expire"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            userId = (if (map.containsKey("userId")) map["userId"] else "") as String,
+            appId = (if (map.containsKey("appId")) map["appId"] else "") as String,
+            scopes = (if (map.containsKey("scopes")) map["scopes"] else listOf<Any?>()) as List<String>,
+            resources = (if (map.containsKey("resources")) map["resources"] else listOf<Any?>()) as List<String>,
+            authorizationDetails = (if (map.containsKey("authorizationDetails")) map["authorizationDetails"] else "[]") as String,
+            prompt = (if (map.containsKey("prompt")) map["prompt"] else "") as String,
+            redirectUri = (if (map.containsKey("redirectUri")) map["redirectUri"] else "") as String,
+            authTime = ((if (map.containsKey("authTime")) map["authTime"] else 0) as Number).toLong(),
+            expire = (if (map.containsKey("expire")) map["expire"] else "") as String,
         )
     }
 }

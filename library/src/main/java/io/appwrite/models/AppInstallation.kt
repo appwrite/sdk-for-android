@@ -86,15 +86,15 @@ data class AppInstallation(
         fun from(
             map: Map<String, Any>,
         ) = AppInstallation(
-            id = map["\$id"] as String,
-            createdAt = map["\$createdAt"] as String,
-            updatedAt = map["\$updatedAt"] as String,
-            appId = map["appId"] as String,
-            teamId = map["teamId"] as String,
-            scopes = map["scopes"] as List<String>,
-            authorizationDetails = map["authorizationDetails"] as List<Map<String, Any?>>,
-            createdById = map["createdById"] as String,
-            createdByName = map["createdByName"] as String,
+            id = (if (map.containsKey("\$id")) map["\$id"] else "") as String,
+            createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
+            updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
+            appId = (if (map.containsKey("appId")) map["appId"] else "") as String,
+            teamId = (if (map.containsKey("teamId")) map["teamId"] else "") as String,
+            scopes = (if (map.containsKey("scopes")) map["scopes"] else listOf<Any?>()) as List<String>,
+            authorizationDetails = (if (map.containsKey("authorizationDetails")) map["authorizationDetails"] else listOf<Any?>()) as List<Map<String, Any?>>,
+            createdById = (if (map.containsKey("createdById")) map["createdById"] else "") as String,
+            createdByName = (if (map.containsKey("createdByName")) map["createdByName"] else "") as String,
             lastAccessedAt = map["lastAccessedAt"] as? String,
         )
     }

@@ -30,8 +30,8 @@ data class LocaleCode(
         fun from(
             map: Map<String, Any>,
         ) = LocaleCode(
-            code = map["code"] as String,
-            name = map["name"] as String,
+            code = (if (map.containsKey("code")) map["code"] else "") as String,
+            name = (if (map.containsKey("name")) map["name"] else "") as String,
         )
     }
 }
