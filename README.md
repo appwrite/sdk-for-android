@@ -1,10 +1,9 @@
 # Appwrite Android SDK
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.appwrite/sdk-for-android.svg?color=green&style=flat-square)
-![License](https://img.shields.io/github/license/appwrite/sdk-for-android.svg?style=flat-square)
+![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg?style=flat-square)
 ![Version](https://img.shields.io/badge/api%20version-2.5.0-blue.svg?style=flat-square)
-[![Build Status](https://img.shields.io/travis/com/appwrite/sdk-generator?style=flat-square)](https://travis-ci.com/appwrite/sdk-generator)
-[![Twitter Account](https://img.shields.io/twitter/follow/appwrite?color=00acee&label=twitter&style=flat-square)](https://twitter.com/appwrite)
+[![X Account](https://img.shields.io/badge/follow-%40appwrite-000000?logo=x&style=flat-square)](https://x.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
 **This SDK targets Appwrite server version 2.5.x as shipped on Appwrite Cloud.** Self-hosted releases can lag behind Cloud — if you run an older self-hosted build, use a matching older SDK from [previous releases](https://github.com/appwrite/sdk-for-android/releases) when APIs differ.
@@ -15,134 +14,261 @@ Appwrite is an open-source backend as a service server that abstracts and simpli
 
 ## Installation
 
-### Gradle
+The SDK requires Android 7.0 (API level 24) or later and is published to Maven Central as `io.appwrite:sdk-for-android`. Make sure `mavenCentral()` is among your repositories (new Android Studio projects include it in `settings.gradle.kts`), then add the dependency to your app module's build file.
 
-Appwrite's Android SDK is hosted on Maven Central. In order to fetch the Appwrite SDK, add this to your root level `build.gradle(.kts)` file:
+Kotlin DSL (`build.gradle.kts`):
 
-```groovy
-repositories {      
-    mavenCentral()
+```kotlin
+dependencies {
+    implementation("io.appwrite:sdk-for-android:30.0.0")
 }
 ```
 
-If you would like to fetch our SNAPSHOT releases, you need to add the SNAPSHOT maven repository to your `build.gradle(.kts)`:
+Groovy (`build.gradle`):
 
 ```groovy
-repositories {
-    maven {
-        url "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-    }
+dependencies {
+    implementation 'io.appwrite:sdk-for-android:30.0.0'
 }
-```
-
-Next, add the dependency to your project's `build.gradle(.kts)` file:
-
-```groovy
-implementation("io.appwrite:sdk-for-android:30.0.0")
-```
-
-### Maven
-Add this to your project's `pom.xml` file:
-
-```xml
-<dependencies>
-    <dependency>
-        <groupId>io.appwrite</groupId>
-        <artifactId>sdk-for-android</artifactId>
-        <version>30.0.0</version>
-    </dependency>
-</dependencies>
 ```
 
 ### Code shrinking (R8)
 
-The SDK ships the R8 rules it needs, so no extra configuration is required. Your own classes
-that the SDK fills from JSON (the `nestedType` of documents, rows and preferences, and the
-`payloadType` of Realtime subscriptions) are read by Gson through reflection. Annotate them
-with `@Keep` so R8 keeps their fields:
+The SDK ships the R8 rules it needs, so no extra configuration is required. Your own classes that the SDK fills from JSON (the `nestedType` of documents, rows and preferences, and the `payloadType` of Realtime subscriptions) are read by Gson through reflection. Annotate them with `@Keep` so R8 keeps their fields:
 
 ```kotlin
 @Keep
 data class Note(val title: String, val body: String)
 ```
 
-### Push notifications
+## Getting Started
 
-#### Background delivery
+### Add your Android platform
 
-A subscription with `background = true` keeps delivering after the app is backgrounded, its
-process is killed, or the device restarts, until it is unsubscribed or `push.close()` is
-called (do this on sign-out). No service is kept running: a scheduled job and alarm wake the
-app every 15 to 60 seconds to reconnect, and the broker replays what was sent in between
-(`retry = true`). It reconnects with the credential saved at subscribe time, so use a session
-(`client.setSession(...)`), not a short-lived JWT.
+To let your app talk to Appwrite, register it as a platform. In the [Appwrite Console](https://cloud.appwrite.io/console), open your project (create one if you haven't already), click **Add platform** and choose **Android**.
 
-While the app is not on screen, each message is also posted as a notification that opens
-your launch activity with `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` in its extras. It shows the
-title, body and image sent with `createPush`, falling back to the subscription's `title`, and to
-the raw payload as the body for messages that are not a JSON object. A push with neither a title
-nor a body, such as a data-only push, posts no notification; it still reaches your callback or
-`PushReceiver`. On Android 13 and later it needs the `POST_NOTIFICATIONS`
-permission: the first background subscription asks for it from the visible activity (the one
-`Push` is created with, else the next one to resume), or call
-`Push.requestNotificationPermission(activity)` to ask yourself. Set its
-icon with `<meta-data android:name="io.appwrite.push.notification_icon" android:resource="@drawable/..." />`
-in your `<application>`. While the app is on screen your callback shows the message, so no
-notification is posted unless the subscription passes `notifyInForeground = true`. To handle
-messages that arrive while no callback is listening in code, subclass `PushReceiver` and declare
-it with the `io.appwrite.push.MESSAGE` action (see its docs).
+Enter your app's name and package name. The package name is the `applicationId` in your app module's `build.gradle.kts` file.
 
-#### Delivery while the app is closed
+### Init your SDK
 
-Messages sent while the app is closed arrive at the next scheduled wake-up. While the device is
-awake that is about every 15 seconds, or about every 60 seconds once exact alarms are allowed;
-without exact alarms the wake-ups are inexact, so battery saver can defer them further. In Doze
-(screen off and idle for a while) Android limits background alarms, exact ones included, to about
-one every nine minutes, so a closed app can take several minutes to receive a message: allowing
-exact alarms makes wake-ups punctual, it does not lift Doze. For immediate delivery, also in
-Doze, use `push.setForeground(true)` (see below).
+Initialize the client with your Appwrite endpoint and project ID, both of which are on your project's settings page.
+
+```kotlin
+import io.appwrite.Client
+
+val client = Client(context)
+    .setEndpoint("https://<REGION>.cloud.appwrite.io/v1")
+    .setProject("<PROJECT_ID>")
+```
+
+If you self-host Appwrite, use your own endpoint instead, such as `https://appwrite.example.com/v1`. On the Android emulator, `localhost` is the emulator itself: use `10.0.2.2` to reach your development machine, or a tunnel such as [ngrok](https://ngrok.com/). Call `.setSelfSigned(true)` only while developing against a server with a self-signed certificate.
+
+### Make your first request
+
+Service methods are `suspend` functions, so call them from a coroutine, for example `lifecycleScope` in an activity:
+
+```kotlin
+import androidx.lifecycle.lifecycleScope
+import io.appwrite.ID
+import io.appwrite.services.Account
+import kotlinx.coroutines.launch
+
+val account = Account(client)
+
+lifecycleScope.launch {
+    val user = account.create(
+        userId = ID.unique(),
+        email = "email@example.com",
+        password = "password",
+        name = "Walter O'Brien",
+    )
+}
+```
+
+### Error handling
+
+Failed requests throw an `AppwriteException` with `message`, `code`, `type` and `response` properties:
+
+```kotlin
+import android.util.Log
+import io.appwrite.exceptions.AppwriteException
+
+lifecycleScope.launch {
+    try {
+        val user = account.get()
+        Log.d("Appwrite", user.name)
+    } catch (e: AppwriteException) {
+        Log.e("Appwrite", "${e.code} ${e.type}: ${e.message}")
+    }
+}
+```
+
+### OAuth login
+
+To create OAuth sessions with `createOAuth2Session` or `createOAuth2Token`, add the SDK's callback activity inside the `<application>` tag of your `AndroidManifest.xml`. Replace `<PROJECT_ID>` with your Appwrite project ID, which you can find in your project settings.
+
+```xml
+<activity android:name="io.appwrite.views.CallbackActivity" android:exported="true">
+    <intent-filter android:label="android_web_auth">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="appwrite-callback-<PROJECT_ID>" />
+    </intent-filter>
+</activity>
+```
+
+Then start the flow from your activity:
+
+```kotlin
+import io.appwrite.enums.OAuthProvider
+
+lifecycleScope.launch {
+    account.createOAuth2Session(
+        activity = this@MainActivity,
+        provider = OAuthProvider.GITHUB,
+    )
+}
+```
+
+### Using the SDK from Java
+
+From Java, pass a `CoroutineCallback` as the last argument instead of calling the method from a coroutine. Request failures arrive as the callback's `error`; most methods also declare `AppwriteException`, which Java treats as checked, for invalid arguments. The callback runs on a background thread, so switch to the main thread before touching views.
+
+```java
+import android.util.Log;
+
+import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
+import io.appwrite.services.Account;
+
+Account account = new Account(client);
+
+try {
+    account.get(new CoroutineCallback<>((user, error) -> {
+        if (error != null) {
+            Log.e("Appwrite", error.getMessage());
+            return;
+        }
+
+        Log.d("Appwrite", user.getName());
+    }));
+} catch (AppwriteException e) {
+    Log.e("Appwrite", e.getMessage());
+}
+```
+
+### Type safety with models
+
+Methods that return rows, such as `listRows` and `getRow`, accept a `nestedType` so that each row's `data` is your own class:
+
+```kotlin
+import io.appwrite.services.TablesDB
+
+data class Book(
+    val name: String,
+    val author: String,
+    val releaseYear: String? = null,
+    val genre: List<String>? = null,
+    val isCheckedOut: Boolean,
+)
+
+val tablesDB = TablesDB(client)
+
+val result = tablesDB.listRows(
+    databaseId = "<DATABASE_ID>",
+    tableId = "<TABLE_ID>",
+    nestedType = Book::class.java,
+)
+
+for (row in result.rows) {
+    val book = row.data
+    Log.d("Appwrite", "${book.name} by ${book.author}")
+}
+```
+
+From Java, pass the class before the callback:
+
+```java
+tablesDB.listRows(
+    "<DATABASE_ID>",
+    "<TABLE_ID>",
+    Book.class,
+    new CoroutineCallback<>((result, error) -> {
+        if (error != null) {
+            Log.e("Appwrite", error.getMessage());
+            return;
+        }
+
+        for (Row<Book> row : result.getRows()) {
+            Log.d("Appwrite", row.getData().getName());
+        }
+    })
+);
+```
+
+Use `appwrite types` from the [Appwrite CLI](https://appwrite.io/docs/tooling/command-line/installation) to generate these model classes from your database schema. Learn more about [type generation](https://appwrite.io/docs/products/databases/tablesdb/type-generation).
+
+Every model also has `toMap()`, which is handy for logging or manual data handling:
+
+```kotlin
+val user = account.get()
+Log.d("Appwrite", user.toMap().toString())
+```
+
+## Push notifications
+
+`Push` subscribes to topics over the Appwrite push broker. With no topic it subscribes to the signed-in user's own topic:
+
+```kotlin
+import io.appwrite.services.Push
+
+val push = Push(client, context)
+
+val subscription = push.subscribe { message ->
+    Log.d("Appwrite", "${message.topic}: ${message.data}")
+}
+
+subscription.unsubscribe()
+```
+
+### Background delivery
+
+A subscription with `background = true` keeps delivering after the app is backgrounded, its process is killed, or the device restarts, until it is unsubscribed or `push.close()` is called (do this on sign-out). No service is kept running: a scheduled job and alarm wake the app every 15 to 60 seconds to reconnect, and the broker replays what was sent in between (`retry = true`). It reconnects with the credential saved at subscribe time, so use a session (`client.setSession(...)`), not a short-lived JWT.
+
+While the app is not on screen, each message is also posted as a notification that opens your launch activity with `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` in its extras. It shows the title, body and image sent with `createPush`, falling back to the subscription's `title`, and to the raw payload as the body for messages that are not a JSON object. A push with neither a title nor a body, such as a data-only push, posts no notification; it still reaches your callback or `PushReceiver`.
+
+On Android 13 and later it needs the `POST_NOTIFICATIONS` permission: the first background subscription asks for it from the visible activity (the one `Push` is created with, else the next one to resume), or call `Push.requestNotificationPermission(activity)` to ask yourself. Set its icon with `<meta-data android:name="io.appwrite.push.notification_icon" android:resource="@drawable/..." />` in your `<application>`.
+
+While the app is on screen your callback shows the message, so no notification is posted unless the subscription passes `notifyInForeground = true`. To handle messages that arrive while no callback is listening in code, subclass `PushReceiver` and declare it with the `io.appwrite.push.MESSAGE` action (see its docs).
+
+### Delivery while the app is closed
+
+Messages sent while the app is closed arrive at the next scheduled wake-up. While the device is awake that is about every 15 seconds, or about every 60 seconds once exact alarms are allowed; without exact alarms the wake-ups are inexact, so battery saver can defer them further. In Doze (screen off and idle for a while) Android limits background alarms, exact ones included, to about one every nine minutes, so a closed app can take several minutes to receive a message: allowing exact alarms makes wake-ups punctual, it does not lift Doze. For immediate delivery, also in Doze, use `push.setForeground(true)` (see below).
 
 The SDK uses exact alarms on its own whenever the app may schedule them. To allow it:
 
-1. Declare the permissions in your app's `AndroidManifest.xml`. Both are optional and subject to
-   Google Play policy: `SCHEDULE_EXACT_ALARM` needs a declaration in the Play Console, and
-   `USE_EXACT_ALARM` is reserved for alarm, clock and calendar apps (the SDK does not use it).
+1. Declare the permissions in your app's `AndroidManifest.xml`. Both are optional and subject to Google Play policy: `SCHEDULE_EXACT_ALARM` needs a declaration in the Play Console, and `USE_EXACT_ALARM` is reserved for alarm, clock and calendar apps (the SDK does not use it).
 
    ```xml
    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
    ```
 
-2. On Android 13 and later the user has to allow exact alarms, under Settings > Apps > Special app
-   access > Alarms & reminders. Android 12 grants a declared `SCHEDULE_EXACT_ALARM`
-   automatically, and older versions need nothing. Check with `Push.backgroundStatus(context)`: when `bestEffort` is
-   true, explain why to the user, then from a user action open that screen with `Push.requestExactAlarms(context)`, or
-   ask for the battery-optimisation exemption with `Push.requestIgnoreBatteryOptimizations(context)`. Both return false when there is
-   nothing to ask, including when the permission is not declared. The SDK never opens these
-   screens on its own.
+2. On Android 13 and later the user has to allow exact alarms, under Settings > Apps > Special app access > Alarms & reminders. Android 12 grants a declared `SCHEDULE_EXACT_ALARM` automatically, and older versions need nothing. Check with `Push.backgroundStatus(context)`: when `bestEffort` is true, explain why to the user, then from a user action open that screen with `Push.requestExactAlarms(context)`, or ask for the battery-optimisation exemption with `Push.requestIgnoreBatteryOptimizations(context)`. Both return false when there is nothing to ask, including when the permission is not declared. The SDK never opens these screens on its own.
 
-If `backgroundRestricted` is true, the user restricted the app's background usage and messages can
-wait until the app is opened. Exact alarms don't lift it, and neither does foreground mode: Android
-stops a restricted app's foreground service once it leaves the screen. Ask the user to choose
-Unrestricted in the app's battery settings (Settings > Apps > your app > Battery); granting the
-battery optimisation exemption also lets the SDK's alarms and jobs run, and `bestEffort` then
-reflects only the exact-alarm state.
+If `backgroundRestricted` is true, the user restricted the app's background usage and messages can wait until the app is opened. Exact alarms don't lift it, and neither does foreground mode: Android stops a restricted app's foreground service once it leaves the screen. Ask the user to choose Unrestricted in the app's battery settings (Settings > Apps > your app > Battery); granting the battery optimisation exemption also lets the SDK's alarms and jobs run, and `bestEffort` then reflects only the exact-alarm state.
 
-If the user force-stops the app (Settings > Force stop, and on some devices swiping it away from
-recents), Android cancels its alarms and jobs: nothing is delivered until the app is opened
-again, and the broker then replays what was sent meanwhile.
+If the user force-stops the app (Settings > Force stop, and on some devices swiping it away from recents), Android cancels its alarms and jobs: nothing is delivered until the app is opened again, and the broker then replays what was sent meanwhile.
 
-For immediate delivery even after a kill and during Doze, call `push.setForeground(true)` from
-the foreground: it adds a foreground service
-with a quiet ongoing notification. If you never enable it, you can remove the service from
-your merged manifest, so the Play Console does not ask you to declare it:
+For immediate delivery even after a kill and during Doze, call `push.setForeground(true)` from the foreground: it adds a foreground service with a quiet ongoing notification. If you never enable it, you can remove the service from your merged manifest, so the Play Console does not ask you to declare it:
 
 ```xml
 <service android:name="io.appwrite.services.PushService" tools:node="remove" />
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" tools:node="remove" />
 ```
 
-#### Opening a tapped notification
+### Opening a tapped notification
 
 Read the `data` sent with `createPush` when the user taps a background notification:
 
@@ -154,245 +280,18 @@ push.getInitialNotification()?.let { openSale(it.data["saleId"]) }
 val stop = push.onNotificationOpened { opened -> openSale(opened.data["saleId"]) }
 ```
 
-A tap made while nothing listens is kept for `getInitialNotification()`. The tap intent still
-carries `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` for apps that read their activity's intent.
+A tap made while nothing listens is kept for `getInitialNotification()`. The tap intent still carries `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` for apps that read their activity's intent.
 
+## Learn more
 
-## Getting Started
-
-### Add your Android Platform
-To initialize your SDK and start interacting with Appwrite services, you need to add a new Android platform to your project. To add a new platform, go to your Appwrite console, select your project (create one if you haven't already), and click the 'Add Platform' button on the project Dashboard.
-
-From the options, choose to add a new **Android** platform and add your app credentials.
-
-Add your app <u>name</u> and <u>package name</u>. Your package name is generally the applicationId in your app-level `build.gradle` file. By registering a new platform, you are allowing your app to communicate with the Appwrite API.
-
-### Registering additional activities
-In order to capture the Appwrite OAuth callback url, the following activity needs to be added to your [AndroidManifest.xml](https://github.com/appwrite/playground-for-android/blob/master/app/src/main/AndroidManifest.xml). Be sure to replace the **[PROJECT_ID]** string with your actual Appwrite project ID. You can find your Appwrite project ID in your project settings screen in the console.
-
-```xml
-<manifest>
-    <application>
-        <activity android:name="io.appwrite.views.CallbackActivity" >
-            <intent-filter android:label="android_web_auth">
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="appwrite-callback-<PROJECT_ID>" />
-            </intent-filter>
-        </activity>
-    </application>
-</manifest>
-```
-
-### Init your SDK
-
-<p>Initialize your SDK with your Appwrite server API endpoint and project ID, which can be found in your project settings page.
-
-```kotlin
-import io.appwrite.Client
-import io.appwrite.services.Account
-
-val client = Client(context)
-  .setEndpoint("https://<HOSTNAME_OR_IP>/v1") // Your API Endpoint
-  .setProject("<PROJECT_ID>") // Your project ID
-  .setSelfSigned(true) // Remove in production
-```
-
-Before starting to send any API calls to your new Appwrite instance, make sure your Android emulators has network access to the Appwrite server hostname or IP address.
-
-When trying to connect to Appwrite from an emulator or a mobile device, localhost is the hostname of the device or emulator and not your local Appwrite instance. You should replace localhost with your private IP. You can also use a service like [ngrok](https://ngrok.com/) to proxy the Appwrite API.
-
-### Make Your First Request
-
-<p>Once your SDK object is set, access any of the Appwrite services and choose any request to send. Full documentation for any service method you would like to use can be found in your SDK documentation or in the [API References](https://appwrite.io/docs) section.
-
-```kotlin
-// Register User
-val account = Account(client)
-val response = account.create(
-    ID.unique(),
-    "email@example.com",
-    "password",
-    "Walter O'Brien"
-)
-```
-
-### Full Example
-
-```kotlin
-import io.appwrite.Client
-import io.appwrite.services.Account
-import io.appwrite.ID
-
-val client = Client(context)
-  .setEndpoint("https://<HOSTNAME_OR_IP>/v1") // Your API Endpoint
-  .setProject("<PROJECT_ID>") // Your project ID
-  .setSelfSigned(true) // Remove in production
-
-val account = Account(client)
-val user = account.create(
-    ID.unique(),
-    "email@example.com",
-    "password",
-    "Walter O'Brien"
-)
-```
-
-### Type Safety with Models
-
-The Appwrite Android SDK provides type safety when working with table rows through generic methods. Methods like `listRows`, `getRow`, and others accept a `nestedType` parameter that allows you to specify your custom model type for full type safety.
-
-**Kotlin:**
-```kotlin
-data class Book(
-    val name: String,
-    val author: String,
-    val releaseYear: String? = null,
-    val category: String? = null,
-    val genre: List<String>? = null,
-    val isCheckedOut: Boolean
-)
-
-val tablesDB = TablesDB(client)
-
-try {
-    val result = tablesDB.listRows(
-        databaseId = "your-database-id",
-        tableId = "your-table-id",
-        nestedType = Book::class.java // Pass in your custom model type
-    )
-    
-    for (row in result.rows) {
-        val book = row.data
-        Log.d("Appwrite", "Book: ${book.name} by ${book.author}") // Now you have full type safety
-    }
-} catch (e: AppwriteException) {
-    Log.e("Appwrite", e.message ?: "Unknown error")
-}
-```
-
-**Java:**
-```java
-public class Book {
-    private String name;
-    private String author;
-    private String releaseYear;
-    private String category;
-    private List<String> genre;
-    private boolean isCheckedOut;
-
-    // Constructor
-    public Book(String name, String author, boolean isCheckedOut) {
-        this.name = name;
-        this.author = author;
-        this.isCheckedOut = isCheckedOut;
-    }
-
-    // Getters and setters
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    
-    public String getAuthor() { return author; }
-    public void setAuthor(String author) { this.author = author; }
-    
-    public String getReleaseYear() { return releaseYear; }
-    public void setReleaseYear(String releaseYear) { this.releaseYear = releaseYear; }
-    
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
-    
-    public List<String> getGenre() { return genre; }
-    public void setGenre(List<String> genre) { this.genre = genre; }
-    
-    public boolean isCheckedOut() { return isCheckedOut; }
-    public void setCheckedOut(boolean checkedOut) { isCheckedOut = checkedOut; }
-}
-
-TablesDB tablesDB = new TablesDB(client);
-
-tablesDB.listRows(
-    "your-database-id",
-    "your-table-id",
-    Book.class, // Pass in your custom model type
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            Log.e("Appwrite", error.getMessage() != null ? error.getMessage() : "Unknown error");
-            return;
-        }
-
-        for (Row<Book> row : result.getRows()) {
-            Book book = row.getData();
-            Log.d("Appwrite", "Book: " + book.getName() + " by " + book.getAuthor()); // Now you have full type safety
-        }
-    })
-);
-```
-
-**Tip**: You can use the `appwrite types` command to automatically generate model definitions based on your Appwrite database schema. Learn more about [type generation](https://appwrite.io/docs/products/databases/type-generation).
-
-### Working with Model Methods
-
-All Appwrite models come with built-in methods for data conversion and manipulation:
-
-**`toMap()`** - Converts a model instance to a Map format, useful for debugging or manual data manipulation:
-```kotlin
-val account = Account(client)
-val user = account.get()
-val userMap = user.toMap()
-Log.d("Appwrite", userMap.toString()) // Prints all user properties as a Map
-```
-
-**`from(map:, nestedType:)`** - Creates a model instance from a Map, useful when working with raw data:
-```kotlin
-val userData: Map<String, Any> = mapOf(
-    "\$id" to "123",
-    "name" to "John",
-    "email" to "john@example.com"
-)
-val user = User.from(userData, User::class.java)
-```
-
-**JSON Serialization** - Models can be easily converted to/from JSON using Gson (which the SDK uses internally):
-```kotlin
-import com.google.gson.Gson
-
-val account = Account(client)
-val user = account.get()
-
-// Convert to JSON
-val gson = Gson()
-val jsonString = gson.toJson(user)
-Log.d("Appwrite", "User JSON: $jsonString")
-
-// Convert from JSON
-val userFromJson = gson.fromJson(jsonString, User::class.java)
-```
-
-### Error Handling
-
-The Appwrite Android SDK raises an `AppwriteException` object with `message`, `code` and `response` properties. You can handle any errors by catching `AppwriteException` and present the `message` to the user or handle it yourself based on the provided error information. Below is an example.
-
-```kotlin
-try {
-    var user = account.create(ID.unique(),"email@example.com","password","Walter O'Brien")
-    Log.d("Appwrite user", user.toMap().toString())
-} catch(e : AppwriteException) {
-    e.printStackTrace()
-}
-```
-
-### Learn more
-You can use the following resources to learn more and get help
-- 🚀 [Getting Started Tutorial](https://appwrite.io/docs/getting-started-for-android)
-- 📜 [Appwrite Docs](https://appwrite.io/docs)
-- 💬 [Discord Community](https://appwrite.io/discord)
-- 🚂 [Appwrite Android Playground](https://github.com/appwrite/playground-for-android)
-
+- [Android quick start](https://appwrite.io/docs/quick-starts/android) and [Java quick start](https://appwrite.io/docs/quick-starts/android-java)
+- [Android SDK reference](https://appwrite.io/docs/references/cloud/client-android-kotlin/account)
+- [Appwrite docs](https://appwrite.io/docs)
+- [Discord community](https://appwrite.io/discord)
 
 ## Contribution
 
-This library is auto-generated by Appwrite custom [SDK Generator](https://github.com/appwrite/sdk-generator). To learn more about how you can help us improve this SDK, please check the [contribution guide](https://github.com/appwrite/sdk-generator/blob/master/CONTRIBUTING.md) before sending a pull-request.
+This library is auto-generated by the Appwrite [SDK Generator](https://github.com/appwrite/sdk-generator). To learn how you can help improve this SDK, please read the [contribution guide](https://github.com/appwrite/sdk-generator/blob/main/CONTRIBUTING.md) before sending a pull request.
 
 ## License
 
