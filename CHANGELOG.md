@@ -1,5 +1,15 @@
 # Change Log
 
+## 31.0.0
+
+* Breaking: every service method declares `@Throws(AppwriteException::class)`; Java callers must catch `AppwriteException`
+* Added: `account.listMemberships` to list the current user's team memberships
+* Added: `createQuery` on `Databases`, `DocumentsDB` and `TablesDB` to send list queries in the request body
+* Added: `bundleId` and `environment` params on `account.createPushTarget` and `updatePushTarget`
+* Added: `@JvmStatic` on `ID`, `Permission`, `Role`, `Query`, `Operator`, `Channel` and `InputFile` helpers for Java
+* Fixed: `row.data` keeps null-valued columns instead of dropping them
+* Updated: Java examples catch `AppwriteException` and import `List` and `Map`
+
 ## 30.0.0
 
 * Breaking: requests send `x-appwrite-response-format: 2.5.0`; responses follow the 2.5 shapes

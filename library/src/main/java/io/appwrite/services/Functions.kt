@@ -22,6 +22,7 @@ class Functions(client: Client) : Service(client) {
      * @return [io.appwrite.models.ExecutionList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listExecutions(
         functionId: String,
         queries: List<String>? = null,
@@ -68,6 +69,7 @@ class Functions(client: Client) : Service(client) {
      * @return [io.appwrite.models.Execution]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createExecution(
         functionId: String,
         body: String? = null,
@@ -117,6 +119,7 @@ class Functions(client: Client) : Service(client) {
      * @param executionId Execution ID.
      * @return [io.appwrite.models.Execution]
      */
+    @Throws(AppwriteException::class)
     suspend fun getExecution(
         functionId: String,
         executionId: String,

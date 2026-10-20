@@ -20,6 +20,7 @@ class Locale(client: Client) : Service(client) {
      *
      * @return [io.appwrite.models.Locale]
      */
+    @Throws(AppwriteException::class)
     suspend fun get(): io.appwrite.models.Locale {
         val apiPath = "/locale"
         val apiParams = mutableMapOf<String, Any?>()
@@ -48,6 +49,7 @@ class Locale(client: Client) : Service(client) {
      * @return [io.appwrite.models.LocaleCodeList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listCodes(
         total: Boolean? = null,
     ): io.appwrite.models.LocaleCodeList {
@@ -80,6 +82,7 @@ class Locale(client: Client) : Service(client) {
      * @return [io.appwrite.models.ContinentList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listContinents(
         total: Boolean? = null,
     ): io.appwrite.models.ContinentList {
@@ -112,6 +115,7 @@ class Locale(client: Client) : Service(client) {
      * @return [io.appwrite.models.CountryList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listCountries(
         total: Boolean? = null,
     ): io.appwrite.models.CountryList {
@@ -144,6 +148,7 @@ class Locale(client: Client) : Service(client) {
      * @return [io.appwrite.models.CountryList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listCountriesEU(
         total: Boolean? = null,
     ): io.appwrite.models.CountryList {
@@ -176,6 +181,7 @@ class Locale(client: Client) : Service(client) {
      * @return [io.appwrite.models.PhoneList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listCountriesPhones(
         total: Boolean? = null,
     ): io.appwrite.models.PhoneList {
@@ -208,6 +214,7 @@ class Locale(client: Client) : Service(client) {
      * @return [io.appwrite.models.CurrencyList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listCurrencies(
         total: Boolean? = null,
     ): io.appwrite.models.CurrencyList {
@@ -240,6 +247,7 @@ class Locale(client: Client) : Service(client) {
      * @return [io.appwrite.models.LanguageList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listLanguages(
         total: Boolean? = null,
     ): io.appwrite.models.LanguageList {

@@ -3,9 +3,12 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.Permission;
 import io.appwrite.Role;
 import io.appwrite.services.TablesDB;
+import java.util.List;
+import java.util.Map;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -13,27 +16,30 @@ Client client = new Client(context)
 
 TablesDB tablesDB = new TablesDB(client);
 
-tablesDB.upsertRow(
-    "<DATABASE_ID>", // databaseId 
-    "<TABLE_ID>", // tableId 
-    "<ROW_ID>", // rowId 
-    Map.of(
-        "username", "walter.obrien",
-        "email", "walter.obrien@example.com",
-        "fullName", "Walter O'Brien",
-        "age", 33,
-        "isAdmin", false
-    ), // data (optional)
-    List.of(Permission.read(Role.any())), // permissions (optional)
-    "<TRANSACTION_ID>", // transactionId (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    tablesDB.upsertRow(
+        "<DATABASE_ID>", // databaseId
+        "<TABLE_ID>", // tableId
+        "<ROW_ID>", // rowId
+        Map.of(
+            "username", "walter.obrien",
+            "email", "walter.obrien@example.com",
+            "fullName", "Walter O'Brien",
+            "age", 33,
+            "isAdmin", false
+        ), // data (optional)
+        List.of(Permission.read(Role.any())), // permissions (optional)
+        "<TRANSACTION_ID>", // transactionId (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

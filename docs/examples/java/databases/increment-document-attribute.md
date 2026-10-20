@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Databases;
 
 Client client = new Client(context)
@@ -11,22 +12,25 @@ Client client = new Client(context)
 
 Databases databases = new Databases(client);
 
-databases.incrementDocumentAttribute(
-    "<DATABASE_ID>", // databaseId 
-    "<COLLECTION_ID>", // collectionId 
-    "<DOCUMENT_ID>", // documentId 
-    "<ATTRIBUTE>", // attribute 
-    1.0, // value (optional)
-    100.0, // max (optional)
-    "<TRANSACTION_ID>", // transactionId (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    databases.incrementDocumentAttribute(
+        "<DATABASE_ID>", // databaseId
+        "<COLLECTION_ID>", // collectionId
+        "<DOCUMENT_ID>", // documentId
+        "<ATTRIBUTE>", // attribute
+        1.0, // value (optional)
+        100.0, // max (optional)
+        "<TRANSACTION_ID>", // transactionId (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

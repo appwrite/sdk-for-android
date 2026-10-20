@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Oauth2;
 
 Client client = new Client(context)
@@ -11,21 +12,24 @@ Client client = new Client(context)
 
 Oauth2 oauth2 = new Oauth2(client);
 
-oauth2.logout(
-    "<ID_TOKEN_HINT>", // id_token_hint (optional)
-    "<LOGOUT_HINT>", // logout_hint (optional)
-    "<CLIENT_ID>", // client_id (optional)
-    "https://example.com", // post_logout_redirect_uri (optional)
-    "<STATE>", // state (optional)
-    "<UI_LOCALES>", // ui_locales (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    oauth2.logout(
+        "<ID_TOKEN_HINT>", // id_token_hint (optional)
+        "<LOGOUT_HINT>", // logout_hint (optional)
+        "<CLIENT_ID>", // client_id (optional)
+        "https://example.com", // post_logout_redirect_uri (optional)
+        "<STATE>", // state (optional)
+        "<UI_LOCALES>", // ui_locales (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

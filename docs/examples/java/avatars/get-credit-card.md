@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Avatars;
 import io.appwrite.enums.CreditCard;
 
@@ -12,19 +13,22 @@ Client client = new Client(context)
 
 Avatars avatars = new Avatars(client);
 
-avatars.getCreditCard(
-    CreditCard.AMERICAN_EXPRESS, // code 
-    0L, // width (optional)
-    0L, // height (optional)
-    -1L, // quality (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    avatars.getCreditCard(
+        CreditCard.AMERICAN_EXPRESS, // code
+        0L, // width (optional)
+        0L, // height (optional)
+        -1L, // quality (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

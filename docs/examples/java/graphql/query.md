@@ -3,7 +3,9 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Graphql;
+import java.util.Map;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -11,18 +13,21 @@ Client client = new Client(context)
 
 Graphql graphql = new Graphql(client);
 
-graphql.query(
-    Map.of(
-        "query", "query { localeGet { ip } }"
-    ), // query 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    graphql.query(
+        Map.of(
+            "query", "query { localeGet { ip } }"
+        ), // query
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

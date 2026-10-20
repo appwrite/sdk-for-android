@@ -32,6 +32,7 @@ class Analytics(client: Client) : Service(client) {
      * @return [Any]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createEvent(
         propertyId: String,
         name: String,

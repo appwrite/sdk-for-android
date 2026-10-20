@@ -20,7 +20,7 @@ Kotlin DSL (`build.gradle.kts`):
 
 ```kotlin
 dependencies {
-    implementation("io.appwrite:sdk-for-android:30.0.0")
+    implementation("io.appwrite:sdk-for-android:31.0.0")
 }
 ```
 
@@ -28,7 +28,7 @@ Groovy (`build.gradle`):
 
 ```groovy
 dependencies {
-    implementation 'io.appwrite:sdk-for-android:30.0.0'
+    implementation 'io.appwrite:sdk-for-android:31.0.0'
 }
 ```
 

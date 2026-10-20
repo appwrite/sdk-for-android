@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Presences;
 
 Client client = new Client(context)
@@ -11,16 +12,19 @@ Client client = new Client(context)
 
 Presences presences = new Presences(client);
 
-presences.get(
-    "<PRESENCE_ID>", // presenceId 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    presences.get(
+        "<PRESENCE_ID>", // presenceId
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

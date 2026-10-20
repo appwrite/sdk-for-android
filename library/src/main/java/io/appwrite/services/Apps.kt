@@ -21,6 +21,7 @@ class Apps(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppsList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun list(
         queries: List<String>? = null,
         total: Boolean? = null,
@@ -73,6 +74,7 @@ class Apps(client: Client) : Service(client) {
      * @return [io.appwrite.models.App]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun create(
         appId: String,
         name: String,
@@ -140,6 +142,7 @@ class Apps(client: Client) : Service(client) {
      *
      * @return [io.appwrite.models.AppScopeList]
      */
+    @Throws(AppwriteException::class)
     suspend fun listInstallationScopes(): io.appwrite.models.AppScopeList {
         val apiPath = "/apps/scopes/installations"
         val apiParams = mutableMapOf<String, Any?>()
@@ -166,6 +169,7 @@ class Apps(client: Client) : Service(client) {
      *
      * @return [io.appwrite.models.AppScopeList]
      */
+    @Throws(AppwriteException::class)
     suspend fun listOAuth2Scopes(): io.appwrite.models.AppScopeList {
         val apiPath = "/apps/scopes/oauth2"
         val apiParams = mutableMapOf<String, Any?>()
@@ -193,6 +197,7 @@ class Apps(client: Client) : Service(client) {
      * @param appId Application unique ID.
      * @return [io.appwrite.models.App]
      */
+    @Throws(AppwriteException::class)
     suspend fun get(
         appId: String,
     ): io.appwrite.models.App {
@@ -247,6 +252,7 @@ class Apps(client: Client) : Service(client) {
      * @return [io.appwrite.models.App]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun update(
         appId: String,
         name: String,
@@ -321,6 +327,7 @@ class Apps(client: Client) : Service(client) {
      * @param appId Application unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun delete(
         appId: String,
     ): Any {
@@ -354,6 +361,7 @@ class Apps(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppInstallationList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listInstallations(
         appId: String,
         queries: List<String>? = null,
@@ -394,6 +402,7 @@ class Apps(client: Client) : Service(client) {
      * @param installationId Installation unique ID.
      * @return [io.appwrite.models.AppInstallation]
      */
+    @Throws(AppwriteException::class)
     suspend fun getInstallation(
         appId: String,
         installationId: String,
@@ -434,6 +443,7 @@ class Apps(client: Client) : Service(client) {
      * @param installationId Installation unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteInstallation(
         appId: String,
         installationId: String,
@@ -470,6 +480,7 @@ class Apps(client: Client) : Service(client) {
      * @param installationId Installation unique ID.
      * @return [io.appwrite.models.Oauth2Token]
      */
+    @Throws(AppwriteException::class)
     suspend fun createInstallationToken(
         appId: String,
         installationId: String,
@@ -513,6 +524,7 @@ class Apps(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppKeyList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listKeys(
         appId: String,
         queries: List<String>? = null,
@@ -552,6 +564,7 @@ class Apps(client: Client) : Service(client) {
      * @param appId Application unique ID.
      * @return [io.appwrite.models.AppKey]
      */
+    @Throws(AppwriteException::class)
     suspend fun createKey(
         appId: String,
     ): io.appwrite.models.AppKey {
@@ -588,6 +601,7 @@ class Apps(client: Client) : Service(client) {
      * @param keyId App key unique ID.
      * @return [io.appwrite.models.AppKey]
      */
+    @Throws(AppwriteException::class)
     suspend fun getKey(
         appId: String,
         keyId: String,
@@ -628,6 +642,7 @@ class Apps(client: Client) : Service(client) {
      * @param keyId App key unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteKey(
         appId: String,
         keyId: String,
@@ -666,6 +681,7 @@ class Apps(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppSecretList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listSecrets(
         appId: String,
         queries: List<String>? = null,
@@ -705,6 +721,7 @@ class Apps(client: Client) : Service(client) {
      * @param appId Application unique ID.
      * @return [io.appwrite.models.AppSecretPlaintext]
      */
+    @Throws(AppwriteException::class)
     suspend fun createSecret(
         appId: String,
     ): io.appwrite.models.AppSecretPlaintext {
@@ -741,6 +758,7 @@ class Apps(client: Client) : Service(client) {
      * @param secretId Secret unique ID.
      * @return [io.appwrite.models.AppSecret]
      */
+    @Throws(AppwriteException::class)
     suspend fun getSecret(
         appId: String,
         secretId: String,
@@ -781,6 +799,7 @@ class Apps(client: Client) : Service(client) {
      * @param secretId Secret unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteSecret(
         appId: String,
         secretId: String,
@@ -817,6 +836,7 @@ class Apps(client: Client) : Service(client) {
      * @param teamId Team ID of the team to transfer application to.
      * @return [io.appwrite.models.App]
      */
+    @Throws(AppwriteException::class)
     suspend fun updateTeam(
         appId: String,
         teamId: String,
@@ -855,6 +875,7 @@ class Apps(client: Client) : Service(client) {
      * @param appId Application unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteTokens(
         appId: String,
     ): Any {

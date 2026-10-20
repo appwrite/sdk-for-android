@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Avatars;
 
 Client client = new Client(context)
@@ -11,19 +12,22 @@ Client client = new Client(context)
 
 Avatars avatars = new Avatars(client);
 
-avatars.getQR(
-    "<TEXT>", // text 
-    1L, // size (optional)
-    0L, // margin (optional)
-    false, // download (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    avatars.getQR(
+        "<TEXT>", // text
+        1L, // size (optional)
+        0L, // margin (optional)
+        false, // download (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

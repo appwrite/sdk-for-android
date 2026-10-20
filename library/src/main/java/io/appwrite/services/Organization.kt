@@ -21,6 +21,7 @@ class Organization(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppInstallationList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listInstallations(
         queries: List<String>? = null,
         total: Boolean? = null,
@@ -56,6 +57,7 @@ class Organization(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppInstallation]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createInstallation(
         appId: String,
         authorizationDetails: String? = null,
@@ -90,6 +92,7 @@ class Organization(client: Client) : Service(client) {
      * @param installationId Installation unique ID.
      * @return [io.appwrite.models.AppInstallation]
      */
+    @Throws(AppwriteException::class)
     suspend fun getInstallation(
         installationId: String,
     ): io.appwrite.models.AppInstallation {
@@ -126,6 +129,7 @@ class Organization(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppInstallation]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun updateInstallation(
         installationId: String,
         authorizationDetails: String? = null,
@@ -164,6 +168,7 @@ class Organization(client: Client) : Service(client) {
      * @param installationId Installation unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteInstallation(
         installationId: String,
     ): Any {
