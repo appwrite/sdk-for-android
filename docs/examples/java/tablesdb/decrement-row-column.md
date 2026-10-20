@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.TablesDB;
 
 Client client = new Client(context)
@@ -11,22 +12,25 @@ Client client = new Client(context)
 
 TablesDB tablesDB = new TablesDB(client);
 
-tablesDB.decrementRowColumn(
-    "<DATABASE_ID>", // databaseId 
-    "<TABLE_ID>", // tableId 
-    "<ROW_ID>", // rowId 
-    "<COLUMN>", // column 
-    1.0, // value (optional)
-    0.0, // min (optional)
-    "<TRANSACTION_ID>", // transactionId (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    tablesDB.decrementRowColumn(
+        "<DATABASE_ID>", // databaseId
+        "<TABLE_ID>", // tableId
+        "<ROW_ID>", // rowId
+        "<COLUMN>", // column
+        1.0, // value (optional)
+        0.0, // min (optional)
+        "<TRANSACTION_ID>", // transactionId (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

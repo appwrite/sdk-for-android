@@ -3,7 +3,9 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Teams;
+import java.util.List;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -11,23 +13,26 @@ Client client = new Client(context)
 
 Teams teams = new Teams(client);
 
-teams.createMembership(
-    "<TEAM_ID>", // teamId 
-    List.of("editor"), // roles 
-    "email@example.com", // email (optional)
-    "<USER_ID>", // userId (optional)
-    "+12065550100", // phone (optional)
-    "https://example.com", // url (optional)
-    "<NAME>", // name (optional)
-    "<MEMBERSHIP_ID>", // membershipId (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    teams.createMembership(
+        "<TEAM_ID>", // teamId
+        List.of("editor"), // roles
+        "email@example.com", // email (optional)
+        "<USER_ID>", // userId (optional)
+        "+12065550100", // phone (optional)
+        "https://example.com", // url (optional)
+        "<NAME>", // name (optional)
+        "<MEMBERSHIP_ID>", // membershipId (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

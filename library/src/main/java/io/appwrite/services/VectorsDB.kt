@@ -21,6 +21,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.TransactionList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listTransactions(
         queries: List<String>? = null,
         total: Boolean? = null,
@@ -55,6 +56,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
@@ -87,6 +89,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [io.appwrite.models.Transaction]
      */
+    @Throws(AppwriteException::class)
     suspend fun getTransaction(
         transactionId: String,
     ): io.appwrite.models.Transaction {
@@ -124,6 +127,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun updateTransaction(
         transactionId: String,
         commit: Boolean? = null,
@@ -164,6 +168,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteTransaction(
         transactionId: String,
     ): Any {
@@ -196,6 +201,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createOperations(
         transactionId: String,
         operations: List<Map<String, Any?>>? = null,
@@ -240,6 +246,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> listDocuments(
         databaseId: String,
         collectionId: String,
@@ -325,6 +332,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> createDocument(
         databaseId: String,
         collectionId: String,
@@ -412,6 +420,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> createQuery(
         databaseId: String,
         collectionId: String,
@@ -498,6 +507,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> getDocument(
         databaseId: String,
         collectionId: String,
@@ -581,6 +591,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> upsertDocument(
         databaseId: String,
         collectionId: String,
@@ -670,6 +681,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> updateDocument(
         databaseId: String,
         collectionId: String,
@@ -757,6 +769,7 @@ class VectorsDB(client: Client) : Service(client) {
      * @return [Any]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun deleteDocument(
         databaseId: String,
         collectionId: String,

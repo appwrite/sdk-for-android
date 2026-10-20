@@ -3,9 +3,12 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.Permission;
 import io.appwrite.Role;
 import io.appwrite.services.DocumentsDB;
+import java.util.List;
+import java.util.Map;
 
 Client client = new Client(context)
     .setEndpoint("https://<REGION>.cloud.appwrite.io/v1") // Your API Endpoint
@@ -13,27 +16,30 @@ Client client = new Client(context)
 
 DocumentsDB documentsDB = new DocumentsDB(client);
 
-documentsDB.createDocument(
-    "<DATABASE_ID>", // databaseId 
-    "<COLLECTION_ID>", // collectionId 
-    "<DOCUMENT_ID>", // documentId 
-    Map.of(
-        "username", "walter.obrien",
-        "email", "walter.obrien@example.com",
-        "fullName", "Walter O'Brien",
-        "age", 30,
-        "isAdmin", false
-    ), // data 
-    List.of(Permission.read(Role.any())), // permissions (optional)
-    "<TRANSACTION_ID>", // transactionId (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    documentsDB.createDocument(
+        "<DATABASE_ID>", // databaseId
+        "<COLLECTION_ID>", // collectionId
+        "<DOCUMENT_ID>", // documentId
+        Map.of(
+            "username", "walter.obrien",
+            "email", "walter.obrien@example.com",
+            "fullName", "Walter O'Brien",
+            "age", 30,
+            "isAdmin", false
+        ), // data
+        List.of(Permission.read(Role.any())), // permissions (optional)
+        "<TRANSACTION_ID>", // transactionId (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

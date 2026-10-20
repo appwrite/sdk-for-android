@@ -22,6 +22,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2Approve]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun approve(
         grantId: String,
         authorizationDetails: String? = null,
@@ -73,6 +74,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2Authorize]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun authorize(
         clientId: String? = null,
         redirectUri: String? = null,
@@ -145,6 +147,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2Authorize]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun authorizePost(
         clientId: String? = null,
         redirectUri: String? = null,
@@ -209,6 +212,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2DeviceAuthorization]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createDeviceAuthorization(
         clientId: String? = null,
         scope: String? = null,
@@ -250,6 +254,7 @@ class Oauth2(client: Client) : Service(client) {
      * @param userCode User code displayed on the device.
      * @return [io.appwrite.models.Oauth2Grant]
      */
+    @Throws(AppwriteException::class)
     suspend fun createGrant(
         userCode: String,
     ): io.appwrite.models.Oauth2Grant {
@@ -283,6 +288,7 @@ class Oauth2(client: Client) : Service(client) {
      * @param grantId Grant ID made during authorization, provided to consent screen in URL search params.
      * @return [io.appwrite.models.Oauth2Grant]
      */
+    @Throws(AppwriteException::class)
     suspend fun getGrant(
         grantId: String,
     ): io.appwrite.models.Oauth2Grant {
@@ -323,6 +329,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [Any]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun logout(
         idTokenHint: String? = null,
         logoutHint: String? = null,
@@ -366,6 +373,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [Any]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun logoutPost(
         idTokenHint: String? = null,
         logoutHint: String? = null,
@@ -407,6 +415,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2OrganizationList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listOrganizations(
         limit: Long? = null,
         offset: Long? = null,
@@ -456,6 +465,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2PAR]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createPAR(
         clientId: String,
         redirectUri: String,
@@ -516,6 +526,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2ProjectList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listProjects(
         limit: Long? = null,
         offset: Long? = null,
@@ -552,6 +563,7 @@ class Oauth2(client: Client) : Service(client) {
      * @param grantId Grant ID made during authorization, provided to consent screen in URL search params.
      * @return [io.appwrite.models.Oauth2Reject]
      */
+    @Throws(AppwriteException::class)
     suspend fun reject(
         grantId: String,
     ): io.appwrite.models.Oauth2Reject {
@@ -589,6 +601,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [Any]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun revoke(
         token: String,
         tokenTypeHint: String? = null,
@@ -633,6 +646,7 @@ class Oauth2(client: Client) : Service(client) {
      * @return [io.appwrite.models.Oauth2Token]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createToken(
         grantType: String,
         code: String? = null,
