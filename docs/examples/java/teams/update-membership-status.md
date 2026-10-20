@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Teams;
 
 Client client = new Client(context)
@@ -11,19 +12,22 @@ Client client = new Client(context)
 
 Teams teams = new Teams(client);
 
-teams.updateMembershipStatus(
-    "<TEAM_ID>", // teamId 
-    "<MEMBERSHIP_ID>", // membershipId 
-    "<USER_ID>", // userId 
-    "<SECRET>", // secret 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    teams.updateMembershipStatus(
+        "<TEAM_ID>", // teamId
+        "<MEMBERSHIP_ID>", // membershipId
+        "<USER_ID>", // userId
+        "<SECRET>", // secret
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

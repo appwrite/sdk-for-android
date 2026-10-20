@@ -22,6 +22,7 @@ class Teams(client: Client) : Service(client) {
      * @return [io.appwrite.models.TeamList<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> list(
         queries: List<String>? = null,
         search: String? = null,
@@ -82,6 +83,7 @@ class Teams(client: Client) : Service(client) {
      * @return [io.appwrite.models.Team<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> create(
         teamId: String,
         name: String,
@@ -140,6 +142,7 @@ class Teams(client: Client) : Service(client) {
      * @param teamId Team ID.
      * @return [io.appwrite.models.Team<T>]
      */
+    @Throws(AppwriteException::class)
     suspend fun <T> get(
         teamId: String,
         nestedType: Class<T>,
@@ -190,6 +193,7 @@ class Teams(client: Client) : Service(client) {
      * @param name New team name. Max length: 128 chars.
      * @return [io.appwrite.models.Team<T>]
      */
+    @Throws(AppwriteException::class)
     suspend fun <T> updateName(
         teamId: String,
         name: String,
@@ -246,6 +250,7 @@ class Teams(client: Client) : Service(client) {
      * @param teamId Team ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun delete(
         teamId: String,
     ): Any {
@@ -279,6 +284,7 @@ class Teams(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppInstallationList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listInstallations(
         teamId: String,
         queries: List<String>? = null,
@@ -321,6 +327,7 @@ class Teams(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppInstallation]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createInstallation(
         teamId: String,
         appId: String,
@@ -362,6 +369,7 @@ class Teams(client: Client) : Service(client) {
      * @param installationId Installation unique ID.
      * @return [io.appwrite.models.AppInstallation]
      */
+    @Throws(AppwriteException::class)
     suspend fun getInstallation(
         teamId: String,
         installationId: String,
@@ -404,6 +412,7 @@ class Teams(client: Client) : Service(client) {
      * @return [io.appwrite.models.AppInstallation]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun updateInstallation(
         teamId: String,
         installationId: String,
@@ -448,6 +457,7 @@ class Teams(client: Client) : Service(client) {
      * @param installationId Installation unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteInstallation(
         teamId: String,
         installationId: String,
@@ -487,6 +497,7 @@ class Teams(client: Client) : Service(client) {
      * @return [io.appwrite.models.MembershipList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listMemberships(
         teamId: String,
         queries: List<String>? = null,
@@ -543,6 +554,7 @@ class Teams(client: Client) : Service(client) {
      * @return [io.appwrite.models.Membership]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createMembership(
         teamId: String,
         roles: List<String>,
@@ -594,6 +606,7 @@ class Teams(client: Client) : Service(client) {
      * @param membershipId Membership ID.
      * @return [io.appwrite.models.Membership]
      */
+    @Throws(AppwriteException::class)
     suspend fun getMembership(
         teamId: String,
         membershipId: String,
@@ -636,6 +649,7 @@ class Teams(client: Client) : Service(client) {
      * @param roles An array of strings. Use this param to set the user's roles in the team. A role can be any string. Learn more about [roles and permissions](https://appwrite.io/docs/permissions). Maximum of 100 roles are allowed, each 81 characters long.
      * @return [io.appwrite.models.Membership]
      */
+    @Throws(AppwriteException::class)
     suspend fun updateMembership(
         teamId: String,
         membershipId: String,
@@ -680,6 +694,7 @@ class Teams(client: Client) : Service(client) {
      * @param membershipId Membership ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteMembership(
         teamId: String,
         membershipId: String,
@@ -721,6 +736,7 @@ class Teams(client: Client) : Service(client) {
      * @param secret Secret key.
      * @return [io.appwrite.models.Membership]
      */
+    @Throws(AppwriteException::class)
     suspend fun updateMembershipStatus(
         teamId: String,
         membershipId: String,
@@ -766,6 +782,7 @@ class Teams(client: Client) : Service(client) {
      * @param teamId Team ID.
      * @return [io.appwrite.models.Preferences<T>]
      */
+    @Throws(AppwriteException::class)
     suspend fun <T> getPrefs(
         teamId: String,
         nestedType: Class<T>,
@@ -816,6 +833,7 @@ class Teams(client: Client) : Service(client) {
      * @param prefs Prefs key-value JSON object.
      * @return [io.appwrite.models.Preferences<T>]
      */
+    @Throws(AppwriteException::class)
     suspend fun <T> updatePrefs(
         teamId: String,
         prefs: Map<String, Any?>,

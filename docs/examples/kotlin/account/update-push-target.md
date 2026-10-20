@@ -12,5 +12,7 @@ val account = Account(client)
 val result = account.updatePushTarget(
     targetId = "<TARGET_ID>", 
     identifier = "<IDENTIFIER>", 
+    bundleId = "<BUNDLE_ID>", // (optional)
+    environment = "sandbox", // (optional)
 )
 ```

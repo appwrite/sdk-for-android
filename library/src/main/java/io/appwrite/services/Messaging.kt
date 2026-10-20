@@ -21,6 +21,7 @@ class Messaging(client: Client) : Service(client) {
      * @param targetId Target ID. The target ID to link to the specified Topic ID.
      * @return [io.appwrite.models.Subscriber]
      */
+    @Throws(AppwriteException::class)
     suspend fun createSubscriber(
         topicId: String,
         subscriberId: String,
@@ -62,6 +63,7 @@ class Messaging(client: Client) : Service(client) {
      * @param subscriberId Subscriber ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteSubscriber(
         topicId: String,
         subscriberId: String,

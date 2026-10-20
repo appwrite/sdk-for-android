@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.VectorsDB;
 
 Client client = new Client(context)
@@ -11,16 +12,19 @@ Client client = new Client(context)
 
 VectorsDB vectorsDB = new VectorsDB(client);
 
-vectorsDB.deleteTransaction(
-    "<TRANSACTION_ID>", // transactionId 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    vectorsDB.deleteTransaction(
+        "<TRANSACTION_ID>", // transactionId
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

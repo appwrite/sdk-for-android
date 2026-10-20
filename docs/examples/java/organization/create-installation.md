@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Organization;
 
 Client client = new Client(context)
@@ -11,17 +12,20 @@ Client client = new Client(context)
 
 Organization organization = new Organization(client);
 
-organization.createInstallation(
-    "<APP_ID>", // appId 
-    "<AUTHORIZATION_DETAILS>", // authorizationDetails (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    organization.createInstallation(
+        "<APP_ID>", // appId
+        "<AUTHORIZATION_DETAILS>", // authorizationDetails (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

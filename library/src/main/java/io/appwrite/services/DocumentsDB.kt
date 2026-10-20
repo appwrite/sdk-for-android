@@ -21,6 +21,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.TransactionList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listTransactions(
         queries: List<String>? = null,
         total: Boolean? = null,
@@ -55,6 +56,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
@@ -87,6 +89,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [io.appwrite.models.Transaction]
      */
+    @Throws(AppwriteException::class)
     suspend fun getTransaction(
         transactionId: String,
     ): io.appwrite.models.Transaction {
@@ -124,6 +127,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun updateTransaction(
         transactionId: String,
         commit: Boolean? = null,
@@ -164,6 +168,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteTransaction(
         transactionId: String,
     ): Any {
@@ -196,6 +201,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createOperations(
         transactionId: String,
         operations: List<Map<String, Any?>>? = null,
@@ -240,6 +246,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> listDocuments(
         databaseId: String,
         collectionId: String,
@@ -325,6 +332,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> createDocument(
         databaseId: String,
         collectionId: String,
@@ -409,6 +417,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.DocumentList<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> createDocuments(
         databaseId: String,
         collectionId: String,
@@ -474,6 +483,95 @@ class DocumentsDB(client: Client) : Service(client) {
     )
 
     /**
+     * Get a list of all the user's documents in a given collection using a POST request. This behaves identically to the list documents endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param transactionId Transaction ID to read uncommitted changes within the transaction.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
+     * @param ttl TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
+     * @return [io.appwrite.models.DocumentList<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun <T> createQuery(
+        databaseId: String,
+        collectionId: String,
+        queries: List<String>? = null,
+        transactionId: String? = null,
+        total: Boolean? = null,
+        ttl: Long? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.DocumentList<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (collectionId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"collectionId\"")
+        }
+        val apiPath = ("/documentsdb/{databaseId}/collections/{collectionId}/documents/query"
+            .replace("{databaseId}", databaseId)
+            .replace("{collectionId}", collectionId)
+        )
+        val apiParams = mutableMapOf<String, Any?>(
+            "queries" to queries,
+            "transactionId" to transactionId,
+            "total" to total,
+            "ttl" to ttl,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.DocumentList<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.DocumentList.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Get a list of all the user's documents in a given collection using a POST request. This behaves identically to the list documents endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param databaseId Database ID.
+     * @param collectionId Collection ID. You can create a new collection using the Database service [server integration](https://appwrite.io/docs/server/databases#databasesCreateCollection).
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param transactionId Transaction ID to read uncommitted changes within the transaction.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
+     * @param ttl TTL (seconds) for cached responses when caching is enabled for select queries. Must be between 0 and 86400 (24 hours).
+     * @return [io.appwrite.models.DocumentList<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun createQuery(
+        databaseId: String,
+        collectionId: String,
+        queries: List<String>? = null,
+        transactionId: String? = null,
+        total: Boolean? = null,
+        ttl: Long? = null,
+    ): io.appwrite.models.DocumentList<Map<String, Any>> = createQuery(
+        databaseId,
+        collectionId,
+        queries,
+        transactionId,
+        total,
+        ttl,
+        nestedType = classOf(),
+    )
+
+    /**
      * Get a document by its unique ID. This endpoint response returns a JSON object with the document data.
      *
      * @param databaseId Database ID.
@@ -484,6 +582,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> getDocument(
         databaseId: String,
         collectionId: String,
@@ -567,6 +666,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> upsertDocument(
         databaseId: String,
         collectionId: String,
@@ -656,6 +756,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> updateDocument(
         databaseId: String,
         collectionId: String,
@@ -743,6 +844,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [Any]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun deleteDocument(
         databaseId: String,
         collectionId: String,
@@ -793,6 +895,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> decrementDocumentAttribute(
         databaseId: String,
         collectionId: String,
@@ -891,6 +994,7 @@ class DocumentsDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Document<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> incrementDocumentAttribute(
         databaseId: String,
         collectionId: String,

@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Databases;
 
 Client client = new Client(context)
@@ -11,18 +12,21 @@ Client client = new Client(context)
 
 Databases databases = new Databases(client);
 
-databases.updateTransaction(
-    "<TRANSACTION_ID>", // transactionId 
-    false, // commit (optional)
-    false, // rollback (optional)
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    databases.updateTransaction(
+        "<TRANSACTION_ID>", // transactionId
+        false, // commit (optional)
+        false, // rollback (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

@@ -25,6 +25,7 @@ class Storage(client: Client) : Service(client) {
      * @return [io.appwrite.models.FileList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listFiles(
         bucketId: String,
         queries: List<String>? = null,
@@ -78,6 +79,7 @@ class Storage(client: Client) : Service(client) {
      * @return [io.appwrite.models.File]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createFile(
         bucketId: String,
         fileId: String,
@@ -129,6 +131,7 @@ class Storage(client: Client) : Service(client) {
      * @param fileId File ID.
      * @return [io.appwrite.models.File]
      */
+    @Throws(AppwriteException::class)
     suspend fun getFile(
         bucketId: String,
         fileId: String,
@@ -172,6 +175,7 @@ class Storage(client: Client) : Service(client) {
      * @return [io.appwrite.models.File]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun updateFile(
         bucketId: String,
         fileId: String,
@@ -218,6 +222,7 @@ class Storage(client: Client) : Service(client) {
      * @param fileId File ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteFile(
         bucketId: String,
         fileId: String,
@@ -256,6 +261,7 @@ class Storage(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getFileDownload(
         bucketId: String,
         fileId: String,
@@ -307,6 +313,7 @@ class Storage(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getFilePreview(
         bucketId: String,
         fileId: String,
@@ -369,6 +376,7 @@ class Storage(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getFileView(
         bucketId: String,
         fileId: String,

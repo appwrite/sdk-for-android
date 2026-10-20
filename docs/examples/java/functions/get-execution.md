@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Functions;
 
 Client client = new Client(context)
@@ -11,17 +12,20 @@ Client client = new Client(context)
 
 Functions functions = new Functions(client);
 
-functions.getExecution(
-    "<FUNCTION_ID>", // functionId 
-    "<EXECUTION_ID>", // executionId 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    functions.getExecution(
+        "<FUNCTION_ID>", // functionId
+        "<EXECUTION_ID>", // executionId
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Account;
 
 Client client = new Client(context)
@@ -11,17 +12,22 @@ Client client = new Client(context)
 
 Account account = new Account(client);
 
-account.updatePushTarget(
-    "<TARGET_ID>", // targetId 
-    "<IDENTIFIER>", // identifier 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    account.updatePushTarget(
+        "<TARGET_ID>", // targetId
+        "<IDENTIFIER>", // identifier
+        "<BUNDLE_ID>", // bundleId (optional)
+        "sandbox", // environment (optional)
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

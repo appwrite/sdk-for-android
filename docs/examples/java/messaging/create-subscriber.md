@@ -3,6 +3,7 @@ import android.util.Log;
 
 import io.appwrite.Client;
 import io.appwrite.coroutines.CoroutineCallback;
+import io.appwrite.exceptions.AppwriteException;
 import io.appwrite.services.Messaging;
 
 Client client = new Client(context)
@@ -11,18 +12,21 @@ Client client = new Client(context)
 
 Messaging messaging = new Messaging(client);
 
-messaging.createSubscriber(
-    "<TOPIC_ID>", // topicId 
-    "<SUBSCRIBER_ID>", // subscriberId 
-    "<TARGET_ID>", // targetId 
-    new CoroutineCallback<>((result, error) -> {
-        if (error != null) {
-            error.printStackTrace();
-            return;
-        }
+try {
+    messaging.createSubscriber(
+        "<TOPIC_ID>", // topicId
+        "<SUBSCRIBER_ID>", // subscriberId
+        "<TARGET_ID>", // targetId
+        new CoroutineCallback<>((result, error) -> {
+            if (error != null) {
+                error.printStackTrace();
+                return;
+            }
 
-        Log.d("Appwrite", result.toString());
-    })
-);
-
+            Log.d("Appwrite", result.toString());
+        })
+    );
+} catch (AppwriteException e) {
+    e.printStackTrace();
+}
 ```

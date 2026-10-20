@@ -21,6 +21,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.TransactionList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun listTransactions(
         queries: List<String>? = null,
         total: Boolean? = null,
@@ -55,6 +56,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createTransaction(
         ttl: Long? = null,
     ): io.appwrite.models.Transaction {
@@ -87,6 +89,7 @@ class TablesDB(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [io.appwrite.models.Transaction]
      */
+    @Throws(AppwriteException::class)
     suspend fun getTransaction(
         transactionId: String,
     ): io.appwrite.models.Transaction {
@@ -124,6 +127,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun updateTransaction(
         transactionId: String,
         commit: Boolean? = null,
@@ -164,6 +168,7 @@ class TablesDB(client: Client) : Service(client) {
      * @param transactionId Transaction ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deleteTransaction(
         transactionId: String,
     ): Any {
@@ -196,6 +201,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Transaction]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun createOperations(
         transactionId: String,
         operations: List<Map<String, Any?>>? = null,
@@ -231,15 +237,18 @@ class TablesDB(client: Client) : Service(client) {
     /**
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
+     * Rows returned by aggregate, groupBy or distinct queries hold only the columns they select, group or aggregate, typed as a row types them, with a joined column named by its join alias (`alias.column`). They have no `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`, `$databaseId` or `$tableId` unless they select or group it, and neither does a right or full join row that no row of this table matched.
+     *
      * @param databaseId Database ID.
      * @param tableId Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
      * @param total When set to false, the total count returned will be 0 and will not be calculated.
-     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
+     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
      * @return [io.appwrite.models.RowList<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> listRows(
         databaseId: String,
         tableId: String,
@@ -286,12 +295,14 @@ class TablesDB(client: Client) : Service(client) {
     /**
      * Get a list of all the user's rows in a given table. You can use the query params to filter your results.
      *
+     * Rows returned by aggregate, groupBy or distinct queries hold only the columns they select, group or aggregate, typed as a row types them, with a joined column named by its join alias (`alias.column`). They have no `$id`, `$sequence`, `$createdAt`, `$updatedAt`, `$permissions`, `$databaseId` or `$tableId` unless they select or group it, and neither does a right or full join row that no row of this table matched.
+     *
      * @param databaseId Database ID.
      * @param tableId Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
      * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
      * @param transactionId Transaction ID to read uncommitted changes within the transaction.
      * @param total When set to false, the total count returned will be 0 and will not be calculated.
-     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Must be between 0 and 86400 (24 hours).
+     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
      * @return [io.appwrite.models.RowList<T>]
      */
     @JvmOverloads
@@ -325,6 +336,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Row<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> createRow(
         databaseId: String,
         tableId: String,
@@ -400,6 +412,95 @@ class TablesDB(client: Client) : Service(client) {
     )
 
     /**
+     * Get a list of all the user's rows in a given table using a POST request. This behaves identically to the list rows endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param databaseId Database ID.
+     * @param tableId Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param transactionId Transaction ID to read uncommitted changes within the transaction.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
+     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
+     * @return [io.appwrite.models.RowList<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun <T> createQuery(
+        databaseId: String,
+        tableId: String,
+        queries: List<String>? = null,
+        transactionId: String? = null,
+        total: Boolean? = null,
+        ttl: Long? = null,
+        nestedType: Class<T>,
+    ): io.appwrite.models.RowList<T> {
+        if (databaseId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"databaseId\"")
+        }
+        if (tableId.isEmpty()) {
+            throw AppwriteException("Missing required parameter: \"tableId\"")
+        }
+        val apiPath = ("/tablesdb/{databaseId}/tables/{tableId}/rows/query"
+            .replace("{databaseId}", databaseId)
+            .replace("{tableId}", tableId)
+        )
+        val apiParams = mutableMapOf<String, Any?>(
+            "queries" to queries,
+            "transactionId" to transactionId,
+            "total" to total,
+            "ttl" to ttl,
+        )
+        val apiHeaders = mutableMapOf<String, String>(
+            "X-Appwrite-Project" to client.config["project"].orEmpty(),
+            "content-type" to "application/json",
+            "accept" to "application/json",
+        )
+        val converter: (Any) -> io.appwrite.models.RowList<T> = {
+            @Suppress("UNCHECKED_CAST")
+            io.appwrite.models.RowList.from(map = it as Map<String, Any>, nestedType)
+        }
+        return client.call(
+            "POST",
+            apiPath,
+            apiHeaders,
+            apiParams,
+            responseType = classOf(),
+            converter,
+        )
+    }
+
+    /**
+     * Get a list of all the user's rows in a given table using a POST request. This behaves identically to the list rows endpoint but accepts the queries in the request body, allowing much larger `queries` arrays than can fit in a URL query string.
+     *
+     *
+     * @param databaseId Database ID.
+     * @param tableId Table ID. You can create a new table using the TablesDB service [server integration](https://appwrite.io/docs/products/databases/tables#create-table).
+     * @param queries Array of query strings generated using the Query class provided by the SDK. [Learn more about queries](https://appwrite.io/docs/queries). Maximum of 100 queries are allowed, each 4096 characters long.
+     * @param transactionId Transaction ID to read uncommitted changes within the transaction.
+     * @param total When set to false, the total count returned will be 0 and will not be calculated.
+     * @param ttl TTL (seconds) for caching list responses. Responses are stored in an in-memory key-value cache, keyed per project, table, schema version (columns and indexes), caller authorization roles, and the exact query — so users with different permissions never share cached entries. Schema changes invalidate cached entries automatically; row writes do not, so choose a TTL you are comfortable serving as stale data. Set to 0 to disable caching. Lists with join queries are not cached. Must be between 0 and 86400 (24 hours).
+     * @return [io.appwrite.models.RowList<T>]
+     */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
+    suspend fun createQuery(
+        databaseId: String,
+        tableId: String,
+        queries: List<String>? = null,
+        transactionId: String? = null,
+        total: Boolean? = null,
+        ttl: Long? = null,
+    ): io.appwrite.models.RowList<Map<String, Any>> = createQuery(
+        databaseId,
+        tableId,
+        queries,
+        transactionId,
+        total,
+        ttl,
+        nestedType = classOf(),
+    )
+
+    /**
      * Get a row by its unique ID. This endpoint response returns a JSON object with the row data.
      *
      * @param databaseId Database ID.
@@ -410,6 +511,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Row<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> getRow(
         databaseId: String,
         tableId: String,
@@ -493,6 +595,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Row<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> upsertRow(
         databaseId: String,
         tableId: String,
@@ -582,6 +685,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Row<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> updateRow(
         databaseId: String,
         tableId: String,
@@ -669,6 +773,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [Any]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun deleteRow(
         databaseId: String,
         tableId: String,
@@ -719,6 +824,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Row<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> decrementRowColumn(
         databaseId: String,
         tableId: String,
@@ -817,6 +923,7 @@ class TablesDB(client: Client) : Service(client) {
      * @return [io.appwrite.models.Row<T>]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> incrementRowColumn(
         databaseId: String,
         tableId: String,

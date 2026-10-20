@@ -23,6 +23,7 @@ class Presences(client: Client) : Service(client) {
      * @return [io.appwrite.models.PresenceList]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun list(
         queries: List<String>? = null,
         total: Boolean? = null,
@@ -59,6 +60,7 @@ class Presences(client: Client) : Service(client) {
      * @param presenceId Presence unique ID.
      * @return [io.appwrite.models.Presence]
      */
+    @Throws(AppwriteException::class)
     suspend fun get(
         presenceId: String,
     ): io.appwrite.models.Presence {
@@ -99,6 +101,7 @@ class Presences(client: Client) : Service(client) {
      * @return [io.appwrite.models.Presence]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun upsert(
         presenceId: String,
         status: String,
@@ -150,6 +153,7 @@ class Presences(client: Client) : Service(client) {
      * @return [io.appwrite.models.Presence]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun update(
         presenceId: String,
         status: String? = null,
@@ -197,6 +201,7 @@ class Presences(client: Client) : Service(client) {
      * @param presenceId Presence unique ID.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun delete(
         presenceId: String,
     ): Any {

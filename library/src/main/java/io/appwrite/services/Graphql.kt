@@ -19,6 +19,7 @@ class Graphql(client: Client) : Service(client) {
      * @param query The query or queries to execute.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun query(
         query: Map<String, Any?>,
     ): Any {
@@ -51,6 +52,7 @@ class Graphql(client: Client) : Service(client) {
      * @param query The query or queries to execute.
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun mutation(
         query: Map<String, Any?>,
     ): Any {

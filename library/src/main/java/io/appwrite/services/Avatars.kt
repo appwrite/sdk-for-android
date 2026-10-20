@@ -27,6 +27,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getBrowser(
         code: io.appwrite.enums.Browser,
         width: Long? = null,
@@ -67,6 +68,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getCreditCard(
         code: io.appwrite.enums.CreditCard,
         width: Long? = null,
@@ -102,6 +104,7 @@ class Avatars(client: Client) : Service(client) {
      * @param url Website URL which you want to fetch the favicon from.
      * @return [ByteArray]
      */
+    @Throws(AppwriteException::class)
     suspend fun getFavicon(
         url: String,
     ): ByteArray {
@@ -135,6 +138,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getFlag(
         code: io.appwrite.enums.Flag,
         width: Long? = null,
@@ -175,6 +179,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getImage(
         url: String,
         width: Long? = null,
@@ -214,6 +219,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getInitials(
         name: String? = null,
         width: Long? = null,
@@ -256,6 +262,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getPhoto(
         width: Long? = null,
         height: Long? = null,
@@ -296,6 +303,8 @@ class Avatars(client: Client) : Service(client) {
      * @param file Binary image file of at most 5MB. Allowed file types are png, jpg, jpeg, and webp.
      * @return [io.appwrite.models.Account<T>]
      */
+    @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun <T> updatePhoto(
         file: InputFile,
         nestedType: Class<T>,
@@ -335,6 +344,7 @@ class Avatars(client: Client) : Service(client) {
      * @param file Binary image file of at most 5MB. Allowed file types are png, jpg, jpeg, and webp.
      * @return [io.appwrite.models.Account<T>]
      */
+    @JvmOverloads
     @Throws(AppwriteException::class)
     suspend fun updatePhoto(
         file: InputFile,
@@ -350,6 +360,7 @@ class Avatars(client: Client) : Service(client) {
      *
      * @return [Any]
      */
+    @Throws(AppwriteException::class)
     suspend fun deletePhoto(): Any {
         val apiPath = "/avatars/photo"
         val apiParams = mutableMapOf<String, Any?>()
@@ -378,6 +389,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getQR(
         text: String,
         size: Long? = null,
@@ -434,6 +446,7 @@ class Avatars(client: Client) : Service(client) {
      * @return [ByteArray]
      */
     @JvmOverloads
+    @Throws(AppwriteException::class)
     suspend fun getScreenshot(
         url: String,
         headers: Map<String, Any?>? = null,
