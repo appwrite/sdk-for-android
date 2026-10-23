@@ -17,7 +17,7 @@ try {
     oauth2.authorizePost(
         "<CLIENT_ID>", // client_id (optional)
         "https://example.com", // redirect_uri (optional)
-        "", // response_type (optional)
+        null, // response_type (optional)
         "<SCOPE>", // scope (optional)
         "<STATE>", // state (optional)
         "<NONCE>", // nonce (optional)

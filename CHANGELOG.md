@@ -1,5 +1,13 @@
 # Change Log
 
+## 31.0.1
+
+* Fixed: realtime connections, subscriptions, presence and reconnect state are isolated between clients
+* Fixed: realtime wrappers sharing a client reuse its connection and keep independent cancellation scopes
+* Fixed: realtime WebSocket handshakes send the configured JWT
+* Fixed: Java and Kotlin examples omit unset optional strings instead of sending empty values, and preserve explicit `"0"` examples
+* Updated: generated API metadata and response-format header to `2.6.1`; client service signatures and model shapes are unchanged
+
 ## 31.0.0
 
 * Breaking: every service method declares `@Throws(AppwriteException::class)`; Java callers must catch `AppwriteException`
