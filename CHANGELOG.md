@@ -1,5 +1,11 @@
 # Change Log
 
+## 31.0.1
+
+* Fixed: realtime connections, subscriptions, presence and reconnect state are isolated between clients
+* Fixed: realtime wrappers sharing a client reuse its connection and keep independent cancellation scopes
+* Fixed: realtime WebSocket handshakes send the configured JWT
+
 ## 31.0.0
 
 * Breaking: every service method declares `@Throws(AppwriteException::class)`; Java callers must catch `AppwriteException`
