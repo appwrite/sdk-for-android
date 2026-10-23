@@ -11,6 +11,7 @@ import io.appwrite.extensions.toJsonRequestBody
 import io.appwrite.extensions.toJsonWithNulls
 import io.appwrite.models.InputFile
 import io.appwrite.models.UploadProgress
+import io.appwrite.services.RealtimeConnection
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -74,6 +75,8 @@ class Client @JvmOverloads constructor(
 
     internal lateinit var http: OkHttpClient
 
+    internal val realtime by lazy { RealtimeConnection(this) }
+
     internal val headers: MutableMap<String, String>
 
     val config: MutableMap<String, String>
@@ -101,8 +104,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "31.0.0",
-            "x-appwrite-response-format" to "2.5.0"
+            "x-sdk-version" to "31.0.1",
+            "x-appwrite-response-format" to "2.6.1"
         )
         config = mutableMapOf()
 

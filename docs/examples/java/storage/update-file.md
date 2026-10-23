@@ -19,7 +19,7 @@ try {
     storage.updateFile(
         "<BUCKET_ID>", // bucketId
         "<FILE_ID>", // fileId
-        "<NAME>", // name (optional)
+        "", // name (optional)
         List.of(Permission.read(Role.any())), // permissions (optional)
         new CoroutineCallback<>((result, error) -> {
             if (error != null) {
