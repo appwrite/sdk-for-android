@@ -2,7 +2,7 @@
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.appwrite/sdk-for-android.svg?color=green&style=flat-square)
 ![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-2.6.1-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-2.6.2-blue.svg?style=flat-square)
 [![X Account](https://img.shields.io/badge/follow-%40appwrite-000000?logo=x&style=flat-square)](https://x.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
@@ -20,7 +20,7 @@ Kotlin DSL (`build.gradle.kts`):
 
 ```kotlin
 dependencies {
-    implementation("io.appwrite:sdk-for-android:31.0.1")
+    implementation("io.appwrite:sdk-for-android:31.1.0")
 }
 ```
 
@@ -28,7 +28,7 @@ Groovy (`build.gradle`):
 
 ```groovy
 dependencies {
-    implementation 'io.appwrite:sdk-for-android:31.0.1'
+    implementation 'io.appwrite:sdk-for-android:31.1.0'
 }
 ```
 
@@ -42,6 +42,14 @@ data class Note(val title: String, val body: String)
 ```
 
 ## Getting Started
+
+### Install the SDK
+
+Add SDK 31.0.1 to your app module's `build.gradle.kts`:
+
+```kotlin
+implementation("io.appwrite:sdk-for-android:31.0.1")
+```
 
 ### Add your Android platform
 
@@ -215,6 +223,12 @@ Every model also has `toMap()`, which is handy for logging or manual data handli
 val user = account.get()
 Log.d("Appwrite", user.toMap().toString())
 ```
+
+### Realtime client ownership
+
+In SDK 31.0.1 and later, each `Client` owns its realtime connection, subscriptions, presence, and reconnect state. Separate clients can use different endpoints, projects, or JWTs independently. Configure `setJWT()` before creating a JWT-authenticated subscription.
+
+`Realtime` objects created with the same client share that connection. Disconnecting it affects that client's realtime subscriptions. Close an individual subscription to stop only that subscription; use separate clients for independently managed connections.
 
 ## Push notifications
 

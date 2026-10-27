@@ -29,7 +29,7 @@ class Oauth2(client: Client) : Service(client) {
         scope: String? = null,
     ): io.appwrite.models.Oauth2Approve {
         val apiPath = ("/oauth2/{project_id}/approve"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "grant_id" to grantId,
@@ -92,7 +92,7 @@ class Oauth2(client: Client) : Service(client) {
         requestUri: String? = null,
     ): io.appwrite.models.Oauth2Authorize {
         val apiPath = ("/oauth2/{project_id}/authorize"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "client_id" to clientId,
@@ -165,7 +165,7 @@ class Oauth2(client: Client) : Service(client) {
         requestUri: String? = null,
     ): io.appwrite.models.Oauth2Authorize {
         val apiPath = ("/oauth2/{project_id}/authorize"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "client_id" to clientId,
@@ -221,7 +221,7 @@ class Oauth2(client: Client) : Service(client) {
         audience: String? = null,
     ): io.appwrite.models.Oauth2DeviceAuthorization {
         val apiPath = ("/oauth2/{project_id}/device_authorization"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "client_id" to clientId,
@@ -259,7 +259,7 @@ class Oauth2(client: Client) : Service(client) {
         userCode: String,
     ): io.appwrite.models.Oauth2Grant {
         val apiPath = ("/oauth2/{project_id}/grants"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "user_code" to userCode,
@@ -296,8 +296,8 @@ class Oauth2(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"grantId\"")
         }
         val apiPath = ("/oauth2/{project_id}/grants/{grant_id}"
-            .replace("{project_id}", client.config["project"].orEmpty())
-            .replace("{grant_id}", grantId)
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
+            .replace("{grant_id}", Client.encodePath(grantId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -339,7 +339,7 @@ class Oauth2(client: Client) : Service(client) {
         uiLocales: String? = null,
     ): Any {
         val apiPath = ("/oauth2/{project_id}/logout"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "id_token_hint" to idTokenHint,
@@ -383,7 +383,7 @@ class Oauth2(client: Client) : Service(client) {
         uiLocales: String? = null,
     ): Any {
         val apiPath = ("/oauth2/{project_id}/logout"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "id_token_hint" to idTokenHint,
@@ -422,7 +422,7 @@ class Oauth2(client: Client) : Service(client) {
         search: String? = null,
     ): io.appwrite.models.Oauth2OrganizationList {
         val apiPath = ("/oauth2/{project_id}/organizations"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "limit" to limit,
@@ -482,7 +482,7 @@ class Oauth2(client: Client) : Service(client) {
         audience: String? = null,
     ): io.appwrite.models.Oauth2PAR {
         val apiPath = ("/oauth2/{project_id}/par"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "client_id" to clientId,
@@ -533,7 +533,7 @@ class Oauth2(client: Client) : Service(client) {
         search: String? = null,
     ): io.appwrite.models.Oauth2ProjectList {
         val apiPath = ("/oauth2/{project_id}/projects"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "limit" to limit,
@@ -568,7 +568,7 @@ class Oauth2(client: Client) : Service(client) {
         grantId: String,
     ): io.appwrite.models.Oauth2Reject {
         val apiPath = ("/oauth2/{project_id}/reject"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "grant_id" to grantId,
@@ -609,7 +609,7 @@ class Oauth2(client: Client) : Service(client) {
         clientSecret: String? = null,
     ): Any {
         val apiPath = ("/oauth2/{project_id}/revoke"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "token" to token,
@@ -660,7 +660,7 @@ class Oauth2(client: Client) : Service(client) {
         audience: String? = null,
     ): io.appwrite.models.Oauth2Token {
         val apiPath = ("/oauth2/{project_id}/token"
-            .replace("{project_id}", client.config["project"].orEmpty())
+            .replace("{project_id}", Client.encodePath(client.config["project"].orEmpty()))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "grant_type" to grantType,
