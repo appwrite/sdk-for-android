@@ -33,6 +33,7 @@ import java.io.RandomAccessFile
 import java.lang.IllegalArgumentException
 import java.net.CookieManager
 import java.net.CookiePolicy
+import java.net.URLEncoder
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.atomic.AtomicInteger
@@ -66,6 +67,25 @@ class Client @JvmOverloads constructor(
         internal const val MAX_CONCURRENT_UPLOADS = 8
         internal const val GLOBAL_PREFS = "io.appwrite"
         internal const val COOKIE_PREFS = "myCookie"
+
+        /**
+         * Encodes [value] as one path segment. Everything but letters, digits
+         * and -_.!~*'() is escaped, as encodeURIComponent does, so a value
+         * fills exactly the segment it replaces.
+         */
+        internal fun encodePath(value: String): String {
+            if (value == "." || value == "..") {
+                throw AppwriteException("Path parameter cannot be \".\" or \"..\"")
+            }
+            return URLEncoder
+                .encode(value, "UTF-8")
+                .replace("+", "%20")
+                .replace("%21", "!")
+                .replace("%27", "'")
+                .replace("%28", "(")
+                .replace("%29", ")")
+                .replace("%7E", "~")
+        }
     }
 
     override val coroutineContext: CoroutineContext
@@ -104,8 +124,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "31.0.1",
-            "x-appwrite-response-format" to "2.6.1"
+            "x-sdk-version" to "31.1.0",
+            "x-appwrite-response-format" to "2.6.2"
         )
         config = mutableMapOf()
 
@@ -609,17 +629,23 @@ class Client @JvmOverloads constructor(
         val providedUploadId = idParamName?.let { params[it]?.toString() }
         if (!providedUploadId.isNullOrEmpty()) {
             // Make a request to check if a file already exists
-            val current = call(
-                method = "GET",
-                path = "$path/$providedUploadId",
-                headers = headers,
-                params = emptyMap(),
-                responseType = Map::class.java,
-            )
-            val chunksUploaded = current["chunksUploaded"] as Long
-            offset = chunksUploaded * CHUNK_SIZE
-            uploadId = providedUploadId
-            result = current
+            try {
+                val current = call(
+                    method = "GET",
+                    path = "$path/${encodePath(providedUploadId)}",
+                    headers = headers,
+                    params = emptyMap(),
+                    responseType = Map::class.java,
+                )
+                val chunksUploaded = current["chunksUploaded"] as Long
+                offset = chunksUploaded * CHUNK_SIZE
+                uploadId = providedUploadId
+                result = current
+            } catch (exception: AppwriteException) {
+                if (exception.code != 404) {
+                    throw exception
+                }
+            }
         }
 
         fun readChunk(start: Long, end: Long): ByteArray {

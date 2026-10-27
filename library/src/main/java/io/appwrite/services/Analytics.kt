@@ -17,7 +17,7 @@ class Analytics(client: Client) : Service(client) {
      * Send a tracking event from a browser, native app, or server-side SDK.
      *
      * @param propertyId Analytics property ID.
-     * @param name Event name. "pageview" is just a conventional event name; events are not modeled specially.
+     * @param name Event name. "pageview" and "screen_view" are counted as views, every other name is a custom event.
      * @param url Full page URL or screen identifier.
      * @param domain Hostname (e.g. example.com).
      * @param referrer Referrer URL.
@@ -52,7 +52,7 @@ class Analytics(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"propertyId\"")
         }
         val apiPath = ("/analytics/properties/{propertyId}/events"
-            .replace("{propertyId}", propertyId)
+            .replace("{propertyId}", Client.encodePath(propertyId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "name" to name,

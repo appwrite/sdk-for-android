@@ -35,7 +35,7 @@ class Avatars(client: Client) : Service(client) {
         quality: Long? = null,
     ): ByteArray {
         val apiPath = ("/avatars/browsers/{code}"
-            .replace("{code}", code.value)
+            .replace("{code}", Client.encodePath(code.value))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
@@ -76,7 +76,7 @@ class Avatars(client: Client) : Service(client) {
         quality: Long? = null,
     ): ByteArray {
         val apiPath = ("/avatars/credit-cards/{code}"
-            .replace("{code}", code.value)
+            .replace("{code}", Client.encodePath(code.value))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
@@ -146,7 +146,7 @@ class Avatars(client: Client) : Service(client) {
         quality: Long? = null,
     ): ByteArray {
         val apiPath = ("/avatars/flags/{code}"
-            .replace("{code}", code.value)
+            .replace("{code}", Client.encodePath(code.value))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,

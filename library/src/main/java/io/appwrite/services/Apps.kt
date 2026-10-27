@@ -205,7 +205,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -279,7 +279,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "name" to name,
@@ -335,7 +335,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -371,7 +371,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}/installations"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -414,8 +414,8 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"installationId\"")
         }
         val apiPath = ("/apps/{appId}/installations/{installationId}"
-            .replace("{appId}", appId)
-            .replace("{installationId}", installationId)
+            .replace("{appId}", Client.encodePath(appId))
+            .replace("{installationId}", Client.encodePath(installationId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -455,8 +455,8 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"installationId\"")
         }
         val apiPath = ("/apps/{appId}/installations/{installationId}"
-            .replace("{appId}", appId)
-            .replace("{installationId}", installationId)
+            .replace("{appId}", Client.encodePath(appId))
+            .replace("{installationId}", Client.encodePath(installationId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -492,8 +492,8 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"installationId\"")
         }
         val apiPath = ("/apps/{appId}/installations/{installationId}/tokens"
-            .replace("{appId}", appId)
-            .replace("{installationId}", installationId)
+            .replace("{appId}", Client.encodePath(appId))
+            .replace("{installationId}", Client.encodePath(installationId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -534,7 +534,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}/keys"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -572,7 +572,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}/keys"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -613,8 +613,8 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"keyId\"")
         }
         val apiPath = ("/apps/{appId}/keys/{keyId}"
-            .replace("{appId}", appId)
-            .replace("{keyId}", keyId)
+            .replace("{appId}", Client.encodePath(appId))
+            .replace("{keyId}", Client.encodePath(keyId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -654,8 +654,8 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"keyId\"")
         }
         val apiPath = ("/apps/{appId}/keys/{keyId}"
-            .replace("{appId}", appId)
-            .replace("{keyId}", keyId)
+            .replace("{appId}", Client.encodePath(appId))
+            .replace("{keyId}", Client.encodePath(keyId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -691,7 +691,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}/secrets"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -729,7 +729,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}/secrets"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -770,8 +770,8 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"secretId\"")
         }
         val apiPath = ("/apps/{appId}/secrets/{secretId}"
-            .replace("{appId}", appId)
-            .replace("{secretId}", secretId)
+            .replace("{appId}", Client.encodePath(appId))
+            .replace("{secretId}", Client.encodePath(secretId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -811,8 +811,8 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"secretId\"")
         }
         val apiPath = ("/apps/{appId}/secrets/{secretId}"
-            .replace("{appId}", appId)
-            .replace("{secretId}", secretId)
+            .replace("{appId}", Client.encodePath(appId))
+            .replace("{secretId}", Client.encodePath(secretId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -845,7 +845,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}/team"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "teamId" to teamId,
@@ -883,7 +883,7 @@ class Apps(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"appId\"")
         }
         val apiPath = ("/apps/{appId}/tokens"
-            .replace("{appId}", appId)
+            .replace("{appId}", Client.encodePath(appId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
