@@ -1,5 +1,14 @@
 # Change Log
 
+## 31.1.0
+
+* Updated: requests send `x-appwrite-response-format: 2.6.2`
+* Fixed: path parameters are percent-encoded as one segment; `.` and `..` throw `AppwriteException`
+* Fixed: a chunked upload with a new file ID starts uploading instead of failing on the resume lookup
+* Fixed: chunked upload resume lookups percent-encode the file ID
+* Fixed: cookie store errors no longer log cookie values
+* Updated: README adds install instructions and explains realtime client ownership
+
 ## 31.0.1
 
 * Fixed: realtime connections, subscriptions, presence and reconnect state are isolated between clients

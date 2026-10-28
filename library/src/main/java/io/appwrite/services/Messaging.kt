@@ -31,7 +31,7 @@ class Messaging(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"topicId\"")
         }
         val apiPath = ("/messaging/topics/{topicId}/subscribers"
-            .replace("{topicId}", topicId)
+            .replace("{topicId}", Client.encodePath(topicId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "subscriberId" to subscriberId,
@@ -75,8 +75,8 @@ class Messaging(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"subscriberId\"")
         }
         val apiPath = ("/messaging/topics/{topicId}/subscribers/{subscriberId}"
-            .replace("{topicId}", topicId)
-            .replace("{subscriberId}", subscriberId)
+            .replace("{topicId}", Client.encodePath(topicId))
+            .replace("{subscriberId}", Client.encodePath(subscriberId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(

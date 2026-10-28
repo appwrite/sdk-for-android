@@ -36,7 +36,7 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"bucketId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files"
-            .replace("{bucketId}", bucketId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -92,7 +92,7 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"bucketId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files"
-            .replace("{bucketId}", bucketId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "fileId" to fileId,
@@ -143,8 +143,8 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"fileId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
-            .replace("{bucketId}", bucketId)
-            .replace("{fileId}", fileId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
+            .replace("{fileId}", Client.encodePath(fileId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -189,8 +189,8 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"fileId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
-            .replace("{bucketId}", bucketId)
-            .replace("{fileId}", fileId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
+            .replace("{fileId}", Client.encodePath(fileId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "name" to name,
@@ -234,8 +234,8 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"fileId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}"
-            .replace("{bucketId}", bucketId)
-            .replace("{fileId}", fileId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
+            .replace("{fileId}", Client.encodePath(fileId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
@@ -274,8 +274,8 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"fileId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/download"
-            .replace("{bucketId}", bucketId)
-            .replace("{fileId}", fileId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
+            .replace("{fileId}", Client.encodePath(fileId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "token" to token,
@@ -337,8 +337,8 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"fileId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/preview"
-            .replace("{bucketId}", bucketId)
-            .replace("{fileId}", fileId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
+            .replace("{fileId}", Client.encodePath(fileId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "width" to width,
@@ -389,8 +389,8 @@ class Storage(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"fileId\"")
         }
         val apiPath = ("/storage/buckets/{bucketId}/files/{fileId}/view"
-            .replace("{bucketId}", bucketId)
-            .replace("{fileId}", fileId)
+            .replace("{bucketId}", Client.encodePath(bucketId))
+            .replace("{fileId}", Client.encodePath(fileId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "token" to token,

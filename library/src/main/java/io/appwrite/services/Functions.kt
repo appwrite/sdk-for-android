@@ -32,7 +32,7 @@ class Functions(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"functionId\"")
         }
         val apiPath = ("/functions/{functionId}/executions"
-            .replace("{functionId}", functionId)
+            .replace("{functionId}", Client.encodePath(functionId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "queries" to queries,
@@ -83,7 +83,7 @@ class Functions(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"functionId\"")
         }
         val apiPath = ("/functions/{functionId}/executions"
-            .replace("{functionId}", functionId)
+            .replace("{functionId}", Client.encodePath(functionId))
         )
         val apiParams = mutableMapOf<String, Any?>(
             "body" to body,
@@ -131,8 +131,8 @@ class Functions(client: Client) : Service(client) {
             throw AppwriteException("Missing required parameter: \"executionId\"")
         }
         val apiPath = ("/functions/{functionId}/executions/{executionId}"
-            .replace("{functionId}", functionId)
-            .replace("{executionId}", executionId)
+            .replace("{functionId}", Client.encodePath(functionId))
+            .replace("{executionId}", Client.encodePath(executionId))
         )
         val apiParams = mutableMapOf<String, Any?>()
         val apiHeaders = mutableMapOf<String, String>(
