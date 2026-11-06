@@ -87,6 +87,8 @@ enum class OAuthProvider(val value: String) {
     TRADESHIFTBOX("tradeshiftBox"),
     @SerializedName("twitch")
     TWITCH("twitch"),
+    @SerializedName("vipps")
+    VIPPS("vipps"),
     @SerializedName("webflow")
     WEBFLOW("webflow"),
     @SerializedName("wordpress")

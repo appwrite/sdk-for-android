@@ -1,5 +1,14 @@
 # Change Log
 
+## 31.2.0
+
+* Added: `Client.setEnvironment` to act in a project environment; realtime connections carry it
+* Added: optional `interactive` param on `Analytics.createEvent` to mark an event as telemetry that does not end a bounce
+* Added: `OAuthProvider.VIPPS`
+* Fixed: background push reconnects inside Android's network windows instead of minutes later
+* Updated: requests send `X-Appwrite-Response-Format: 2.7.0`; the SDK targets Appwrite 2.7.x
+* Updated: `gson` dependency to `2.15.0`
+
 ## 31.1.0
 
 * Updated: requests send `x-appwrite-response-format: 2.6.2`

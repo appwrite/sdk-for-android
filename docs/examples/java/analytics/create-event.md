@@ -28,6 +28,7 @@ try {
         "<USER_ID>", // userId (optional)
         "<IP>", // ip (optional)
         "<USER_AGENT>", // userAgent (optional)
+        false, // interactive (optional)
         new CoroutineCallback<>((result, error) -> {
             if (error != null) {
                 error.printStackTrace();

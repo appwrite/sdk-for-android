@@ -26,9 +26,10 @@ class Analytics(client: Client) : Service(client) {
      * @param scrollDepth Scroll depth percentage 0-100.
      * @param engagementTime Engagement time in seconds, 0-4294967295.
      * @param props Custom string properties as a flat key=value list (max 32 entries, alternating key,value).
-     * @param userId Override user ID. Requires API-key auth with analytics.write scope.
+     * @param userId Override user ID. Pass an opaque ID, not personal data such as an email. Requires API-key auth with analytics.write scope.
      * @param ip Override IP address. Requires API-key auth with analytics.write scope.
      * @param userAgent Override user agent. Requires API-key auth with analytics.write scope.
+     * @param interactive Whether this event is a visitor interaction that ends a bounce. Set false for telemetry such as heartbeats or background syncs. Defaults to true for custom events and false for the automatic engagement, scroll and app lifecycle events. Ignored for views.
      * @return [Any]
      */
     @JvmOverloads
@@ -47,6 +48,7 @@ class Analytics(client: Client) : Service(client) {
         userId: String? = null,
         ip: String? = null,
         userAgent: String? = null,
+        interactive: Boolean? = null,
     ): Any {
         if (propertyId.isEmpty()) {
             throw AppwriteException("Missing required parameter: \"propertyId\"")
@@ -67,6 +69,7 @@ class Analytics(client: Client) : Service(client) {
             "userId" to userId,
             "ip" to ip,
             "userAgent" to userAgent,
+            "interactive" to interactive,
         )
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
