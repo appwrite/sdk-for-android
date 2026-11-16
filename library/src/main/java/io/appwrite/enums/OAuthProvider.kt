@@ -57,6 +57,8 @@ enum class OAuthProvider(val value: String) {
     LINKEDIN("linkedin"),
     @SerializedName("microsoft")
     MICROSOFT("microsoft"),
+    @SerializedName("naver")
+    NAVER("naver"),
     @SerializedName("notion")
     NOTION("notion"),
     @SerializedName("oidc")
@@ -89,6 +91,8 @@ enum class OAuthProvider(val value: String) {
     TWITCH("twitch"),
     @SerializedName("vipps")
     VIPPS("vipps"),
+    @SerializedName("vippsSandbox")
+    VIPPSSANDBOX("vippsSandbox"),
     @SerializedName("webflow")
     WEBFLOW("webflow"),
     @SerializedName("wordpress")

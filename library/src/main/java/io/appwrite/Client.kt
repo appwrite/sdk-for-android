@@ -101,6 +101,8 @@ class Client @JvmOverloads constructor(
 
     val config: MutableMap<String, String>
 
+    internal val appContext: Context = context.applicationContext ?: context
+
     internal val cookieJar = ListenableCookieJar(CookieManager(
         SharedPreferencesCookieStore(context.getSharedPreferences(COOKIE_PREFS, Context.MODE_PRIVATE)),
         CookiePolicy.ACCEPT_ALL
@@ -124,8 +126,8 @@ class Client @JvmOverloads constructor(
             "x-sdk-name" to "Android",
             "x-sdk-platform" to "client",
             "x-sdk-language" to "android",
-            "x-sdk-version" to "31.2.0",
-            "x-appwrite-response-format" to "2.7.0"
+            "x-sdk-version" to "31.3.0",
+            "x-appwrite-response-format" to "2.7.2"
         )
         config = mutableMapOf()
 

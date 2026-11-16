@@ -423,6 +423,8 @@ class Avatars(client: Client) : Service(client) {
      *
      * When width and height are specified, the image is resized accordingly. If both dimensions are 0, the API provides an image at original size. If dimensions are not specified, the default viewport size is 1280x720px.
      *
+     * Set `output` to `auto` to receive avif or webp when the `Accept` header of your request supports it, falling back to png.
+     *
      * @param url Website URL which you want to capture.
      * @param headers HTTP headers to send with the browser request. Only Accept and Accept-Language are allowed. Defaults to empty.
      * @param viewportWidth Browser viewport width. Pass an integer between 1 to 1920. Defaults to 1280.
@@ -442,7 +444,7 @@ class Avatars(client: Client) : Service(client) {
      * @param width Output image width. Pass 0 to use original width, or an integer between 1 to 2000. Defaults to 0 (original width).
      * @param height Output image height. Pass 0 to use original height, or an integer between 1 to 2000. Defaults to 0 (original height).
      * @param quality Screenshot quality. Pass an integer between 0 to 100. Defaults to keep existing image quality.
-     * @param output Output format type (jpeg, jpg, png, gif and webp).
+     * @param output Output format type (jpeg, jpg, png, gif, webp, heic and avif). Pass auto to serve avif or webp when the Accept header of your request supports it, falling back to png.
      * @return [ByteArray]
      */
     @JvmOverloads
@@ -494,7 +496,7 @@ class Avatars(client: Client) : Service(client) {
         )
         val apiHeaders = mutableMapOf<String, String>(
             "X-Appwrite-Project" to client.config["project"].orEmpty(),
-            "accept" to "image/png",
+            "accept" to "image/*",
         )
         return client.call(
             "GET",
