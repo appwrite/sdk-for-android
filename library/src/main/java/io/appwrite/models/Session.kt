@@ -32,6 +32,12 @@ data class Session(
     val userId: String,
 
     /**
+     * Name of the user the session belongs to. Lets a client label the account, for example in an account switcher.
+     */
+    @SerializedName("userName")
+    val userName: String,
+
+    /**
      * Session expiration date in ISO 8601 format.
      */
     @SerializedName("expire")
@@ -187,6 +193,7 @@ data class Session(
         "\$createdAt" to createdAt as Any,
         "\$updatedAt" to updatedAt as Any,
         "userId" to userId as Any,
+        "userName" to userName as Any,
         "expire" to expire as Any,
         "provider" to provider as Any,
         "providerUid" to providerUid as Any,
@@ -223,6 +230,7 @@ data class Session(
             createdAt = (if (map.containsKey("\$createdAt")) map["\$createdAt"] else "") as String,
             updatedAt = (if (map.containsKey("\$updatedAt")) map["\$updatedAt"] else "") as String,
             userId = (if (map.containsKey("userId")) map["userId"] else "") as String,
+            userName = (if (map.containsKey("userName")) map["userName"] else "") as String,
             expire = (if (map.containsKey("expire")) map["expire"] else "") as String,
             provider = (if (map.containsKey("provider")) map["provider"] else "") as String,
             providerUid = (if (map.containsKey("providerUid")) map["providerUid"] else "") as String,

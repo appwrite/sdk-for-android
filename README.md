@@ -2,7 +2,7 @@
 
 ![Maven Central](https://img.shields.io/maven-central/v/io.appwrite/sdk-for-android.svg?color=green&style=flat-square)
 ![License](https://img.shields.io/badge/license-BSD--3--Clause-blue.svg?style=flat-square)
-![Version](https://img.shields.io/badge/api%20version-2.7.0-blue.svg?style=flat-square)
+![Version](https://img.shields.io/badge/api%20version-2.7.2-blue.svg?style=flat-square)
 [![X Account](https://img.shields.io/badge/follow-%40appwrite-000000?logo=x&style=flat-square)](https://x.com/appwrite)
 [![Discord](https://img.shields.io/discord/564160730845151244?label=discord&style=flat-square)](https://appwrite.io/discord)
 
@@ -20,7 +20,7 @@ Kotlin DSL (`build.gradle.kts`):
 
 ```kotlin
 dependencies {
-    implementation("io.appwrite:sdk-for-android:31.2.0")
+    implementation("io.appwrite:sdk-for-android:31.3.0")
 }
 ```
 
@@ -28,7 +28,7 @@ Groovy (`build.gradle`):
 
 ```groovy
 dependencies {
-    implementation 'io.appwrite:sdk-for-android:31.2.0'
+    implementation 'io.appwrite:sdk-for-android:31.3.0'
 }
 ```
 
@@ -275,12 +275,26 @@ If `backgroundRestricted` is true, the user restricted the app's background usag
 
 If the user force-stops the app (Settings > Force stop, and on some devices swiping it away from recents), Android cancels its alarms and jobs: nothing is delivered until the app is opened again, and the broker then replays what was sent meanwhile.
 
-For immediate delivery even after a kill and during Doze, call `push.setForeground(true)` from the foreground: it adds a foreground service with a quiet ongoing notification. If you never enable it, you can remove the service from your merged manifest, so the Play Console does not ask you to declare it:
+For immediate delivery even after a kill and during Doze, call `push.setForeground(true)` from the foreground: it adds a foreground service with a quiet ongoing notification. Foreground mode is opt-in, because Google Play asks apps that declare a `remoteMessaging` foreground service to justify it in the Play Console. To use it:
 
-```xml
-<service android:name="io.appwrite.services.PushService" tools:node="remove" />
-<uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" tools:node="remove" />
-```
+1. Add both permissions to `app/src/main/AndroidManifest.xml`, inside `<manifest>` and outside `<application>`:
+
+   ```xml
+   <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+       <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+       <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
+
+       <application>
+           ...
+       </application>
+   </manifest>
+   ```
+
+2. In the Play Console, complete the foreground service declaration for remote messaging, under App content > Foreground service permissions.
+
+3. Call `push.setForeground(true)` while the app is on screen. Without the permissions it reports an error to `onError` and delivery stays on the scheduled runs.
+
+The SDK already declares its `PushService`, so you don't add a `<service>`. To turn foreground mode off again, call `push.setForeground(false)`.
 
 ### Opening a tapped notification
 
@@ -295,6 +309,17 @@ val stop = push.onNotificationOpened { opened -> openSale(opened.data["saleId"])
 ```
 
 A tap made while nothing listens is kept for `getInitialNotification()`. The tap intent still carries `Push.EXTRA_TOPIC` and `Push.EXTRA_PAYLOAD` for apps that read their activity's intent.
+
+### Push analytics
+
+Attach a `Tracking` to send `push_received` for each message a background subscription gets with a notification to show while the app is running, and `push_opened` for each tap reported by `getInitialNotification` or `onNotificationOpened`. Both carry the message's `messageId`, also exposed as `opened.messageId`.
+
+```kotlin
+val tracking = Tracking(Analytics(client), "<PROPERTY_ID>").also { it.start() }
+val push = Push(client, context).setTracking(tracking)
+```
+
+`tracking.start()` also sends `first_open` once per install and `app_updated` on the first start after the app's version name changes. A reinstall or "clear data" counts as a new install. Call it from `Application.onCreate`. With another push provider, call `tracking.pushReceived(messageId = ..., campaign = ...)` and `tracking.pushOpened(...)` from its handlers. `push_received` is best effort: while the app is killed, its code often does not run when a notification arrives.
 
 ## Learn more
 

@@ -16,7 +16,9 @@ enum class ImageFormat(val value: String) {
     @SerializedName("avif")
     AVIF("avif"),
     @SerializedName("gif")
-    GIF("gif");
+    GIF("gif"),
+    @SerializedName("auto")
+    AUTO("auto");
 
     override fun toString() = value
 }
