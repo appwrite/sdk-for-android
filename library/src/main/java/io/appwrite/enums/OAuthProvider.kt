@@ -9,6 +9,8 @@ enum class OAuthProvider(val value: String) {
     APPLE("apple"),
     @SerializedName("appwrite")
     APPWRITE("appwrite"),
+    @SerializedName("atlassian")
+    ATLASSIAN("atlassian"),
     @SerializedName("auth0")
     AUTH0("auth0"),
     @SerializedName("authentik")
@@ -47,38 +49,56 @@ enum class OAuthProvider(val value: String) {
     GOOGLE("google"),
     @SerializedName("huggingface")
     HUGGINGFACE("huggingface"),
+    @SerializedName("instagram")
+    INSTAGRAM("instagram"),
     @SerializedName("kakao")
     KAKAO("kakao"),
     @SerializedName("keycloak")
     KEYCLOAK("keycloak"),
     @SerializedName("kick")
     KICK("kick"),
+    @SerializedName("line")
+    LINE("line"),
+    @SerializedName("linear")
+    LINEAR("linear"),
     @SerializedName("linkedin")
     LINKEDIN("linkedin"),
     @SerializedName("microsoft")
     MICROSOFT("microsoft"),
     @SerializedName("naver")
     NAVER("naver"),
+    @SerializedName("netlify")
+    NETLIFY("netlify"),
     @SerializedName("notion")
     NOTION("notion"),
     @SerializedName("oidc")
     OIDC("oidc"),
     @SerializedName("okta")
     OKTA("okta"),
+    @SerializedName("patreon")
+    PATREON("patreon"),
     @SerializedName("paypal")
     PAYPAL("paypal"),
     @SerializedName("paypalSandbox")
     PAYPALSANDBOX("paypalSandbox"),
     @SerializedName("podio")
     PODIO("podio"),
+    @SerializedName("railway")
+    RAILWAY("railway"),
+    @SerializedName("reddit")
+    REDDIT("reddit"),
     @SerializedName("resend")
     RESEND("resend"),
+    @SerializedName("roblox")
+    ROBLOX("roblox"),
     @SerializedName("salesforce")
     SALESFORCE("salesforce"),
     @SerializedName("slack")
     SLACK("slack"),
     @SerializedName("spotify")
     SPOTIFY("spotify"),
+    @SerializedName("strava")
+    STRAVA("strava"),
     @SerializedName("stripe")
     STRIPE("stripe"),
     @SerializedName("tiktok")
@@ -89,14 +109,20 @@ enum class OAuthProvider(val value: String) {
     TRADESHIFTBOX("tradeshiftBox"),
     @SerializedName("twitch")
     TWITCH("twitch"),
+    @SerializedName("vercel")
+    VERCEL("vercel"),
     @SerializedName("vipps")
     VIPPS("vipps"),
     @SerializedName("vippsSandbox")
     VIPPSSANDBOX("vippsSandbox"),
+    @SerializedName("vk")
+    VK("vk"),
     @SerializedName("webflow")
     WEBFLOW("webflow"),
     @SerializedName("wordpress")
     WORDPRESS("wordpress"),
+    @SerializedName("workos")
+    WORKOS("workos"),
     @SerializedName("x")
     X("x"),
     @SerializedName("yahoo")
